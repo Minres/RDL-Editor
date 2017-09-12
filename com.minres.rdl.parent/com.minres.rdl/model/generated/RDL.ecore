@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="rdl" nsURI="http://www.minres.com/rdl/RDL" nsPrefix="rdl">
+  <eClassifiers xsi:type="ecore:EClass" name="Root">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="includes" upperBound="-1"
+        eType="#//Include" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentDefinitions" upperBound="-1"
+        eType="#//ComponentDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumDefinitions" upperBound="-1"
+        eType="#//EnumDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namedInstantiations" upperBound="-1"
+        eType="#//NamedInstantiation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyAssignments" upperBound="-1"
+        eType="#//PropertyAssignment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyDefinitions" upperBound="-1"
+        eType="#//PropertyDefinition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Include">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="importURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyDefinition" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//PropertyTypeName"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="usage" eType="#//PropertyUsage"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="default" eType="#//PropertyDefault"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PropertyTypeName">
+    <eLiterals name="STRING" literal="string"/>
+    <eLiterals name="NUMBER" value="1" literal="number"/>
+    <eLiterals name="BOOLEAN" value="2" literal="boolean"/>
+    <eLiterals name="ADDRMAP" value="3" literal="addrmap"/>
+    <eLiterals name="REG" value="4" literal="reg"/>
+    <eLiterals name="REGFILE" value="5" literal="regfile"/>
+    <eLiterals name="FIELD" value="6" literal="field"/>
+    <eLiterals name="REF" value="7" literal="ref"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyDefault">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyUsage">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="components" unique="false"
+        upperBound="-1" eType="#//PropertyComponent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PropertyComponent">
+    <eLiterals name="SIGNAL" literal="signal"/>
+    <eLiterals name="ADDRMAP" value="1" literal="addrmap"/>
+    <eLiterals name="REG" value="2" literal="reg"/>
+    <eLiterals name="REGFILE" value="3" literal="regfile"/>
+    <eLiterals name="FIELD" value="4" literal="field"/>
+    <eLiterals name="ALL" value="5" literal="all"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentDefinition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ComponentDefinitionType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentDefinitions" upperBound="-1"
+        eType="#//ComponentDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="namedInstantiations" upperBound="-1"
+        eType="#//NamedInstantiation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyAssignments" upperBound="-1"
+        eType="#//PropertyAssignment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumDefinitions" upperBound="-1"
+        eType="#//EnumDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="immediateInstantiation"
+        eType="#//ImmediateInstantiation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ComponentDefinitionType">
+    <eLiterals name="SIGNAL" literal="signal"/>
+    <eLiterals name="ADDRMAP" value="1" literal="addrmap"/>
+    <eLiterals name="REGFILE" value="2" literal="regfile"/>
+    <eLiterals name="REG" value="3" literal="reg"/>
+    <eLiterals name="FIELD" value="4" literal="field"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedInstantiation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="external" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="internal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="#//ComponentDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstances" upperBound="-1"
+        eType="#//ComponentInstance" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ImmediateInstantiation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="external" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentInstances" upperBound="-1"
+        eType="#//ComponentInstance" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentInstance" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//Range"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reset" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="address" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addrInc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addrMod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Range">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="start" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="end" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyAssignment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DefaultProperyAssignment" eSuperTypes="#//PropertyAssignment"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExplicitPropertyAssignment" eSuperTypes="#//PropertyAssignment #//DefaultProperyAssignment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifier" eType="#//PropertyModifier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="#//PropertyEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" eType="#//PropertyAssignmentRhs"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PostPropertyAssignment" eSuperTypes="#//PropertyAssignment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instance" eType="#//InstanceRef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyEnum" eType="#//PropertyEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//PropertyDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" eType="#//PropertyAssignmentRhs"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstancePropertyRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instance" eType="#//InstanceRef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyEnum" eType="#//PropertyEnum"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//PropertyDefinition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InstanceRef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instance" eType="#//Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" eType="#//InstanceRef"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropertyAssignmentRhs">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//RValue"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instPropRef" eType="#//InstancePropertyRef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enumRef" eType="#//EnumDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enums" eType="#//EnumBody"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" eType="#//Concat"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Concat">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//ConcatElem" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConcatElem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="instPropRef" eType="#//InstancePropertyRef"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PropertyEnum">
+    <eLiterals name="UNSPECIFIED" literal="UNSPECIFIED"/>
+    <eLiterals name="NAME" value="1" literal="name"/>
+    <eLiterals name="DESC" value="2" literal="desc"/>
+    <eLiterals name="ARBITER" value="3" literal="arbiter"/>
+    <eLiterals name="RSET" value="4" literal="rset"/>
+    <eLiterals name="RCLR" value="5" literal="rclr"/>
+    <eLiterals name="WOCLR" value="6" literal="woclr"/>
+    <eLiterals name="WOSET" value="7" literal="woset"/>
+    <eLiterals name="WE" value="8" literal="we"/>
+    <eLiterals name="WEL" value="9" literal="wel"/>
+    <eLiterals name="SWWE" value="10" literal="swwe"/>
+    <eLiterals name="SWWEL" value="11" literal="swwel"/>
+    <eLiterals name="HWSET" value="12" literal="hwset"/>
+    <eLiterals name="HWCLR" value="13" literal="hwclr"/>
+    <eLiterals name="SWMOD" value="14" literal="swmod"/>
+    <eLiterals name="SWACC" value="15" literal="swacc"/>
+    <eLiterals name="STICKY" value="16" literal="sticky"/>
+    <eLiterals name="STICKYBIT" value="17" literal="stickybit"/>
+    <eLiterals name="INTR" value="18" literal="intr"/>
+    <eLiterals name="ANDED" value="19" literal="anded"/>
+    <eLiterals name="ORED" value="20" literal="ored"/>
+    <eLiterals name="XORED" value="21" literal="xored"/>
+    <eLiterals name="COUNTER" value="22" literal="counter"/>
+    <eLiterals name="OVERFLOW" value="23" literal="overflow"/>
+    <eLiterals name="SHAREDEXTBUS" value="24" literal="sharedextbus"/>
+    <eLiterals name="ERREXTBUS" value="25" literal="errextbus"/>
+    <eLiterals name="RESET" value="26" literal="reset"/>
+    <eLiterals name="LITTLEENDIAN" value="27" literal="littleendian"/>
+    <eLiterals name="BIGENDIAN" value="28" literal="bigendian"/>
+    <eLiterals name="RSVDSET" value="29" literal="rsvdset"/>
+    <eLiterals name="RSVDSETX" value="30" literal="rsvdsetX"/>
+    <eLiterals name="BRIDGE" value="31" literal="bridge"/>
+    <eLiterals name="SHARED" value="32" literal="shared"/>
+    <eLiterals name="MSB0" value="33" literal="msb0"/>
+    <eLiterals name="LSB0" value="34" literal="lsb0"/>
+    <eLiterals name="SYNC" value="35" literal="sync"/>
+    <eLiterals name="ASYNC" value="36" literal="async"/>
+    <eLiterals name="CPUIF_RESET" value="37" literal="cpuif_reset"/>
+    <eLiterals name="FIELD_RESET" value="38" literal="field_reset"/>
+    <eLiterals name="ACTIVEHIGH" value="39" literal="activehigh"/>
+    <eLiterals name="ACTIVELOW" value="40" literal="activelow"/>
+    <eLiterals name="SINGLEPULSE" value="41" literal="singlepulse"/>
+    <eLiterals name="UNDERFLOW" value="42" literal="underflow"/>
+    <eLiterals name="INCR" value="43" literal="incr"/>
+    <eLiterals name="DECR" value="44" literal="decr"/>
+    <eLiterals name="INCRWIDTH" value="45" literal="incrwidth"/>
+    <eLiterals name="DECRWIDTH" value="46" literal="decrwidth"/>
+    <eLiterals name="INCRVALUE" value="47" literal="incrvalue"/>
+    <eLiterals name="DECRVALUE" value="48" literal="decrvalue"/>
+    <eLiterals name="SATURATE" value="49" literal="saturate"/>
+    <eLiterals name="DECRSATURATE" value="50" literal="decrsaturate"/>
+    <eLiterals name="THRESHOLD" value="51" literal="threshold"/>
+    <eLiterals name="DECRTHRESHOLD" value="52" literal="decrthreshold"/>
+    <eLiterals name="DONTCOMPARE" value="53" literal="dontcompare"/>
+    <eLiterals name="DONTTEST" value="54" literal="donttest"/>
+    <eLiterals name="INTERNAL" value="55" literal="internal"/>
+    <eLiterals name="ALIGNMENT" value="56" literal="alignment"/>
+    <eLiterals name="REGWIDTH" value="57" literal="regwidth"/>
+    <eLiterals name="FIELDWIDTH" value="58" literal="fieldwidth"/>
+    <eLiterals name="SIGNALWIDTH" value="59" literal="signalwidth"/>
+    <eLiterals name="ACCESSWIDTH" value="60" literal="accesswidth"/>
+    <eLiterals name="SW" value="61" literal="sw"/>
+    <eLiterals name="HW" value="62" literal="hw"/>
+    <eLiterals name="ADDRESSING" value="63" literal="addressing"/>
+    <eLiterals name="PRECEDENCE" value="64" literal="precedence"/>
+    <eLiterals name="ENCODE" value="65" literal="encode"/>
+    <eLiterals name="RESETSIGNAL" value="66" literal="resetsignal"/>
+    <eLiterals name="CLOCK" value="67" literal="clock"/>
+    <eLiterals name="MASK" value="68" literal="mask"/>
+    <eLiterals name="ENABLE" value="69" literal="enable"/>
+    <eLiterals name="HWENABLE" value="70" literal="hwenable"/>
+    <eLiterals name="HWMASK" value="71" literal="hwmask"/>
+    <eLiterals name="HALTMASK" value="72" literal="haltmask"/>
+    <eLiterals name="HALTENABLE" value="73" literal="haltenable"/>
+    <eLiterals name="HALT" value="74" literal="halt"/>
+    <eLiterals name="NEXT" value="75" literal="next"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="#//RValueConstant"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="str" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RValueConstant">
+    <eLiterals name="UNDEFINED" literal="UNDEFINED"/>
+    <eLiterals name="TRUE" value="1" literal="true"/>
+    <eLiterals name="FALSE" value="2" literal="false"/>
+    <eLiterals name="RW" value="3" literal="rw"/>
+    <eLiterals name="WR" value="4" literal="wr"/>
+    <eLiterals name="R" value="5" literal="r"/>
+    <eLiterals name="W" value="6" literal="w"/>
+    <eLiterals name="NA" value="7" literal="na"/>
+    <eLiterals name="COMPACT" value="8" literal="compact"/>
+    <eLiterals name="REGALIGN" value="9" literal="regalign"/>
+    <eLiterals name="FULLALIGN" value="10" literal="fullalign"/>
+    <eLiterals name="HW" value="11" literal="hw"/>
+    <eLiterals name="SW" value="12" literal="sw"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PropertyModifier">
+    <eLiterals name="UNDEFINED" literal="UNDEFINED"/>
+    <eLiterals name="POSEDGE" value="1" literal="posedge"/>
+    <eLiterals name="NEGEDGE" value="2" literal="negedge"/>
+    <eLiterals name="BOTHEDGE" value="3" literal="bothedge"/>
+    <eLiterals name="LEVEL" value="4" literal="level"/>
+    <eLiterals name="NONSTICKY" value="5" literal="nonsticky"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumDefinition" eSuperTypes="#//Entity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//EnumBody"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumBody">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//EnumEntry" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumEntry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="#//EnumProperty" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

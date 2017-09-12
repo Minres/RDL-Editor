@@ -1,0 +1,405 @@
+//grammar com.minres.rdl.RDL with org.eclipse.xtext.common.Terminals
+grammar com.minres.rdl.RDL hidden(WS, ML_COMMENT, SL_COMMENT, ESCAPE_JSP, ESCAPE_ORDL)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate rdl "http://www.minres.com/rdl/RDL"
+
+Root: 
+	(
+		includes+=Include |
+		componentDefinitions+=ComponentDefinition |
+		enumDefinitions+=EnumDefinition | 
+		namedInstantiations+=NamedInstantiation | 
+		propertyAssignments+=PropertyAssignment | 
+		propertyDefinitions+=PropertyDefinition
+	)*
+	;
+
+Include:
+	'`include' importURI=STR
+	;
+
+PropertyDefinition: 
+ 	'property' name=ID '{' 
+ 		(
+ 				"type" '=' type=PropertyTypeName ';' (usage=PropertyUsage default=PropertyDefault? | default=PropertyDefault usage=PropertyUsage) |
+ 				usage=PropertyUsage ("type" '=' type=PropertyTypeName ';' default=PropertyDefault? | default=PropertyDefault "type" '=' type=PropertyTypeName ';') |
+ 				default=PropertyDefault ("type" '='	type=PropertyTypeName ';' usage=PropertyUsage | usage=PropertyUsage "type" '=' type=PropertyTypeName ';')
+ 		) '}' ';'
+	;
+
+enum PropertyTypeName:
+	STRING="string" | NUMBER="number" | BOOLEAN="boolean" | ADDRMAP="addrmap" | REG="reg" | REGFILE="regfile" | FIELD="field" | REF="ref"
+	;
+
+PropertyDefault:
+	"default" '=' (string=STR | value=NUM | string="true" | string="false")  ';'
+	;
+
+PropertyUsage:
+	"component" '=' components+=PropertyComponent ('|' components+=PropertyComponent)* ';'
+	;
+
+enum PropertyComponent:
+	SIGNAL="signal" | ADDRMAP="addrmap" | REG="reg" | REGFILE="regfile" | FIELD="field" | ALL="all"
+	;
+
+ComponentDefinition:
+	type=ComponentDefinitionType name=ID?
+    '{'
+      ( componentDefinitions+=ComponentDefinition
+      | namedInstantiations+=NamedInstantiation
+      | propertyAssignments+=PropertyAssignment
+      | enumDefinitions+=EnumDefinition
+      )* '}' immediateInstantiation=ImmediateInstantiation? ';'
+	;
+
+enum ComponentDefinitionType:
+	SIGNAL="signal" | ADDRMAP="addrmap" | REGFILE="regfile" | REG="reg" | FIELD="field"
+	;
+
+// Instantiation: NamedInstantiation|ImmediateInstantiation;
+
+NamedInstantiation:
+	(external?="external")? (internal?="internal")? ("alias" alias=ID)? component=[ComponentDefinition] componentInstances+=ComponentInstance (',' componentInstances+=ComponentInstance)* ';'
+	;
+
+ImmediateInstantiation:
+	(external?="external")?  componentInstances+=ComponentInstance (',' componentInstances+=ComponentInstance)*
+	;
+
+ComponentInstance:
+	name=ID (range=Range)? 
+    //reset
+	('='  reset=NUM)?
+	//address
+	('@'  address=NUM)?
+	//addr inc
+	('+=' addrInc=NUM)?
+	//addr mod
+	('%=' addrMod=NUM)?
+ 	;
+
+Range: 
+	'[' (start=NUM ':' end=NUM | size=NUM) ']'
+	;
+
+PropertyAssignment:
+	DefaultProperyAssignment | ExplicitPropertyAssignment | PostPropertyAssignment
+	;
+
+DefaultProperyAssignment:
+	"default" ExplicitPropertyAssignment
+	;
+
+ExplicitPropertyAssignment :
+	modifier=PropertyModifier name=Property ';' | 
+	name=Property ('=' rhs=PropertyAssignmentRhs)? ';'
+	;
+
+PostPropertyAssignment: 
+	(instance=HierInstanceRef '->' (propertyEnum=Property | property=[PropertyDefinition]) |
+	property=[PropertyDefinition] ) ('=' rhs=PropertyAssignmentRhs)? ';'
+	;
+
+InstancePropertyRef:
+	instance=InstanceRef ('->' (propertyEnum=Property | property=[PropertyDefinition]))? 
+	;
+
+// unused rules to infer inheritance
+Entity:
+	ComponentInstance|EnumDefinition|PropertyDefinition
+	;
+
+InstanceRef:
+	instance=[Entity] ( "." tail=HierInstanceRef)?
+;
+
+HierInstanceRef returns InstanceRef:
+	instance=[ComponentInstance] ( "." tail=HierInstanceRef)?
+	;
+	
+PropertyAssignmentRhs: 
+	value=PropertyRvalueConstant |
+	instPropRef=InstancePropertyRef | 
+	enumRef= [EnumDefinition]
+	"enum" enums=EnumBody |
+	elements=Concat
+  	;
+
+Concat:
+	'{' elements+=ConcatElem (',' elements+=ConcatElem)* '}'
+  	;
+
+ConcatElem:
+	instPropRef=InstancePropertyRef | value=NUM
+	;
+	
+enum PropertyEnum:
+	UNSPECIFIED |
+	NAME="name" |
+	DESC="desc" |
+	ARBITER="arbiter" |
+	RSET="rset" |
+	RCLR="rclr" |
+	WOCLR="woclr" |
+	WOSET="woset" |
+
+	WE="we" |
+	WEL="wel" |
+
+	SWWE="swwe" |
+	SWWEL="swwel" |
+
+	HWSET="hwset" |
+	HWCLR="hwclr" |
+
+	SWMOD="swmod" |
+	SWACC="swacc" |
+
+	STICKY="sticky" |
+	STICKYBIT="stickybit" |
+	INTR="intr" |
+
+	ANDED="anded" |
+	ORED="ored" |
+	XORED="xored" |
+
+	COUNTER="counter" |
+	OVERFLOW="overflow" |
+
+	SHAREDEXTBUS="sharedextbus" |
+	ERREXTBUS="errextbus" |
+
+	RESET="reset" |
+
+	LITTLEENDIAN="littleendian" |
+	BIGENDIAN="bigendian" |
+ 	RSVDSET="rsvdset" |
+	RSVDSETX="rsvdsetX" |
+	BRIDGE="bridge" |
+	SHARED="shared" |
+	MSB0="msb0" |
+	LSB0="lsb0" |
+	SYNC="sync" |
+	ASYNC="async" |
+	CPUIF_RESET="cpuif_reset" |
+	FIELD_RESET="field_reset" |
+	ACTIVEHIGH="activehigh" |
+	ACTIVELOW="activelow" |
+	SINGLEPULSE="singlepulse" |
+	UNDERFLOW="underflow" |
+
+	INCR="incr" |
+	DECR="decr" |
+
+	INCRWIDTH="incrwidth" |
+	DECRWIDTH="decrwidth" |
+
+	INCRVALUE="incrvalue" |
+	DECRVALUE="decrvalue" |
+
+	SATURATE="saturate" |
+	DECRSATURATE="decrsaturate" |
+
+	THRESHOLD="threshold" |
+	DECRTHRESHOLD="decrthreshold" |
+
+	DONTCOMPARE="dontcompare" |
+	DONTTEST="donttest" |
+	INTERNAL="internal" |
+
+	ALIGNMENT="alignment" |
+	REGWIDTH="regwidth" |
+	FIELDWIDTH="fieldwidth" |
+	SIGNALWIDTH="signalwidth" |
+	ACCESSWIDTH="accesswidth" |
+
+
+	SW="sw" |
+	HW="hw" |
+	ADDRESSING="addressing" |
+	PRECEDENCE="precedence" |
+
+	ENCODE="encode" |
+	RESETSIGNAL="resetsignal" |
+	CLOCK="clock" |
+
+	MASK="mask" |
+	ENABLE="enable" |
+
+	HWENABLE="hwenable" |
+	HWMASK="hwmask" |
+
+	HALTMASK="haltmask" |
+	HALTENABLE="haltenable" |
+
+
+	HALT="halt" |
+
+	NEXT="next"
+  	;
+	
+enum Property returns PropertyEnum:
+	NAME="name" |
+	DESC="desc" |
+	ARBITER="arbiter" |
+	RSET="rset" |
+	RCLR="rclr" |
+	WOCLR="woclr" |
+	WOSET="woset" |
+
+	WE="we" |
+	WEL="wel" |
+
+	SWWE="swwe" |
+	SWWEL="swwel" |
+
+	HWSET="hwset" |
+	HWCLR="hwclr" |
+
+	SWMOD="swmod" |
+	SWACC="swacc" |
+
+	STICKY="sticky" |
+	STICKYBIT="stickybit" |
+	INTR="intr" |
+
+	ANDED="anded" |
+	ORED="ored" |
+	XORED="xored" |
+
+	COUNTER="counter" |
+	OVERFLOW="overflow" |
+
+	SHAREDEXTBUS="sharedextbus" |
+	ERREXTBUS="errextbus" |
+
+	RESET="reset" |
+
+	LITTLEENDIAN="littleendian" |
+	BIGENDIAN="bigendian" |
+ 	RSVDSET="rsvdset" |
+	RSVDSETX="rsvdsetX" |
+	BRIDGE="bridge" |
+	SHARED="shared" |
+	MSB0="msb0" |
+	LSB0="lsb0" |
+	SYNC="sync" |
+	ASYNC="async" |
+	CPUIF_RESET="cpuif_reset" |
+	FIELD_RESET="field_reset" |
+	ACTIVEHIGH="activehigh" |
+	ACTIVELOW="activelow" |
+	SINGLEPULSE="singlepulse" |
+	UNDERFLOW="underflow" |
+
+	INCR="incr" |
+	DECR="decr" |
+
+	INCRWIDTH="incrwidth" |
+	DECRWIDTH="decrwidth" |
+
+	INCRVALUE="incrvalue" |
+	DECRVALUE="decrvalue" |
+
+	SATURATE="saturate" |
+	DECRSATURATE="decrsaturate" |
+
+	THRESHOLD="threshold" |
+	DECRTHRESHOLD="decrthreshold" |
+
+	DONTCOMPARE="dontcompare" |
+	DONTTEST="donttest" |
+	INTERNAL="internal" |
+
+	ALIGNMENT="alignment" |
+	REGWIDTH="regwidth" |
+	FIELDWIDTH="fieldwidth" |
+	SIGNALWIDTH="signalwidth" |
+	ACCESSWIDTH="accesswidth" |
+
+
+	SW="sw" |
+	HW="hw" |
+	ADDRESSING="addressing" |
+	PRECEDENCE="precedence" |
+
+	ENCODE="encode" |
+	RESETSIGNAL="resetsignal" |
+	CLOCK="clock" |
+
+	MASK="mask" |
+	ENABLE="enable" |
+
+	HWENABLE="hwenable" |
+	HWMASK="hwmask" |
+
+	HALTMASK="haltmask" |
+	HALTENABLE="haltenable" |
+
+
+	HALT="halt" |
+
+	NEXT="next"
+  	;
+
+PropertyRvalueConstant returns RValue:
+	val=RValueConstant | num=NUM | str=STR 
+  	;
+
+enum RValueConstant:
+	UNDEFINED | TRUE="true" | FALSE="false" | RW="rw" | WR="wr" | R="r" | W="w" | NA="na" | COMPACT="compact" | REGALIGN="regalign" | FULLALIGN="fullalign" | HW="hw" | SW="sw"
+;
+
+enum PropertyModifier:
+	UNDEFINED | POSEDGE="posedge" | NEGEDGE="negedge" | BOTHEDGE="bothedge" | LEVEL="level" | NONSTICKY="nonsticky"
+	;
+
+EnumDefinition:
+	"enum" name=ID body=EnumBody ';'
+  	;
+
+EnumBody:
+	'{' {EnumBody} entries+=EnumEntry* '}'
+  	;
+
+EnumEntry:
+	name=ID '=' index=NUM ('{' properties+=EnumProperty* '}')? ';'
+  	;
+
+EnumProperty:
+	( name='name' '=' value=STR | name='desc' '=' value=STR ) ';'
+  	;
+
+///////////////////////////////////////////////////////////////////////////////
+// the terminals
+///////////////////////////////////////////////////////////////////////////////
+
+terminal ID:
+	'\\'? ('a'..'z'|'A'..'Z' | '_')('a'..'z'|'A'..'Z' | '_' | '0'..'9')*;
+
+terminal WS			: (' '|'\t'|'\r'|'\n')+;
+terminal ML_COMMENT	: '/*' -> '*/' ;
+terminal SL_COMMENT : '//' !('\n'|'\r')* ('\r'? '\n')?;
+terminal ESCAPE_JSP : '<%' -> '%>' ;
+terminal ESCAPE_ORDL: '(' -> ')' ;
+
+terminal NUM returns ecore::EJavaObject:
+//  <= verilog like numbers with size and base (16'123 'h1fff, ...====================================================================================>   <= hexa decimal numbers =============>   <numbers>
+	//'0'..'9'* '\'' ( 'b' ('0' | '1' | '_')+ | 'd'? ('0'..'9' | '_')+ | 'o' ('0'..'7' | '_')+ | 'h' ('0'..'9' | 'a'..'f' | 'A'..'F' | '_')+) | "0x" ('0'..'9' | 'a'..'f' | 'A'..'F')+ | '0'..'9'+;
+	'0'..'9'+ '\'b' ('0' | '1' | '_')+  |
+ 	'0'..'9'+ '\'o' ('0'..'7' | '_')+  |
+ 	'0'..'9'+ '\'h' ('0'..'9' | 'a'..'f' | 'A'..'F' | '_')+ |
+ 	'0'..'9'+ '\'d' ('0'..'9' | '_')+ |
+ 	'0x' ('0'..'9' | 'a'..'f' | 'A'..'F')+ |
+ 	'0'..'9'+
+	;
+
+terminal STR: 
+			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' //|
+//			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
+			;
+	
+	

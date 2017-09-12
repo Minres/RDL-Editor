@@ -4,3 +4,6 @@ com.minres.rdl.parent/com.minres.rdl.ui.tests/target
 com.minres.rdl.parent/com.minres.rdl.tests/target
 com.minres.rdl.parent/com.minres.rdl.ide/target
 com.minres.rdl.parent/com.minres.rdl/target
+*.xtextbin
+*.xtendbin
+*._trace

@@ -3576,9 +3576,13 @@ RULE_ID : '\\'? ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
 RULE_WS : (' '|'\t'|'\r'|'\n')+;
 
-RULE_ML_COMMENT : ('/*' ( options {greedy=false;} : . )*'*/'|'<%' ( options {greedy=false;} : . )*'%>'|'(' ( options {greedy=false;} : . )*')');
+RULE_ML_COMMENT : '/*' ( options {greedy=false;} : . )*'*/';
 
 RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
+
+RULE_ESCAPE_JSP : '<%' ( options {greedy=false;} : . )*'%>';
+
+RULE_ESCAPE_ORDL : '(' ( options {greedy=false;} : . )*')';
 
 RULE_NUM : (('0'..'9')+ '\'b' ('0'|'1'|'_')+|('0'..'9')+ '\'o' ('0'..'7'|'_')+|('0'..'9')+ '\'h' ('0'..'9'|'a'..'f'|'A'..'F'|'_')+|('0'..'9')+ '\'d' ('0'..'9'|'_')+|'0x' ('0'..'9'|'a'..'f'|'A'..'F')+|('0'..'9')+);
 

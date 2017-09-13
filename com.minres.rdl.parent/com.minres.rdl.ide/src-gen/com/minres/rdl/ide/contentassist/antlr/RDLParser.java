@@ -206,7 +206,7 @@ public class RDLParser extends AbstractContentAssistParser {
 			
 	@Override
 	protected String[] getInitialHiddenTokens() {
-		return new String[] { "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT" };
+		return new String[] { "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ESCAPE_JSP", "RULE_ESCAPE_ORDL" };
 	}
 
 	public RDLGrammarAccess getGrammarAccess() {

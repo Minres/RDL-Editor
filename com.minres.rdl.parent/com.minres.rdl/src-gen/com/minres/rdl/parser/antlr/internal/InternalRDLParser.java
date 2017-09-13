@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalRDLParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STR", "RULE_ID", "RULE_NUM", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'`include'", "'property'", "'{'", "'type'", "'='", "';'", "'}'", "'default'", "'true'", "'false'", "'component'", "'|'", "'external'", "'internal'", "'alias'", "','", "'@'", "'+='", "'%='", "'['", "':'", "']'", "'->'", "'.'", "'enum'", "'name'", "'desc'", "'string'", "'number'", "'boolean'", "'addrmap'", "'reg'", "'regfile'", "'field'", "'ref'", "'signal'", "'all'", "'arbiter'", "'rset'", "'rclr'", "'woclr'", "'woset'", "'we'", "'wel'", "'swwe'", "'swwel'", "'hwset'", "'hwclr'", "'swmod'", "'swacc'", "'sticky'", "'stickybit'", "'intr'", "'anded'", "'ored'", "'xored'", "'counter'", "'overflow'", "'sharedextbus'", "'errextbus'", "'reset'", "'littleendian'", "'bigendian'", "'rsvdset'", "'rsvdsetX'", "'bridge'", "'shared'", "'msb0'", "'lsb0'", "'sync'", "'async'", "'cpuif_reset'", "'field_reset'", "'activehigh'", "'activelow'", "'singlepulse'", "'underflow'", "'incr'", "'decr'", "'incrwidth'", "'decrwidth'", "'incrvalue'", "'decrvalue'", "'saturate'", "'decrsaturate'", "'threshold'", "'decrthreshold'", "'dontcompare'", "'donttest'", "'alignment'", "'regwidth'", "'fieldwidth'", "'signalwidth'", "'accesswidth'", "'sw'", "'hw'", "'addressing'", "'precedence'", "'encode'", "'resetsignal'", "'clock'", "'mask'", "'enable'", "'hwenable'", "'hwmask'", "'haltmask'", "'haltenable'", "'halt'", "'next'", "'UNDEFINED'", "'rw'", "'wr'", "'r'", "'w'", "'na'", "'compact'", "'regalign'", "'fullalign'", "'posedge'", "'negedge'", "'bothedge'", "'level'", "'nonsticky'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STR", "RULE_ID", "RULE_NUM", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ESCAPE_JSP", "RULE_ESCAPE_ORDL", "'`include'", "'property'", "'{'", "'type'", "'='", "';'", "'}'", "'default'", "'true'", "'false'", "'component'", "'|'", "'external'", "'internal'", "'alias'", "','", "'@'", "'+='", "'%='", "'['", "':'", "']'", "'->'", "'.'", "'enum'", "'name'", "'desc'", "'string'", "'number'", "'boolean'", "'addrmap'", "'reg'", "'regfile'", "'field'", "'ref'", "'signal'", "'all'", "'arbiter'", "'rset'", "'rclr'", "'woclr'", "'woset'", "'we'", "'wel'", "'swwe'", "'swwel'", "'hwset'", "'hwclr'", "'swmod'", "'swacc'", "'sticky'", "'stickybit'", "'intr'", "'anded'", "'ored'", "'xored'", "'counter'", "'overflow'", "'sharedextbus'", "'errextbus'", "'reset'", "'littleendian'", "'bigendian'", "'rsvdset'", "'rsvdsetX'", "'bridge'", "'shared'", "'msb0'", "'lsb0'", "'sync'", "'async'", "'cpuif_reset'", "'field_reset'", "'activehigh'", "'activelow'", "'singlepulse'", "'underflow'", "'incr'", "'decr'", "'incrwidth'", "'decrwidth'", "'incrvalue'", "'decrvalue'", "'saturate'", "'decrsaturate'", "'threshold'", "'decrthreshold'", "'dontcompare'", "'donttest'", "'alignment'", "'regwidth'", "'fieldwidth'", "'signalwidth'", "'accesswidth'", "'sw'", "'hw'", "'addressing'", "'precedence'", "'encode'", "'resetsignal'", "'clock'", "'mask'", "'enable'", "'hwenable'", "'hwmask'", "'haltmask'", "'haltenable'", "'halt'", "'next'", "'UNDEFINED'", "'rw'", "'wr'", "'r'", "'w'", "'na'", "'compact'", "'regalign'", "'fullalign'", "'posedge'", "'negedge'", "'bothedge'", "'level'", "'nonsticky'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -34,9 +34,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
     public static final int T__52=52;
     public static final int T__53=53;
     public static final int T__54=54;
+    public static final int T__133=133;
     public static final int T__132=132;
     public static final int T__60=60;
     public static final int T__61=61;
+    public static final int T__134=134;
     public static final int RULE_ID=5;
     public static final int T__131=131;
     public static final int T__130=130;
@@ -88,7 +90,6 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
     public static final int T__16=16;
     public static final int T__17=17;
     public static final int T__18=18;
-    public static final int T__11=11;
     public static final int T__99=99;
     public static final int RULE_NUM=6;
     public static final int T__12=12;
@@ -97,8 +98,8 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
     public static final int T__95=95;
     public static final int T__96=96;
     public static final int T__97=97;
-    public static final int T__10=10;
     public static final int T__98=98;
+    public static final int RULE_ESCAPE_ORDL=11;
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
@@ -136,6 +137,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
     public static final int T__111=111;
     public static final int T__81=81;
     public static final int T__110=110;
+    public static final int RULE_ESCAPE_JSP=10;
     public static final int T__82=82;
     public static final int T__113=113;
     public static final int T__83=83;
@@ -562,7 +564,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:217:2: (otherlv_0= '`include' ( (lv_importURI_1_0= RULE_STR ) ) )
             // InternalRDL.g:218:3: otherlv_0= '`include' ( (lv_importURI_1_0= RULE_STR ) )
             {
-            otherlv_0=(Token)match(input,10,FOLLOW_4); 
+            otherlv_0=(Token)match(input,12,FOLLOW_4); 
 
             			newLeafNode(otherlv_0, grammarAccess.getIncludeAccess().getIncludeKeyword_0());
             		
@@ -716,7 +718,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:258:2: (otherlv_0= 'property' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= 'type' otherlv_4= '=' ( (lv_type_5_0= rulePropertyTypeName ) ) otherlv_6= ';' ( ( ( (lv_usage_7_0= rulePropertyUsage ) ) ( (lv_default_8_0= rulePropertyDefault ) )? ) | ( ( (lv_default_9_0= rulePropertyDefault ) ) ( (lv_usage_10_0= rulePropertyUsage ) ) ) ) ) | ( ( (lv_usage_11_0= rulePropertyUsage ) ) ( (otherlv_12= 'type' otherlv_13= '=' ( (lv_type_14_0= rulePropertyTypeName ) ) otherlv_15= ';' ( (lv_default_16_0= rulePropertyDefault ) )? ) | ( ( (lv_default_17_0= rulePropertyDefault ) ) otherlv_18= 'type' otherlv_19= '=' ( (lv_type_20_0= rulePropertyTypeName ) ) otherlv_21= ';' ) ) ) | ( ( (lv_default_22_0= rulePropertyDefault ) ) ( (otherlv_23= 'type' otherlv_24= '=' ( (lv_type_25_0= rulePropertyTypeName ) ) otherlv_26= ';' ( (lv_usage_27_0= rulePropertyUsage ) ) ) | ( ( (lv_usage_28_0= rulePropertyUsage ) ) otherlv_29= 'type' otherlv_30= '=' ( (lv_type_31_0= rulePropertyTypeName ) ) otherlv_32= ';' ) ) ) ) otherlv_33= '}' otherlv_34= ';' )
             // InternalRDL.g:259:3: otherlv_0= 'property' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '{' ( (otherlv_3= 'type' otherlv_4= '=' ( (lv_type_5_0= rulePropertyTypeName ) ) otherlv_6= ';' ( ( ( (lv_usage_7_0= rulePropertyUsage ) ) ( (lv_default_8_0= rulePropertyDefault ) )? ) | ( ( (lv_default_9_0= rulePropertyDefault ) ) ( (lv_usage_10_0= rulePropertyUsage ) ) ) ) ) | ( ( (lv_usage_11_0= rulePropertyUsage ) ) ( (otherlv_12= 'type' otherlv_13= '=' ( (lv_type_14_0= rulePropertyTypeName ) ) otherlv_15= ';' ( (lv_default_16_0= rulePropertyDefault ) )? ) | ( ( (lv_default_17_0= rulePropertyDefault ) ) otherlv_18= 'type' otherlv_19= '=' ( (lv_type_20_0= rulePropertyTypeName ) ) otherlv_21= ';' ) ) ) | ( ( (lv_default_22_0= rulePropertyDefault ) ) ( (otherlv_23= 'type' otherlv_24= '=' ( (lv_type_25_0= rulePropertyTypeName ) ) otherlv_26= ';' ( (lv_usage_27_0= rulePropertyUsage ) ) ) | ( ( (lv_usage_28_0= rulePropertyUsage ) ) otherlv_29= 'type' otherlv_30= '=' ( (lv_type_31_0= rulePropertyTypeName ) ) otherlv_32= ';' ) ) ) ) otherlv_33= '}' otherlv_34= ';'
             {
-            otherlv_0=(Token)match(input,11,FOLLOW_5); 
+            otherlv_0=(Token)match(input,13,FOLLOW_5); 
 
             			newLeafNode(otherlv_0, grammarAccess.getPropertyDefinitionAccess().getPropertyKeyword_0());
             		
@@ -746,24 +748,24 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,12,FOLLOW_7); 
+            otherlv_2=(Token)match(input,14,FOLLOW_7); 
 
             			newLeafNode(otherlv_2, grammarAccess.getPropertyDefinitionAccess().getLeftCurlyBracketKeyword_2());
             		
             // InternalRDL.g:285:3: ( (otherlv_3= 'type' otherlv_4= '=' ( (lv_type_5_0= rulePropertyTypeName ) ) otherlv_6= ';' ( ( ( (lv_usage_7_0= rulePropertyUsage ) ) ( (lv_default_8_0= rulePropertyDefault ) )? ) | ( ( (lv_default_9_0= rulePropertyDefault ) ) ( (lv_usage_10_0= rulePropertyUsage ) ) ) ) ) | ( ( (lv_usage_11_0= rulePropertyUsage ) ) ( (otherlv_12= 'type' otherlv_13= '=' ( (lv_type_14_0= rulePropertyTypeName ) ) otherlv_15= ';' ( (lv_default_16_0= rulePropertyDefault ) )? ) | ( ( (lv_default_17_0= rulePropertyDefault ) ) otherlv_18= 'type' otherlv_19= '=' ( (lv_type_20_0= rulePropertyTypeName ) ) otherlv_21= ';' ) ) ) | ( ( (lv_default_22_0= rulePropertyDefault ) ) ( (otherlv_23= 'type' otherlv_24= '=' ( (lv_type_25_0= rulePropertyTypeName ) ) otherlv_26= ';' ( (lv_usage_27_0= rulePropertyUsage ) ) ) | ( ( (lv_usage_28_0= rulePropertyUsage ) ) otherlv_29= 'type' otherlv_30= '=' ( (lv_type_31_0= rulePropertyTypeName ) ) otherlv_32= ';' ) ) ) )
             int alt7=3;
             switch ( input.LA(1) ) {
-            case 13:
+            case 15:
                 {
                 alt7=1;
                 }
                 break;
-            case 20:
+            case 22:
                 {
                 alt7=2;
                 }
                 break;
-            case 17:
+            case 19:
                 {
                 alt7=3;
                 }
@@ -782,11 +784,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:286:4: (otherlv_3= 'type' otherlv_4= '=' ( (lv_type_5_0= rulePropertyTypeName ) ) otherlv_6= ';' ( ( ( (lv_usage_7_0= rulePropertyUsage ) ) ( (lv_default_8_0= rulePropertyDefault ) )? ) | ( ( (lv_default_9_0= rulePropertyDefault ) ) ( (lv_usage_10_0= rulePropertyUsage ) ) ) ) )
                     // InternalRDL.g:287:5: otherlv_3= 'type' otherlv_4= '=' ( (lv_type_5_0= rulePropertyTypeName ) ) otherlv_6= ';' ( ( ( (lv_usage_7_0= rulePropertyUsage ) ) ( (lv_default_8_0= rulePropertyDefault ) )? ) | ( ( (lv_default_9_0= rulePropertyDefault ) ) ( (lv_usage_10_0= rulePropertyUsage ) ) ) )
                     {
-                    otherlv_3=(Token)match(input,13,FOLLOW_8); 
+                    otherlv_3=(Token)match(input,15,FOLLOW_8); 
 
                     					newLeafNode(otherlv_3, grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_0_0());
                     				
-                    otherlv_4=(Token)match(input,14,FOLLOW_9); 
+                    otherlv_4=(Token)match(input,16,FOLLOW_9); 
 
                     					newLeafNode(otherlv_4, grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_0_1());
                     				
@@ -821,7 +823,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_6=(Token)match(input,15,FOLLOW_7); 
+                    otherlv_6=(Token)match(input,17,FOLLOW_7); 
 
                     					newLeafNode(otherlv_6, grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_0_3());
                     				
@@ -829,10 +831,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
-                    if ( (LA3_0==20) ) {
+                    if ( (LA3_0==22) ) {
                         alt3=1;
                     }
-                    else if ( (LA3_0==17) ) {
+                    else if ( (LA3_0==19) ) {
                         alt3=2;
                     }
                     else {
@@ -883,7 +885,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                             int alt2=2;
                             int LA2_0 = input.LA(1);
 
-                            if ( (LA2_0==17) ) {
+                            if ( (LA2_0==19) ) {
                                 alt2=1;
                             }
                             switch (alt2) {
@@ -1051,10 +1053,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
-                    if ( (LA5_0==13) ) {
+                    if ( (LA5_0==15) ) {
                         alt5=1;
                     }
-                    else if ( (LA5_0==17) ) {
+                    else if ( (LA5_0==19) ) {
                         alt5=2;
                     }
                     else {
@@ -1070,11 +1072,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                             // InternalRDL.g:424:6: (otherlv_12= 'type' otherlv_13= '=' ( (lv_type_14_0= rulePropertyTypeName ) ) otherlv_15= ';' ( (lv_default_16_0= rulePropertyDefault ) )? )
                             // InternalRDL.g:425:7: otherlv_12= 'type' otherlv_13= '=' ( (lv_type_14_0= rulePropertyTypeName ) ) otherlv_15= ';' ( (lv_default_16_0= rulePropertyDefault ) )?
                             {
-                            otherlv_12=(Token)match(input,13,FOLLOW_8); 
+                            otherlv_12=(Token)match(input,15,FOLLOW_8); 
 
                             							newLeafNode(otherlv_12, grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_1_1_0_0());
                             						
-                            otherlv_13=(Token)match(input,14,FOLLOW_9); 
+                            otherlv_13=(Token)match(input,16,FOLLOW_9); 
 
                             							newLeafNode(otherlv_13, grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_1_1_0_1());
                             						
@@ -1109,7 +1111,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_15=(Token)match(input,15,FOLLOW_11); 
+                            otherlv_15=(Token)match(input,17,FOLLOW_11); 
 
                             							newLeafNode(otherlv_15, grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_1_1_0_3());
                             						
@@ -1117,7 +1119,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                             int alt4=2;
                             int LA4_0 = input.LA(1);
 
-                            if ( (LA4_0==17) ) {
+                            if ( (LA4_0==19) ) {
                                 alt4=1;
                             }
                             switch (alt4) {
@@ -1198,11 +1200,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_18=(Token)match(input,13,FOLLOW_8); 
+                            otherlv_18=(Token)match(input,15,FOLLOW_8); 
 
                             							newLeafNode(otherlv_18, grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_1_1_1_1());
                             						
-                            otherlv_19=(Token)match(input,14,FOLLOW_9); 
+                            otherlv_19=(Token)match(input,16,FOLLOW_9); 
 
                             							newLeafNode(otherlv_19, grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_1_1_1_2());
                             						
@@ -1237,7 +1239,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_21=(Token)match(input,15,FOLLOW_12); 
+                            otherlv_21=(Token)match(input,17,FOLLOW_12); 
 
                             							newLeafNode(otherlv_21, grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_1_1_1_4());
                             						
@@ -1297,10 +1299,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
-                    if ( (LA6_0==13) ) {
+                    if ( (LA6_0==15) ) {
                         alt6=1;
                     }
-                    else if ( (LA6_0==20) ) {
+                    else if ( (LA6_0==22) ) {
                         alt6=2;
                     }
                     else {
@@ -1316,11 +1318,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                             // InternalRDL.g:553:6: (otherlv_23= 'type' otherlv_24= '=' ( (lv_type_25_0= rulePropertyTypeName ) ) otherlv_26= ';' ( (lv_usage_27_0= rulePropertyUsage ) ) )
                             // InternalRDL.g:554:7: otherlv_23= 'type' otherlv_24= '=' ( (lv_type_25_0= rulePropertyTypeName ) ) otherlv_26= ';' ( (lv_usage_27_0= rulePropertyUsage ) )
                             {
-                            otherlv_23=(Token)match(input,13,FOLLOW_8); 
+                            otherlv_23=(Token)match(input,15,FOLLOW_8); 
 
                             							newLeafNode(otherlv_23, grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_2_1_0_0());
                             						
-                            otherlv_24=(Token)match(input,14,FOLLOW_9); 
+                            otherlv_24=(Token)match(input,16,FOLLOW_9); 
 
                             							newLeafNode(otherlv_24, grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_2_1_0_1());
                             						
@@ -1355,7 +1357,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_26=(Token)match(input,15,FOLLOW_13); 
+                            otherlv_26=(Token)match(input,17,FOLLOW_13); 
 
                             							newLeafNode(otherlv_26, grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_2_1_0_3());
                             						
@@ -1433,11 +1435,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_29=(Token)match(input,13,FOLLOW_8); 
+                            otherlv_29=(Token)match(input,15,FOLLOW_8); 
 
                             							newLeafNode(otherlv_29, grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_2_1_1_1());
                             						
-                            otherlv_30=(Token)match(input,14,FOLLOW_9); 
+                            otherlv_30=(Token)match(input,16,FOLLOW_9); 
 
                             							newLeafNode(otherlv_30, grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_2_1_1_2());
                             						
@@ -1472,7 +1474,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_32=(Token)match(input,15,FOLLOW_12); 
+                            otherlv_32=(Token)match(input,17,FOLLOW_12); 
 
                             							newLeafNode(otherlv_32, grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_2_1_1_4());
                             						
@@ -1494,11 +1496,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_33=(Token)match(input,16,FOLLOW_10); 
+            otherlv_33=(Token)match(input,18,FOLLOW_10); 
 
             			newLeafNode(otherlv_33, grammarAccess.getPropertyDefinitionAccess().getRightCurlyBracketKeyword_4());
             		
-            otherlv_34=(Token)match(input,15,FOLLOW_2); 
+            otherlv_34=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_34, grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_5());
             		
@@ -1583,11 +1585,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:687:2: (otherlv_0= 'default' otherlv_1= '=' ( ( (lv_string_2_0= RULE_STR ) ) | ( (lv_value_3_0= RULE_NUM ) ) | ( (lv_string_4_0= 'true' ) ) | ( (lv_string_5_0= 'false' ) ) ) otherlv_6= ';' )
             // InternalRDL.g:688:3: otherlv_0= 'default' otherlv_1= '=' ( ( (lv_string_2_0= RULE_STR ) ) | ( (lv_value_3_0= RULE_NUM ) ) | ( (lv_string_4_0= 'true' ) ) | ( (lv_string_5_0= 'false' ) ) ) otherlv_6= ';'
             {
-            otherlv_0=(Token)match(input,17,FOLLOW_8); 
+            otherlv_0=(Token)match(input,19,FOLLOW_8); 
 
             			newLeafNode(otherlv_0, grammarAccess.getPropertyDefaultAccess().getDefaultKeyword_0());
             		
-            otherlv_1=(Token)match(input,14,FOLLOW_16); 
+            otherlv_1=(Token)match(input,16,FOLLOW_16); 
 
             			newLeafNode(otherlv_1, grammarAccess.getPropertyDefaultAccess().getEqualsSignKeyword_1());
             		
@@ -1604,12 +1606,12 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 alt8=2;
                 }
                 break;
-            case 18:
+            case 20:
                 {
                 alt8=3;
                 }
                 break;
-            case 19:
+            case 21:
                 {
                 alt8=4;
                 }
@@ -1695,7 +1697,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:736:5: (lv_string_4_0= 'true' )
                     // InternalRDL.g:737:6: lv_string_4_0= 'true'
                     {
-                    lv_string_4_0=(Token)match(input,18,FOLLOW_10); 
+                    lv_string_4_0=(Token)match(input,20,FOLLOW_10); 
 
                     						newLeafNode(lv_string_4_0, grammarAccess.getPropertyDefaultAccess().getStringTrueKeyword_2_2_0());
                     					
@@ -1723,7 +1725,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:751:5: (lv_string_5_0= 'false' )
                     // InternalRDL.g:752:6: lv_string_5_0= 'false'
                     {
-                    lv_string_5_0=(Token)match(input,19,FOLLOW_10); 
+                    lv_string_5_0=(Token)match(input,21,FOLLOW_10); 
 
                     						newLeafNode(lv_string_5_0, grammarAccess.getPropertyDefaultAccess().getStringFalseKeyword_2_3_0());
                     					
@@ -1745,7 +1747,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,15,FOLLOW_2); 
+            otherlv_6=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_6, grammarAccess.getPropertyDefaultAccess().getSemicolonKeyword_3());
             		
@@ -1831,11 +1833,11 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:787:2: (otherlv_0= 'component' otherlv_1= '=' ( (lv_components_2_0= rulePropertyComponent ) ) (otherlv_3= '|' ( (lv_components_4_0= rulePropertyComponent ) ) )* otherlv_5= ';' )
             // InternalRDL.g:788:3: otherlv_0= 'component' otherlv_1= '=' ( (lv_components_2_0= rulePropertyComponent ) ) (otherlv_3= '|' ( (lv_components_4_0= rulePropertyComponent ) ) )* otherlv_5= ';'
             {
-            otherlv_0=(Token)match(input,20,FOLLOW_8); 
+            otherlv_0=(Token)match(input,22,FOLLOW_8); 
 
             			newLeafNode(otherlv_0, grammarAccess.getPropertyUsageAccess().getComponentKeyword_0());
             		
-            otherlv_1=(Token)match(input,14,FOLLOW_17); 
+            otherlv_1=(Token)match(input,16,FOLLOW_17); 
 
             			newLeafNode(otherlv_1, grammarAccess.getPropertyUsageAccess().getEqualsSignKeyword_1());
             		
@@ -1876,7 +1878,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( (LA9_0==21) ) {
+                if ( (LA9_0==23) ) {
                     alt9=1;
                 }
 
@@ -1885,7 +1887,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // InternalRDL.g:816:4: otherlv_3= '|' ( (lv_components_4_0= rulePropertyComponent ) )
             	    {
-            	    otherlv_3=(Token)match(input,21,FOLLOW_17); 
+            	    otherlv_3=(Token)match(input,23,FOLLOW_17); 
 
             	    				newLeafNode(otherlv_3, grammarAccess.getPropertyUsageAccess().getVerticalLineKeyword_3_0());
             	    			
@@ -1929,7 +1931,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_5=(Token)match(input,15,FOLLOW_2); 
+            otherlv_5=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_5, grammarAccess.getPropertyUsageAccess().getSemicolonKeyword_4());
             		
@@ -2091,7 +2093,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,12,FOLLOW_20); 
+            otherlv_2=(Token)match(input,14,FOLLOW_20); 
 
             			newLeafNode(otherlv_2, grammarAccess.getComponentDefinitionAccess().getLeftCurlyBracketKeyword_2());
             		
@@ -2100,29 +2102,29 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             do {
                 int alt11=5;
                 switch ( input.LA(1) ) {
-                case 40:
-                case 41:
                 case 42:
                 case 43:
+                case 44:
                 case 45:
+                case 47:
                     {
                     alt11=1;
                     }
                     break;
-                case 22:
                 case 24:
+                case 26:
                     {
                     alt11=2;
                     }
                     break;
-                case 23:
+                case 25:
                     {
                     int LA11_4 = input.LA(2);
 
-                    if ( (LA11_4==RULE_ID||LA11_4==24) ) {
+                    if ( (LA11_4==RULE_ID||LA11_4==26) ) {
                         alt11=2;
                     }
-                    else if ( ((LA11_4>=14 && LA11_4<=15)) ) {
+                    else if ( ((LA11_4>=16 && LA11_4<=17)) ) {
                         alt11=3;
                     }
 
@@ -2133,7 +2135,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     {
                     int LA11_5 = input.LA(2);
 
-                    if ( ((LA11_5>=14 && LA11_5<=15)||(LA11_5>=32 && LA11_5<=33)) ) {
+                    if ( ((LA11_5>=16 && LA11_5<=17)||(LA11_5>=34 && LA11_5<=35)) ) {
                         alt11=3;
                     }
                     else if ( (LA11_5==RULE_ID) ) {
@@ -2143,11 +2145,9 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
-                case 17:
-                case 35:
-                case 36:
-                case 47:
-                case 48:
+                case 19:
+                case 37:
+                case 38:
                 case 49:
                 case 50:
                 case 51:
@@ -2219,16 +2219,18 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 case 117:
                 case 118:
                 case 119:
-                case 128:
-                case 129:
+                case 120:
+                case 121:
                 case 130:
                 case 131:
                 case 132:
+                case 133:
+                case 134:
                     {
                     alt11=3;
                     }
                     break;
-                case 34:
+                case 36:
                     {
                     alt11=4;
                     }
@@ -2391,7 +2393,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_7=(Token)match(input,16,FOLLOW_21); 
+            otherlv_7=(Token)match(input,18,FOLLOW_21); 
 
             			newLeafNode(otherlv_7, grammarAccess.getComponentDefinitionAccess().getRightCurlyBracketKeyword_4());
             		
@@ -2399,7 +2401,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt12=2;
             int LA12_0 = input.LA(1);
 
-            if ( (LA12_0==RULE_ID||LA12_0==22) ) {
+            if ( (LA12_0==RULE_ID||LA12_0==24) ) {
                 alt12=1;
             }
             switch (alt12) {
@@ -2437,7 +2439,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_9=(Token)match(input,15,FOLLOW_2); 
+            otherlv_9=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_9, grammarAccess.getComponentDefinitionAccess().getSemicolonKeyword_6());
             		
@@ -2530,7 +2532,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( (LA13_0==22) ) {
+            if ( (LA13_0==24) ) {
                 alt13=1;
             }
             switch (alt13) {
@@ -2540,7 +2542,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:1032:4: (lv_external_0_0= 'external' )
                     // InternalRDL.g:1033:5: lv_external_0_0= 'external'
                     {
-                    lv_external_0_0=(Token)match(input,22,FOLLOW_22); 
+                    lv_external_0_0=(Token)match(input,24,FOLLOW_22); 
 
                     					newLeafNode(lv_external_0_0, grammarAccess.getNamedInstantiationAccess().getExternalExternalKeyword_0_0());
                     				
@@ -2563,7 +2565,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt14=2;
             int LA14_0 = input.LA(1);
 
-            if ( (LA14_0==23) ) {
+            if ( (LA14_0==25) ) {
                 alt14=1;
             }
             switch (alt14) {
@@ -2573,7 +2575,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:1046:4: (lv_internal_1_0= 'internal' )
                     // InternalRDL.g:1047:5: lv_internal_1_0= 'internal'
                     {
-                    lv_internal_1_0=(Token)match(input,23,FOLLOW_23); 
+                    lv_internal_1_0=(Token)match(input,25,FOLLOW_23); 
 
                     					newLeafNode(lv_internal_1_0, grammarAccess.getNamedInstantiationAccess().getInternalInternalKeyword_1_0());
                     				
@@ -2596,14 +2598,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( (LA15_0==24) ) {
+            if ( (LA15_0==26) ) {
                 alt15=1;
             }
             switch (alt15) {
                 case 1 :
                     // InternalRDL.g:1060:4: otherlv_2= 'alias' ( (lv_alias_3_0= RULE_ID ) )
                     {
-                    otherlv_2=(Token)match(input,24,FOLLOW_5); 
+                    otherlv_2=(Token)match(input,26,FOLLOW_5); 
 
                     				newLeafNode(otherlv_2, grammarAccess.getNamedInstantiationAccess().getAliasKeyword_2_0());
                     			
@@ -2697,7 +2699,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 int alt16=2;
                 int LA16_0 = input.LA(1);
 
-                if ( (LA16_0==25) ) {
+                if ( (LA16_0==27) ) {
                     alt16=1;
                 }
 
@@ -2706,7 +2708,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // InternalRDL.g:1116:4: otherlv_6= ',' ( (lv_componentInstances_7_0= ruleComponentInstance ) )
             	    {
-            	    otherlv_6=(Token)match(input,25,FOLLOW_24); 
+            	    otherlv_6=(Token)match(input,27,FOLLOW_24); 
 
             	    				newLeafNode(otherlv_6, grammarAccess.getNamedInstantiationAccess().getCommaKeyword_5_0());
             	    			
@@ -2750,7 +2752,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_8=(Token)match(input,15,FOLLOW_2); 
+            otherlv_8=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_8, grammarAccess.getNamedInstantiationAccess().getSemicolonKeyword_6());
             		
@@ -2838,7 +2840,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt17=2;
             int LA17_0 = input.LA(1);
 
-            if ( (LA17_0==22) ) {
+            if ( (LA17_0==24) ) {
                 alt17=1;
             }
             switch (alt17) {
@@ -2848,7 +2850,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:1164:4: (lv_external_0_0= 'external' )
                     // InternalRDL.g:1165:5: lv_external_0_0= 'external'
                     {
-                    lv_external_0_0=(Token)match(input,22,FOLLOW_24); 
+                    lv_external_0_0=(Token)match(input,24,FOLLOW_24); 
 
                     					newLeafNode(lv_external_0_0, grammarAccess.getImmediateInstantiationAccess().getExternalExternalKeyword_0_0());
                     				
@@ -2904,7 +2906,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 int alt18=2;
                 int LA18_0 = input.LA(1);
 
-                if ( (LA18_0==25) ) {
+                if ( (LA18_0==27) ) {
                     alt18=1;
                 }
 
@@ -2913,7 +2915,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // InternalRDL.g:1197:4: otherlv_2= ',' ( (lv_componentInstances_3_0= ruleComponentInstance ) )
             	    {
-            	    otherlv_2=(Token)match(input,25,FOLLOW_24); 
+            	    otherlv_2=(Token)match(input,27,FOLLOW_24); 
 
             	    				newLeafNode(otherlv_2, grammarAccess.getImmediateInstantiationAccess().getCommaKeyword_2_0());
             	    			
@@ -3072,7 +3074,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt19=2;
             int LA19_0 = input.LA(1);
 
-            if ( (LA19_0==29) ) {
+            if ( (LA19_0==31) ) {
                 alt19=1;
             }
             switch (alt19) {
@@ -3114,14 +3116,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt20=2;
             int LA20_0 = input.LA(1);
 
-            if ( (LA20_0==14) ) {
+            if ( (LA20_0==16) ) {
                 alt20=1;
             }
             switch (alt20) {
                 case 1 :
                     // InternalRDL.g:1278:4: otherlv_2= '=' ( (lv_reset_3_0= RULE_NUM ) )
                     {
-                    otherlv_2=(Token)match(input,14,FOLLOW_29); 
+                    otherlv_2=(Token)match(input,16,FOLLOW_29); 
 
                     				newLeafNode(otherlv_2, grammarAccess.getComponentInstanceAccess().getEqualsSignKeyword_2_0());
                     			
@@ -3161,14 +3163,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt21=2;
             int LA21_0 = input.LA(1);
 
-            if ( (LA21_0==26) ) {
+            if ( (LA21_0==28) ) {
                 alt21=1;
             }
             switch (alt21) {
                 case 1 :
                     // InternalRDL.g:1302:4: otherlv_4= '@' ( (lv_address_5_0= RULE_NUM ) )
                     {
-                    otherlv_4=(Token)match(input,26,FOLLOW_29); 
+                    otherlv_4=(Token)match(input,28,FOLLOW_29); 
 
                     				newLeafNode(otherlv_4, grammarAccess.getComponentInstanceAccess().getCommercialAtKeyword_3_0());
                     			
@@ -3208,14 +3210,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt22=2;
             int LA22_0 = input.LA(1);
 
-            if ( (LA22_0==27) ) {
+            if ( (LA22_0==29) ) {
                 alt22=1;
             }
             switch (alt22) {
                 case 1 :
                     // InternalRDL.g:1326:4: otherlv_6= '+=' ( (lv_addrInc_7_0= RULE_NUM ) )
                     {
-                    otherlv_6=(Token)match(input,27,FOLLOW_29); 
+                    otherlv_6=(Token)match(input,29,FOLLOW_29); 
 
                     				newLeafNode(otherlv_6, grammarAccess.getComponentInstanceAccess().getPlusSignEqualsSignKeyword_4_0());
                     			
@@ -3255,14 +3257,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt23=2;
             int LA23_0 = input.LA(1);
 
-            if ( (LA23_0==28) ) {
+            if ( (LA23_0==30) ) {
                 alt23=1;
             }
             switch (alt23) {
                 case 1 :
                     // InternalRDL.g:1350:4: otherlv_8= '%=' ( (lv_addrMod_9_0= RULE_NUM ) )
                     {
-                    otherlv_8=(Token)match(input,28,FOLLOW_29); 
+                    otherlv_8=(Token)match(input,30,FOLLOW_29); 
 
                     				newLeafNode(otherlv_8, grammarAccess.getComponentInstanceAccess().getPercentSignEqualsSignKeyword_5_0());
                     			
@@ -3378,7 +3380,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:1391:2: (otherlv_0= '[' ( ( ( (lv_start_1_0= RULE_NUM ) ) otherlv_2= ':' ( (lv_end_3_0= RULE_NUM ) ) ) | ( (lv_size_4_0= RULE_NUM ) ) ) otherlv_5= ']' )
             // InternalRDL.g:1392:3: otherlv_0= '[' ( ( ( (lv_start_1_0= RULE_NUM ) ) otherlv_2= ':' ( (lv_end_3_0= RULE_NUM ) ) ) | ( (lv_size_4_0= RULE_NUM ) ) ) otherlv_5= ']'
             {
-            otherlv_0=(Token)match(input,29,FOLLOW_29); 
+            otherlv_0=(Token)match(input,31,FOLLOW_29); 
 
             			newLeafNode(otherlv_0, grammarAccess.getRangeAccess().getLeftSquareBracketKeyword_0());
             		
@@ -3389,10 +3391,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             if ( (LA24_0==RULE_NUM) ) {
                 int LA24_1 = input.LA(2);
 
-                if ( (LA24_1==30) ) {
+                if ( (LA24_1==32) ) {
                     alt24=1;
                 }
-                else if ( (LA24_1==31) ) {
+                else if ( (LA24_1==33) ) {
                     alt24=2;
                 }
                 else {
@@ -3441,7 +3443,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_2=(Token)match(input,30,FOLLOW_29); 
+                    otherlv_2=(Token)match(input,32,FOLLOW_29); 
 
                     					newLeafNode(otherlv_2, grammarAccess.getRangeAccess().getColonKeyword_1_0_1());
                     				
@@ -3512,7 +3514,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,31,FOLLOW_2); 
+            otherlv_5=(Token)match(input,33,FOLLOW_2); 
 
             			newLeafNode(otherlv_5, grammarAccess.getRangeAccess().getRightSquareBracketKeyword_2());
             		
@@ -3596,16 +3598,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:1481:2: (this_DefaultProperyAssignment_0= ruleDefaultProperyAssignment | this_ExplicitPropertyAssignment_1= ruleExplicitPropertyAssignment | this_PostPropertyAssignment_2= rulePostPropertyAssignment )
             int alt25=3;
             switch ( input.LA(1) ) {
-            case 17:
+            case 19:
                 {
                 alt25=1;
                 }
                 break;
-            case 23:
-            case 35:
-            case 36:
-            case 47:
-            case 48:
+            case 25:
+            case 37:
+            case 38:
             case 49:
             case 50:
             case 51:
@@ -3677,11 +3677,13 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             case 117:
             case 118:
             case 119:
-            case 128:
-            case 129:
+            case 120:
+            case 121:
             case 130:
             case 131:
             case 132:
+            case 133:
+            case 134:
                 {
                 alt25=2;
                 }
@@ -3830,7 +3832,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:1526:2: (otherlv_0= 'default' this_ExplicitPropertyAssignment_1= ruleExplicitPropertyAssignment )
             // InternalRDL.g:1527:3: otherlv_0= 'default' this_ExplicitPropertyAssignment_1= ruleExplicitPropertyAssignment
             {
-            otherlv_0=(Token)match(input,17,FOLLOW_35); 
+            otherlv_0=(Token)match(input,19,FOLLOW_35); 
 
             			newLeafNode(otherlv_0, grammarAccess.getDefaultProperyAssignmentAccess().getDefaultKeyword_0());
             		
@@ -3932,10 +3934,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt27=2;
             int LA27_0 = input.LA(1);
 
-            if ( (LA27_0==119||(LA27_0>=128 && LA27_0<=132)) ) {
+            if ( (LA27_0==121||(LA27_0>=130 && LA27_0<=134)) ) {
                 alt27=1;
             }
-            else if ( (LA27_0==23||(LA27_0>=35 && LA27_0<=36)||(LA27_0>=47 && LA27_0<=118)) ) {
+            else if ( (LA27_0==25||(LA27_0>=37 && LA27_0<=38)||(LA27_0>=49 && LA27_0<=120)) ) {
                 alt27=2;
             }
             else {
@@ -4013,7 +4015,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_2=(Token)match(input,15,FOLLOW_2); 
+                    otherlv_2=(Token)match(input,17,FOLLOW_2); 
 
                     				newLeafNode(otherlv_2, grammarAccess.getExplicitPropertyAssignmentAccess().getSemicolonKeyword_0_2());
                     			
@@ -4064,14 +4066,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     int alt26=2;
                     int LA26_0 = input.LA(1);
 
-                    if ( (LA26_0==14) ) {
+                    if ( (LA26_0==16) ) {
                         alt26=1;
                     }
                     switch (alt26) {
                         case 1 :
                             // InternalRDL.g:1624:5: otherlv_4= '=' ( (lv_rhs_5_0= rulePropertyAssignmentRhs ) )
                             {
-                            otherlv_4=(Token)match(input,14,FOLLOW_37); 
+                            otherlv_4=(Token)match(input,16,FOLLOW_37); 
 
                             					newLeafNode(otherlv_4, grammarAccess.getExplicitPropertyAssignmentAccess().getEqualsSignKeyword_1_1_0());
                             				
@@ -4112,7 +4114,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_6=(Token)match(input,15,FOLLOW_2); 
+                    otherlv_6=(Token)match(input,17,FOLLOW_2); 
 
                     				newLeafNode(otherlv_6, grammarAccess.getExplicitPropertyAssignmentAccess().getSemicolonKeyword_1_2());
                     			
@@ -4214,10 +4216,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             if ( (LA29_0==RULE_ID) ) {
                 int LA29_1 = input.LA(2);
 
-                if ( ((LA29_1>=14 && LA29_1<=15)) ) {
+                if ( ((LA29_1>=16 && LA29_1<=17)) ) {
                     alt29=2;
                 }
-                else if ( ((LA29_1>=32 && LA29_1<=33)) ) {
+                else if ( ((LA29_1>=34 && LA29_1<=35)) ) {
                     alt29=1;
                 }
                 else {
@@ -4271,7 +4273,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,32,FOLLOW_39); 
+                    otherlv_1=(Token)match(input,34,FOLLOW_39); 
 
                     					newLeafNode(otherlv_1, grammarAccess.getPostPropertyAssignmentAccess().getHyphenMinusGreaterThanSignKeyword_0_0_1());
                     				
@@ -4279,7 +4281,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     int alt28=2;
                     int LA28_0 = input.LA(1);
 
-                    if ( (LA28_0==23||(LA28_0>=35 && LA28_0<=36)||(LA28_0>=47 && LA28_0<=118)) ) {
+                    if ( (LA28_0==25||(LA28_0>=37 && LA28_0<=38)||(LA28_0>=49 && LA28_0<=120)) ) {
                         alt28=1;
                     }
                     else if ( (LA28_0==RULE_ID) ) {
@@ -4399,14 +4401,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt30=2;
             int LA30_0 = input.LA(1);
 
-            if ( (LA30_0==14) ) {
+            if ( (LA30_0==16) ) {
                 alt30=1;
             }
             switch (alt30) {
                 case 1 :
                     // InternalRDL.g:1749:4: otherlv_5= '=' ( (lv_rhs_6_0= rulePropertyAssignmentRhs ) )
                     {
-                    otherlv_5=(Token)match(input,14,FOLLOW_37); 
+                    otherlv_5=(Token)match(input,16,FOLLOW_37); 
 
                     				newLeafNode(otherlv_5, grammarAccess.getPostPropertyAssignmentAccess().getEqualsSignKeyword_1_0());
                     			
@@ -4447,7 +4449,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,15,FOLLOW_2); 
+            otherlv_7=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_7, grammarAccess.getPostPropertyAssignmentAccess().getSemicolonKeyword_2());
             		
@@ -4566,14 +4568,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt32=2;
             int LA32_0 = input.LA(1);
 
-            if ( (LA32_0==32) ) {
+            if ( (LA32_0==34) ) {
                 alt32=1;
             }
             switch (alt32) {
                 case 1 :
                     // InternalRDL.g:1816:4: otherlv_1= '->' ( ( (lv_propertyEnum_2_0= ruleProperty ) ) | ( (otherlv_3= RULE_ID ) ) )
                     {
-                    otherlv_1=(Token)match(input,32,FOLLOW_39); 
+                    otherlv_1=(Token)match(input,34,FOLLOW_39); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getInstancePropertyRefAccess().getHyphenMinusGreaterThanSignKeyword_1_0());
                     			
@@ -4581,7 +4583,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     int alt31=2;
                     int LA31_0 = input.LA(1);
 
-                    if ( (LA31_0==23||(LA31_0>=35 && LA31_0<=36)||(LA31_0>=47 && LA31_0<=118)) ) {
+                    if ( (LA31_0==25||(LA31_0>=37 && LA31_0<=38)||(LA31_0>=49 && LA31_0<=120)) ) {
                         alt31=1;
                     }
                     else if ( (LA31_0==RULE_ID) ) {
@@ -4770,14 +4772,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==33) ) {
+            if ( (LA33_0==35) ) {
                 alt33=1;
             }
             switch (alt33) {
                 case 1 :
                     // InternalRDL.g:1889:4: otherlv_1= '.' ( (lv_tail_2_0= ruleHierInstanceRef ) )
                     {
-                    otherlv_1=(Token)match(input,33,FOLLOW_5); 
+                    otherlv_1=(Token)match(input,35,FOLLOW_5); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getInstanceRefAccess().getFullStopKeyword_1_0());
                     			
@@ -4921,14 +4923,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt34=2;
             int LA34_0 = input.LA(1);
 
-            if ( (LA34_0==33) ) {
+            if ( (LA34_0==35) ) {
                 alt34=1;
             }
             switch (alt34) {
                 case 1 :
                     // InternalRDL.g:1946:4: otherlv_1= '.' ( (lv_tail_2_0= ruleHierInstanceRef ) )
                     {
-                    otherlv_1=(Token)match(input,33,FOLLOW_5); 
+                    otherlv_1=(Token)match(input,35,FOLLOW_5); 
 
                     				newLeafNode(otherlv_1, grammarAccess.getHierInstanceRefAccess().getFullStopKeyword_1_0());
                     			
@@ -5055,12 +5057,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             switch ( input.LA(1) ) {
             case RULE_STR:
             case RULE_NUM:
-            case 18:
-            case 19:
-            case 104:
-            case 105:
-            case 119:
-            case 120:
+            case 20:
+            case 21:
+            case 106:
+            case 107:
             case 121:
             case 122:
             case 123:
@@ -5068,6 +5068,8 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             case 125:
             case 126:
             case 127:
+            case 128:
+            case 129:
                 {
                 alt35=1;
                 }
@@ -5076,10 +5078,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 {
                 int LA35_2 = input.LA(2);
 
-                if ( (LA35_2==34) ) {
+                if ( (LA35_2==36) ) {
                     alt35=3;
                 }
-                else if ( (LA35_2==EOF||LA35_2==15||(LA35_2>=32 && LA35_2<=33)) ) {
+                else if ( (LA35_2==EOF||LA35_2==17||(LA35_2>=34 && LA35_2<=35)) ) {
                     alt35=2;
                 }
                 else {
@@ -5090,7 +5092,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 }
                 }
                 break;
-            case 12:
+            case 14:
                 {
                 alt35=4;
                 }
@@ -5204,7 +5206,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,34,FOLLOW_6); 
+                    otherlv_3=(Token)match(input,36,FOLLOW_6); 
 
                     				newLeafNode(otherlv_3, grammarAccess.getPropertyAssignmentRhsAccess().getEnumKeyword_2_1());
                     			
@@ -5363,7 +5365,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2105:2: (otherlv_0= '{' ( (lv_elements_1_0= ruleConcatElem ) ) (otherlv_2= ',' ( (lv_elements_3_0= ruleConcatElem ) ) )* otherlv_4= '}' )
             // InternalRDL.g:2106:3: otherlv_0= '{' ( (lv_elements_1_0= ruleConcatElem ) ) (otherlv_2= ',' ( (lv_elements_3_0= ruleConcatElem ) ) )* otherlv_4= '}'
             {
-            otherlv_0=(Token)match(input,12,FOLLOW_43); 
+            otherlv_0=(Token)match(input,14,FOLLOW_43); 
 
             			newLeafNode(otherlv_0, grammarAccess.getConcatAccess().getLeftCurlyBracketKeyword_0());
             		
@@ -5404,7 +5406,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 int alt36=2;
                 int LA36_0 = input.LA(1);
 
-                if ( (LA36_0==25) ) {
+                if ( (LA36_0==27) ) {
                     alt36=1;
                 }
 
@@ -5413,7 +5415,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // InternalRDL.g:2130:4: otherlv_2= ',' ( (lv_elements_3_0= ruleConcatElem ) )
             	    {
-            	    otherlv_2=(Token)match(input,25,FOLLOW_43); 
+            	    otherlv_2=(Token)match(input,27,FOLLOW_43); 
 
             	    				newLeafNode(otherlv_2, grammarAccess.getConcatAccess().getCommaKeyword_2_0());
             	    			
@@ -5457,7 +5459,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,16,FOLLOW_2); 
+            otherlv_4=(Token)match(input,18,FOLLOW_2); 
 
             			newLeafNode(otherlv_4, grammarAccess.getConcatAccess().getRightCurlyBracketKeyword_3());
             		
@@ -5699,12 +5701,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2233:2: ( ( (lv_val_0_0= ruleRValueConstant ) ) | ( (lv_num_1_0= RULE_NUM ) ) | ( (lv_str_2_0= RULE_STR ) ) )
             int alt38=3;
             switch ( input.LA(1) ) {
-            case 18:
-            case 19:
-            case 104:
-            case 105:
-            case 119:
-            case 120:
+            case 20:
+            case 21:
+            case 106:
+            case 107:
             case 121:
             case 122:
             case 123:
@@ -5712,6 +5712,8 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             case 125:
             case 126:
             case 127:
+            case 128:
+            case 129:
                 {
                 alt38=1;
                 }
@@ -5914,7 +5916,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2309:2: (otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) ( (lv_body_2_0= ruleEnumBody ) ) otherlv_3= ';' )
             // InternalRDL.g:2310:3: otherlv_0= 'enum' ( (lv_name_1_0= RULE_ID ) ) ( (lv_body_2_0= ruleEnumBody ) ) otherlv_3= ';'
             {
-            otherlv_0=(Token)match(input,34,FOLLOW_5); 
+            otherlv_0=(Token)match(input,36,FOLLOW_5); 
 
             			newLeafNode(otherlv_0, grammarAccess.getEnumDefinitionAccess().getEnumKeyword_0());
             		
@@ -5975,7 +5977,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,15,FOLLOW_2); 
+            otherlv_3=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getEnumDefinitionAccess().getSemicolonKeyword_3());
             		
@@ -6057,7 +6059,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2373:2: (otherlv_0= '{' () ( (lv_entries_2_0= ruleEnumEntry ) )* otherlv_3= '}' )
             // InternalRDL.g:2374:3: otherlv_0= '{' () ( (lv_entries_2_0= ruleEnumEntry ) )* otherlv_3= '}'
             {
-            otherlv_0=(Token)match(input,12,FOLLOW_45); 
+            otherlv_0=(Token)match(input,14,FOLLOW_45); 
 
             			newLeafNode(otherlv_0, grammarAccess.getEnumBodyAccess().getLeftCurlyBracketKeyword_0());
             		
@@ -6121,7 +6123,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_3=(Token)match(input,16,FOLLOW_2); 
+            otherlv_3=(Token)match(input,18,FOLLOW_2); 
 
             			newLeafNode(otherlv_3, grammarAccess.getEnumBodyAccess().getRightCurlyBracketKeyword_3());
             		
@@ -6233,7 +6235,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,14,FOLLOW_29); 
+            otherlv_1=(Token)match(input,16,FOLLOW_29); 
 
             			newLeafNode(otherlv_1, grammarAccess.getEnumEntryAccess().getEqualsSignKeyword_1());
             		
@@ -6267,14 +6269,14 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt41=2;
             int LA41_0 = input.LA(1);
 
-            if ( (LA41_0==12) ) {
+            if ( (LA41_0==14) ) {
                 alt41=1;
             }
             switch (alt41) {
                 case 1 :
                     // InternalRDL.g:2468:4: otherlv_3= '{' ( (lv_properties_4_0= ruleEnumProperty ) )* otherlv_5= '}'
                     {
-                    otherlv_3=(Token)match(input,12,FOLLOW_47); 
+                    otherlv_3=(Token)match(input,14,FOLLOW_47); 
 
                     				newLeafNode(otherlv_3, grammarAccess.getEnumEntryAccess().getLeftCurlyBracketKeyword_3_0());
                     			
@@ -6284,7 +6286,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                         int alt40=2;
                         int LA40_0 = input.LA(1);
 
-                        if ( ((LA40_0>=35 && LA40_0<=36)) ) {
+                        if ( ((LA40_0>=37 && LA40_0<=38)) ) {
                             alt40=1;
                         }
 
@@ -6327,7 +6329,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_5=(Token)match(input,16,FOLLOW_10); 
+                    otherlv_5=(Token)match(input,18,FOLLOW_10); 
 
                     				newLeafNode(otherlv_5, grammarAccess.getEnumEntryAccess().getRightCurlyBracketKeyword_3_2());
                     			
@@ -6337,7 +6339,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,15,FOLLOW_2); 
+            otherlv_6=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_6, grammarAccess.getEnumEntryAccess().getSemicolonKeyword_4());
             		
@@ -6426,10 +6428,10 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             int alt42=2;
             int LA42_0 = input.LA(1);
 
-            if ( (LA42_0==35) ) {
+            if ( (LA42_0==37) ) {
                 alt42=1;
             }
-            else if ( (LA42_0==36) ) {
+            else if ( (LA42_0==38) ) {
                 alt42=2;
             }
             else {
@@ -6451,7 +6453,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2522:6: (lv_name_0_0= 'name' )
                     // InternalRDL.g:2523:7: lv_name_0_0= 'name'
                     {
-                    lv_name_0_0=(Token)match(input,35,FOLLOW_8); 
+                    lv_name_0_0=(Token)match(input,37,FOLLOW_8); 
 
                     							newLeafNode(lv_name_0_0, grammarAccess.getEnumPropertyAccess().getNameNameKeyword_0_0_0_0());
                     						
@@ -6467,7 +6469,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,14,FOLLOW_4); 
+                    otherlv_1=(Token)match(input,16,FOLLOW_4); 
 
                     					newLeafNode(otherlv_1, grammarAccess.getEnumPropertyAccess().getEqualsSignKeyword_0_0_1());
                     				
@@ -6515,7 +6517,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2561:6: (lv_name_3_0= 'desc' )
                     // InternalRDL.g:2562:7: lv_name_3_0= 'desc'
                     {
-                    lv_name_3_0=(Token)match(input,36,FOLLOW_8); 
+                    lv_name_3_0=(Token)match(input,38,FOLLOW_8); 
 
                     							newLeafNode(lv_name_3_0, grammarAccess.getEnumPropertyAccess().getNameDescKeyword_0_1_0_0());
                     						
@@ -6531,7 +6533,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_4=(Token)match(input,14,FOLLOW_4); 
+                    otherlv_4=(Token)match(input,16,FOLLOW_4); 
 
                     					newLeafNode(otherlv_4, grammarAccess.getEnumPropertyAccess().getEqualsSignKeyword_0_1_1());
                     				
@@ -6570,7 +6572,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,15,FOLLOW_2); 
+            otherlv_6=(Token)match(input,17,FOLLOW_2); 
 
             			newLeafNode(otherlv_6, grammarAccess.getEnumPropertyAccess().getSemicolonKeyword_1());
             		
@@ -6620,42 +6622,42 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2613:2: ( (enumLiteral_0= 'string' ) | (enumLiteral_1= 'number' ) | (enumLiteral_2= 'boolean' ) | (enumLiteral_3= 'addrmap' ) | (enumLiteral_4= 'reg' ) | (enumLiteral_5= 'regfile' ) | (enumLiteral_6= 'field' ) | (enumLiteral_7= 'ref' ) )
             int alt43=8;
             switch ( input.LA(1) ) {
-            case 37:
+            case 39:
                 {
                 alt43=1;
                 }
                 break;
-            case 38:
+            case 40:
                 {
                 alt43=2;
                 }
                 break;
-            case 39:
+            case 41:
                 {
                 alt43=3;
                 }
                 break;
-            case 40:
+            case 42:
                 {
                 alt43=4;
                 }
                 break;
-            case 41:
+            case 43:
                 {
                 alt43=5;
                 }
                 break;
-            case 42:
+            case 44:
                 {
                 alt43=6;
                 }
                 break;
-            case 43:
+            case 45:
                 {
                 alt43=7;
                 }
                 break;
-            case 44:
+            case 46:
                 {
                 alt43=8;
                 }
@@ -6674,7 +6676,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2614:3: (enumLiteral_0= 'string' )
                     // InternalRDL.g:2615:4: enumLiteral_0= 'string'
                     {
-                    enumLiteral_0=(Token)match(input,37,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,39,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getSTRINGEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getPropertyTypeNameAccess().getSTRINGEnumLiteralDeclaration_0());
@@ -6691,7 +6693,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2622:3: (enumLiteral_1= 'number' )
                     // InternalRDL.g:2623:4: enumLiteral_1= 'number'
                     {
-                    enumLiteral_1=(Token)match(input,38,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,40,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getNUMBEREnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getPropertyTypeNameAccess().getNUMBEREnumLiteralDeclaration_1());
@@ -6708,7 +6710,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2630:3: (enumLiteral_2= 'boolean' )
                     // InternalRDL.g:2631:4: enumLiteral_2= 'boolean'
                     {
-                    enumLiteral_2=(Token)match(input,39,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,41,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getBOOLEANEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getPropertyTypeNameAccess().getBOOLEANEnumLiteralDeclaration_2());
@@ -6725,7 +6727,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2638:3: (enumLiteral_3= 'addrmap' )
                     // InternalRDL.g:2639:4: enumLiteral_3= 'addrmap'
                     {
-                    enumLiteral_3=(Token)match(input,40,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,42,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getADDRMAPEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getPropertyTypeNameAccess().getADDRMAPEnumLiteralDeclaration_3());
@@ -6742,7 +6744,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2646:3: (enumLiteral_4= 'reg' )
                     // InternalRDL.g:2647:4: enumLiteral_4= 'reg'
                     {
-                    enumLiteral_4=(Token)match(input,41,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,43,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getREGEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getPropertyTypeNameAccess().getREGEnumLiteralDeclaration_4());
@@ -6759,7 +6761,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2654:3: (enumLiteral_5= 'regfile' )
                     // InternalRDL.g:2655:4: enumLiteral_5= 'regfile'
                     {
-                    enumLiteral_5=(Token)match(input,42,FOLLOW_2); 
+                    enumLiteral_5=(Token)match(input,44,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getREGFILEEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_5, grammarAccess.getPropertyTypeNameAccess().getREGFILEEnumLiteralDeclaration_5());
@@ -6776,7 +6778,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2662:3: (enumLiteral_6= 'field' )
                     // InternalRDL.g:2663:4: enumLiteral_6= 'field'
                     {
-                    enumLiteral_6=(Token)match(input,43,FOLLOW_2); 
+                    enumLiteral_6=(Token)match(input,45,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getFIELDEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_6, grammarAccess.getPropertyTypeNameAccess().getFIELDEnumLiteralDeclaration_6());
@@ -6793,7 +6795,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2670:3: (enumLiteral_7= 'ref' )
                     // InternalRDL.g:2671:4: enumLiteral_7= 'ref'
                     {
-                    enumLiteral_7=(Token)match(input,44,FOLLOW_2); 
+                    enumLiteral_7=(Token)match(input,46,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyTypeNameAccess().getREFEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_7, grammarAccess.getPropertyTypeNameAccess().getREFEnumLiteralDeclaration_7());
@@ -6848,32 +6850,32 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2688:2: ( (enumLiteral_0= 'signal' ) | (enumLiteral_1= 'addrmap' ) | (enumLiteral_2= 'reg' ) | (enumLiteral_3= 'regfile' ) | (enumLiteral_4= 'field' ) | (enumLiteral_5= 'all' ) )
             int alt44=6;
             switch ( input.LA(1) ) {
-            case 45:
+            case 47:
                 {
                 alt44=1;
                 }
                 break;
-            case 40:
+            case 42:
                 {
                 alt44=2;
                 }
                 break;
-            case 41:
+            case 43:
                 {
                 alt44=3;
                 }
                 break;
-            case 42:
+            case 44:
                 {
                 alt44=4;
                 }
                 break;
-            case 43:
+            case 45:
                 {
                 alt44=5;
                 }
                 break;
-            case 46:
+            case 48:
                 {
                 alt44=6;
                 }
@@ -6892,7 +6894,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2689:3: (enumLiteral_0= 'signal' )
                     // InternalRDL.g:2690:4: enumLiteral_0= 'signal'
                     {
-                    enumLiteral_0=(Token)match(input,45,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,47,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyComponentAccess().getSIGNALEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getPropertyComponentAccess().getSIGNALEnumLiteralDeclaration_0());
@@ -6909,7 +6911,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2697:3: (enumLiteral_1= 'addrmap' )
                     // InternalRDL.g:2698:4: enumLiteral_1= 'addrmap'
                     {
-                    enumLiteral_1=(Token)match(input,40,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,42,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyComponentAccess().getADDRMAPEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getPropertyComponentAccess().getADDRMAPEnumLiteralDeclaration_1());
@@ -6926,7 +6928,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2705:3: (enumLiteral_2= 'reg' )
                     // InternalRDL.g:2706:4: enumLiteral_2= 'reg'
                     {
-                    enumLiteral_2=(Token)match(input,41,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,43,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyComponentAccess().getREGEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getPropertyComponentAccess().getREGEnumLiteralDeclaration_2());
@@ -6943,7 +6945,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2713:3: (enumLiteral_3= 'regfile' )
                     // InternalRDL.g:2714:4: enumLiteral_3= 'regfile'
                     {
-                    enumLiteral_3=(Token)match(input,42,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,44,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyComponentAccess().getREGFILEEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getPropertyComponentAccess().getREGFILEEnumLiteralDeclaration_3());
@@ -6960,7 +6962,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2721:3: (enumLiteral_4= 'field' )
                     // InternalRDL.g:2722:4: enumLiteral_4= 'field'
                     {
-                    enumLiteral_4=(Token)match(input,43,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,45,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyComponentAccess().getFIELDEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getPropertyComponentAccess().getFIELDEnumLiteralDeclaration_4());
@@ -6977,7 +6979,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2729:3: (enumLiteral_5= 'all' )
                     // InternalRDL.g:2730:4: enumLiteral_5= 'all'
                     {
-                    enumLiteral_5=(Token)match(input,46,FOLLOW_2); 
+                    enumLiteral_5=(Token)match(input,48,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyComponentAccess().getALLEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_5, grammarAccess.getPropertyComponentAccess().getALLEnumLiteralDeclaration_5());
@@ -7031,27 +7033,27 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2747:2: ( (enumLiteral_0= 'signal' ) | (enumLiteral_1= 'addrmap' ) | (enumLiteral_2= 'regfile' ) | (enumLiteral_3= 'reg' ) | (enumLiteral_4= 'field' ) )
             int alt45=5;
             switch ( input.LA(1) ) {
-            case 45:
+            case 47:
                 {
                 alt45=1;
                 }
                 break;
-            case 40:
+            case 42:
                 {
                 alt45=2;
                 }
                 break;
-            case 42:
+            case 44:
                 {
                 alt45=3;
                 }
                 break;
-            case 41:
+            case 43:
                 {
                 alt45=4;
                 }
                 break;
-            case 43:
+            case 45:
                 {
                 alt45=5;
                 }
@@ -7070,7 +7072,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2748:3: (enumLiteral_0= 'signal' )
                     // InternalRDL.g:2749:4: enumLiteral_0= 'signal'
                     {
-                    enumLiteral_0=(Token)match(input,45,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,47,FOLLOW_2); 
 
                     				current = grammarAccess.getComponentDefinitionTypeAccess().getSIGNALEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getComponentDefinitionTypeAccess().getSIGNALEnumLiteralDeclaration_0());
@@ -7087,7 +7089,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2756:3: (enumLiteral_1= 'addrmap' )
                     // InternalRDL.g:2757:4: enumLiteral_1= 'addrmap'
                     {
-                    enumLiteral_1=(Token)match(input,40,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,42,FOLLOW_2); 
 
                     				current = grammarAccess.getComponentDefinitionTypeAccess().getADDRMAPEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getComponentDefinitionTypeAccess().getADDRMAPEnumLiteralDeclaration_1());
@@ -7104,7 +7106,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2764:3: (enumLiteral_2= 'regfile' )
                     // InternalRDL.g:2765:4: enumLiteral_2= 'regfile'
                     {
-                    enumLiteral_2=(Token)match(input,42,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,44,FOLLOW_2); 
 
                     				current = grammarAccess.getComponentDefinitionTypeAccess().getREGFILEEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getComponentDefinitionTypeAccess().getREGFILEEnumLiteralDeclaration_2());
@@ -7121,7 +7123,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2772:3: (enumLiteral_3= 'reg' )
                     // InternalRDL.g:2773:4: enumLiteral_3= 'reg'
                     {
-                    enumLiteral_3=(Token)match(input,41,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,43,FOLLOW_2); 
 
                     				current = grammarAccess.getComponentDefinitionTypeAccess().getREGEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getComponentDefinitionTypeAccess().getREGEnumLiteralDeclaration_3());
@@ -7138,7 +7140,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2780:3: (enumLiteral_4= 'field' )
                     // InternalRDL.g:2781:4: enumLiteral_4= 'field'
                     {
-                    enumLiteral_4=(Token)match(input,43,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,45,FOLLOW_2); 
 
                     				current = grammarAccess.getComponentDefinitionTypeAccess().getFIELDEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getComponentDefinitionTypeAccess().getFIELDEnumLiteralDeclaration_4());
@@ -7262,377 +7264,377 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:2798:2: ( (enumLiteral_0= 'name' ) | (enumLiteral_1= 'desc' ) | (enumLiteral_2= 'arbiter' ) | (enumLiteral_3= 'rset' ) | (enumLiteral_4= 'rclr' ) | (enumLiteral_5= 'woclr' ) | (enumLiteral_6= 'woset' ) | (enumLiteral_7= 'we' ) | (enumLiteral_8= 'wel' ) | (enumLiteral_9= 'swwe' ) | (enumLiteral_10= 'swwel' ) | (enumLiteral_11= 'hwset' ) | (enumLiteral_12= 'hwclr' ) | (enumLiteral_13= 'swmod' ) | (enumLiteral_14= 'swacc' ) | (enumLiteral_15= 'sticky' ) | (enumLiteral_16= 'stickybit' ) | (enumLiteral_17= 'intr' ) | (enumLiteral_18= 'anded' ) | (enumLiteral_19= 'ored' ) | (enumLiteral_20= 'xored' ) | (enumLiteral_21= 'counter' ) | (enumLiteral_22= 'overflow' ) | (enumLiteral_23= 'sharedextbus' ) | (enumLiteral_24= 'errextbus' ) | (enumLiteral_25= 'reset' ) | (enumLiteral_26= 'littleendian' ) | (enumLiteral_27= 'bigendian' ) | (enumLiteral_28= 'rsvdset' ) | (enumLiteral_29= 'rsvdsetX' ) | (enumLiteral_30= 'bridge' ) | (enumLiteral_31= 'shared' ) | (enumLiteral_32= 'msb0' ) | (enumLiteral_33= 'lsb0' ) | (enumLiteral_34= 'sync' ) | (enumLiteral_35= 'async' ) | (enumLiteral_36= 'cpuif_reset' ) | (enumLiteral_37= 'field_reset' ) | (enumLiteral_38= 'activehigh' ) | (enumLiteral_39= 'activelow' ) | (enumLiteral_40= 'singlepulse' ) | (enumLiteral_41= 'underflow' ) | (enumLiteral_42= 'incr' ) | (enumLiteral_43= 'decr' ) | (enumLiteral_44= 'incrwidth' ) | (enumLiteral_45= 'decrwidth' ) | (enumLiteral_46= 'incrvalue' ) | (enumLiteral_47= 'decrvalue' ) | (enumLiteral_48= 'saturate' ) | (enumLiteral_49= 'decrsaturate' ) | (enumLiteral_50= 'threshold' ) | (enumLiteral_51= 'decrthreshold' ) | (enumLiteral_52= 'dontcompare' ) | (enumLiteral_53= 'donttest' ) | (enumLiteral_54= 'internal' ) | (enumLiteral_55= 'alignment' ) | (enumLiteral_56= 'regwidth' ) | (enumLiteral_57= 'fieldwidth' ) | (enumLiteral_58= 'signalwidth' ) | (enumLiteral_59= 'accesswidth' ) | (enumLiteral_60= 'sw' ) | (enumLiteral_61= 'hw' ) | (enumLiteral_62= 'addressing' ) | (enumLiteral_63= 'precedence' ) | (enumLiteral_64= 'encode' ) | (enumLiteral_65= 'resetsignal' ) | (enumLiteral_66= 'clock' ) | (enumLiteral_67= 'mask' ) | (enumLiteral_68= 'enable' ) | (enumLiteral_69= 'hwenable' ) | (enumLiteral_70= 'hwmask' ) | (enumLiteral_71= 'haltmask' ) | (enumLiteral_72= 'haltenable' ) | (enumLiteral_73= 'halt' ) | (enumLiteral_74= 'next' ) )
             int alt46=75;
             switch ( input.LA(1) ) {
-            case 35:
+            case 37:
                 {
                 alt46=1;
                 }
                 break;
-            case 36:
+            case 38:
                 {
                 alt46=2;
                 }
                 break;
-            case 47:
+            case 49:
                 {
                 alt46=3;
                 }
                 break;
-            case 48:
+            case 50:
                 {
                 alt46=4;
                 }
                 break;
-            case 49:
+            case 51:
                 {
                 alt46=5;
                 }
                 break;
-            case 50:
+            case 52:
                 {
                 alt46=6;
                 }
                 break;
-            case 51:
+            case 53:
                 {
                 alt46=7;
                 }
                 break;
-            case 52:
+            case 54:
                 {
                 alt46=8;
                 }
                 break;
-            case 53:
+            case 55:
                 {
                 alt46=9;
                 }
                 break;
-            case 54:
+            case 56:
                 {
                 alt46=10;
                 }
                 break;
-            case 55:
+            case 57:
                 {
                 alt46=11;
                 }
                 break;
-            case 56:
+            case 58:
                 {
                 alt46=12;
                 }
                 break;
-            case 57:
+            case 59:
                 {
                 alt46=13;
                 }
                 break;
-            case 58:
+            case 60:
                 {
                 alt46=14;
                 }
                 break;
-            case 59:
+            case 61:
                 {
                 alt46=15;
                 }
                 break;
-            case 60:
+            case 62:
                 {
                 alt46=16;
                 }
                 break;
-            case 61:
+            case 63:
                 {
                 alt46=17;
                 }
                 break;
-            case 62:
+            case 64:
                 {
                 alt46=18;
                 }
                 break;
-            case 63:
+            case 65:
                 {
                 alt46=19;
                 }
                 break;
-            case 64:
+            case 66:
                 {
                 alt46=20;
                 }
                 break;
-            case 65:
+            case 67:
                 {
                 alt46=21;
                 }
                 break;
-            case 66:
+            case 68:
                 {
                 alt46=22;
                 }
                 break;
-            case 67:
+            case 69:
                 {
                 alt46=23;
                 }
                 break;
-            case 68:
+            case 70:
                 {
                 alt46=24;
                 }
                 break;
-            case 69:
+            case 71:
                 {
                 alt46=25;
                 }
                 break;
-            case 70:
+            case 72:
                 {
                 alt46=26;
                 }
                 break;
-            case 71:
+            case 73:
                 {
                 alt46=27;
                 }
                 break;
-            case 72:
+            case 74:
                 {
                 alt46=28;
                 }
                 break;
-            case 73:
+            case 75:
                 {
                 alt46=29;
                 }
                 break;
-            case 74:
+            case 76:
                 {
                 alt46=30;
                 }
                 break;
-            case 75:
+            case 77:
                 {
                 alt46=31;
                 }
                 break;
-            case 76:
+            case 78:
                 {
                 alt46=32;
                 }
                 break;
-            case 77:
+            case 79:
                 {
                 alt46=33;
                 }
                 break;
-            case 78:
+            case 80:
                 {
                 alt46=34;
                 }
                 break;
-            case 79:
+            case 81:
                 {
                 alt46=35;
                 }
                 break;
-            case 80:
+            case 82:
                 {
                 alt46=36;
                 }
                 break;
-            case 81:
+            case 83:
                 {
                 alt46=37;
                 }
                 break;
-            case 82:
+            case 84:
                 {
                 alt46=38;
                 }
                 break;
-            case 83:
+            case 85:
                 {
                 alt46=39;
                 }
                 break;
-            case 84:
+            case 86:
                 {
                 alt46=40;
                 }
                 break;
-            case 85:
+            case 87:
                 {
                 alt46=41;
                 }
                 break;
-            case 86:
+            case 88:
                 {
                 alt46=42;
                 }
                 break;
-            case 87:
+            case 89:
                 {
                 alt46=43;
                 }
                 break;
-            case 88:
+            case 90:
                 {
                 alt46=44;
                 }
                 break;
-            case 89:
+            case 91:
                 {
                 alt46=45;
                 }
                 break;
-            case 90:
+            case 92:
                 {
                 alt46=46;
                 }
                 break;
-            case 91:
+            case 93:
                 {
                 alt46=47;
                 }
                 break;
-            case 92:
+            case 94:
                 {
                 alt46=48;
                 }
                 break;
-            case 93:
+            case 95:
                 {
                 alt46=49;
                 }
                 break;
-            case 94:
+            case 96:
                 {
                 alt46=50;
                 }
                 break;
-            case 95:
+            case 97:
                 {
                 alt46=51;
                 }
                 break;
-            case 96:
+            case 98:
                 {
                 alt46=52;
                 }
                 break;
-            case 97:
+            case 99:
                 {
                 alt46=53;
                 }
                 break;
-            case 98:
+            case 100:
                 {
                 alt46=54;
                 }
                 break;
-            case 23:
+            case 25:
                 {
                 alt46=55;
                 }
                 break;
-            case 99:
+            case 101:
                 {
                 alt46=56;
                 }
                 break;
-            case 100:
+            case 102:
                 {
                 alt46=57;
                 }
                 break;
-            case 101:
+            case 103:
                 {
                 alt46=58;
                 }
                 break;
-            case 102:
+            case 104:
                 {
                 alt46=59;
                 }
                 break;
-            case 103:
+            case 105:
                 {
                 alt46=60;
                 }
                 break;
-            case 104:
+            case 106:
                 {
                 alt46=61;
                 }
                 break;
-            case 105:
+            case 107:
                 {
                 alt46=62;
                 }
                 break;
-            case 106:
+            case 108:
                 {
                 alt46=63;
                 }
                 break;
-            case 107:
+            case 109:
                 {
                 alt46=64;
                 }
                 break;
-            case 108:
+            case 110:
                 {
                 alt46=65;
                 }
                 break;
-            case 109:
+            case 111:
                 {
                 alt46=66;
                 }
                 break;
-            case 110:
+            case 112:
                 {
                 alt46=67;
                 }
                 break;
-            case 111:
+            case 113:
                 {
                 alt46=68;
                 }
                 break;
-            case 112:
+            case 114:
                 {
                 alt46=69;
                 }
                 break;
-            case 113:
+            case 115:
                 {
                 alt46=70;
                 }
                 break;
-            case 114:
+            case 116:
                 {
                 alt46=71;
                 }
                 break;
-            case 115:
+            case 117:
                 {
                 alt46=72;
                 }
                 break;
-            case 116:
+            case 118:
                 {
                 alt46=73;
                 }
                 break;
-            case 117:
+            case 119:
                 {
                 alt46=74;
                 }
                 break;
-            case 118:
+            case 120:
                 {
                 alt46=75;
                 }
@@ -7651,7 +7653,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2799:3: (enumLiteral_0= 'name' )
                     // InternalRDL.g:2800:4: enumLiteral_0= 'name'
                     {
-                    enumLiteral_0=(Token)match(input,35,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,37,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getNAMEEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getPropertyAccess().getNAMEEnumLiteralDeclaration_0());
@@ -7668,7 +7670,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2807:3: (enumLiteral_1= 'desc' )
                     // InternalRDL.g:2808:4: enumLiteral_1= 'desc'
                     {
-                    enumLiteral_1=(Token)match(input,36,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,38,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDESCEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getPropertyAccess().getDESCEnumLiteralDeclaration_1());
@@ -7685,7 +7687,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2815:3: (enumLiteral_2= 'arbiter' )
                     // InternalRDL.g:2816:4: enumLiteral_2= 'arbiter'
                     {
-                    enumLiteral_2=(Token)match(input,47,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,49,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getARBITEREnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getPropertyAccess().getARBITEREnumLiteralDeclaration_2());
@@ -7702,7 +7704,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2823:3: (enumLiteral_3= 'rset' )
                     // InternalRDL.g:2824:4: enumLiteral_3= 'rset'
                     {
-                    enumLiteral_3=(Token)match(input,48,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,50,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getRSETEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getPropertyAccess().getRSETEnumLiteralDeclaration_3());
@@ -7719,7 +7721,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2831:3: (enumLiteral_4= 'rclr' )
                     // InternalRDL.g:2832:4: enumLiteral_4= 'rclr'
                     {
-                    enumLiteral_4=(Token)match(input,49,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,51,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getRCLREnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getPropertyAccess().getRCLREnumLiteralDeclaration_4());
@@ -7736,7 +7738,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2839:3: (enumLiteral_5= 'woclr' )
                     // InternalRDL.g:2840:4: enumLiteral_5= 'woclr'
                     {
-                    enumLiteral_5=(Token)match(input,50,FOLLOW_2); 
+                    enumLiteral_5=(Token)match(input,52,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getWOCLREnumLiteralDeclaration_5().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_5, grammarAccess.getPropertyAccess().getWOCLREnumLiteralDeclaration_5());
@@ -7753,7 +7755,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2847:3: (enumLiteral_6= 'woset' )
                     // InternalRDL.g:2848:4: enumLiteral_6= 'woset'
                     {
-                    enumLiteral_6=(Token)match(input,51,FOLLOW_2); 
+                    enumLiteral_6=(Token)match(input,53,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getWOSETEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_6, grammarAccess.getPropertyAccess().getWOSETEnumLiteralDeclaration_6());
@@ -7770,7 +7772,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2855:3: (enumLiteral_7= 'we' )
                     // InternalRDL.g:2856:4: enumLiteral_7= 'we'
                     {
-                    enumLiteral_7=(Token)match(input,52,FOLLOW_2); 
+                    enumLiteral_7=(Token)match(input,54,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getWEEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_7, grammarAccess.getPropertyAccess().getWEEnumLiteralDeclaration_7());
@@ -7787,7 +7789,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2863:3: (enumLiteral_8= 'wel' )
                     // InternalRDL.g:2864:4: enumLiteral_8= 'wel'
                     {
-                    enumLiteral_8=(Token)match(input,53,FOLLOW_2); 
+                    enumLiteral_8=(Token)match(input,55,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getWELEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_8, grammarAccess.getPropertyAccess().getWELEnumLiteralDeclaration_8());
@@ -7804,7 +7806,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2871:3: (enumLiteral_9= 'swwe' )
                     // InternalRDL.g:2872:4: enumLiteral_9= 'swwe'
                     {
-                    enumLiteral_9=(Token)match(input,54,FOLLOW_2); 
+                    enumLiteral_9=(Token)match(input,56,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSWWEEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_9, grammarAccess.getPropertyAccess().getSWWEEnumLiteralDeclaration_9());
@@ -7821,7 +7823,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2879:3: (enumLiteral_10= 'swwel' )
                     // InternalRDL.g:2880:4: enumLiteral_10= 'swwel'
                     {
-                    enumLiteral_10=(Token)match(input,55,FOLLOW_2); 
+                    enumLiteral_10=(Token)match(input,57,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSWWELEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_10, grammarAccess.getPropertyAccess().getSWWELEnumLiteralDeclaration_10());
@@ -7838,7 +7840,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2887:3: (enumLiteral_11= 'hwset' )
                     // InternalRDL.g:2888:4: enumLiteral_11= 'hwset'
                     {
-                    enumLiteral_11=(Token)match(input,56,FOLLOW_2); 
+                    enumLiteral_11=(Token)match(input,58,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHWSETEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_11, grammarAccess.getPropertyAccess().getHWSETEnumLiteralDeclaration_11());
@@ -7855,7 +7857,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2895:3: (enumLiteral_12= 'hwclr' )
                     // InternalRDL.g:2896:4: enumLiteral_12= 'hwclr'
                     {
-                    enumLiteral_12=(Token)match(input,57,FOLLOW_2); 
+                    enumLiteral_12=(Token)match(input,59,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHWCLREnumLiteralDeclaration_12().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_12, grammarAccess.getPropertyAccess().getHWCLREnumLiteralDeclaration_12());
@@ -7872,7 +7874,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2903:3: (enumLiteral_13= 'swmod' )
                     // InternalRDL.g:2904:4: enumLiteral_13= 'swmod'
                     {
-                    enumLiteral_13=(Token)match(input,58,FOLLOW_2); 
+                    enumLiteral_13=(Token)match(input,60,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSWMODEnumLiteralDeclaration_13().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_13, grammarAccess.getPropertyAccess().getSWMODEnumLiteralDeclaration_13());
@@ -7889,7 +7891,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2911:3: (enumLiteral_14= 'swacc' )
                     // InternalRDL.g:2912:4: enumLiteral_14= 'swacc'
                     {
-                    enumLiteral_14=(Token)match(input,59,FOLLOW_2); 
+                    enumLiteral_14=(Token)match(input,61,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSWACCEnumLiteralDeclaration_14().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_14, grammarAccess.getPropertyAccess().getSWACCEnumLiteralDeclaration_14());
@@ -7906,7 +7908,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2919:3: (enumLiteral_15= 'sticky' )
                     // InternalRDL.g:2920:4: enumLiteral_15= 'sticky'
                     {
-                    enumLiteral_15=(Token)match(input,60,FOLLOW_2); 
+                    enumLiteral_15=(Token)match(input,62,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSTICKYEnumLiteralDeclaration_15().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_15, grammarAccess.getPropertyAccess().getSTICKYEnumLiteralDeclaration_15());
@@ -7923,7 +7925,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2927:3: (enumLiteral_16= 'stickybit' )
                     // InternalRDL.g:2928:4: enumLiteral_16= 'stickybit'
                     {
-                    enumLiteral_16=(Token)match(input,61,FOLLOW_2); 
+                    enumLiteral_16=(Token)match(input,63,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSTICKYBITEnumLiteralDeclaration_16().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_16, grammarAccess.getPropertyAccess().getSTICKYBITEnumLiteralDeclaration_16());
@@ -7940,7 +7942,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2935:3: (enumLiteral_17= 'intr' )
                     // InternalRDL.g:2936:4: enumLiteral_17= 'intr'
                     {
-                    enumLiteral_17=(Token)match(input,62,FOLLOW_2); 
+                    enumLiteral_17=(Token)match(input,64,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getINTREnumLiteralDeclaration_17().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_17, grammarAccess.getPropertyAccess().getINTREnumLiteralDeclaration_17());
@@ -7957,7 +7959,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2943:3: (enumLiteral_18= 'anded' )
                     // InternalRDL.g:2944:4: enumLiteral_18= 'anded'
                     {
-                    enumLiteral_18=(Token)match(input,63,FOLLOW_2); 
+                    enumLiteral_18=(Token)match(input,65,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getANDEDEnumLiteralDeclaration_18().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_18, grammarAccess.getPropertyAccess().getANDEDEnumLiteralDeclaration_18());
@@ -7974,7 +7976,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2951:3: (enumLiteral_19= 'ored' )
                     // InternalRDL.g:2952:4: enumLiteral_19= 'ored'
                     {
-                    enumLiteral_19=(Token)match(input,64,FOLLOW_2); 
+                    enumLiteral_19=(Token)match(input,66,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getOREDEnumLiteralDeclaration_19().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_19, grammarAccess.getPropertyAccess().getOREDEnumLiteralDeclaration_19());
@@ -7991,7 +7993,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2959:3: (enumLiteral_20= 'xored' )
                     // InternalRDL.g:2960:4: enumLiteral_20= 'xored'
                     {
-                    enumLiteral_20=(Token)match(input,65,FOLLOW_2); 
+                    enumLiteral_20=(Token)match(input,67,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getXOREDEnumLiteralDeclaration_20().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_20, grammarAccess.getPropertyAccess().getXOREDEnumLiteralDeclaration_20());
@@ -8008,7 +8010,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2967:3: (enumLiteral_21= 'counter' )
                     // InternalRDL.g:2968:4: enumLiteral_21= 'counter'
                     {
-                    enumLiteral_21=(Token)match(input,66,FOLLOW_2); 
+                    enumLiteral_21=(Token)match(input,68,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getCOUNTEREnumLiteralDeclaration_21().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_21, grammarAccess.getPropertyAccess().getCOUNTEREnumLiteralDeclaration_21());
@@ -8025,7 +8027,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2975:3: (enumLiteral_22= 'overflow' )
                     // InternalRDL.g:2976:4: enumLiteral_22= 'overflow'
                     {
-                    enumLiteral_22=(Token)match(input,67,FOLLOW_2); 
+                    enumLiteral_22=(Token)match(input,69,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getOVERFLOWEnumLiteralDeclaration_22().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_22, grammarAccess.getPropertyAccess().getOVERFLOWEnumLiteralDeclaration_22());
@@ -8042,7 +8044,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2983:3: (enumLiteral_23= 'sharedextbus' )
                     // InternalRDL.g:2984:4: enumLiteral_23= 'sharedextbus'
                     {
-                    enumLiteral_23=(Token)match(input,68,FOLLOW_2); 
+                    enumLiteral_23=(Token)match(input,70,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSHAREDEXTBUSEnumLiteralDeclaration_23().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_23, grammarAccess.getPropertyAccess().getSHAREDEXTBUSEnumLiteralDeclaration_23());
@@ -8059,7 +8061,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2991:3: (enumLiteral_24= 'errextbus' )
                     // InternalRDL.g:2992:4: enumLiteral_24= 'errextbus'
                     {
-                    enumLiteral_24=(Token)match(input,69,FOLLOW_2); 
+                    enumLiteral_24=(Token)match(input,71,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getERREXTBUSEnumLiteralDeclaration_24().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_24, grammarAccess.getPropertyAccess().getERREXTBUSEnumLiteralDeclaration_24());
@@ -8076,7 +8078,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:2999:3: (enumLiteral_25= 'reset' )
                     // InternalRDL.g:3000:4: enumLiteral_25= 'reset'
                     {
-                    enumLiteral_25=(Token)match(input,70,FOLLOW_2); 
+                    enumLiteral_25=(Token)match(input,72,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getRESETEnumLiteralDeclaration_25().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_25, grammarAccess.getPropertyAccess().getRESETEnumLiteralDeclaration_25());
@@ -8093,7 +8095,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3007:3: (enumLiteral_26= 'littleendian' )
                     // InternalRDL.g:3008:4: enumLiteral_26= 'littleendian'
                     {
-                    enumLiteral_26=(Token)match(input,71,FOLLOW_2); 
+                    enumLiteral_26=(Token)match(input,73,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getLITTLEENDIANEnumLiteralDeclaration_26().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_26, grammarAccess.getPropertyAccess().getLITTLEENDIANEnumLiteralDeclaration_26());
@@ -8110,7 +8112,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3015:3: (enumLiteral_27= 'bigendian' )
                     // InternalRDL.g:3016:4: enumLiteral_27= 'bigendian'
                     {
-                    enumLiteral_27=(Token)match(input,72,FOLLOW_2); 
+                    enumLiteral_27=(Token)match(input,74,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getBIGENDIANEnumLiteralDeclaration_27().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_27, grammarAccess.getPropertyAccess().getBIGENDIANEnumLiteralDeclaration_27());
@@ -8127,7 +8129,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3023:3: (enumLiteral_28= 'rsvdset' )
                     // InternalRDL.g:3024:4: enumLiteral_28= 'rsvdset'
                     {
-                    enumLiteral_28=(Token)match(input,73,FOLLOW_2); 
+                    enumLiteral_28=(Token)match(input,75,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getRSVDSETEnumLiteralDeclaration_28().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_28, grammarAccess.getPropertyAccess().getRSVDSETEnumLiteralDeclaration_28());
@@ -8144,7 +8146,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3031:3: (enumLiteral_29= 'rsvdsetX' )
                     // InternalRDL.g:3032:4: enumLiteral_29= 'rsvdsetX'
                     {
-                    enumLiteral_29=(Token)match(input,74,FOLLOW_2); 
+                    enumLiteral_29=(Token)match(input,76,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getRSVDSETXEnumLiteralDeclaration_29().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_29, grammarAccess.getPropertyAccess().getRSVDSETXEnumLiteralDeclaration_29());
@@ -8161,7 +8163,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3039:3: (enumLiteral_30= 'bridge' )
                     // InternalRDL.g:3040:4: enumLiteral_30= 'bridge'
                     {
-                    enumLiteral_30=(Token)match(input,75,FOLLOW_2); 
+                    enumLiteral_30=(Token)match(input,77,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getBRIDGEEnumLiteralDeclaration_30().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_30, grammarAccess.getPropertyAccess().getBRIDGEEnumLiteralDeclaration_30());
@@ -8178,7 +8180,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3047:3: (enumLiteral_31= 'shared' )
                     // InternalRDL.g:3048:4: enumLiteral_31= 'shared'
                     {
-                    enumLiteral_31=(Token)match(input,76,FOLLOW_2); 
+                    enumLiteral_31=(Token)match(input,78,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSHAREDEnumLiteralDeclaration_31().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_31, grammarAccess.getPropertyAccess().getSHAREDEnumLiteralDeclaration_31());
@@ -8195,7 +8197,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3055:3: (enumLiteral_32= 'msb0' )
                     // InternalRDL.g:3056:4: enumLiteral_32= 'msb0'
                     {
-                    enumLiteral_32=(Token)match(input,77,FOLLOW_2); 
+                    enumLiteral_32=(Token)match(input,79,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getMSB0EnumLiteralDeclaration_32().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_32, grammarAccess.getPropertyAccess().getMSB0EnumLiteralDeclaration_32());
@@ -8212,7 +8214,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3063:3: (enumLiteral_33= 'lsb0' )
                     // InternalRDL.g:3064:4: enumLiteral_33= 'lsb0'
                     {
-                    enumLiteral_33=(Token)match(input,78,FOLLOW_2); 
+                    enumLiteral_33=(Token)match(input,80,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getLSB0EnumLiteralDeclaration_33().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_33, grammarAccess.getPropertyAccess().getLSB0EnumLiteralDeclaration_33());
@@ -8229,7 +8231,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3071:3: (enumLiteral_34= 'sync' )
                     // InternalRDL.g:3072:4: enumLiteral_34= 'sync'
                     {
-                    enumLiteral_34=(Token)match(input,79,FOLLOW_2); 
+                    enumLiteral_34=(Token)match(input,81,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSYNCEnumLiteralDeclaration_34().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_34, grammarAccess.getPropertyAccess().getSYNCEnumLiteralDeclaration_34());
@@ -8246,7 +8248,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3079:3: (enumLiteral_35= 'async' )
                     // InternalRDL.g:3080:4: enumLiteral_35= 'async'
                     {
-                    enumLiteral_35=(Token)match(input,80,FOLLOW_2); 
+                    enumLiteral_35=(Token)match(input,82,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getASYNCEnumLiteralDeclaration_35().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_35, grammarAccess.getPropertyAccess().getASYNCEnumLiteralDeclaration_35());
@@ -8263,7 +8265,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3087:3: (enumLiteral_36= 'cpuif_reset' )
                     // InternalRDL.g:3088:4: enumLiteral_36= 'cpuif_reset'
                     {
-                    enumLiteral_36=(Token)match(input,81,FOLLOW_2); 
+                    enumLiteral_36=(Token)match(input,83,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getCPUIF_RESETEnumLiteralDeclaration_36().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_36, grammarAccess.getPropertyAccess().getCPUIF_RESETEnumLiteralDeclaration_36());
@@ -8280,7 +8282,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3095:3: (enumLiteral_37= 'field_reset' )
                     // InternalRDL.g:3096:4: enumLiteral_37= 'field_reset'
                     {
-                    enumLiteral_37=(Token)match(input,82,FOLLOW_2); 
+                    enumLiteral_37=(Token)match(input,84,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getFIELD_RESETEnumLiteralDeclaration_37().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_37, grammarAccess.getPropertyAccess().getFIELD_RESETEnumLiteralDeclaration_37());
@@ -8297,7 +8299,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3103:3: (enumLiteral_38= 'activehigh' )
                     // InternalRDL.g:3104:4: enumLiteral_38= 'activehigh'
                     {
-                    enumLiteral_38=(Token)match(input,83,FOLLOW_2); 
+                    enumLiteral_38=(Token)match(input,85,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getACTIVEHIGHEnumLiteralDeclaration_38().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_38, grammarAccess.getPropertyAccess().getACTIVEHIGHEnumLiteralDeclaration_38());
@@ -8314,7 +8316,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3111:3: (enumLiteral_39= 'activelow' )
                     // InternalRDL.g:3112:4: enumLiteral_39= 'activelow'
                     {
-                    enumLiteral_39=(Token)match(input,84,FOLLOW_2); 
+                    enumLiteral_39=(Token)match(input,86,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getACTIVELOWEnumLiteralDeclaration_39().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_39, grammarAccess.getPropertyAccess().getACTIVELOWEnumLiteralDeclaration_39());
@@ -8331,7 +8333,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3119:3: (enumLiteral_40= 'singlepulse' )
                     // InternalRDL.g:3120:4: enumLiteral_40= 'singlepulse'
                     {
-                    enumLiteral_40=(Token)match(input,85,FOLLOW_2); 
+                    enumLiteral_40=(Token)match(input,87,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSINGLEPULSEEnumLiteralDeclaration_40().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_40, grammarAccess.getPropertyAccess().getSINGLEPULSEEnumLiteralDeclaration_40());
@@ -8348,7 +8350,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3127:3: (enumLiteral_41= 'underflow' )
                     // InternalRDL.g:3128:4: enumLiteral_41= 'underflow'
                     {
-                    enumLiteral_41=(Token)match(input,86,FOLLOW_2); 
+                    enumLiteral_41=(Token)match(input,88,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getUNDERFLOWEnumLiteralDeclaration_41().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_41, grammarAccess.getPropertyAccess().getUNDERFLOWEnumLiteralDeclaration_41());
@@ -8365,7 +8367,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3135:3: (enumLiteral_42= 'incr' )
                     // InternalRDL.g:3136:4: enumLiteral_42= 'incr'
                     {
-                    enumLiteral_42=(Token)match(input,87,FOLLOW_2); 
+                    enumLiteral_42=(Token)match(input,89,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getINCREnumLiteralDeclaration_42().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_42, grammarAccess.getPropertyAccess().getINCREnumLiteralDeclaration_42());
@@ -8382,7 +8384,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3143:3: (enumLiteral_43= 'decr' )
                     // InternalRDL.g:3144:4: enumLiteral_43= 'decr'
                     {
-                    enumLiteral_43=(Token)match(input,88,FOLLOW_2); 
+                    enumLiteral_43=(Token)match(input,90,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDECREnumLiteralDeclaration_43().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_43, grammarAccess.getPropertyAccess().getDECREnumLiteralDeclaration_43());
@@ -8399,7 +8401,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3151:3: (enumLiteral_44= 'incrwidth' )
                     // InternalRDL.g:3152:4: enumLiteral_44= 'incrwidth'
                     {
-                    enumLiteral_44=(Token)match(input,89,FOLLOW_2); 
+                    enumLiteral_44=(Token)match(input,91,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getINCRWIDTHEnumLiteralDeclaration_44().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_44, grammarAccess.getPropertyAccess().getINCRWIDTHEnumLiteralDeclaration_44());
@@ -8416,7 +8418,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3159:3: (enumLiteral_45= 'decrwidth' )
                     // InternalRDL.g:3160:4: enumLiteral_45= 'decrwidth'
                     {
-                    enumLiteral_45=(Token)match(input,90,FOLLOW_2); 
+                    enumLiteral_45=(Token)match(input,92,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDECRWIDTHEnumLiteralDeclaration_45().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_45, grammarAccess.getPropertyAccess().getDECRWIDTHEnumLiteralDeclaration_45());
@@ -8433,7 +8435,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3167:3: (enumLiteral_46= 'incrvalue' )
                     // InternalRDL.g:3168:4: enumLiteral_46= 'incrvalue'
                     {
-                    enumLiteral_46=(Token)match(input,91,FOLLOW_2); 
+                    enumLiteral_46=(Token)match(input,93,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getINCRVALUEEnumLiteralDeclaration_46().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_46, grammarAccess.getPropertyAccess().getINCRVALUEEnumLiteralDeclaration_46());
@@ -8450,7 +8452,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3175:3: (enumLiteral_47= 'decrvalue' )
                     // InternalRDL.g:3176:4: enumLiteral_47= 'decrvalue'
                     {
-                    enumLiteral_47=(Token)match(input,92,FOLLOW_2); 
+                    enumLiteral_47=(Token)match(input,94,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDECRVALUEEnumLiteralDeclaration_47().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_47, grammarAccess.getPropertyAccess().getDECRVALUEEnumLiteralDeclaration_47());
@@ -8467,7 +8469,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3183:3: (enumLiteral_48= 'saturate' )
                     // InternalRDL.g:3184:4: enumLiteral_48= 'saturate'
                     {
-                    enumLiteral_48=(Token)match(input,93,FOLLOW_2); 
+                    enumLiteral_48=(Token)match(input,95,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSATURATEEnumLiteralDeclaration_48().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_48, grammarAccess.getPropertyAccess().getSATURATEEnumLiteralDeclaration_48());
@@ -8484,7 +8486,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3191:3: (enumLiteral_49= 'decrsaturate' )
                     // InternalRDL.g:3192:4: enumLiteral_49= 'decrsaturate'
                     {
-                    enumLiteral_49=(Token)match(input,94,FOLLOW_2); 
+                    enumLiteral_49=(Token)match(input,96,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDECRSATURATEEnumLiteralDeclaration_49().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_49, grammarAccess.getPropertyAccess().getDECRSATURATEEnumLiteralDeclaration_49());
@@ -8501,7 +8503,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3199:3: (enumLiteral_50= 'threshold' )
                     // InternalRDL.g:3200:4: enumLiteral_50= 'threshold'
                     {
-                    enumLiteral_50=(Token)match(input,95,FOLLOW_2); 
+                    enumLiteral_50=(Token)match(input,97,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getTHRESHOLDEnumLiteralDeclaration_50().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_50, grammarAccess.getPropertyAccess().getTHRESHOLDEnumLiteralDeclaration_50());
@@ -8518,7 +8520,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3207:3: (enumLiteral_51= 'decrthreshold' )
                     // InternalRDL.g:3208:4: enumLiteral_51= 'decrthreshold'
                     {
-                    enumLiteral_51=(Token)match(input,96,FOLLOW_2); 
+                    enumLiteral_51=(Token)match(input,98,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDECRTHRESHOLDEnumLiteralDeclaration_51().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_51, grammarAccess.getPropertyAccess().getDECRTHRESHOLDEnumLiteralDeclaration_51());
@@ -8535,7 +8537,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3215:3: (enumLiteral_52= 'dontcompare' )
                     // InternalRDL.g:3216:4: enumLiteral_52= 'dontcompare'
                     {
-                    enumLiteral_52=(Token)match(input,97,FOLLOW_2); 
+                    enumLiteral_52=(Token)match(input,99,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDONTCOMPAREEnumLiteralDeclaration_52().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_52, grammarAccess.getPropertyAccess().getDONTCOMPAREEnumLiteralDeclaration_52());
@@ -8552,7 +8554,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3223:3: (enumLiteral_53= 'donttest' )
                     // InternalRDL.g:3224:4: enumLiteral_53= 'donttest'
                     {
-                    enumLiteral_53=(Token)match(input,98,FOLLOW_2); 
+                    enumLiteral_53=(Token)match(input,100,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getDONTTESTEnumLiteralDeclaration_53().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_53, grammarAccess.getPropertyAccess().getDONTTESTEnumLiteralDeclaration_53());
@@ -8569,7 +8571,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3231:3: (enumLiteral_54= 'internal' )
                     // InternalRDL.g:3232:4: enumLiteral_54= 'internal'
                     {
-                    enumLiteral_54=(Token)match(input,23,FOLLOW_2); 
+                    enumLiteral_54=(Token)match(input,25,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getINTERNALEnumLiteralDeclaration_54().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_54, grammarAccess.getPropertyAccess().getINTERNALEnumLiteralDeclaration_54());
@@ -8586,7 +8588,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3239:3: (enumLiteral_55= 'alignment' )
                     // InternalRDL.g:3240:4: enumLiteral_55= 'alignment'
                     {
-                    enumLiteral_55=(Token)match(input,99,FOLLOW_2); 
+                    enumLiteral_55=(Token)match(input,101,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getALIGNMENTEnumLiteralDeclaration_55().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_55, grammarAccess.getPropertyAccess().getALIGNMENTEnumLiteralDeclaration_55());
@@ -8603,7 +8605,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3247:3: (enumLiteral_56= 'regwidth' )
                     // InternalRDL.g:3248:4: enumLiteral_56= 'regwidth'
                     {
-                    enumLiteral_56=(Token)match(input,100,FOLLOW_2); 
+                    enumLiteral_56=(Token)match(input,102,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getREGWIDTHEnumLiteralDeclaration_56().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_56, grammarAccess.getPropertyAccess().getREGWIDTHEnumLiteralDeclaration_56());
@@ -8620,7 +8622,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3255:3: (enumLiteral_57= 'fieldwidth' )
                     // InternalRDL.g:3256:4: enumLiteral_57= 'fieldwidth'
                     {
-                    enumLiteral_57=(Token)match(input,101,FOLLOW_2); 
+                    enumLiteral_57=(Token)match(input,103,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getFIELDWIDTHEnumLiteralDeclaration_57().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_57, grammarAccess.getPropertyAccess().getFIELDWIDTHEnumLiteralDeclaration_57());
@@ -8637,7 +8639,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3263:3: (enumLiteral_58= 'signalwidth' )
                     // InternalRDL.g:3264:4: enumLiteral_58= 'signalwidth'
                     {
-                    enumLiteral_58=(Token)match(input,102,FOLLOW_2); 
+                    enumLiteral_58=(Token)match(input,104,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSIGNALWIDTHEnumLiteralDeclaration_58().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_58, grammarAccess.getPropertyAccess().getSIGNALWIDTHEnumLiteralDeclaration_58());
@@ -8654,7 +8656,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3271:3: (enumLiteral_59= 'accesswidth' )
                     // InternalRDL.g:3272:4: enumLiteral_59= 'accesswidth'
                     {
-                    enumLiteral_59=(Token)match(input,103,FOLLOW_2); 
+                    enumLiteral_59=(Token)match(input,105,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getACCESSWIDTHEnumLiteralDeclaration_59().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_59, grammarAccess.getPropertyAccess().getACCESSWIDTHEnumLiteralDeclaration_59());
@@ -8671,7 +8673,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3279:3: (enumLiteral_60= 'sw' )
                     // InternalRDL.g:3280:4: enumLiteral_60= 'sw'
                     {
-                    enumLiteral_60=(Token)match(input,104,FOLLOW_2); 
+                    enumLiteral_60=(Token)match(input,106,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getSWEnumLiteralDeclaration_60().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_60, grammarAccess.getPropertyAccess().getSWEnumLiteralDeclaration_60());
@@ -8688,7 +8690,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3287:3: (enumLiteral_61= 'hw' )
                     // InternalRDL.g:3288:4: enumLiteral_61= 'hw'
                     {
-                    enumLiteral_61=(Token)match(input,105,FOLLOW_2); 
+                    enumLiteral_61=(Token)match(input,107,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHWEnumLiteralDeclaration_61().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_61, grammarAccess.getPropertyAccess().getHWEnumLiteralDeclaration_61());
@@ -8705,7 +8707,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3295:3: (enumLiteral_62= 'addressing' )
                     // InternalRDL.g:3296:4: enumLiteral_62= 'addressing'
                     {
-                    enumLiteral_62=(Token)match(input,106,FOLLOW_2); 
+                    enumLiteral_62=(Token)match(input,108,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getADDRESSINGEnumLiteralDeclaration_62().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_62, grammarAccess.getPropertyAccess().getADDRESSINGEnumLiteralDeclaration_62());
@@ -8722,7 +8724,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3303:3: (enumLiteral_63= 'precedence' )
                     // InternalRDL.g:3304:4: enumLiteral_63= 'precedence'
                     {
-                    enumLiteral_63=(Token)match(input,107,FOLLOW_2); 
+                    enumLiteral_63=(Token)match(input,109,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getPRECEDENCEEnumLiteralDeclaration_63().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_63, grammarAccess.getPropertyAccess().getPRECEDENCEEnumLiteralDeclaration_63());
@@ -8739,7 +8741,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3311:3: (enumLiteral_64= 'encode' )
                     // InternalRDL.g:3312:4: enumLiteral_64= 'encode'
                     {
-                    enumLiteral_64=(Token)match(input,108,FOLLOW_2); 
+                    enumLiteral_64=(Token)match(input,110,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getENCODEEnumLiteralDeclaration_64().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_64, grammarAccess.getPropertyAccess().getENCODEEnumLiteralDeclaration_64());
@@ -8756,7 +8758,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3319:3: (enumLiteral_65= 'resetsignal' )
                     // InternalRDL.g:3320:4: enumLiteral_65= 'resetsignal'
                     {
-                    enumLiteral_65=(Token)match(input,109,FOLLOW_2); 
+                    enumLiteral_65=(Token)match(input,111,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getRESETSIGNALEnumLiteralDeclaration_65().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_65, grammarAccess.getPropertyAccess().getRESETSIGNALEnumLiteralDeclaration_65());
@@ -8773,7 +8775,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3327:3: (enumLiteral_66= 'clock' )
                     // InternalRDL.g:3328:4: enumLiteral_66= 'clock'
                     {
-                    enumLiteral_66=(Token)match(input,110,FOLLOW_2); 
+                    enumLiteral_66=(Token)match(input,112,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getCLOCKEnumLiteralDeclaration_66().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_66, grammarAccess.getPropertyAccess().getCLOCKEnumLiteralDeclaration_66());
@@ -8790,7 +8792,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3335:3: (enumLiteral_67= 'mask' )
                     // InternalRDL.g:3336:4: enumLiteral_67= 'mask'
                     {
-                    enumLiteral_67=(Token)match(input,111,FOLLOW_2); 
+                    enumLiteral_67=(Token)match(input,113,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getMASKEnumLiteralDeclaration_67().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_67, grammarAccess.getPropertyAccess().getMASKEnumLiteralDeclaration_67());
@@ -8807,7 +8809,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3343:3: (enumLiteral_68= 'enable' )
                     // InternalRDL.g:3344:4: enumLiteral_68= 'enable'
                     {
-                    enumLiteral_68=(Token)match(input,112,FOLLOW_2); 
+                    enumLiteral_68=(Token)match(input,114,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getENABLEEnumLiteralDeclaration_68().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_68, grammarAccess.getPropertyAccess().getENABLEEnumLiteralDeclaration_68());
@@ -8824,7 +8826,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3351:3: (enumLiteral_69= 'hwenable' )
                     // InternalRDL.g:3352:4: enumLiteral_69= 'hwenable'
                     {
-                    enumLiteral_69=(Token)match(input,113,FOLLOW_2); 
+                    enumLiteral_69=(Token)match(input,115,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHWENABLEEnumLiteralDeclaration_69().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_69, grammarAccess.getPropertyAccess().getHWENABLEEnumLiteralDeclaration_69());
@@ -8841,7 +8843,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3359:3: (enumLiteral_70= 'hwmask' )
                     // InternalRDL.g:3360:4: enumLiteral_70= 'hwmask'
                     {
-                    enumLiteral_70=(Token)match(input,114,FOLLOW_2); 
+                    enumLiteral_70=(Token)match(input,116,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHWMASKEnumLiteralDeclaration_70().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_70, grammarAccess.getPropertyAccess().getHWMASKEnumLiteralDeclaration_70());
@@ -8858,7 +8860,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3367:3: (enumLiteral_71= 'haltmask' )
                     // InternalRDL.g:3368:4: enumLiteral_71= 'haltmask'
                     {
-                    enumLiteral_71=(Token)match(input,115,FOLLOW_2); 
+                    enumLiteral_71=(Token)match(input,117,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHALTMASKEnumLiteralDeclaration_71().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_71, grammarAccess.getPropertyAccess().getHALTMASKEnumLiteralDeclaration_71());
@@ -8875,7 +8877,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3375:3: (enumLiteral_72= 'haltenable' )
                     // InternalRDL.g:3376:4: enumLiteral_72= 'haltenable'
                     {
-                    enumLiteral_72=(Token)match(input,116,FOLLOW_2); 
+                    enumLiteral_72=(Token)match(input,118,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHALTENABLEEnumLiteralDeclaration_72().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_72, grammarAccess.getPropertyAccess().getHALTENABLEEnumLiteralDeclaration_72());
@@ -8892,7 +8894,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3383:3: (enumLiteral_73= 'halt' )
                     // InternalRDL.g:3384:4: enumLiteral_73= 'halt'
                     {
-                    enumLiteral_73=(Token)match(input,117,FOLLOW_2); 
+                    enumLiteral_73=(Token)match(input,119,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getHALTEnumLiteralDeclaration_73().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_73, grammarAccess.getPropertyAccess().getHALTEnumLiteralDeclaration_73());
@@ -8909,7 +8911,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3391:3: (enumLiteral_74= 'next' )
                     // InternalRDL.g:3392:4: enumLiteral_74= 'next'
                     {
-                    enumLiteral_74=(Token)match(input,118,FOLLOW_2); 
+                    enumLiteral_74=(Token)match(input,120,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyAccess().getNEXTEnumLiteralDeclaration_74().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_74, grammarAccess.getPropertyAccess().getNEXTEnumLiteralDeclaration_74());
@@ -8971,67 +8973,67 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:3409:2: ( (enumLiteral_0= 'UNDEFINED' ) | (enumLiteral_1= 'true' ) | (enumLiteral_2= 'false' ) | (enumLiteral_3= 'rw' ) | (enumLiteral_4= 'wr' ) | (enumLiteral_5= 'r' ) | (enumLiteral_6= 'w' ) | (enumLiteral_7= 'na' ) | (enumLiteral_8= 'compact' ) | (enumLiteral_9= 'regalign' ) | (enumLiteral_10= 'fullalign' ) | (enumLiteral_11= 'hw' ) | (enumLiteral_12= 'sw' ) )
             int alt47=13;
             switch ( input.LA(1) ) {
-            case 119:
+            case 121:
                 {
                 alt47=1;
                 }
                 break;
-            case 18:
+            case 20:
                 {
                 alt47=2;
                 }
                 break;
-            case 19:
+            case 21:
                 {
                 alt47=3;
                 }
                 break;
-            case 120:
+            case 122:
                 {
                 alt47=4;
                 }
                 break;
-            case 121:
+            case 123:
                 {
                 alt47=5;
                 }
                 break;
-            case 122:
+            case 124:
                 {
                 alt47=6;
                 }
                 break;
-            case 123:
+            case 125:
                 {
                 alt47=7;
                 }
                 break;
-            case 124:
+            case 126:
                 {
                 alt47=8;
                 }
                 break;
-            case 125:
+            case 127:
                 {
                 alt47=9;
                 }
                 break;
-            case 126:
+            case 128:
                 {
                 alt47=10;
                 }
                 break;
-            case 127:
+            case 129:
                 {
                 alt47=11;
                 }
                 break;
-            case 105:
+            case 107:
                 {
                 alt47=12;
                 }
                 break;
-            case 104:
+            case 106:
                 {
                 alt47=13;
                 }
@@ -9050,7 +9052,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3410:3: (enumLiteral_0= 'UNDEFINED' )
                     // InternalRDL.g:3411:4: enumLiteral_0= 'UNDEFINED'
                     {
-                    enumLiteral_0=(Token)match(input,119,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,121,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getUNDEFINEDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getRValueConstantAccess().getUNDEFINEDEnumLiteralDeclaration_0());
@@ -9067,7 +9069,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3418:3: (enumLiteral_1= 'true' )
                     // InternalRDL.g:3419:4: enumLiteral_1= 'true'
                     {
-                    enumLiteral_1=(Token)match(input,18,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,20,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getTRUEEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getRValueConstantAccess().getTRUEEnumLiteralDeclaration_1());
@@ -9084,7 +9086,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3426:3: (enumLiteral_2= 'false' )
                     // InternalRDL.g:3427:4: enumLiteral_2= 'false'
                     {
-                    enumLiteral_2=(Token)match(input,19,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,21,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getFALSEEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getRValueConstantAccess().getFALSEEnumLiteralDeclaration_2());
@@ -9101,7 +9103,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3434:3: (enumLiteral_3= 'rw' )
                     // InternalRDL.g:3435:4: enumLiteral_3= 'rw'
                     {
-                    enumLiteral_3=(Token)match(input,120,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,122,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getRWEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getRValueConstantAccess().getRWEnumLiteralDeclaration_3());
@@ -9118,7 +9120,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3442:3: (enumLiteral_4= 'wr' )
                     // InternalRDL.g:3443:4: enumLiteral_4= 'wr'
                     {
-                    enumLiteral_4=(Token)match(input,121,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,123,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getWREnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getRValueConstantAccess().getWREnumLiteralDeclaration_4());
@@ -9135,7 +9137,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3450:3: (enumLiteral_5= 'r' )
                     // InternalRDL.g:3451:4: enumLiteral_5= 'r'
                     {
-                    enumLiteral_5=(Token)match(input,122,FOLLOW_2); 
+                    enumLiteral_5=(Token)match(input,124,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getREnumLiteralDeclaration_5().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_5, grammarAccess.getRValueConstantAccess().getREnumLiteralDeclaration_5());
@@ -9152,7 +9154,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3458:3: (enumLiteral_6= 'w' )
                     // InternalRDL.g:3459:4: enumLiteral_6= 'w'
                     {
-                    enumLiteral_6=(Token)match(input,123,FOLLOW_2); 
+                    enumLiteral_6=(Token)match(input,125,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getWEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_6, grammarAccess.getRValueConstantAccess().getWEnumLiteralDeclaration_6());
@@ -9169,7 +9171,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3466:3: (enumLiteral_7= 'na' )
                     // InternalRDL.g:3467:4: enumLiteral_7= 'na'
                     {
-                    enumLiteral_7=(Token)match(input,124,FOLLOW_2); 
+                    enumLiteral_7=(Token)match(input,126,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getNAEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_7, grammarAccess.getRValueConstantAccess().getNAEnumLiteralDeclaration_7());
@@ -9186,7 +9188,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3474:3: (enumLiteral_8= 'compact' )
                     // InternalRDL.g:3475:4: enumLiteral_8= 'compact'
                     {
-                    enumLiteral_8=(Token)match(input,125,FOLLOW_2); 
+                    enumLiteral_8=(Token)match(input,127,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getCOMPACTEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_8, grammarAccess.getRValueConstantAccess().getCOMPACTEnumLiteralDeclaration_8());
@@ -9203,7 +9205,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3482:3: (enumLiteral_9= 'regalign' )
                     // InternalRDL.g:3483:4: enumLiteral_9= 'regalign'
                     {
-                    enumLiteral_9=(Token)match(input,126,FOLLOW_2); 
+                    enumLiteral_9=(Token)match(input,128,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getREGALIGNEnumLiteralDeclaration_9().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_9, grammarAccess.getRValueConstantAccess().getREGALIGNEnumLiteralDeclaration_9());
@@ -9220,7 +9222,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3490:3: (enumLiteral_10= 'fullalign' )
                     // InternalRDL.g:3491:4: enumLiteral_10= 'fullalign'
                     {
-                    enumLiteral_10=(Token)match(input,127,FOLLOW_2); 
+                    enumLiteral_10=(Token)match(input,129,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getFULLALIGNEnumLiteralDeclaration_10().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_10, grammarAccess.getRValueConstantAccess().getFULLALIGNEnumLiteralDeclaration_10());
@@ -9237,7 +9239,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3498:3: (enumLiteral_11= 'hw' )
                     // InternalRDL.g:3499:4: enumLiteral_11= 'hw'
                     {
-                    enumLiteral_11=(Token)match(input,105,FOLLOW_2); 
+                    enumLiteral_11=(Token)match(input,107,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getHWEnumLiteralDeclaration_11().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_11, grammarAccess.getRValueConstantAccess().getHWEnumLiteralDeclaration_11());
@@ -9254,7 +9256,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3506:3: (enumLiteral_12= 'sw' )
                     // InternalRDL.g:3507:4: enumLiteral_12= 'sw'
                     {
-                    enumLiteral_12=(Token)match(input,104,FOLLOW_2); 
+                    enumLiteral_12=(Token)match(input,106,FOLLOW_2); 
 
                     				current = grammarAccess.getRValueConstantAccess().getSWEnumLiteralDeclaration_12().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_12, grammarAccess.getRValueConstantAccess().getSWEnumLiteralDeclaration_12());
@@ -9309,32 +9311,32 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
             // InternalRDL.g:3524:2: ( (enumLiteral_0= 'UNDEFINED' ) | (enumLiteral_1= 'posedge' ) | (enumLiteral_2= 'negedge' ) | (enumLiteral_3= 'bothedge' ) | (enumLiteral_4= 'level' ) | (enumLiteral_5= 'nonsticky' ) )
             int alt48=6;
             switch ( input.LA(1) ) {
-            case 119:
+            case 121:
                 {
                 alt48=1;
                 }
                 break;
-            case 128:
+            case 130:
                 {
                 alt48=2;
                 }
                 break;
-            case 129:
+            case 131:
                 {
                 alt48=3;
                 }
                 break;
-            case 130:
+            case 132:
                 {
                 alt48=4;
                 }
                 break;
-            case 131:
+            case 133:
                 {
                 alt48=5;
                 }
                 break;
-            case 132:
+            case 134:
                 {
                 alt48=6;
                 }
@@ -9353,7 +9355,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3525:3: (enumLiteral_0= 'UNDEFINED' )
                     // InternalRDL.g:3526:4: enumLiteral_0= 'UNDEFINED'
                     {
-                    enumLiteral_0=(Token)match(input,119,FOLLOW_2); 
+                    enumLiteral_0=(Token)match(input,121,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyModifierAccess().getUNDEFINEDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_0, grammarAccess.getPropertyModifierAccess().getUNDEFINEDEnumLiteralDeclaration_0());
@@ -9370,7 +9372,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3533:3: (enumLiteral_1= 'posedge' )
                     // InternalRDL.g:3534:4: enumLiteral_1= 'posedge'
                     {
-                    enumLiteral_1=(Token)match(input,128,FOLLOW_2); 
+                    enumLiteral_1=(Token)match(input,130,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyModifierAccess().getPOSEDGEEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_1, grammarAccess.getPropertyModifierAccess().getPOSEDGEEnumLiteralDeclaration_1());
@@ -9387,7 +9389,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3541:3: (enumLiteral_2= 'negedge' )
                     // InternalRDL.g:3542:4: enumLiteral_2= 'negedge'
                     {
-                    enumLiteral_2=(Token)match(input,129,FOLLOW_2); 
+                    enumLiteral_2=(Token)match(input,131,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyModifierAccess().getNEGEDGEEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_2, grammarAccess.getPropertyModifierAccess().getNEGEDGEEnumLiteralDeclaration_2());
@@ -9404,7 +9406,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3549:3: (enumLiteral_3= 'bothedge' )
                     // InternalRDL.g:3550:4: enumLiteral_3= 'bothedge'
                     {
-                    enumLiteral_3=(Token)match(input,130,FOLLOW_2); 
+                    enumLiteral_3=(Token)match(input,132,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyModifierAccess().getBOTHEDGEEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_3, grammarAccess.getPropertyModifierAccess().getBOTHEDGEEnumLiteralDeclaration_3());
@@ -9421,7 +9423,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3557:3: (enumLiteral_4= 'level' )
                     // InternalRDL.g:3558:4: enumLiteral_4= 'level'
                     {
-                    enumLiteral_4=(Token)match(input,131,FOLLOW_2); 
+                    enumLiteral_4=(Token)match(input,133,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyModifierAccess().getLEVELEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_4, grammarAccess.getPropertyModifierAccess().getLEVELEnumLiteralDeclaration_4());
@@ -9438,7 +9440,7 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
                     // InternalRDL.g:3565:3: (enumLiteral_5= 'nonsticky' )
                     // InternalRDL.g:3566:4: enumLiteral_5= 'nonsticky'
                     {
-                    enumLiteral_5=(Token)match(input,132,FOLLOW_2); 
+                    enumLiteral_5=(Token)match(input,134,FOLLOW_2); 
 
                     				current = grammarAccess.getPropertyModifierAccess().getNONSTICKYEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
                     				newLeafNode(enumLiteral_5, grammarAccess.getPropertyModifierAccess().getNONSTICKYEnumLiteralDeclaration_5());
@@ -9477,18 +9479,18 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
     static final String dfa_1s = "\12\uffff";
     static final String dfa_2s = "\1\1\11\uffff";
     static final String dfa_3s = "\1\5\5\uffff\2\5\2\uffff";
-    static final String dfa_4s = "\1\u0084\5\uffff\1\30\1\41\2\uffff";
+    static final String dfa_4s = "\1\u0086\5\uffff\1\32\1\43\2\uffff";
     static final String dfa_5s = "\1\uffff\1\7\1\1\1\2\1\3\1\4\2\uffff\1\5\1\6";
     static final String dfa_6s = "\12\uffff}>";
     static final String[] dfa_7s = {
-            "\1\7\4\uffff\1\2\1\11\5\uffff\1\10\4\uffff\1\5\1\6\1\5\11\uffff\1\4\2\10\3\uffff\4\3\1\uffff\1\3\1\uffff\111\10\10\uffff\5\10",
+            "\1\7\6\uffff\1\2\1\11\5\uffff\1\10\4\uffff\1\5\1\6\1\5\11\uffff\1\4\2\10\3\uffff\4\3\1\uffff\1\3\1\uffff\111\10\10\uffff\5\10",
             "",
             "",
             "",
             "",
             "",
-            "\1\5\10\uffff\2\10\10\uffff\1\5",
-            "\1\5\10\uffff\2\10\20\uffff\2\10",
+            "\1\5\12\uffff\2\10\10\uffff\1\5",
+            "\1\5\12\uffff\2\10\20\uffff\2\10",
             "",
             ""
     };
@@ -9522,50 +9524,50 @@ public class InternalRDLParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0xFFFFAF1C01C20C22L,0x00FFFFFFFFFFFFFFL,0x000000000000001FL});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0xFFFEBC7007083022L,0x03FFFFFFFFFFFFFFL,0x000000000000007CL});
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000122000L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x00001FE000000000L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000132000L});
-    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000102000L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x00000000000C0050L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x00006F0000000000L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000208000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000001020L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0xFFFFAF1C01C30020L,0x00FFFFFFFFFFFFFFL,0x000000000000001FL});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000000408020L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000001800020L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000001000020L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000400020L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000002008000L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000002000002L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x000000003C004002L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x000000001C004002L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000488000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x00007F8000000000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x00000000004C8000L});
+    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000408000L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000300050L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0001BC0000000000L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000820000L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000004020L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0xFFFEBC70070C0020L,0x03FFFFFFFFFFFFFFL,0x000000000000007CL});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000001020020L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000006000020L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000004000020L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000001000020L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000008020000L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x00000000F0010002L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000070010002L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x000000001C000002L});
-    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000018000002L});
-    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0xFFFF801800800000L,0x00FFFFFFFFFFFFFFL,0x000000000000001FL});
-    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x000000000000C000L});
-    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x00000000000C1070L,0xFF80030000000000L});
-    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0xFFFF801800800020L,0x00FFFFFFFFFFFFFFL,0x000000000000001FL});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000070000002L});
+    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000060000002L});
+    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0xFFFE006002000000L,0x03FFFFFFFFFFFFFFL,0x000000000000007CL});
+    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000000000030000L});
+    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000000000304070L,0xFE000C0000000000L,0x0000000000000003L});
+    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0xFFFE006002000020L,0x03FFFFFFFFFFFFFFL,0x000000000000007CL});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000400000002L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000001000000000L});
     public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000000002010000L});
-    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000000000010020L});
-    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0000000000009000L});
-    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000001800010000L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000000008040000L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000000000040020L});
+    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0000000000024000L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000006000040000L});
 
 }

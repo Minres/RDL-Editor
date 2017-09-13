@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalRDLParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STR", "RULE_ID", "RULE_NUM", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "'string'", "'number'", "'boolean'", "'addrmap'", "'reg'", "'regfile'", "'field'", "'ref'", "'signal'", "'all'", "'name'", "'desc'", "'arbiter'", "'rset'", "'rclr'", "'woclr'", "'woset'", "'we'", "'wel'", "'swwe'", "'swwel'", "'hwset'", "'hwclr'", "'swmod'", "'swacc'", "'sticky'", "'stickybit'", "'intr'", "'anded'", "'ored'", "'xored'", "'counter'", "'overflow'", "'sharedextbus'", "'errextbus'", "'reset'", "'littleendian'", "'bigendian'", "'rsvdset'", "'rsvdsetX'", "'bridge'", "'shared'", "'msb0'", "'lsb0'", "'sync'", "'async'", "'cpuif_reset'", "'field_reset'", "'activehigh'", "'activelow'", "'singlepulse'", "'underflow'", "'incr'", "'decr'", "'incrwidth'", "'decrwidth'", "'incrvalue'", "'decrvalue'", "'saturate'", "'decrsaturate'", "'threshold'", "'decrthreshold'", "'dontcompare'", "'donttest'", "'internal'", "'alignment'", "'regwidth'", "'fieldwidth'", "'signalwidth'", "'accesswidth'", "'sw'", "'hw'", "'addressing'", "'precedence'", "'encode'", "'resetsignal'", "'clock'", "'mask'", "'enable'", "'hwenable'", "'hwmask'", "'haltmask'", "'haltenable'", "'halt'", "'next'", "'UNDEFINED'", "'true'", "'false'", "'rw'", "'wr'", "'r'", "'w'", "'na'", "'compact'", "'regalign'", "'fullalign'", "'posedge'", "'negedge'", "'bothedge'", "'level'", "'nonsticky'", "'`include'", "'property'", "'{'", "'}'", "';'", "'type'", "'='", "'default'", "'component'", "'|'", "'alias'", "','", "'@'", "'+='", "'%='", "'['", "']'", "':'", "'->'", "'.'", "'enum'", "'external'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_STR", "RULE_ID", "RULE_NUM", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ESCAPE_JSP", "RULE_ESCAPE_ORDL", "'string'", "'number'", "'boolean'", "'addrmap'", "'reg'", "'regfile'", "'field'", "'ref'", "'signal'", "'all'", "'name'", "'desc'", "'arbiter'", "'rset'", "'rclr'", "'woclr'", "'woset'", "'we'", "'wel'", "'swwe'", "'swwel'", "'hwset'", "'hwclr'", "'swmod'", "'swacc'", "'sticky'", "'stickybit'", "'intr'", "'anded'", "'ored'", "'xored'", "'counter'", "'overflow'", "'sharedextbus'", "'errextbus'", "'reset'", "'littleendian'", "'bigendian'", "'rsvdset'", "'rsvdsetX'", "'bridge'", "'shared'", "'msb0'", "'lsb0'", "'sync'", "'async'", "'cpuif_reset'", "'field_reset'", "'activehigh'", "'activelow'", "'singlepulse'", "'underflow'", "'incr'", "'decr'", "'incrwidth'", "'decrwidth'", "'incrvalue'", "'decrvalue'", "'saturate'", "'decrsaturate'", "'threshold'", "'decrthreshold'", "'dontcompare'", "'donttest'", "'internal'", "'alignment'", "'regwidth'", "'fieldwidth'", "'signalwidth'", "'accesswidth'", "'sw'", "'hw'", "'addressing'", "'precedence'", "'encode'", "'resetsignal'", "'clock'", "'mask'", "'enable'", "'hwenable'", "'hwmask'", "'haltmask'", "'haltenable'", "'halt'", "'next'", "'UNDEFINED'", "'true'", "'false'", "'rw'", "'wr'", "'r'", "'w'", "'na'", "'compact'", "'regalign'", "'fullalign'", "'posedge'", "'negedge'", "'bothedge'", "'level'", "'nonsticky'", "'`include'", "'property'", "'{'", "'}'", "';'", "'type'", "'='", "'default'", "'component'", "'|'", "'alias'", "','", "'@'", "'+='", "'%='", "'['", "']'", "':'", "'->'", "'.'", "'enum'", "'external'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -34,9 +34,11 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
     public static final int T__52=52;
     public static final int T__53=53;
     public static final int T__54=54;
+    public static final int T__133=133;
     public static final int T__132=132;
     public static final int T__60=60;
     public static final int T__61=61;
+    public static final int T__134=134;
     public static final int RULE_ID=5;
     public static final int T__131=131;
     public static final int T__130=130;
@@ -88,7 +90,6 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
     public static final int T__16=16;
     public static final int T__17=17;
     public static final int T__18=18;
-    public static final int T__11=11;
     public static final int T__99=99;
     public static final int RULE_NUM=6;
     public static final int T__12=12;
@@ -97,8 +98,8 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
     public static final int T__95=95;
     public static final int T__96=96;
     public static final int T__97=97;
-    public static final int T__10=10;
     public static final int T__98=98;
+    public static final int RULE_ESCAPE_ORDL=11;
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
@@ -136,6 +137,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
     public static final int T__111=111;
     public static final int T__81=81;
     public static final int T__110=110;
+    public static final int RULE_ESCAPE_JSP=10;
     public static final int T__82=82;
     public static final int T__113=113;
     public static final int T__83=83;
@@ -240,7 +242,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==RULE_ID||(LA1_0>=13 && LA1_0<=16)||LA1_0==18||(LA1_0>=20 && LA1_0<=95)||(LA1_0>=106 && LA1_0<=112)||LA1_0==118||LA1_0==121||(LA1_0>=131 && LA1_0<=132)) ) {
+                if ( (LA1_0==RULE_ID||(LA1_0>=15 && LA1_0<=18)||LA1_0==20||(LA1_0>=22 && LA1_0<=97)||(LA1_0>=108 && LA1_0<=114)||LA1_0==120||LA1_0==123||(LA1_0>=133 && LA1_0<=134)) ) {
                     alt1=1;
                 }
 
@@ -2425,39 +2427,39 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:777:1: ( ( ( rule__Root__IncludesAssignment_0 ) ) | ( ( rule__Root__ComponentDefinitionsAssignment_1 ) ) | ( ( rule__Root__EnumDefinitionsAssignment_2 ) ) | ( ( rule__Root__NamedInstantiationsAssignment_3 ) ) | ( ( rule__Root__PropertyAssignmentsAssignment_4 ) ) | ( ( rule__Root__PropertyDefinitionsAssignment_5 ) ) )
             int alt2=6;
             switch ( input.LA(1) ) {
-            case 111:
+            case 113:
                 {
                 alt2=1;
                 }
                 break;
-            case 13:
-            case 14:
             case 15:
             case 16:
+            case 17:
             case 18:
+            case 20:
                 {
                 alt2=2;
                 }
                 break;
-            case 131:
+            case 133:
                 {
                 alt2=3;
                 }
                 break;
-            case 121:
-            case 132:
+            case 123:
+            case 134:
                 {
                 alt2=4;
                 }
                 break;
-            case 74:
+            case 76:
                 {
                 int LA2_5 = input.LA(2);
 
-                if ( (LA2_5==115||LA2_5==117) ) {
+                if ( (LA2_5==117||LA2_5==119) ) {
                     alt2=5;
                 }
-                else if ( (LA2_5==RULE_ID||LA2_5==121) ) {
+                else if ( (LA2_5==RULE_ID||LA2_5==123) ) {
                     alt2=4;
                 }
                 else {
@@ -2472,7 +2474,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 {
                 int LA2_6 = input.LA(2);
 
-                if ( (LA2_6==115||LA2_6==117||(LA2_6>=129 && LA2_6<=130)) ) {
+                if ( (LA2_6==117||LA2_6==119||(LA2_6>=131 && LA2_6<=132)) ) {
                     alt2=5;
                 }
                 else if ( (LA2_6==RULE_ID) ) {
@@ -2486,8 +2488,6 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 }
                 }
                 break;
-            case 20:
-            case 21:
             case 22:
             case 23:
             case 24:
@@ -2540,8 +2540,8 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             case 71:
             case 72:
             case 73:
+            case 74:
             case 75:
-            case 76:
             case 77:
             case 78:
             case 79:
@@ -2561,17 +2561,19 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             case 93:
             case 94:
             case 95:
-            case 106:
-            case 107:
+            case 96:
+            case 97:
             case 108:
             case 109:
             case 110:
-            case 118:
+            case 111:
+            case 112:
+            case 120:
                 {
                 alt2=5;
                 }
                 break;
-            case 112:
+            case 114:
                 {
                 alt2=6;
                 }
@@ -2761,17 +2763,17 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:822:1: ( ( ( rule__PropertyDefinition__Group_3_0__0 ) ) | ( ( rule__PropertyDefinition__Group_3_1__0 ) ) | ( ( rule__PropertyDefinition__Group_3_2__0 ) ) )
             int alt3=3;
             switch ( input.LA(1) ) {
-            case 116:
+            case 118:
                 {
                 alt3=1;
                 }
                 break;
-            case 119:
+            case 121:
                 {
                 alt3=2;
                 }
                 break;
-            case 118:
+            case 120:
                 {
                 alt3=3;
                 }
@@ -2887,10 +2889,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==119) ) {
+            if ( (LA4_0==121) ) {
                 alt4=1;
             }
-            else if ( (LA4_0==118) ) {
+            else if ( (LA4_0==120) ) {
                 alt4=2;
             }
             else {
@@ -2978,10 +2980,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt5=2;
             int LA5_0 = input.LA(1);
 
-            if ( (LA5_0==116) ) {
+            if ( (LA5_0==118) ) {
                 alt5=1;
             }
-            else if ( (LA5_0==118) ) {
+            else if ( (LA5_0==120) ) {
                 alt5=2;
             }
             else {
@@ -3069,10 +3071,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt6=2;
             int LA6_0 = input.LA(1);
 
-            if ( (LA6_0==116) ) {
+            if ( (LA6_0==118) ) {
                 alt6=1;
             }
-            else if ( (LA6_0==119) ) {
+            else if ( (LA6_0==121) ) {
                 alt6=2;
             }
             else {
@@ -3169,12 +3171,12 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 alt7=2;
                 }
                 break;
-            case 96:
+            case 98:
                 {
                 alt7=3;
                 }
                 break;
-            case 97:
+            case 99:
                 {
                 alt7=4;
                 }
@@ -3314,29 +3316,29 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:945:1: ( ( ( rule__ComponentDefinition__ComponentDefinitionsAssignment_3_0 ) ) | ( ( rule__ComponentDefinition__NamedInstantiationsAssignment_3_1 ) ) | ( ( rule__ComponentDefinition__PropertyAssignmentsAssignment_3_2 ) ) | ( ( rule__ComponentDefinition__EnumDefinitionsAssignment_3_3 ) ) )
             int alt8=4;
             switch ( input.LA(1) ) {
-            case 13:
-            case 14:
             case 15:
             case 16:
+            case 17:
             case 18:
+            case 20:
                 {
                 alt8=1;
                 }
                 break;
-            case 121:
-            case 132:
+            case 123:
+            case 134:
                 {
                 alt8=2;
                 }
                 break;
-            case 74:
+            case 76:
                 {
                 int LA8_3 = input.LA(2);
 
-                if ( (LA8_3==RULE_ID||LA8_3==121) ) {
+                if ( (LA8_3==RULE_ID||LA8_3==123) ) {
                     alt8=2;
                 }
-                else if ( (LA8_3==115||LA8_3==117) ) {
+                else if ( (LA8_3==117||LA8_3==119) ) {
                     alt8=3;
                 }
                 else {
@@ -3351,7 +3353,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 {
                 int LA8_4 = input.LA(2);
 
-                if ( (LA8_4==115||LA8_4==117||(LA8_4>=129 && LA8_4<=130)) ) {
+                if ( (LA8_4==117||LA8_4==119||(LA8_4>=131 && LA8_4<=132)) ) {
                     alt8=3;
                 }
                 else if ( (LA8_4==RULE_ID) ) {
@@ -3365,8 +3367,6 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 }
                 }
                 break;
-            case 20:
-            case 21:
             case 22:
             case 23:
             case 24:
@@ -3419,8 +3419,8 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             case 71:
             case 72:
             case 73:
+            case 74:
             case 75:
-            case 76:
             case 77:
             case 78:
             case 79:
@@ -3440,17 +3440,19 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             case 93:
             case 94:
             case 95:
-            case 106:
-            case 107:
+            case 96:
+            case 97:
             case 108:
             case 109:
             case 110:
-            case 118:
+            case 111:
+            case 112:
+            case 120:
                 {
                 alt8=3;
                 }
                 break;
-            case 131:
+            case 133:
                 {
                 alt8=4;
                 }
@@ -3594,10 +3596,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             if ( (LA9_0==RULE_NUM) ) {
                 int LA9_1 = input.LA(2);
 
-                if ( (LA9_1==127) ) {
+                if ( (LA9_1==129) ) {
                     alt9=2;
                 }
-                else if ( (LA9_1==128) ) {
+                else if ( (LA9_1==130) ) {
                     alt9=1;
                 }
                 else {
@@ -3691,13 +3693,11 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:999:1: ( ( ruleDefaultProperyAssignment ) | ( ruleExplicitPropertyAssignment ) | ( rulePostPropertyAssignment ) )
             int alt10=3;
             switch ( input.LA(1) ) {
-            case 118:
+            case 120:
                 {
                 alt10=1;
                 }
                 break;
-            case 20:
-            case 21:
             case 22:
             case 23:
             case 24:
@@ -3772,11 +3772,13 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             case 93:
             case 94:
             case 95:
-            case 106:
-            case 107:
+            case 96:
+            case 97:
             case 108:
             case 109:
             case 110:
+            case 111:
+            case 112:
                 {
                 alt10=2;
                 }
@@ -3879,10 +3881,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt11=2;
             int LA11_0 = input.LA(1);
 
-            if ( (LA11_0==95||(LA11_0>=106 && LA11_0<=110)) ) {
+            if ( (LA11_0==97||(LA11_0>=108 && LA11_0<=112)) ) {
                 alt11=1;
             }
-            else if ( ((LA11_0>=20 && LA11_0<=94)) ) {
+            else if ( ((LA11_0>=22 && LA11_0<=96)) ) {
                 alt11=2;
             }
             else {
@@ -3973,10 +3975,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             if ( (LA12_0==RULE_ID) ) {
                 int LA12_1 = input.LA(2);
 
-                if ( (LA12_1==115||LA12_1==117) ) {
+                if ( (LA12_1==117||LA12_1==119) ) {
                     alt12=2;
                 }
-                else if ( ((LA12_1>=129 && LA12_1<=130)) ) {
+                else if ( ((LA12_1>=131 && LA12_1<=132)) ) {
                     alt12=1;
                 }
                 else {
@@ -4071,7 +4073,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt13=2;
             int LA13_0 = input.LA(1);
 
-            if ( ((LA13_0>=20 && LA13_0<=94)) ) {
+            if ( ((LA13_0>=22 && LA13_0<=96)) ) {
                 alt13=1;
             }
             else if ( (LA13_0==RULE_ID) ) {
@@ -4162,7 +4164,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt14=2;
             int LA14_0 = input.LA(1);
 
-            if ( ((LA14_0>=20 && LA14_0<=94)) ) {
+            if ( ((LA14_0>=22 && LA14_0<=96)) ) {
                 alt14=1;
             }
             else if ( (LA14_0==RULE_ID) ) {
@@ -4254,10 +4256,8 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             switch ( input.LA(1) ) {
             case RULE_STR:
             case RULE_NUM:
-            case 80:
-            case 81:
-            case 95:
-            case 96:
+            case 82:
+            case 83:
             case 97:
             case 98:
             case 99:
@@ -4267,6 +4267,8 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             case 103:
             case 104:
             case 105:
+            case 106:
+            case 107:
                 {
                 alt15=1;
                 }
@@ -4275,10 +4277,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 {
                 int LA15_2 = input.LA(2);
 
-                if ( (LA15_2==131) ) {
+                if ( (LA15_2==133) ) {
                     alt15=3;
                 }
-                else if ( (LA15_2==EOF||LA15_2==115||(LA15_2>=129 && LA15_2<=130)) ) {
+                else if ( (LA15_2==EOF||LA15_2==117||(LA15_2>=131 && LA15_2<=132)) ) {
                     alt15=2;
                 }
                 else {
@@ -4289,7 +4291,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 }
                 }
                 break;
-            case 113:
+            case 115:
                 {
                 alt15=4;
                 }
@@ -4520,10 +4522,8 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1164:1: ( ( ( rule__PropertyRvalueConstant__ValAssignment_0 ) ) | ( ( rule__PropertyRvalueConstant__NumAssignment_1 ) ) | ( ( rule__PropertyRvalueConstant__StrAssignment_2 ) ) )
             int alt17=3;
             switch ( input.LA(1) ) {
-            case 80:
-            case 81:
-            case 95:
-            case 96:
+            case 82:
+            case 83:
             case 97:
             case 98:
             case 99:
@@ -4533,6 +4533,8 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             case 103:
             case 104:
             case 105:
+            case 106:
+            case 107:
                 {
                 alt17=1;
                 }
@@ -4658,10 +4660,10 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt18=2;
             int LA18_0 = input.LA(1);
 
-            if ( (LA18_0==20) ) {
+            if ( (LA18_0==22) ) {
                 alt18=1;
             }
-            else if ( (LA18_0==21) ) {
+            else if ( (LA18_0==23) ) {
                 alt18=2;
             }
             else {
@@ -4748,42 +4750,42 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1212:1: ( ( ( 'string' ) ) | ( ( 'number' ) ) | ( ( 'boolean' ) ) | ( ( 'addrmap' ) ) | ( ( 'reg' ) ) | ( ( 'regfile' ) ) | ( ( 'field' ) ) | ( ( 'ref' ) ) )
             int alt19=8;
             switch ( input.LA(1) ) {
-            case 10:
+            case 12:
                 {
                 alt19=1;
                 }
                 break;
-            case 11:
+            case 13:
                 {
                 alt19=2;
                 }
                 break;
-            case 12:
+            case 14:
                 {
                 alt19=3;
                 }
                 break;
-            case 13:
+            case 15:
                 {
                 alt19=4;
                 }
                 break;
-            case 14:
+            case 16:
                 {
                 alt19=5;
                 }
                 break;
-            case 15:
+            case 17:
                 {
                 alt19=6;
                 }
                 break;
-            case 16:
+            case 18:
                 {
                 alt19=7;
                 }
                 break;
-            case 17:
+            case 19:
                 {
                 alt19=8;
                 }
@@ -4806,7 +4808,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1215:3: ( 'string' )
                     // InternalRDL.g:1215:4: 'string'
                     {
-                    match(input,10,FOLLOW_2); 
+                    match(input,12,FOLLOW_2); 
 
                     }
 
@@ -4827,7 +4829,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1221:3: ( 'number' )
                     // InternalRDL.g:1221:4: 'number'
                     {
-                    match(input,11,FOLLOW_2); 
+                    match(input,13,FOLLOW_2); 
 
                     }
 
@@ -4848,7 +4850,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1227:3: ( 'boolean' )
                     // InternalRDL.g:1227:4: 'boolean'
                     {
-                    match(input,12,FOLLOW_2); 
+                    match(input,14,FOLLOW_2); 
 
                     }
 
@@ -4869,7 +4871,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1233:3: ( 'addrmap' )
                     // InternalRDL.g:1233:4: 'addrmap'
                     {
-                    match(input,13,FOLLOW_2); 
+                    match(input,15,FOLLOW_2); 
 
                     }
 
@@ -4890,7 +4892,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1239:3: ( 'reg' )
                     // InternalRDL.g:1239:4: 'reg'
                     {
-                    match(input,14,FOLLOW_2); 
+                    match(input,16,FOLLOW_2); 
 
                     }
 
@@ -4911,7 +4913,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1245:3: ( 'regfile' )
                     // InternalRDL.g:1245:4: 'regfile'
                     {
-                    match(input,15,FOLLOW_2); 
+                    match(input,17,FOLLOW_2); 
 
                     }
 
@@ -4932,7 +4934,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1251:3: ( 'field' )
                     // InternalRDL.g:1251:4: 'field'
                     {
-                    match(input,16,FOLLOW_2); 
+                    match(input,18,FOLLOW_2); 
 
                     }
 
@@ -4953,7 +4955,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1257:3: ( 'ref' )
                     // InternalRDL.g:1257:4: 'ref'
                     {
-                    match(input,17,FOLLOW_2); 
+                    match(input,19,FOLLOW_2); 
 
                     }
 
@@ -4991,32 +4993,32 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1269:1: ( ( ( 'signal' ) ) | ( ( 'addrmap' ) ) | ( ( 'reg' ) ) | ( ( 'regfile' ) ) | ( ( 'field' ) ) | ( ( 'all' ) ) )
             int alt20=6;
             switch ( input.LA(1) ) {
-            case 18:
+            case 20:
                 {
                 alt20=1;
                 }
                 break;
-            case 13:
+            case 15:
                 {
                 alt20=2;
                 }
                 break;
-            case 14:
+            case 16:
                 {
                 alt20=3;
                 }
                 break;
-            case 15:
+            case 17:
                 {
                 alt20=4;
                 }
                 break;
-            case 16:
+            case 18:
                 {
                 alt20=5;
                 }
                 break;
-            case 19:
+            case 21:
                 {
                 alt20=6;
                 }
@@ -5039,7 +5041,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1272:3: ( 'signal' )
                     // InternalRDL.g:1272:4: 'signal'
                     {
-                    match(input,18,FOLLOW_2); 
+                    match(input,20,FOLLOW_2); 
 
                     }
 
@@ -5060,7 +5062,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1278:3: ( 'addrmap' )
                     // InternalRDL.g:1278:4: 'addrmap'
                     {
-                    match(input,13,FOLLOW_2); 
+                    match(input,15,FOLLOW_2); 
 
                     }
 
@@ -5081,7 +5083,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1284:3: ( 'reg' )
                     // InternalRDL.g:1284:4: 'reg'
                     {
-                    match(input,14,FOLLOW_2); 
+                    match(input,16,FOLLOW_2); 
 
                     }
 
@@ -5102,7 +5104,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1290:3: ( 'regfile' )
                     // InternalRDL.g:1290:4: 'regfile'
                     {
-                    match(input,15,FOLLOW_2); 
+                    match(input,17,FOLLOW_2); 
 
                     }
 
@@ -5123,7 +5125,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1296:3: ( 'field' )
                     // InternalRDL.g:1296:4: 'field'
                     {
-                    match(input,16,FOLLOW_2); 
+                    match(input,18,FOLLOW_2); 
 
                     }
 
@@ -5144,7 +5146,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1302:3: ( 'all' )
                     // InternalRDL.g:1302:4: 'all'
                     {
-                    match(input,19,FOLLOW_2); 
+                    match(input,21,FOLLOW_2); 
 
                     }
 
@@ -5182,27 +5184,27 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1314:1: ( ( ( 'signal' ) ) | ( ( 'addrmap' ) ) | ( ( 'regfile' ) ) | ( ( 'reg' ) ) | ( ( 'field' ) ) )
             int alt21=5;
             switch ( input.LA(1) ) {
-            case 18:
+            case 20:
                 {
                 alt21=1;
                 }
                 break;
-            case 13:
+            case 15:
                 {
                 alt21=2;
                 }
                 break;
-            case 15:
+            case 17:
                 {
                 alt21=3;
                 }
                 break;
-            case 14:
+            case 16:
                 {
                 alt21=4;
                 }
                 break;
-            case 16:
+            case 18:
                 {
                 alt21=5;
                 }
@@ -5225,7 +5227,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1317:3: ( 'signal' )
                     // InternalRDL.g:1317:4: 'signal'
                     {
-                    match(input,18,FOLLOW_2); 
+                    match(input,20,FOLLOW_2); 
 
                     }
 
@@ -5246,7 +5248,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1323:3: ( 'addrmap' )
                     // InternalRDL.g:1323:4: 'addrmap'
                     {
-                    match(input,13,FOLLOW_2); 
+                    match(input,15,FOLLOW_2); 
 
                     }
 
@@ -5267,7 +5269,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1329:3: ( 'regfile' )
                     // InternalRDL.g:1329:4: 'regfile'
                     {
-                    match(input,15,FOLLOW_2); 
+                    match(input,17,FOLLOW_2); 
 
                     }
 
@@ -5288,7 +5290,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1335:3: ( 'reg' )
                     // InternalRDL.g:1335:4: 'reg'
                     {
-                    match(input,14,FOLLOW_2); 
+                    match(input,16,FOLLOW_2); 
 
                     }
 
@@ -5309,7 +5311,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1341:3: ( 'field' )
                     // InternalRDL.g:1341:4: 'field'
                     {
-                    match(input,16,FOLLOW_2); 
+                    match(input,18,FOLLOW_2); 
 
                     }
 
@@ -5347,377 +5349,377 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1353:1: ( ( ( 'name' ) ) | ( ( 'desc' ) ) | ( ( 'arbiter' ) ) | ( ( 'rset' ) ) | ( ( 'rclr' ) ) | ( ( 'woclr' ) ) | ( ( 'woset' ) ) | ( ( 'we' ) ) | ( ( 'wel' ) ) | ( ( 'swwe' ) ) | ( ( 'swwel' ) ) | ( ( 'hwset' ) ) | ( ( 'hwclr' ) ) | ( ( 'swmod' ) ) | ( ( 'swacc' ) ) | ( ( 'sticky' ) ) | ( ( 'stickybit' ) ) | ( ( 'intr' ) ) | ( ( 'anded' ) ) | ( ( 'ored' ) ) | ( ( 'xored' ) ) | ( ( 'counter' ) ) | ( ( 'overflow' ) ) | ( ( 'sharedextbus' ) ) | ( ( 'errextbus' ) ) | ( ( 'reset' ) ) | ( ( 'littleendian' ) ) | ( ( 'bigendian' ) ) | ( ( 'rsvdset' ) ) | ( ( 'rsvdsetX' ) ) | ( ( 'bridge' ) ) | ( ( 'shared' ) ) | ( ( 'msb0' ) ) | ( ( 'lsb0' ) ) | ( ( 'sync' ) ) | ( ( 'async' ) ) | ( ( 'cpuif_reset' ) ) | ( ( 'field_reset' ) ) | ( ( 'activehigh' ) ) | ( ( 'activelow' ) ) | ( ( 'singlepulse' ) ) | ( ( 'underflow' ) ) | ( ( 'incr' ) ) | ( ( 'decr' ) ) | ( ( 'incrwidth' ) ) | ( ( 'decrwidth' ) ) | ( ( 'incrvalue' ) ) | ( ( 'decrvalue' ) ) | ( ( 'saturate' ) ) | ( ( 'decrsaturate' ) ) | ( ( 'threshold' ) ) | ( ( 'decrthreshold' ) ) | ( ( 'dontcompare' ) ) | ( ( 'donttest' ) ) | ( ( 'internal' ) ) | ( ( 'alignment' ) ) | ( ( 'regwidth' ) ) | ( ( 'fieldwidth' ) ) | ( ( 'signalwidth' ) ) | ( ( 'accesswidth' ) ) | ( ( 'sw' ) ) | ( ( 'hw' ) ) | ( ( 'addressing' ) ) | ( ( 'precedence' ) ) | ( ( 'encode' ) ) | ( ( 'resetsignal' ) ) | ( ( 'clock' ) ) | ( ( 'mask' ) ) | ( ( 'enable' ) ) | ( ( 'hwenable' ) ) | ( ( 'hwmask' ) ) | ( ( 'haltmask' ) ) | ( ( 'haltenable' ) ) | ( ( 'halt' ) ) | ( ( 'next' ) ) )
             int alt22=75;
             switch ( input.LA(1) ) {
-            case 20:
+            case 22:
                 {
                 alt22=1;
                 }
                 break;
-            case 21:
+            case 23:
                 {
                 alt22=2;
                 }
                 break;
-            case 22:
+            case 24:
                 {
                 alt22=3;
                 }
                 break;
-            case 23:
+            case 25:
                 {
                 alt22=4;
                 }
                 break;
-            case 24:
+            case 26:
                 {
                 alt22=5;
                 }
                 break;
-            case 25:
+            case 27:
                 {
                 alt22=6;
                 }
                 break;
-            case 26:
+            case 28:
                 {
                 alt22=7;
                 }
                 break;
-            case 27:
+            case 29:
                 {
                 alt22=8;
                 }
                 break;
-            case 28:
+            case 30:
                 {
                 alt22=9;
                 }
                 break;
-            case 29:
+            case 31:
                 {
                 alt22=10;
                 }
                 break;
-            case 30:
+            case 32:
                 {
                 alt22=11;
                 }
                 break;
-            case 31:
+            case 33:
                 {
                 alt22=12;
                 }
                 break;
-            case 32:
+            case 34:
                 {
                 alt22=13;
                 }
                 break;
-            case 33:
+            case 35:
                 {
                 alt22=14;
                 }
                 break;
-            case 34:
+            case 36:
                 {
                 alt22=15;
                 }
                 break;
-            case 35:
+            case 37:
                 {
                 alt22=16;
                 }
                 break;
-            case 36:
+            case 38:
                 {
                 alt22=17;
                 }
                 break;
-            case 37:
+            case 39:
                 {
                 alt22=18;
                 }
                 break;
-            case 38:
+            case 40:
                 {
                 alt22=19;
                 }
                 break;
-            case 39:
+            case 41:
                 {
                 alt22=20;
                 }
                 break;
-            case 40:
+            case 42:
                 {
                 alt22=21;
                 }
                 break;
-            case 41:
+            case 43:
                 {
                 alt22=22;
                 }
                 break;
-            case 42:
+            case 44:
                 {
                 alt22=23;
                 }
                 break;
-            case 43:
+            case 45:
                 {
                 alt22=24;
                 }
                 break;
-            case 44:
+            case 46:
                 {
                 alt22=25;
                 }
                 break;
-            case 45:
+            case 47:
                 {
                 alt22=26;
                 }
                 break;
-            case 46:
+            case 48:
                 {
                 alt22=27;
                 }
                 break;
-            case 47:
+            case 49:
                 {
                 alt22=28;
                 }
                 break;
-            case 48:
+            case 50:
                 {
                 alt22=29;
                 }
                 break;
-            case 49:
+            case 51:
                 {
                 alt22=30;
                 }
                 break;
-            case 50:
+            case 52:
                 {
                 alt22=31;
                 }
                 break;
-            case 51:
+            case 53:
                 {
                 alt22=32;
                 }
                 break;
-            case 52:
+            case 54:
                 {
                 alt22=33;
                 }
                 break;
-            case 53:
+            case 55:
                 {
                 alt22=34;
                 }
                 break;
-            case 54:
+            case 56:
                 {
                 alt22=35;
                 }
                 break;
-            case 55:
+            case 57:
                 {
                 alt22=36;
                 }
                 break;
-            case 56:
+            case 58:
                 {
                 alt22=37;
                 }
                 break;
-            case 57:
+            case 59:
                 {
                 alt22=38;
                 }
                 break;
-            case 58:
+            case 60:
                 {
                 alt22=39;
                 }
                 break;
-            case 59:
+            case 61:
                 {
                 alt22=40;
                 }
                 break;
-            case 60:
+            case 62:
                 {
                 alt22=41;
                 }
                 break;
-            case 61:
+            case 63:
                 {
                 alt22=42;
                 }
                 break;
-            case 62:
+            case 64:
                 {
                 alt22=43;
                 }
                 break;
-            case 63:
+            case 65:
                 {
                 alt22=44;
                 }
                 break;
-            case 64:
+            case 66:
                 {
                 alt22=45;
                 }
                 break;
-            case 65:
+            case 67:
                 {
                 alt22=46;
                 }
                 break;
-            case 66:
+            case 68:
                 {
                 alt22=47;
                 }
                 break;
-            case 67:
+            case 69:
                 {
                 alt22=48;
                 }
                 break;
-            case 68:
+            case 70:
                 {
                 alt22=49;
                 }
                 break;
-            case 69:
+            case 71:
                 {
                 alt22=50;
                 }
                 break;
-            case 70:
+            case 72:
                 {
                 alt22=51;
                 }
                 break;
-            case 71:
+            case 73:
                 {
                 alt22=52;
                 }
                 break;
-            case 72:
+            case 74:
                 {
                 alt22=53;
                 }
                 break;
-            case 73:
+            case 75:
                 {
                 alt22=54;
                 }
                 break;
-            case 74:
+            case 76:
                 {
                 alt22=55;
                 }
                 break;
-            case 75:
+            case 77:
                 {
                 alt22=56;
                 }
                 break;
-            case 76:
+            case 78:
                 {
                 alt22=57;
                 }
                 break;
-            case 77:
+            case 79:
                 {
                 alt22=58;
                 }
                 break;
-            case 78:
+            case 80:
                 {
                 alt22=59;
                 }
                 break;
-            case 79:
+            case 81:
                 {
                 alt22=60;
                 }
                 break;
-            case 80:
+            case 82:
                 {
                 alt22=61;
                 }
                 break;
-            case 81:
+            case 83:
                 {
                 alt22=62;
                 }
                 break;
-            case 82:
+            case 84:
                 {
                 alt22=63;
                 }
                 break;
-            case 83:
+            case 85:
                 {
                 alt22=64;
                 }
                 break;
-            case 84:
+            case 86:
                 {
                 alt22=65;
                 }
                 break;
-            case 85:
+            case 87:
                 {
                 alt22=66;
                 }
                 break;
-            case 86:
+            case 88:
                 {
                 alt22=67;
                 }
                 break;
-            case 87:
+            case 89:
                 {
                 alt22=68;
                 }
                 break;
-            case 88:
+            case 90:
                 {
                 alt22=69;
                 }
                 break;
-            case 89:
+            case 91:
                 {
                 alt22=70;
                 }
                 break;
-            case 90:
+            case 92:
                 {
                 alt22=71;
                 }
                 break;
-            case 91:
+            case 93:
                 {
                 alt22=72;
                 }
                 break;
-            case 92:
+            case 94:
                 {
                 alt22=73;
                 }
                 break;
-            case 93:
+            case 95:
                 {
                 alt22=74;
                 }
                 break;
-            case 94:
+            case 96:
                 {
                 alt22=75;
                 }
@@ -5740,7 +5742,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1356:3: ( 'name' )
                     // InternalRDL.g:1356:4: 'name'
                     {
-                    match(input,20,FOLLOW_2); 
+                    match(input,22,FOLLOW_2); 
 
                     }
 
@@ -5761,7 +5763,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1362:3: ( 'desc' )
                     // InternalRDL.g:1362:4: 'desc'
                     {
-                    match(input,21,FOLLOW_2); 
+                    match(input,23,FOLLOW_2); 
 
                     }
 
@@ -5782,7 +5784,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1368:3: ( 'arbiter' )
                     // InternalRDL.g:1368:4: 'arbiter'
                     {
-                    match(input,22,FOLLOW_2); 
+                    match(input,24,FOLLOW_2); 
 
                     }
 
@@ -5803,7 +5805,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1374:3: ( 'rset' )
                     // InternalRDL.g:1374:4: 'rset'
                     {
-                    match(input,23,FOLLOW_2); 
+                    match(input,25,FOLLOW_2); 
 
                     }
 
@@ -5824,7 +5826,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1380:3: ( 'rclr' )
                     // InternalRDL.g:1380:4: 'rclr'
                     {
-                    match(input,24,FOLLOW_2); 
+                    match(input,26,FOLLOW_2); 
 
                     }
 
@@ -5845,7 +5847,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1386:3: ( 'woclr' )
                     // InternalRDL.g:1386:4: 'woclr'
                     {
-                    match(input,25,FOLLOW_2); 
+                    match(input,27,FOLLOW_2); 
 
                     }
 
@@ -5866,7 +5868,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1392:3: ( 'woset' )
                     // InternalRDL.g:1392:4: 'woset'
                     {
-                    match(input,26,FOLLOW_2); 
+                    match(input,28,FOLLOW_2); 
 
                     }
 
@@ -5887,7 +5889,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1398:3: ( 'we' )
                     // InternalRDL.g:1398:4: 'we'
                     {
-                    match(input,27,FOLLOW_2); 
+                    match(input,29,FOLLOW_2); 
 
                     }
 
@@ -5908,7 +5910,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1404:3: ( 'wel' )
                     // InternalRDL.g:1404:4: 'wel'
                     {
-                    match(input,28,FOLLOW_2); 
+                    match(input,30,FOLLOW_2); 
 
                     }
 
@@ -5929,7 +5931,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1410:3: ( 'swwe' )
                     // InternalRDL.g:1410:4: 'swwe'
                     {
-                    match(input,29,FOLLOW_2); 
+                    match(input,31,FOLLOW_2); 
 
                     }
 
@@ -5950,7 +5952,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1416:3: ( 'swwel' )
                     // InternalRDL.g:1416:4: 'swwel'
                     {
-                    match(input,30,FOLLOW_2); 
+                    match(input,32,FOLLOW_2); 
 
                     }
 
@@ -5971,7 +5973,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1422:3: ( 'hwset' )
                     // InternalRDL.g:1422:4: 'hwset'
                     {
-                    match(input,31,FOLLOW_2); 
+                    match(input,33,FOLLOW_2); 
 
                     }
 
@@ -5992,7 +5994,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1428:3: ( 'hwclr' )
                     // InternalRDL.g:1428:4: 'hwclr'
                     {
-                    match(input,32,FOLLOW_2); 
+                    match(input,34,FOLLOW_2); 
 
                     }
 
@@ -6013,7 +6015,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1434:3: ( 'swmod' )
                     // InternalRDL.g:1434:4: 'swmod'
                     {
-                    match(input,33,FOLLOW_2); 
+                    match(input,35,FOLLOW_2); 
 
                     }
 
@@ -6034,7 +6036,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1440:3: ( 'swacc' )
                     // InternalRDL.g:1440:4: 'swacc'
                     {
-                    match(input,34,FOLLOW_2); 
+                    match(input,36,FOLLOW_2); 
 
                     }
 
@@ -6055,7 +6057,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1446:3: ( 'sticky' )
                     // InternalRDL.g:1446:4: 'sticky'
                     {
-                    match(input,35,FOLLOW_2); 
+                    match(input,37,FOLLOW_2); 
 
                     }
 
@@ -6076,7 +6078,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1452:3: ( 'stickybit' )
                     // InternalRDL.g:1452:4: 'stickybit'
                     {
-                    match(input,36,FOLLOW_2); 
+                    match(input,38,FOLLOW_2); 
 
                     }
 
@@ -6097,7 +6099,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1458:3: ( 'intr' )
                     // InternalRDL.g:1458:4: 'intr'
                     {
-                    match(input,37,FOLLOW_2); 
+                    match(input,39,FOLLOW_2); 
 
                     }
 
@@ -6118,7 +6120,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1464:3: ( 'anded' )
                     // InternalRDL.g:1464:4: 'anded'
                     {
-                    match(input,38,FOLLOW_2); 
+                    match(input,40,FOLLOW_2); 
 
                     }
 
@@ -6139,7 +6141,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1470:3: ( 'ored' )
                     // InternalRDL.g:1470:4: 'ored'
                     {
-                    match(input,39,FOLLOW_2); 
+                    match(input,41,FOLLOW_2); 
 
                     }
 
@@ -6160,7 +6162,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1476:3: ( 'xored' )
                     // InternalRDL.g:1476:4: 'xored'
                     {
-                    match(input,40,FOLLOW_2); 
+                    match(input,42,FOLLOW_2); 
 
                     }
 
@@ -6181,7 +6183,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1482:3: ( 'counter' )
                     // InternalRDL.g:1482:4: 'counter'
                     {
-                    match(input,41,FOLLOW_2); 
+                    match(input,43,FOLLOW_2); 
 
                     }
 
@@ -6202,7 +6204,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1488:3: ( 'overflow' )
                     // InternalRDL.g:1488:4: 'overflow'
                     {
-                    match(input,42,FOLLOW_2); 
+                    match(input,44,FOLLOW_2); 
 
                     }
 
@@ -6223,7 +6225,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1494:3: ( 'sharedextbus' )
                     // InternalRDL.g:1494:4: 'sharedextbus'
                     {
-                    match(input,43,FOLLOW_2); 
+                    match(input,45,FOLLOW_2); 
 
                     }
 
@@ -6244,7 +6246,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1500:3: ( 'errextbus' )
                     // InternalRDL.g:1500:4: 'errextbus'
                     {
-                    match(input,44,FOLLOW_2); 
+                    match(input,46,FOLLOW_2); 
 
                     }
 
@@ -6265,7 +6267,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1506:3: ( 'reset' )
                     // InternalRDL.g:1506:4: 'reset'
                     {
-                    match(input,45,FOLLOW_2); 
+                    match(input,47,FOLLOW_2); 
 
                     }
 
@@ -6286,7 +6288,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1512:3: ( 'littleendian' )
                     // InternalRDL.g:1512:4: 'littleendian'
                     {
-                    match(input,46,FOLLOW_2); 
+                    match(input,48,FOLLOW_2); 
 
                     }
 
@@ -6307,7 +6309,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1518:3: ( 'bigendian' )
                     // InternalRDL.g:1518:4: 'bigendian'
                     {
-                    match(input,47,FOLLOW_2); 
+                    match(input,49,FOLLOW_2); 
 
                     }
 
@@ -6328,7 +6330,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1524:3: ( 'rsvdset' )
                     // InternalRDL.g:1524:4: 'rsvdset'
                     {
-                    match(input,48,FOLLOW_2); 
+                    match(input,50,FOLLOW_2); 
 
                     }
 
@@ -6349,7 +6351,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1530:3: ( 'rsvdsetX' )
                     // InternalRDL.g:1530:4: 'rsvdsetX'
                     {
-                    match(input,49,FOLLOW_2); 
+                    match(input,51,FOLLOW_2); 
 
                     }
 
@@ -6370,7 +6372,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1536:3: ( 'bridge' )
                     // InternalRDL.g:1536:4: 'bridge'
                     {
-                    match(input,50,FOLLOW_2); 
+                    match(input,52,FOLLOW_2); 
 
                     }
 
@@ -6391,7 +6393,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1542:3: ( 'shared' )
                     // InternalRDL.g:1542:4: 'shared'
                     {
-                    match(input,51,FOLLOW_2); 
+                    match(input,53,FOLLOW_2); 
 
                     }
 
@@ -6412,7 +6414,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1548:3: ( 'msb0' )
                     // InternalRDL.g:1548:4: 'msb0'
                     {
-                    match(input,52,FOLLOW_2); 
+                    match(input,54,FOLLOW_2); 
 
                     }
 
@@ -6433,7 +6435,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1554:3: ( 'lsb0' )
                     // InternalRDL.g:1554:4: 'lsb0'
                     {
-                    match(input,53,FOLLOW_2); 
+                    match(input,55,FOLLOW_2); 
 
                     }
 
@@ -6454,7 +6456,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1560:3: ( 'sync' )
                     // InternalRDL.g:1560:4: 'sync'
                     {
-                    match(input,54,FOLLOW_2); 
+                    match(input,56,FOLLOW_2); 
 
                     }
 
@@ -6475,7 +6477,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1566:3: ( 'async' )
                     // InternalRDL.g:1566:4: 'async'
                     {
-                    match(input,55,FOLLOW_2); 
+                    match(input,57,FOLLOW_2); 
 
                     }
 
@@ -6496,7 +6498,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1572:3: ( 'cpuif_reset' )
                     // InternalRDL.g:1572:4: 'cpuif_reset'
                     {
-                    match(input,56,FOLLOW_2); 
+                    match(input,58,FOLLOW_2); 
 
                     }
 
@@ -6517,7 +6519,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1578:3: ( 'field_reset' )
                     // InternalRDL.g:1578:4: 'field_reset'
                     {
-                    match(input,57,FOLLOW_2); 
+                    match(input,59,FOLLOW_2); 
 
                     }
 
@@ -6538,7 +6540,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1584:3: ( 'activehigh' )
                     // InternalRDL.g:1584:4: 'activehigh'
                     {
-                    match(input,58,FOLLOW_2); 
+                    match(input,60,FOLLOW_2); 
 
                     }
 
@@ -6559,7 +6561,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1590:3: ( 'activelow' )
                     // InternalRDL.g:1590:4: 'activelow'
                     {
-                    match(input,59,FOLLOW_2); 
+                    match(input,61,FOLLOW_2); 
 
                     }
 
@@ -6580,7 +6582,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1596:3: ( 'singlepulse' )
                     // InternalRDL.g:1596:4: 'singlepulse'
                     {
-                    match(input,60,FOLLOW_2); 
+                    match(input,62,FOLLOW_2); 
 
                     }
 
@@ -6601,7 +6603,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1602:3: ( 'underflow' )
                     // InternalRDL.g:1602:4: 'underflow'
                     {
-                    match(input,61,FOLLOW_2); 
+                    match(input,63,FOLLOW_2); 
 
                     }
 
@@ -6622,7 +6624,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1608:3: ( 'incr' )
                     // InternalRDL.g:1608:4: 'incr'
                     {
-                    match(input,62,FOLLOW_2); 
+                    match(input,64,FOLLOW_2); 
 
                     }
 
@@ -6643,7 +6645,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1614:3: ( 'decr' )
                     // InternalRDL.g:1614:4: 'decr'
                     {
-                    match(input,63,FOLLOW_2); 
+                    match(input,65,FOLLOW_2); 
 
                     }
 
@@ -6664,7 +6666,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1620:3: ( 'incrwidth' )
                     // InternalRDL.g:1620:4: 'incrwidth'
                     {
-                    match(input,64,FOLLOW_2); 
+                    match(input,66,FOLLOW_2); 
 
                     }
 
@@ -6685,7 +6687,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1626:3: ( 'decrwidth' )
                     // InternalRDL.g:1626:4: 'decrwidth'
                     {
-                    match(input,65,FOLLOW_2); 
+                    match(input,67,FOLLOW_2); 
 
                     }
 
@@ -6706,7 +6708,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1632:3: ( 'incrvalue' )
                     // InternalRDL.g:1632:4: 'incrvalue'
                     {
-                    match(input,66,FOLLOW_2); 
+                    match(input,68,FOLLOW_2); 
 
                     }
 
@@ -6727,7 +6729,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1638:3: ( 'decrvalue' )
                     // InternalRDL.g:1638:4: 'decrvalue'
                     {
-                    match(input,67,FOLLOW_2); 
+                    match(input,69,FOLLOW_2); 
 
                     }
 
@@ -6748,7 +6750,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1644:3: ( 'saturate' )
                     // InternalRDL.g:1644:4: 'saturate'
                     {
-                    match(input,68,FOLLOW_2); 
+                    match(input,70,FOLLOW_2); 
 
                     }
 
@@ -6769,7 +6771,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1650:3: ( 'decrsaturate' )
                     // InternalRDL.g:1650:4: 'decrsaturate'
                     {
-                    match(input,69,FOLLOW_2); 
+                    match(input,71,FOLLOW_2); 
 
                     }
 
@@ -6790,7 +6792,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1656:3: ( 'threshold' )
                     // InternalRDL.g:1656:4: 'threshold'
                     {
-                    match(input,70,FOLLOW_2); 
+                    match(input,72,FOLLOW_2); 
 
                     }
 
@@ -6811,7 +6813,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1662:3: ( 'decrthreshold' )
                     // InternalRDL.g:1662:4: 'decrthreshold'
                     {
-                    match(input,71,FOLLOW_2); 
+                    match(input,73,FOLLOW_2); 
 
                     }
 
@@ -6832,7 +6834,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1668:3: ( 'dontcompare' )
                     // InternalRDL.g:1668:4: 'dontcompare'
                     {
-                    match(input,72,FOLLOW_2); 
+                    match(input,74,FOLLOW_2); 
 
                     }
 
@@ -6853,7 +6855,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1674:3: ( 'donttest' )
                     // InternalRDL.g:1674:4: 'donttest'
                     {
-                    match(input,73,FOLLOW_2); 
+                    match(input,75,FOLLOW_2); 
 
                     }
 
@@ -6874,7 +6876,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1680:3: ( 'internal' )
                     // InternalRDL.g:1680:4: 'internal'
                     {
-                    match(input,74,FOLLOW_2); 
+                    match(input,76,FOLLOW_2); 
 
                     }
 
@@ -6895,7 +6897,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1686:3: ( 'alignment' )
                     // InternalRDL.g:1686:4: 'alignment'
                     {
-                    match(input,75,FOLLOW_2); 
+                    match(input,77,FOLLOW_2); 
 
                     }
 
@@ -6916,7 +6918,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1692:3: ( 'regwidth' )
                     // InternalRDL.g:1692:4: 'regwidth'
                     {
-                    match(input,76,FOLLOW_2); 
+                    match(input,78,FOLLOW_2); 
 
                     }
 
@@ -6937,7 +6939,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1698:3: ( 'fieldwidth' )
                     // InternalRDL.g:1698:4: 'fieldwidth'
                     {
-                    match(input,77,FOLLOW_2); 
+                    match(input,79,FOLLOW_2); 
 
                     }
 
@@ -6958,7 +6960,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1704:3: ( 'signalwidth' )
                     // InternalRDL.g:1704:4: 'signalwidth'
                     {
-                    match(input,78,FOLLOW_2); 
+                    match(input,80,FOLLOW_2); 
 
                     }
 
@@ -6979,7 +6981,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1710:3: ( 'accesswidth' )
                     // InternalRDL.g:1710:4: 'accesswidth'
                     {
-                    match(input,79,FOLLOW_2); 
+                    match(input,81,FOLLOW_2); 
 
                     }
 
@@ -7000,7 +7002,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1716:3: ( 'sw' )
                     // InternalRDL.g:1716:4: 'sw'
                     {
-                    match(input,80,FOLLOW_2); 
+                    match(input,82,FOLLOW_2); 
 
                     }
 
@@ -7021,7 +7023,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1722:3: ( 'hw' )
                     // InternalRDL.g:1722:4: 'hw'
                     {
-                    match(input,81,FOLLOW_2); 
+                    match(input,83,FOLLOW_2); 
 
                     }
 
@@ -7042,7 +7044,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1728:3: ( 'addressing' )
                     // InternalRDL.g:1728:4: 'addressing'
                     {
-                    match(input,82,FOLLOW_2); 
+                    match(input,84,FOLLOW_2); 
 
                     }
 
@@ -7063,7 +7065,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1734:3: ( 'precedence' )
                     // InternalRDL.g:1734:4: 'precedence'
                     {
-                    match(input,83,FOLLOW_2); 
+                    match(input,85,FOLLOW_2); 
 
                     }
 
@@ -7084,7 +7086,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1740:3: ( 'encode' )
                     // InternalRDL.g:1740:4: 'encode'
                     {
-                    match(input,84,FOLLOW_2); 
+                    match(input,86,FOLLOW_2); 
 
                     }
 
@@ -7105,7 +7107,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1746:3: ( 'resetsignal' )
                     // InternalRDL.g:1746:4: 'resetsignal'
                     {
-                    match(input,85,FOLLOW_2); 
+                    match(input,87,FOLLOW_2); 
 
                     }
 
@@ -7126,7 +7128,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1752:3: ( 'clock' )
                     // InternalRDL.g:1752:4: 'clock'
                     {
-                    match(input,86,FOLLOW_2); 
+                    match(input,88,FOLLOW_2); 
 
                     }
 
@@ -7147,7 +7149,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1758:3: ( 'mask' )
                     // InternalRDL.g:1758:4: 'mask'
                     {
-                    match(input,87,FOLLOW_2); 
+                    match(input,89,FOLLOW_2); 
 
                     }
 
@@ -7168,7 +7170,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1764:3: ( 'enable' )
                     // InternalRDL.g:1764:4: 'enable'
                     {
-                    match(input,88,FOLLOW_2); 
+                    match(input,90,FOLLOW_2); 
 
                     }
 
@@ -7189,7 +7191,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1770:3: ( 'hwenable' )
                     // InternalRDL.g:1770:4: 'hwenable'
                     {
-                    match(input,89,FOLLOW_2); 
+                    match(input,91,FOLLOW_2); 
 
                     }
 
@@ -7210,7 +7212,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1776:3: ( 'hwmask' )
                     // InternalRDL.g:1776:4: 'hwmask'
                     {
-                    match(input,90,FOLLOW_2); 
+                    match(input,92,FOLLOW_2); 
 
                     }
 
@@ -7231,7 +7233,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1782:3: ( 'haltmask' )
                     // InternalRDL.g:1782:4: 'haltmask'
                     {
-                    match(input,91,FOLLOW_2); 
+                    match(input,93,FOLLOW_2); 
 
                     }
 
@@ -7252,7 +7254,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1788:3: ( 'haltenable' )
                     // InternalRDL.g:1788:4: 'haltenable'
                     {
-                    match(input,92,FOLLOW_2); 
+                    match(input,94,FOLLOW_2); 
 
                     }
 
@@ -7273,7 +7275,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1794:3: ( 'halt' )
                     // InternalRDL.g:1794:4: 'halt'
                     {
-                    match(input,93,FOLLOW_2); 
+                    match(input,95,FOLLOW_2); 
 
                     }
 
@@ -7294,7 +7296,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1800:3: ( 'next' )
                     // InternalRDL.g:1800:4: 'next'
                     {
-                    match(input,94,FOLLOW_2); 
+                    match(input,96,FOLLOW_2); 
 
                     }
 
@@ -7332,67 +7334,67 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1812:1: ( ( ( 'UNDEFINED' ) ) | ( ( 'true' ) ) | ( ( 'false' ) ) | ( ( 'rw' ) ) | ( ( 'wr' ) ) | ( ( 'r' ) ) | ( ( 'w' ) ) | ( ( 'na' ) ) | ( ( 'compact' ) ) | ( ( 'regalign' ) ) | ( ( 'fullalign' ) ) | ( ( 'hw' ) ) | ( ( 'sw' ) ) )
             int alt23=13;
             switch ( input.LA(1) ) {
-            case 95:
+            case 97:
                 {
                 alt23=1;
                 }
                 break;
-            case 96:
+            case 98:
                 {
                 alt23=2;
                 }
                 break;
-            case 97:
+            case 99:
                 {
                 alt23=3;
                 }
                 break;
-            case 98:
+            case 100:
                 {
                 alt23=4;
                 }
                 break;
-            case 99:
+            case 101:
                 {
                 alt23=5;
                 }
                 break;
-            case 100:
+            case 102:
                 {
                 alt23=6;
                 }
                 break;
-            case 101:
+            case 103:
                 {
                 alt23=7;
                 }
                 break;
-            case 102:
+            case 104:
                 {
                 alt23=8;
                 }
                 break;
-            case 103:
+            case 105:
                 {
                 alt23=9;
                 }
                 break;
-            case 104:
+            case 106:
                 {
                 alt23=10;
                 }
                 break;
-            case 105:
+            case 107:
                 {
                 alt23=11;
                 }
                 break;
-            case 81:
+            case 83:
                 {
                 alt23=12;
                 }
                 break;
-            case 80:
+            case 82:
                 {
                 alt23=13;
                 }
@@ -7415,7 +7417,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1815:3: ( 'UNDEFINED' )
                     // InternalRDL.g:1815:4: 'UNDEFINED'
                     {
-                    match(input,95,FOLLOW_2); 
+                    match(input,97,FOLLOW_2); 
 
                     }
 
@@ -7436,7 +7438,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1821:3: ( 'true' )
                     // InternalRDL.g:1821:4: 'true'
                     {
-                    match(input,96,FOLLOW_2); 
+                    match(input,98,FOLLOW_2); 
 
                     }
 
@@ -7457,7 +7459,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1827:3: ( 'false' )
                     // InternalRDL.g:1827:4: 'false'
                     {
-                    match(input,97,FOLLOW_2); 
+                    match(input,99,FOLLOW_2); 
 
                     }
 
@@ -7478,7 +7480,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1833:3: ( 'rw' )
                     // InternalRDL.g:1833:4: 'rw'
                     {
-                    match(input,98,FOLLOW_2); 
+                    match(input,100,FOLLOW_2); 
 
                     }
 
@@ -7499,7 +7501,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1839:3: ( 'wr' )
                     // InternalRDL.g:1839:4: 'wr'
                     {
-                    match(input,99,FOLLOW_2); 
+                    match(input,101,FOLLOW_2); 
 
                     }
 
@@ -7520,7 +7522,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1845:3: ( 'r' )
                     // InternalRDL.g:1845:4: 'r'
                     {
-                    match(input,100,FOLLOW_2); 
+                    match(input,102,FOLLOW_2); 
 
                     }
 
@@ -7541,7 +7543,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1851:3: ( 'w' )
                     // InternalRDL.g:1851:4: 'w'
                     {
-                    match(input,101,FOLLOW_2); 
+                    match(input,103,FOLLOW_2); 
 
                     }
 
@@ -7562,7 +7564,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1857:3: ( 'na' )
                     // InternalRDL.g:1857:4: 'na'
                     {
-                    match(input,102,FOLLOW_2); 
+                    match(input,104,FOLLOW_2); 
 
                     }
 
@@ -7583,7 +7585,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1863:3: ( 'compact' )
                     // InternalRDL.g:1863:4: 'compact'
                     {
-                    match(input,103,FOLLOW_2); 
+                    match(input,105,FOLLOW_2); 
 
                     }
 
@@ -7604,7 +7606,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1869:3: ( 'regalign' )
                     // InternalRDL.g:1869:4: 'regalign'
                     {
-                    match(input,104,FOLLOW_2); 
+                    match(input,106,FOLLOW_2); 
 
                     }
 
@@ -7625,7 +7627,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1875:3: ( 'fullalign' )
                     // InternalRDL.g:1875:4: 'fullalign'
                     {
-                    match(input,105,FOLLOW_2); 
+                    match(input,107,FOLLOW_2); 
 
                     }
 
@@ -7646,7 +7648,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1881:3: ( 'hw' )
                     // InternalRDL.g:1881:4: 'hw'
                     {
-                    match(input,81,FOLLOW_2); 
+                    match(input,83,FOLLOW_2); 
 
                     }
 
@@ -7667,7 +7669,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1887:3: ( 'sw' )
                     // InternalRDL.g:1887:4: 'sw'
                     {
-                    match(input,80,FOLLOW_2); 
+                    match(input,82,FOLLOW_2); 
 
                     }
 
@@ -7705,32 +7707,32 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1899:1: ( ( ( 'UNDEFINED' ) ) | ( ( 'posedge' ) ) | ( ( 'negedge' ) ) | ( ( 'bothedge' ) ) | ( ( 'level' ) ) | ( ( 'nonsticky' ) ) )
             int alt24=6;
             switch ( input.LA(1) ) {
-            case 95:
+            case 97:
                 {
                 alt24=1;
                 }
                 break;
-            case 106:
+            case 108:
                 {
                 alt24=2;
                 }
                 break;
-            case 107:
+            case 109:
                 {
                 alt24=3;
                 }
                 break;
-            case 108:
+            case 110:
                 {
                 alt24=4;
                 }
                 break;
-            case 109:
+            case 111:
                 {
                 alt24=5;
                 }
                 break;
-            case 110:
+            case 112:
                 {
                 alt24=6;
                 }
@@ -7753,7 +7755,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1902:3: ( 'UNDEFINED' )
                     // InternalRDL.g:1902:4: 'UNDEFINED'
                     {
-                    match(input,95,FOLLOW_2); 
+                    match(input,97,FOLLOW_2); 
 
                     }
 
@@ -7774,7 +7776,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1908:3: ( 'posedge' )
                     // InternalRDL.g:1908:4: 'posedge'
                     {
-                    match(input,106,FOLLOW_2); 
+                    match(input,108,FOLLOW_2); 
 
                     }
 
@@ -7795,7 +7797,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1914:3: ( 'negedge' )
                     // InternalRDL.g:1914:4: 'negedge'
                     {
-                    match(input,107,FOLLOW_2); 
+                    match(input,109,FOLLOW_2); 
 
                     }
 
@@ -7816,7 +7818,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1920:3: ( 'bothedge' )
                     // InternalRDL.g:1920:4: 'bothedge'
                     {
-                    match(input,108,FOLLOW_2); 
+                    match(input,110,FOLLOW_2); 
 
                     }
 
@@ -7837,7 +7839,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1926:3: ( 'level' )
                     // InternalRDL.g:1926:4: 'level'
                     {
-                    match(input,109,FOLLOW_2); 
+                    match(input,111,FOLLOW_2); 
 
                     }
 
@@ -7858,7 +7860,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                     // InternalRDL.g:1932:3: ( 'nonsticky' )
                     // InternalRDL.g:1932:4: 'nonsticky'
                     {
-                    match(input,110,FOLLOW_2); 
+                    match(input,112,FOLLOW_2); 
 
                     }
 
@@ -7938,7 +7940,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:1958:2: '`include'
             {
              before(grammarAccess.getIncludeAccess().getIncludeKeyword_0()); 
-            match(input,111,FOLLOW_2); 
+            match(input,113,FOLLOW_2); 
              after(grammarAccess.getIncludeAccess().getIncludeKeyword_0()); 
 
             }
@@ -8093,7 +8095,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2012:2: 'property'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getPropertyKeyword_0()); 
-            match(input,112,FOLLOW_2); 
+            match(input,114,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getPropertyKeyword_0()); 
 
             }
@@ -8253,7 +8255,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2066:2: '{'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getLeftCurlyBracketKeyword_2()); 
-            match(input,113,FOLLOW_2); 
+            match(input,115,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getLeftCurlyBracketKeyword_2()); 
 
             }
@@ -8413,7 +8415,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2120:2: '}'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getRightCurlyBracketKeyword_4()); 
-            match(input,114,FOLLOW_2); 
+            match(input,116,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getRightCurlyBracketKeyword_4()); 
 
             }
@@ -8483,7 +8485,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2146:2: ';'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_5()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_5()); 
 
             }
@@ -8558,7 +8560,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2174:2: 'type'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_0_0()); 
-            match(input,116,FOLLOW_2); 
+            match(input,118,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_0_0()); 
 
             }
@@ -8633,7 +8635,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2201:2: '='
             {
              before(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_0_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_0_1()); 
 
             }
@@ -8793,7 +8795,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2255:2: ';'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_0_3()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_0_3()); 
 
             }
@@ -9032,7 +9034,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt25=2;
             int LA25_0 = input.LA(1);
 
-            if ( (LA25_0==118) ) {
+            if ( (LA25_0==120) ) {
                 alt25=1;
             }
             switch (alt25) {
@@ -9454,7 +9456,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2471:2: 'type'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_1_1_0_0()); 
-            match(input,116,FOLLOW_2); 
+            match(input,118,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_1_1_0_0()); 
 
             }
@@ -9529,7 +9531,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2498:2: '='
             {
              before(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_1_1_0_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_1_1_0_1()); 
 
             }
@@ -9689,7 +9691,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2552:2: ';'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_1_1_0_3()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_1_1_0_3()); 
 
             }
@@ -9763,7 +9765,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt26=2;
             int LA26_0 = input.LA(1);
 
-            if ( (LA26_0==118) ) {
+            if ( (LA26_0==120) ) {
                 alt26=1;
             }
             switch (alt26) {
@@ -9940,7 +9942,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2633:2: 'type'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_1_1_1_1()); 
-            match(input,116,FOLLOW_2); 
+            match(input,118,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_1_1_1_1()); 
 
             }
@@ -10015,7 +10017,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2660:2: '='
             {
              before(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_1_1_1_2()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_1_1_1_2()); 
 
             }
@@ -10170,7 +10172,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2713:2: ';'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_1_1_1_4()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_1_1_1_4()); 
 
             }
@@ -10410,7 +10412,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2795:2: 'type'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_2_1_0_0()); 
-            match(input,116,FOLLOW_2); 
+            match(input,118,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_2_1_0_0()); 
 
             }
@@ -10485,7 +10487,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2822:2: '='
             {
              before(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_2_1_0_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_2_1_0_1()); 
 
             }
@@ -10645,7 +10647,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2876:2: ';'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_2_1_0_3()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_2_1_0_3()); 
 
             }
@@ -10885,7 +10887,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2957:2: 'type'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_2_1_1_1()); 
-            match(input,116,FOLLOW_2); 
+            match(input,118,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getTypeKeyword_3_2_1_1_1()); 
 
             }
@@ -10960,7 +10962,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:2984:2: '='
             {
              before(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_2_1_1_2()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getEqualsSignKeyword_3_2_1_1_2()); 
 
             }
@@ -11115,7 +11117,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3037:2: ';'
             {
              before(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_2_1_1_4()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyDefinitionAccess().getSemicolonKeyword_3_2_1_1_4()); 
 
             }
@@ -11190,7 +11192,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3065:2: 'default'
             {
              before(grammarAccess.getPropertyDefaultAccess().getDefaultKeyword_0()); 
-            match(input,118,FOLLOW_2); 
+            match(input,120,FOLLOW_2); 
              after(grammarAccess.getPropertyDefaultAccess().getDefaultKeyword_0()); 
 
             }
@@ -11265,7 +11267,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3092:2: '='
             {
              before(grammarAccess.getPropertyDefaultAccess().getEqualsSignKeyword_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPropertyDefaultAccess().getEqualsSignKeyword_1()); 
 
             }
@@ -11420,7 +11422,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3145:2: ';'
             {
              before(grammarAccess.getPropertyDefaultAccess().getSemicolonKeyword_3()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyDefaultAccess().getSemicolonKeyword_3()); 
 
             }
@@ -11495,7 +11497,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3173:2: 'component'
             {
              before(grammarAccess.getPropertyUsageAccess().getComponentKeyword_0()); 
-            match(input,119,FOLLOW_2); 
+            match(input,121,FOLLOW_2); 
              after(grammarAccess.getPropertyUsageAccess().getComponentKeyword_0()); 
 
             }
@@ -11570,7 +11572,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3200:2: '='
             {
              before(grammarAccess.getPropertyUsageAccess().getEqualsSignKeyword_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPropertyUsageAccess().getEqualsSignKeyword_1()); 
 
             }
@@ -11736,7 +11738,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 int alt27=2;
                 int LA27_0 = input.LA(1);
 
-                if ( (LA27_0==120) ) {
+                if ( (LA27_0==122) ) {
                     alt27=1;
                 }
 
@@ -11828,7 +11830,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3280:2: ';'
             {
              before(grammarAccess.getPropertyUsageAccess().getSemicolonKeyword_4()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPropertyUsageAccess().getSemicolonKeyword_4()); 
 
             }
@@ -11903,7 +11905,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3308:2: '|'
             {
              before(grammarAccess.getPropertyUsageAccess().getVerticalLineKeyword_3_0()); 
-            match(input,120,FOLLOW_2); 
+            match(input,122,FOLLOW_2); 
              after(grammarAccess.getPropertyUsageAccess().getVerticalLineKeyword_3_0()); 
 
             }
@@ -12239,7 +12241,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3416:2: '{'
             {
              before(grammarAccess.getComponentDefinitionAccess().getLeftCurlyBracketKeyword_2()); 
-            match(input,113,FOLLOW_2); 
+            match(input,115,FOLLOW_2); 
              after(grammarAccess.getComponentDefinitionAccess().getLeftCurlyBracketKeyword_2()); 
 
             }
@@ -12320,7 +12322,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 int alt29=2;
                 int LA29_0 = input.LA(1);
 
-                if ( (LA29_0==RULE_ID||(LA29_0>=13 && LA29_0<=16)||LA29_0==18||(LA29_0>=20 && LA29_0<=95)||(LA29_0>=106 && LA29_0<=110)||LA29_0==118||LA29_0==121||(LA29_0>=131 && LA29_0<=132)) ) {
+                if ( (LA29_0==RULE_ID||(LA29_0>=15 && LA29_0<=18)||LA29_0==20||(LA29_0>=22 && LA29_0<=97)||(LA29_0>=108 && LA29_0<=112)||LA29_0==120||LA29_0==123||(LA29_0>=133 && LA29_0<=134)) ) {
                     alt29=1;
                 }
 
@@ -12417,7 +12419,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3470:2: '}'
             {
              before(grammarAccess.getComponentDefinitionAccess().getRightCurlyBracketKeyword_4()); 
-            match(input,114,FOLLOW_2); 
+            match(input,116,FOLLOW_2); 
              after(grammarAccess.getComponentDefinitionAccess().getRightCurlyBracketKeyword_4()); 
 
             }
@@ -12496,7 +12498,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt30=2;
             int LA30_0 = input.LA(1);
 
-            if ( (LA30_0==RULE_ID||LA30_0==132) ) {
+            if ( (LA30_0==RULE_ID||LA30_0==134) ) {
                 alt30=1;
             }
             switch (alt30) {
@@ -12583,7 +12585,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3523:2: ';'
             {
              before(grammarAccess.getComponentDefinitionAccess().getSemicolonKeyword_6()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getComponentDefinitionAccess().getSemicolonKeyword_6()); 
 
             }
@@ -12662,7 +12664,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt31=2;
             int LA31_0 = input.LA(1);
 
-            if ( (LA31_0==132) ) {
+            if ( (LA31_0==134) ) {
                 alt31=1;
             }
             switch (alt31) {
@@ -12758,7 +12760,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt32=2;
             int LA32_0 = input.LA(1);
 
-            if ( (LA32_0==74) ) {
+            if ( (LA32_0==76) ) {
                 alt32=1;
             }
             switch (alt32) {
@@ -12854,7 +12856,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==121) ) {
+            if ( (LA33_0==123) ) {
                 alt33=1;
             }
             switch (alt33) {
@@ -13122,7 +13124,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 int alt34=2;
                 int LA34_0 = input.LA(1);
 
-                if ( (LA34_0==122) ) {
+                if ( (LA34_0==124) ) {
                     alt34=1;
                 }
 
@@ -13214,7 +13216,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3712:2: ';'
             {
              before(grammarAccess.getNamedInstantiationAccess().getSemicolonKeyword_6()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getNamedInstantiationAccess().getSemicolonKeyword_6()); 
 
             }
@@ -13289,7 +13291,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3740:2: 'alias'
             {
              before(grammarAccess.getNamedInstantiationAccess().getAliasKeyword_2_0()); 
-            match(input,121,FOLLOW_2); 
+            match(input,123,FOLLOW_2); 
              after(grammarAccess.getNamedInstantiationAccess().getAliasKeyword_2_0()); 
 
             }
@@ -13444,7 +13446,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3794:2: ','
             {
              before(grammarAccess.getNamedInstantiationAccess().getCommaKeyword_5_0()); 
-            match(input,122,FOLLOW_2); 
+            match(input,124,FOLLOW_2); 
              after(grammarAccess.getNamedInstantiationAccess().getCommaKeyword_5_0()); 
 
             }
@@ -13603,7 +13605,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt35=2;
             int LA35_0 = input.LA(1);
 
-            if ( (LA35_0==132) ) {
+            if ( (LA35_0==134) ) {
                 alt35=1;
             }
             switch (alt35) {
@@ -13781,7 +13783,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 int alt36=2;
                 int LA36_0 = input.LA(1);
 
-                if ( (LA36_0==122) ) {
+                if ( (LA36_0==124) ) {
                     alt36=1;
                 }
 
@@ -13878,7 +13880,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:3929:2: ','
             {
              before(grammarAccess.getImmediateInstantiationAccess().getCommaKeyword_2_0()); 
-            match(input,122,FOLLOW_2); 
+            match(input,124,FOLLOW_2); 
              after(grammarAccess.getImmediateInstantiationAccess().getCommaKeyword_2_0()); 
 
             }
@@ -14122,7 +14124,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt37=2;
             int LA37_0 = input.LA(1);
 
-            if ( (LA37_0==126) ) {
+            if ( (LA37_0==128) ) {
                 alt37=1;
             }
             switch (alt37) {
@@ -14218,7 +14220,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt38=2;
             int LA38_0 = input.LA(1);
 
-            if ( (LA38_0==117) ) {
+            if ( (LA38_0==119) ) {
                 alt38=1;
             }
             switch (alt38) {
@@ -14314,7 +14316,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt39=2;
             int LA39_0 = input.LA(1);
 
-            if ( (LA39_0==123) ) {
+            if ( (LA39_0==125) ) {
                 alt39=1;
             }
             switch (alt39) {
@@ -14410,7 +14412,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt40=2;
             int LA40_0 = input.LA(1);
 
-            if ( (LA40_0==124) ) {
+            if ( (LA40_0==126) ) {
                 alt40=1;
             }
             switch (alt40) {
@@ -14501,7 +14503,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt41=2;
             int LA41_0 = input.LA(1);
 
-            if ( (LA41_0==125) ) {
+            if ( (LA41_0==127) ) {
                 alt41=1;
             }
             switch (alt41) {
@@ -14593,7 +14595,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4145:2: '='
             {
              before(grammarAccess.getComponentInstanceAccess().getEqualsSignKeyword_2_0()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getComponentInstanceAccess().getEqualsSignKeyword_2_0()); 
 
             }
@@ -14748,7 +14750,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4199:2: '@'
             {
              before(grammarAccess.getComponentInstanceAccess().getCommercialAtKeyword_3_0()); 
-            match(input,123,FOLLOW_2); 
+            match(input,125,FOLLOW_2); 
              after(grammarAccess.getComponentInstanceAccess().getCommercialAtKeyword_3_0()); 
 
             }
@@ -14903,7 +14905,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4253:2: '+='
             {
              before(grammarAccess.getComponentInstanceAccess().getPlusSignEqualsSignKeyword_4_0()); 
-            match(input,124,FOLLOW_2); 
+            match(input,126,FOLLOW_2); 
              after(grammarAccess.getComponentInstanceAccess().getPlusSignEqualsSignKeyword_4_0()); 
 
             }
@@ -15058,7 +15060,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4307:2: '%='
             {
              before(grammarAccess.getComponentInstanceAccess().getPercentSignEqualsSignKeyword_5_0()); 
-            match(input,125,FOLLOW_2); 
+            match(input,127,FOLLOW_2); 
              after(grammarAccess.getComponentInstanceAccess().getPercentSignEqualsSignKeyword_5_0()); 
 
             }
@@ -15213,7 +15215,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4361:2: '['
             {
              before(grammarAccess.getRangeAccess().getLeftSquareBracketKeyword_0()); 
-            match(input,126,FOLLOW_2); 
+            match(input,128,FOLLOW_2); 
              after(grammarAccess.getRangeAccess().getLeftSquareBracketKeyword_0()); 
 
             }
@@ -15368,7 +15370,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4414:2: ']'
             {
              before(grammarAccess.getRangeAccess().getRightSquareBracketKeyword_2()); 
-            match(input,127,FOLLOW_2); 
+            match(input,129,FOLLOW_2); 
              after(grammarAccess.getRangeAccess().getRightSquareBracketKeyword_2()); 
 
             }
@@ -15528,7 +15530,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4469:2: ':'
             {
              before(grammarAccess.getRangeAccess().getColonKeyword_1_0_1()); 
-            match(input,128,FOLLOW_2); 
+            match(input,130,FOLLOW_2); 
              after(grammarAccess.getRangeAccess().getColonKeyword_1_0_1()); 
 
             }
@@ -15683,7 +15685,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4523:2: 'default'
             {
              before(grammarAccess.getDefaultProperyAssignmentAccess().getDefaultKeyword_0()); 
-            match(input,118,FOLLOW_2); 
+            match(input,120,FOLLOW_2); 
              after(grammarAccess.getDefaultProperyAssignmentAccess().getDefaultKeyword_0()); 
 
             }
@@ -15997,7 +15999,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4630:2: ';'
             {
              before(grammarAccess.getExplicitPropertyAssignmentAccess().getSemicolonKeyword_0_2()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getExplicitPropertyAssignmentAccess().getSemicolonKeyword_0_2()); 
 
             }
@@ -16161,7 +16163,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt42=2;
             int LA42_0 = input.LA(1);
 
-            if ( (LA42_0==117) ) {
+            if ( (LA42_0==119) ) {
                 alt42=1;
             }
             switch (alt42) {
@@ -16248,7 +16250,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4711:2: ';'
             {
              before(grammarAccess.getExplicitPropertyAssignmentAccess().getSemicolonKeyword_1_2()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getExplicitPropertyAssignmentAccess().getSemicolonKeyword_1_2()); 
 
             }
@@ -16323,7 +16325,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4739:2: '='
             {
              before(grammarAccess.getExplicitPropertyAssignmentAccess().getEqualsSignKeyword_1_1_0()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getExplicitPropertyAssignmentAccess().getEqualsSignKeyword_1_1_0()); 
 
             }
@@ -16567,7 +16569,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt43=2;
             int LA43_0 = input.LA(1);
 
-            if ( (LA43_0==117) ) {
+            if ( (LA43_0==119) ) {
                 alt43=1;
             }
             switch (alt43) {
@@ -16654,7 +16656,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4846:2: ';'
             {
              before(grammarAccess.getPostPropertyAssignmentAccess().getSemicolonKeyword_2()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getPostPropertyAssignmentAccess().getSemicolonKeyword_2()); 
 
             }
@@ -16814,7 +16816,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4901:2: '->'
             {
              before(grammarAccess.getPostPropertyAssignmentAccess().getHyphenMinusGreaterThanSignKeyword_0_0_1()); 
-            match(input,129,FOLLOW_2); 
+            match(input,131,FOLLOW_2); 
              after(grammarAccess.getPostPropertyAssignmentAccess().getHyphenMinusGreaterThanSignKeyword_0_0_1()); 
 
             }
@@ -16969,7 +16971,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:4955:2: '='
             {
              before(grammarAccess.getPostPropertyAssignmentAccess().getEqualsSignKeyword_1_0()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getPostPropertyAssignmentAccess().getEqualsSignKeyword_1_0()); 
 
             }
@@ -17208,7 +17210,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt44=2;
             int LA44_0 = input.LA(1);
 
-            if ( (LA44_0==129) ) {
+            if ( (LA44_0==131) ) {
                 alt44=1;
             }
             switch (alt44) {
@@ -17300,7 +17302,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5063:2: '->'
             {
              before(grammarAccess.getInstancePropertyRefAccess().getHyphenMinusGreaterThanSignKeyword_1_0()); 
-            match(input,129,FOLLOW_2); 
+            match(input,131,FOLLOW_2); 
              after(grammarAccess.getInstancePropertyRefAccess().getHyphenMinusGreaterThanSignKeyword_1_0()); 
 
             }
@@ -17539,7 +17541,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt45=2;
             int LA45_0 = input.LA(1);
 
-            if ( (LA45_0==130) ) {
+            if ( (LA45_0==132) ) {
                 alt45=1;
             }
             switch (alt45) {
@@ -17631,7 +17633,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5171:2: '.'
             {
              before(grammarAccess.getInstanceRefAccess().getFullStopKeyword_1_0()); 
-            match(input,130,FOLLOW_2); 
+            match(input,132,FOLLOW_2); 
              after(grammarAccess.getInstanceRefAccess().getFullStopKeyword_1_0()); 
 
             }
@@ -17870,7 +17872,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt46=2;
             int LA46_0 = input.LA(1);
 
-            if ( (LA46_0==130) ) {
+            if ( (LA46_0==132) ) {
                 alt46=1;
             }
             switch (alt46) {
@@ -17962,7 +17964,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5279:2: '.'
             {
              before(grammarAccess.getHierInstanceRefAccess().getFullStopKeyword_1_0()); 
-            match(input,130,FOLLOW_2); 
+            match(input,132,FOLLOW_2); 
              after(grammarAccess.getHierInstanceRefAccess().getFullStopKeyword_1_0()); 
 
             }
@@ -18202,7 +18204,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5360:2: 'enum'
             {
              before(grammarAccess.getPropertyAssignmentRhsAccess().getEnumKeyword_2_1()); 
-            match(input,131,FOLLOW_2); 
+            match(input,133,FOLLOW_2); 
              after(grammarAccess.getPropertyAssignmentRhsAccess().getEnumKeyword_2_1()); 
 
             }
@@ -18357,7 +18359,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5414:2: '{'
             {
              before(grammarAccess.getConcatAccess().getLeftCurlyBracketKeyword_0()); 
-            match(input,113,FOLLOW_2); 
+            match(input,115,FOLLOW_2); 
              after(grammarAccess.getConcatAccess().getLeftCurlyBracketKeyword_0()); 
 
             }
@@ -18523,7 +18525,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 int alt47=2;
                 int LA47_0 = input.LA(1);
 
-                if ( (LA47_0==122) ) {
+                if ( (LA47_0==124) ) {
                     alt47=1;
                 }
 
@@ -18615,7 +18617,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5494:2: '}'
             {
              before(grammarAccess.getConcatAccess().getRightCurlyBracketKeyword_3()); 
-            match(input,114,FOLLOW_2); 
+            match(input,116,FOLLOW_2); 
              after(grammarAccess.getConcatAccess().getRightCurlyBracketKeyword_3()); 
 
             }
@@ -18690,7 +18692,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5522:2: ','
             {
              before(grammarAccess.getConcatAccess().getCommaKeyword_2_0()); 
-            match(input,122,FOLLOW_2); 
+            match(input,124,FOLLOW_2); 
              after(grammarAccess.getConcatAccess().getCommaKeyword_2_0()); 
 
             }
@@ -18845,7 +18847,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5576:2: 'enum'
             {
              before(grammarAccess.getEnumDefinitionAccess().getEnumKeyword_0()); 
-            match(input,131,FOLLOW_2); 
+            match(input,133,FOLLOW_2); 
              after(grammarAccess.getEnumDefinitionAccess().getEnumKeyword_0()); 
 
             }
@@ -19085,7 +19087,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5656:2: ';'
             {
              before(grammarAccess.getEnumDefinitionAccess().getSemicolonKeyword_3()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getEnumDefinitionAccess().getSemicolonKeyword_3()); 
 
             }
@@ -19160,7 +19162,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5684:2: '{'
             {
              before(grammarAccess.getEnumBodyAccess().getLeftCurlyBracketKeyword_0()); 
-            match(input,113,FOLLOW_2); 
+            match(input,115,FOLLOW_2); 
              after(grammarAccess.getEnumBodyAccess().getLeftCurlyBracketKeyword_0()); 
 
             }
@@ -19408,7 +19410,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5764:2: '}'
             {
              before(grammarAccess.getEnumBodyAccess().getRightCurlyBracketKeyword_3()); 
-            match(input,114,FOLLOW_2); 
+            match(input,116,FOLLOW_2); 
              after(grammarAccess.getEnumBodyAccess().getRightCurlyBracketKeyword_3()); 
 
             }
@@ -19568,7 +19570,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5819:2: '='
             {
              before(grammarAccess.getEnumEntryAccess().getEqualsSignKeyword_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getEnumEntryAccess().getEqualsSignKeyword_1()); 
 
             }
@@ -19732,7 +19734,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             int alt49=2;
             int LA49_0 = input.LA(1);
 
-            if ( (LA49_0==113) ) {
+            if ( (LA49_0==115) ) {
                 alt49=1;
             }
             switch (alt49) {
@@ -19819,7 +19821,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5899:2: ';'
             {
              before(grammarAccess.getEnumEntryAccess().getSemicolonKeyword_4()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getEnumEntryAccess().getSemicolonKeyword_4()); 
 
             }
@@ -19894,7 +19896,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5927:2: '{'
             {
              before(grammarAccess.getEnumEntryAccess().getLeftCurlyBracketKeyword_3_0()); 
-            match(input,113,FOLLOW_2); 
+            match(input,115,FOLLOW_2); 
              after(grammarAccess.getEnumEntryAccess().getLeftCurlyBracketKeyword_3_0()); 
 
             }
@@ -19975,7 +19977,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
                 int alt50=2;
                 int LA50_0 = input.LA(1);
 
-                if ( ((LA50_0>=20 && LA50_0<=21)) ) {
+                if ( ((LA50_0>=22 && LA50_0<=23)) ) {
                     alt50=1;
                 }
 
@@ -20067,7 +20069,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:5980:2: '}'
             {
              before(grammarAccess.getEnumEntryAccess().getRightCurlyBracketKeyword_3_2()); 
-            match(input,114,FOLLOW_2); 
+            match(input,116,FOLLOW_2); 
              after(grammarAccess.getEnumEntryAccess().getRightCurlyBracketKeyword_3_2()); 
 
             }
@@ -20222,7 +20224,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6034:2: ';'
             {
              before(grammarAccess.getEnumPropertyAccess().getSemicolonKeyword_1()); 
-            match(input,115,FOLLOW_2); 
+            match(input,117,FOLLOW_2); 
              after(grammarAccess.getEnumPropertyAccess().getSemicolonKeyword_1()); 
 
             }
@@ -20382,7 +20384,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6089:2: '='
             {
              before(grammarAccess.getEnumPropertyAccess().getEqualsSignKeyword_0_0_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getEnumPropertyAccess().getEqualsSignKeyword_0_0_1()); 
 
             }
@@ -20622,7 +20624,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6170:2: '='
             {
              before(grammarAccess.getEnumPropertyAccess().getEqualsSignKeyword_0_1_1()); 
-            match(input,117,FOLLOW_2); 
+            match(input,119,FOLLOW_2); 
              after(grammarAccess.getEnumPropertyAccess().getEqualsSignKeyword_0_1_1()); 
 
             }
@@ -21752,7 +21754,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6589:4: 'true'
             {
              before(grammarAccess.getPropertyDefaultAccess().getStringTrueKeyword_2_2_0()); 
-            match(input,96,FOLLOW_2); 
+            match(input,98,FOLLOW_2); 
              after(grammarAccess.getPropertyDefaultAccess().getStringTrueKeyword_2_2_0()); 
 
             }
@@ -21797,7 +21799,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6608:4: 'false'
             {
              before(grammarAccess.getPropertyDefaultAccess().getStringFalseKeyword_2_3_0()); 
-            match(input,97,FOLLOW_2); 
+            match(input,99,FOLLOW_2); 
              after(grammarAccess.getPropertyDefaultAccess().getStringFalseKeyword_2_3_0()); 
 
             }
@@ -22207,7 +22209,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6762:4: 'external'
             {
              before(grammarAccess.getNamedInstantiationAccess().getExternalExternalKeyword_0_0()); 
-            match(input,132,FOLLOW_2); 
+            match(input,134,FOLLOW_2); 
              after(grammarAccess.getNamedInstantiationAccess().getExternalExternalKeyword_0_0()); 
 
             }
@@ -22252,7 +22254,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6781:4: 'internal'
             {
              before(grammarAccess.getNamedInstantiationAccess().getInternalInternalKeyword_1_0()); 
-            match(input,74,FOLLOW_2); 
+            match(input,76,FOLLOW_2); 
              after(grammarAccess.getNamedInstantiationAccess().getInternalInternalKeyword_1_0()); 
 
             }
@@ -22461,7 +22463,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:6864:4: 'external'
             {
              before(grammarAccess.getImmediateInstantiationAccess().getExternalExternalKeyword_0_0()); 
-            match(input,132,FOLLOW_2); 
+            match(input,134,FOLLOW_2); 
              after(grammarAccess.getImmediateInstantiationAccess().getExternalExternalKeyword_0_0()); 
 
             }
@@ -24319,7 +24321,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:7582:4: 'name'
             {
              before(grammarAccess.getEnumPropertyAccess().getNameNameKeyword_0_0_0_0()); 
-            match(input,20,FOLLOW_2); 
+            match(input,22,FOLLOW_2); 
              after(grammarAccess.getEnumPropertyAccess().getNameNameKeyword_0_0_0_0()); 
 
             }
@@ -24401,7 +24403,7 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
             // InternalRDL.g:7616:4: 'desc'
             {
              before(grammarAccess.getEnumPropertyAccess().getNameDescKeyword_0_1_0_0()); 
-            match(input,21,FOLLOW_2); 
+            match(input,23,FOLLOW_2); 
              after(grammarAccess.getEnumPropertyAccess().getNameDescKeyword_0_1_0_0()); 
 
             }
@@ -24471,48 +24473,48 @@ public class InternalRDLParser extends AbstractInternalContentAssistParser {
 
     public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0xFFFFFFFFFFF5E022L,0x0241FC00FFFFFFFFL,0x0000000000000018L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0xFFFFFFFFFFD78022L,0x0907F003FFFFFFFFL,0x0000000000000060L});
     public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000000000L,0x0002000000000000L});
-    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000000L,0x00D0000000000000L});
-    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000000000L,0x0004000000000000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000000000L,0x0008000000000000L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000000000L,0x0020000000000000L});
-    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x000000000003FC00L});
-    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000000000L,0x0080000000000000L});
-    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000000000L,0x0010000000000000L});
-    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000000000L,0x0090000000000000L});
-    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000000050L,0x0000000300000000L});
-    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x00000000000DE000L});
-    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000000000L,0x0108000000000000L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000000002L,0x0100000000000000L});
-    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000000020L,0x0002000000000000L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0xFFFFFFFFFFF5E020L,0x02447C00FFFFFFFFL,0x0000000000000018L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0xFFFFFFFFFFF5E022L,0x02407C00FFFFFFFFL,0x0000000000000018L});
-    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000020L,0x0008000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000000000020L,0x0200000000000400L,0x0000000000000010L});
-    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000000000000L,0x0408000000000000L});
-    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000000000002L,0x0400000000000000L});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000000000L,0x7820000000000000L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000000000L,0x0008000000000000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000000L,0x0340000000000000L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000000000L,0x0010000000000000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000000000L,0x0020000000000000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000000000L,0x0080000000000000L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x00000000000FF000L});
+    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000000000L,0x0200000000000000L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000000000L,0x0040000000000000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000000000000000L,0x0240000000000000L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000000050L,0x0000000C00000000L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000378000L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000000000L,0x0420000000000000L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000000002L,0x0400000000000000L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000000020L,0x0008000000000000L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0xFFFFFFFFFFD78020L,0x0911F003FFFFFFFFL,0x0000000000000060L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0xFFFFFFFFFFD78022L,0x0901F003FFFFFFFFL,0x0000000000000060L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000000000020L,0x0020000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000000000020L,0x0800000000001000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000000000000L,0x1020000000000000L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000000000002L,0x1000000000000000L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000000000000L,0x1000000000000000L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000000000L,0xE080000000000000L,0x0000000000000001L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000000000L,0x8000000000000000L});
-    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000001L});
-    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0xFFFFFFFFFFF00000L,0x00007C00FFFFFFFFL});
-    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000000000000L,0x0028000000000000L});
-    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000000000070L,0x000203FF80030000L});
-    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0xFFFFFFFFFFF00020L,0x00007C00FFFFFFFFL});
-    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000008L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0xFFFFFFFFFFC00000L,0x0001F003FFFFFFFFL});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000000000000L,0x00A0000000000000L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000000000070L,0x00080FFE000C0000L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000008L});
+    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0xFFFFFFFFFFC00020L,0x0001F003FFFFFFFFL});
+    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
     public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000000000000L,0x0404000000000000L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000000000000020L,0x0004000000000000L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000000000000L,0x1010000000000000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0000000000000020L,0x0010000000000000L});
     public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000000000000000L,0x000A000000000000L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000000000300000L,0x0004000000000000L});
-    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000000000300002L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000000000000000L,0x0028000000000000L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000000000C00000L,0x0010000000000000L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000000000C00002L});
 
 }

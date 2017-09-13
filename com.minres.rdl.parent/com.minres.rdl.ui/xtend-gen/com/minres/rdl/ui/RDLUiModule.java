@@ -25,7 +25,7 @@ public class RDLUiModule extends AbstractRDLUiModule {
     return RDLEObjectDocumentationProvider.class;
   }
   
-  public RDLUiModule(final AbstractUIPlugin plugin) {
-    super(plugin);
+  public RDLUiModule(final AbstractUIPlugin arg0) {
+    super(arg0);
   }
 }

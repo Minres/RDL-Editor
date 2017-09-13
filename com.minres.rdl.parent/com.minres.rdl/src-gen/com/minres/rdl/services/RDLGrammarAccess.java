@@ -3381,6 +3381,8 @@ public class RDLGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tWS;
 	private final TerminalRule tML_COMMENT;
 	private final TerminalRule tSL_COMMENT;
+	private final TerminalRule tESCAPE_JSP;
+	private final TerminalRule tESCAPE_ORDL;
 	private final TerminalRule tNUM;
 	private final TerminalRule tSTR;
 	
@@ -3426,6 +3428,8 @@ public class RDLGrammarAccess extends AbstractGrammarElementFinder {
 		this.tWS = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.minres.rdl.RDL.WS");
 		this.tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.minres.rdl.RDL.ML_COMMENT");
 		this.tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.minres.rdl.RDL.SL_COMMENT");
+		this.tESCAPE_JSP = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.minres.rdl.RDL.ESCAPE_JSP");
+		this.tESCAPE_ORDL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.minres.rdl.RDL.ESCAPE_ORDL");
 		this.tNUM = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.minres.rdl.RDL.NUM");
 		this.tSTR = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "com.minres.rdl.RDL.STR");
 	}
@@ -3962,7 +3966,7 @@ public class RDLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//terminal ML_COMMENT:
-	//	'/*'->'*/' | '<%'->'%>' | '('->')';
+	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return tML_COMMENT;
 	}
@@ -3971,6 +3975,18 @@ public class RDLGrammarAccess extends AbstractGrammarElementFinder {
 	//	'//' !('\n' | '\r')* ('\r'? '\n')?;
 	public TerminalRule getSL_COMMENTRule() {
 		return tSL_COMMENT;
+	}
+	
+	//terminal ESCAPE_JSP:
+	//	'<%'->'%>';
+	public TerminalRule getESCAPE_JSPRule() {
+		return tESCAPE_JSP;
+	}
+	
+	//terminal ESCAPE_ORDL:
+	//	'('->')';
+	public TerminalRule getESCAPE_ORDLRule() {
+		return tESCAPE_ORDL;
 	}
 	
 	//terminal NUM returns ecore::EJavaObject: //  <= verilog like numbers with size and base (16'123 'h1fff, ...====================================================================================>   <= hexa decimal numbers =============>   <numbers>

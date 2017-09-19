@@ -97,6 +97,16 @@
 			name="Templates">
 			<keywordReference id="com.minres.rdl.ui.keyword_RDL"/>
 		</page>
+	    <page category="com.minres.rdl.RDL"
+		    class="com.minres.rdl.ui.preferences.RdlPreferencePage"
+		    id="com.minres.rdl.ui.preferences.TextPreferencePage"
+		    name="Generator">
+			<keywordReference id="com.minres.rdl.ui.keyword_RDL"/>
+	    </page>
+	</extension>
+	<extension point="org.eclipse.core.runtime.preferences">
+		<initializer class="com.minres.rdl.preferences.PreferenceInitializer">
+		</initializer>
 	</extension>
 	<extension
 			point="org.eclipse.ui.propertyPages">

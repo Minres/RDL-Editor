@@ -16,15 +16,16 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.emf.common,
  org.eclipse.equinox.preferences
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.minres.rdl.parser.antlr,
- com.minres.rdl,
- com.minres.rdl.rdl.util,
- com.minres.rdl.rdl,
- com.minres.rdl.serializer,
+Export-Package: com.minres.rdl,
+ com.minres.rdl.generator,
+ com.minres.rdl.parser.antlr,
  com.minres.rdl.parser.antlr.internal,
- com.minres.rdl.scoping,
+ com.minres.rdl.preferences,
+ com.minres.rdl.rdl,
  com.minres.rdl.rdl.impl,
- com.minres.rdl.validation,
+ com.minres.rdl.rdl.util,
+ com.minres.rdl.scoping,
+ com.minres.rdl.serializer,
  com.minres.rdl.services,
- com.minres.rdl.generator
+ com.minres.rdl.validation
 Import-Package: org.apache.log4j

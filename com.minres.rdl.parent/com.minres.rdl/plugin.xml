@@ -7,4 +7,8 @@
 			class = "com.minres.rdl.rdl.RdlPackage"
 			genModel = "model/generated/RDL.genmodel" />
 	</extension>
+	<extension point="org.eclipse.core.runtime.preferences">
+		  <initializer class="com.minres.rdl.preferences.PreferenceInitializer">
+		  </initializer>
+	</extension>
 </plugin>

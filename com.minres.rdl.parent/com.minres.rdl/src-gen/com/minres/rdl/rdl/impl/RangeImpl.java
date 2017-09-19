@@ -21,8 +21,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link com.minres.rdl.rdl.impl.RangeImpl#getStart <em>Start</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.impl.RangeImpl#getEnd <em>End</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.impl.RangeImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.impl.RangeImpl#getRight <em>Right</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.RangeImpl#getSize <em>Size</em>}</li>
  * </ul>
  *
@@ -31,44 +31,44 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class RangeImpl extends MinimalEObjectImpl.Container implements Range
 {
   /**
-   * The default value of the '{@link #getStart() <em>Start</em>}' attribute.
+   * The default value of the '{@link #getLeft() <em>Left</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStart()
+   * @see #getLeft()
    * @generated
    * @ordered
    */
-  protected static final Object START_EDEFAULT = null;
+  protected static final Object LEFT_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getStart() <em>Start</em>}' attribute.
+   * The cached value of the '{@link #getLeft() <em>Left</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getStart()
+   * @see #getLeft()
    * @generated
    * @ordered
    */
-  protected Object start = START_EDEFAULT;
+  protected Object left = LEFT_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getEnd() <em>End</em>}' attribute.
+   * The default value of the '{@link #getRight() <em>Right</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEnd()
+   * @see #getRight()
    * @generated
    * @ordered
    */
-  protected static final Object END_EDEFAULT = null;
+  protected static final Object RIGHT_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getEnd() <em>End</em>}' attribute.
+   * The cached value of the '{@link #getRight() <em>Right</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEnd()
+   * @see #getRight()
    * @generated
    * @ordered
    */
-  protected Object end = END_EDEFAULT;
+  protected Object right = RIGHT_EDEFAULT;
 
   /**
    * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
@@ -116,9 +116,9 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
    * <!-- end-user-doc -->
    * @generated
    */
-  public Object getStart()
+  public Object getLeft()
   {
-    return start;
+    return left;
   }
 
   /**
@@ -126,12 +126,12 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setStart(Object newStart)
+  public void setLeft(Object newLeft)
   {
-    Object oldStart = start;
-    start = newStart;
+    Object oldLeft = left;
+    left = newLeft;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, RdlPackage.RANGE__START, oldStart, start));
+      eNotify(new ENotificationImpl(this, Notification.SET, RdlPackage.RANGE__LEFT, oldLeft, left));
   }
 
   /**
@@ -139,9 +139,9 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
    * <!-- end-user-doc -->
    * @generated
    */
-  public Object getEnd()
+  public Object getRight()
   {
-    return end;
+    return right;
   }
 
   /**
@@ -149,12 +149,12 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEnd(Object newEnd)
+  public void setRight(Object newRight)
   {
-    Object oldEnd = end;
-    end = newEnd;
+    Object oldRight = right;
+    right = newRight;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, RdlPackage.RANGE__END, oldEnd, end));
+      eNotify(new ENotificationImpl(this, Notification.SET, RdlPackage.RANGE__RIGHT, oldRight, right));
   }
 
   /**
@@ -190,10 +190,10 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
   {
     switch (featureID)
     {
-      case RdlPackage.RANGE__START:
-        return getStart();
-      case RdlPackage.RANGE__END:
-        return getEnd();
+      case RdlPackage.RANGE__LEFT:
+        return getLeft();
+      case RdlPackage.RANGE__RIGHT:
+        return getRight();
       case RdlPackage.RANGE__SIZE:
         return getSize();
     }
@@ -210,11 +210,11 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
   {
     switch (featureID)
     {
-      case RdlPackage.RANGE__START:
-        setStart(newValue);
+      case RdlPackage.RANGE__LEFT:
+        setLeft(newValue);
         return;
-      case RdlPackage.RANGE__END:
-        setEnd(newValue);
+      case RdlPackage.RANGE__RIGHT:
+        setRight(newValue);
         return;
       case RdlPackage.RANGE__SIZE:
         setSize(newValue);
@@ -233,11 +233,11 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
   {
     switch (featureID)
     {
-      case RdlPackage.RANGE__START:
-        setStart(START_EDEFAULT);
+      case RdlPackage.RANGE__LEFT:
+        setLeft(LEFT_EDEFAULT);
         return;
-      case RdlPackage.RANGE__END:
-        setEnd(END_EDEFAULT);
+      case RdlPackage.RANGE__RIGHT:
+        setRight(RIGHT_EDEFAULT);
         return;
       case RdlPackage.RANGE__SIZE:
         setSize(SIZE_EDEFAULT);
@@ -256,10 +256,10 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
   {
     switch (featureID)
     {
-      case RdlPackage.RANGE__START:
-        return START_EDEFAULT == null ? start != null : !START_EDEFAULT.equals(start);
-      case RdlPackage.RANGE__END:
-        return END_EDEFAULT == null ? end != null : !END_EDEFAULT.equals(end);
+      case RdlPackage.RANGE__LEFT:
+        return LEFT_EDEFAULT == null ? left != null : !LEFT_EDEFAULT.equals(left);
+      case RdlPackage.RANGE__RIGHT:
+        return RIGHT_EDEFAULT == null ? right != null : !RIGHT_EDEFAULT.equals(right);
       case RdlPackage.RANGE__SIZE:
         return SIZE_EDEFAULT == null ? size != null : !SIZE_EDEFAULT.equals(size);
     }
@@ -277,10 +277,10 @@ public class RangeImpl extends MinimalEObjectImpl.Container implements Range
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (start: ");
-    result.append(start);
-    result.append(", end: ");
-    result.append(end);
+    result.append(" (left: ");
+    result.append(left);
+    result.append(", right: ");
+    result.append(right);
     result.append(", size: ");
     result.append(size);
     result.append(')');

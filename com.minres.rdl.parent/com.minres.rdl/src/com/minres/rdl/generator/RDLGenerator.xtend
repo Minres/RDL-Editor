@@ -3,6 +3,8 @@
  */
 package com.minres.rdl.generator
 
+import com.minres.rdl.rdl.ComponentDefinition
+import com.minres.rdl.rdl.ComponentDefinitionType
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -16,10 +18,29 @@ import org.eclipse.xtext.generator.IGeneratorContext
 class RDLGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
-	}
-}
+        resource.resourceSet.allContents.filter[ it instanceof ComponentDefinition].map[it as ComponentDefinition].forEach[
+            val gen = it.fileGenerator
+            if(gen!==null){
+                val header = gen.generateHeader
+                if(header!==null && header.length>0) fsa.generateFile(it.name+'.h', fsa.outputConfig('incl-out'), header)
+                val source = gen.generateSource
+                if(source!==null && source.length>0) fsa.generateFile(it.name+'.cpp', fsa.outputConfig('src-out'), source)
+            }
+        ]
+    }
+
+    def RdlBaseGenerator fileGenerator(ComponentDefinition definition){
+        switch(definition.type){
+            case ComponentDefinitionType.REGFILE: new RegfileGenerator(definition)
+            case ComponentDefinitionType.ADDRMAP: new AddrmapGenerator(definition)
+            default: null
+        }
+    }
+
+    def String outputConfig(IFileSystemAccess2 fsa, String string){
+        var output_config = string
+        try {fsa.getURI("", output_config)} catch (Exception e) {output_config ='DEFAULT_OUTPUT'}
+        return output_config
+    }
+
+} 

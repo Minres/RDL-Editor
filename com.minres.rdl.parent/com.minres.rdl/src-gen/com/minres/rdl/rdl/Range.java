@@ -14,8 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link com.minres.rdl.rdl.Range#getStart <em>Start</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.Range#getEnd <em>End</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.Range#getLeft <em>Left</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.Range#getRight <em>Right</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.Range#getSize <em>Size</em>}</li>
  * </ul>
  *
@@ -26,56 +26,56 @@ import org.eclipse.emf.ecore.EObject;
 public interface Range extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Start</b></em>' attribute.
+   * Returns the value of the '<em><b>Left</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Start</em>' attribute isn't clear,
+   * If the meaning of the '<em>Left</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Start</em>' attribute.
-   * @see #setStart(Object)
-   * @see com.minres.rdl.rdl.RdlPackage#getRange_Start()
+   * @return the value of the '<em>Left</em>' attribute.
+   * @see #setLeft(Object)
+   * @see com.minres.rdl.rdl.RdlPackage#getRange_Left()
    * @model
    * @generated
    */
-  Object getStart();
+  Object getLeft();
 
   /**
-   * Sets the value of the '{@link com.minres.rdl.rdl.Range#getStart <em>Start</em>}' attribute.
+   * Sets the value of the '{@link com.minres.rdl.rdl.Range#getLeft <em>Left</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Start</em>' attribute.
-   * @see #getStart()
+   * @param value the new value of the '<em>Left</em>' attribute.
+   * @see #getLeft()
    * @generated
    */
-  void setStart(Object value);
+  void setLeft(Object value);
 
   /**
-   * Returns the value of the '<em><b>End</b></em>' attribute.
+   * Returns the value of the '<em><b>Right</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>End</em>' attribute isn't clear,
+   * If the meaning of the '<em>Right</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>End</em>' attribute.
-   * @see #setEnd(Object)
-   * @see com.minres.rdl.rdl.RdlPackage#getRange_End()
+   * @return the value of the '<em>Right</em>' attribute.
+   * @see #setRight(Object)
+   * @see com.minres.rdl.rdl.RdlPackage#getRange_Right()
    * @model
    * @generated
    */
-  Object getEnd();
+  Object getRight();
 
   /**
-   * Sets the value of the '{@link com.minres.rdl.rdl.Range#getEnd <em>End</em>}' attribute.
+   * Sets the value of the '{@link com.minres.rdl.rdl.Range#getRight <em>Right</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>End</em>' attribute.
-   * @see #getEnd()
+   * @param value the new value of the '<em>Right</em>' attribute.
+   * @see #getRight()
    * @generated
    */
-  void setEnd(Object value);
+  void setRight(Object value);
 
   /**
    * Returns the value of the '<em><b>Size</b></em>' attribute.

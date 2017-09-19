@@ -11,13 +11,13 @@ import com.minres.rdl.rdl.ConcatElem;
 import com.minres.rdl.rdl.EnumBody;
 import com.minres.rdl.rdl.EnumDefinition;
 import com.minres.rdl.rdl.EnumEntry;
+import com.minres.rdl.rdl.EnumInstanceType;
 import com.minres.rdl.rdl.EnumProperty;
 import com.minres.rdl.rdl.ExplicitPropertyAssignment;
-import com.minres.rdl.rdl.ImmediateInstantiation;
 import com.minres.rdl.rdl.Include;
 import com.minres.rdl.rdl.InstancePropertyRef;
 import com.minres.rdl.rdl.InstanceRef;
-import com.minres.rdl.rdl.NamedInstantiation;
+import com.minres.rdl.rdl.Instantiation;
 import com.minres.rdl.rdl.PostPropertyAssignment;
 import com.minres.rdl.rdl.PropertyAssignmentRhs;
 import com.minres.rdl.rdl.PropertyDefault;
@@ -74,14 +74,14 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case RdlPackage.ENUM_ENTRY:
 				sequence_EnumEntry(context, (EnumEntry) semanticObject); 
 				return; 
+			case RdlPackage.ENUM_INSTANCE_TYPE:
+				sequence_EnumInstanceType(context, (EnumInstanceType) semanticObject); 
+				return; 
 			case RdlPackage.ENUM_PROPERTY:
 				sequence_EnumProperty(context, (EnumProperty) semanticObject); 
 				return; 
 			case RdlPackage.EXPLICIT_PROPERTY_ASSIGNMENT:
 				sequence_ExplicitPropertyAssignment(context, (ExplicitPropertyAssignment) semanticObject); 
-				return; 
-			case RdlPackage.IMMEDIATE_INSTANTIATION:
-				sequence_ImmediateInstantiation(context, (ImmediateInstantiation) semanticObject); 
 				return; 
 			case RdlPackage.INCLUDE:
 				sequence_Include(context, (Include) semanticObject); 
@@ -99,8 +99,8 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
-			case RdlPackage.NAMED_INSTANTIATION:
-				sequence_NamedInstantiation(context, (NamedInstantiation) semanticObject); 
+			case RdlPackage.INSTANTIATION:
+				sequence_Instantiation(context, (Instantiation) semanticObject); 
 				return; 
 			case RdlPackage.POST_PROPERTY_ASSIGNMENT:
 				sequence_PostPropertyAssignment(context, (PostPropertyAssignment) semanticObject); 
@@ -139,13 +139,7 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (
 	 *         type=ComponentDefinitionType 
 	 *         name=ID? 
-	 *         (
-	 *             componentDefinitions+=ComponentDefinition | 
-	 *             namedInstantiations+=NamedInstantiation | 
-	 *             propertyAssignments+=PropertyAssignment | 
-	 *             enumDefinitions+=EnumDefinition
-	 *         )* 
-	 *         immediateInstantiation=ImmediateInstantiation?
+	 *         (componentDefinitions+=ComponentDefinition | instantiations+=Instantiation | propertyAssignments+=PropertyAssignment | enumDefinitions+=EnumDefinition)*
 	 *     )
 	 */
 	protected void sequence_ComponentDefinition(ISerializationContext context, ComponentDefinition semanticObject) {
@@ -245,6 +239,18 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     EnumInstanceType returns EnumInstanceType
+	 *
+	 * Constraint:
+	 *     (EXTERNAL='external' | INTERNAL='internal')
+	 */
+	protected void sequence_EnumInstanceType(ISerializationContext context, EnumInstanceType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     EnumProperty returns EnumProperty
 	 *
 	 * Constraint:
@@ -277,18 +283,6 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (instance=[ComponentInstance|ID] tail=HierInstanceRef?)
 	 */
 	protected void sequence_HierInstanceRef(ISerializationContext context, InstanceRef semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     ImmediateInstantiation returns ImmediateInstantiation
-	 *
-	 * Constraint:
-	 *     (external?='external'? componentInstances+=ComponentInstance componentInstances+=ComponentInstance*)
-	 */
-	protected void sequence_ImmediateInstantiation(ISerializationContext context, ImmediateInstantiation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -337,19 +331,19 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
-	 *     NamedInstantiation returns NamedInstantiation
+	 *     Instantiation returns Instantiation
 	 *
 	 * Constraint:
 	 *     (
-	 *         external?='external'? 
-	 *         internal?='internal'? 
-	 *         alias=ID? 
-	 *         component=[ComponentDefinition|ID] 
+	 *         (
+	 *             (instanceType=EnumInstanceType? alias=ID? componentRef=[ComponentDefinition|ID]) | 
+	 *             (component=ComponentDefinition instanceType=EnumInstanceType?)
+	 *         ) 
 	 *         componentInstances+=ComponentInstance 
 	 *         componentInstances+=ComponentInstance*
 	 *     )
 	 */
-	protected void sequence_NamedInstantiation(ISerializationContext context, NamedInstantiation semanticObject) {
+	protected void sequence_Instantiation(ISerializationContext context, Instantiation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -443,7 +437,7 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     Range returns Range
 	 *
 	 * Constraint:
-	 *     ((start=NUM end=NUM) | size=NUM)
+	 *     ((left=NUM right=NUM) | size=NUM)
 	 */
 	protected void sequence_Range(ISerializationContext context, Range semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -459,7 +453,7 @@ public class RDLSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         includes+=Include | 
 	 *         componentDefinitions+=ComponentDefinition | 
 	 *         enumDefinitions+=EnumDefinition | 
-	 *         namedInstantiations+=NamedInstantiation | 
+	 *         instantiations+=Instantiation | 
 	 *         propertyAssignments+=PropertyAssignment | 
 	 *         propertyDefinitions+=PropertyDefinition
 	 *     )+

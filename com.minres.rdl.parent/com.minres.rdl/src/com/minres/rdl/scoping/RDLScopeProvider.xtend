@@ -4,19 +4,11 @@
 package com.minres.rdl.scoping
 
 import com.minres.rdl.rdl.ComponentDefinition
-import com.minres.rdl.rdl.ComponentInstance
-import com.minres.rdl.rdl.EnumDefinition
-import com.minres.rdl.rdl.InstanceRef
-import com.minres.rdl.rdl.NamedInstantiation
 import com.minres.rdl.rdl.Root
-import java.util.ArrayList
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.EReference
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
-import org.eclipse.emf.ecore.resource.Resource
-import java.util.List
 
 /**
  * This class contains custom scoping description.
@@ -67,47 +59,47 @@ class RDLScopeProvider extends AbstractRDLScopeProvider { //AbstractDeclarativeS
 		return Scopes.scopeFor(compDefs)
 	}
 	
-	dispatch def IScope getScopeWithInstancesAndEnums(ComponentDefinition componentDef){
- 		var res = new ArrayList<ComponentInstance>()
- 		for(NamedInstantiation inst:componentDef.namedInstantiations)
- 			if(inst.componentInstances.size>0) res.addAll(inst.componentInstances)
- 		for(ComponentDefinition definition:componentDef.componentDefinitions)
- 			if(definition.immediateInstantiation!==null && definition.immediateInstantiation.componentInstances.size>0)
- 				res.addAll(definition.immediateInstantiation.componentInstances)
- 		return Scopes.scopeFor(res+componentDef.enumDefinitions, getScopeWithInstancesAndEnums(componentDef.eContainer))		
-	}
+//	dispatch def IScope getScopeWithInstancesAndEnums(ComponentDefinition componentDef){
+// 		var res = new ArrayList<ComponentInstance>()
+// 		for(NamedInstantiation inst:componentDef.namedInstantiations)
+// 			if(inst.componentInstances.size>0) res.addAll(inst.componentInstances)
+// 		for(ComponentDefinition definition:componentDef.componentDefinitions)
+// 			if(definition.immediateInstantiation!==null && definition.immediateInstantiation.componentInstances.size>0)
+// 				res.addAll(definition.immediateInstantiation.componentInstances)
+// 		return Scopes.scopeFor(res+componentDef.enumDefinitions, getScopeWithInstancesAndEnums(componentDef.eContainer))		
+//	}
+//	
+//	dispatch def IScope getScopeWithInstancesAndEnums(Root root){
+// 		var res = new ArrayList<ComponentInstance>()
+//		for(instantiation: root.namedInstantiations)
+//			if(instantiation.componentInstances.size>0)
+//				res.addAll(instantiation.componentInstances)
+// 		for(ComponentDefinition definition:root.componentDefinitions)
+// 			if(definition.immediateInstantiation!==null && definition.immediateInstantiation.componentInstances.size>0)
+//				res.addAll(definition.immediateInstantiation.componentInstances)
+//		var enums =  EcoreUtil2.getAllContentsOfType(root, EnumDefinition)
+//		for (incl : root.includes) {
+//			val resource = EcoreUtil2.getResource(root.eResource, incl.importURI);
+//			enums+=EcoreUtil2.getAllContentsOfType(resource.contents.head as Root, EnumDefinition)
+//		}
+//		return Scopes.scopeFor(res+enums)		
+//	}
 	
-	dispatch def IScope getScopeWithInstancesAndEnums(Root root){
- 		var res = new ArrayList<ComponentInstance>()
-		for(instantiation: root.namedInstantiations)
-			if(instantiation.componentInstances.size>0)
-				res.addAll(instantiation.componentInstances)
- 		for(ComponentDefinition definition:root.componentDefinitions)
- 			if(definition.immediateInstantiation!==null && definition.immediateInstantiation.componentInstances.size>0)
-				res.addAll(definition.immediateInstantiation.componentInstances)
-		var enums =  EcoreUtil2.getAllContentsOfType(root, EnumDefinition)
-		for (incl : root.includes) {
-			val resource = EcoreUtil2.getResource(root.eResource, incl.importURI);
-			enums+=EcoreUtil2.getAllContentsOfType(resource.contents.head as Root, EnumDefinition)
-		}
-		return Scopes.scopeFor(res+enums)		
-	}
-	
-	private def Root root(EObject definition){
-		var container = definition.eContainer
-		while(!(container instanceof Root))	container=container.eContainer
-		return container as Root
-	}
-	
-	private def ComponentDefinition componentDefinition(EObject obj){
-		var container = obj.eContainer
-		while(!(container instanceof Root)){
-			if(container instanceof NamedInstantiation) return container.component
-			if(container instanceof ComponentDefinition) return container
-			container=container.eContainer
-		}
-		return null		
-	}
+//	private def Root root(EObject definition){
+//		var container = definition.eContainer
+//		while(!(container instanceof Root))	container=container.eContainer
+//		return container as Root
+//	}
+//	
+//	private def ComponentDefinition componentDefinition(EObject obj){
+//		var container = obj.eContainer
+//		while(!(container instanceof Root)){
+////			if(container instanceof NamedInstantiation) return container.component
+//			if(container instanceof ComponentDefinition) return container
+//			container=container.eContainer
+//		}
+//		return null		
+//	}
 	
 //	dispatch def Iterable<ComponentDefinition>  allComponentDefinitions(ComponentDefinition definition){
 //		return definition.componentDefinitions + definition.eContainer.allComponentDefinitions

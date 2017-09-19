@@ -4,10 +4,11 @@
 package com.minres.rdl.ui.outline;
 
 import com.minres.rdl.rdl.ComponentDefinition;
+import com.minres.rdl.rdl.ComponentInstance;
 import com.minres.rdl.rdl.EnumDefinition;
 import com.minres.rdl.rdl.EnumEntry;
 import com.minres.rdl.rdl.ExplicitPropertyAssignment;
-import com.minres.rdl.rdl.NamedInstantiation;
+import com.minres.rdl.rdl.Instantiation;
 import com.minres.rdl.rdl.PostPropertyAssignment;
 import com.minres.rdl.rdl.PropertyAssignment;
 import com.minres.rdl.rdl.PropertyAssignmentRhs;
@@ -42,10 +43,18 @@ public class RDLOutlineTreeProvider extends DefaultOutlineTreeProvider {
       this.createNode(parentNode, it);
     };
     domainModel.getPropertyAssignments().forEach(_function_3);
-    final Consumer<NamedInstantiation> _function_4 = (NamedInstantiation it) -> {
-      this.createNode(parentNode, it);
+    final Consumer<Instantiation> _function_4 = (Instantiation instantiation) -> {
+      ComponentDefinition _component = instantiation.getComponent();
+      boolean _tripleNotEquals = (_component != null);
+      if (_tripleNotEquals) {
+        this.createNode(parentNode, instantiation.getComponent());
+      }
+      final Consumer<ComponentInstance> _function_5 = (ComponentInstance it) -> {
+        this.createNode(parentNode, it);
+      };
+      instantiation.getComponentInstances().forEach(_function_5);
     };
-    domainModel.getNamedInstantiations().forEach(_function_4);
+    domainModel.getInstantiations().forEach(_function_4);
   }
   
   protected void _createChildren(final IOutlineNode parentNode, final ComponentDefinition compDef) {
@@ -61,10 +70,18 @@ public class RDLOutlineTreeProvider extends DefaultOutlineTreeProvider {
       this.createNode(parentNode, it);
     };
     compDef.getPropertyAssignments().forEach(_function_2);
-    final Consumer<NamedInstantiation> _function_3 = (NamedInstantiation it) -> {
-      this.createNode(parentNode, it);
+    final Consumer<Instantiation> _function_3 = (Instantiation instantiation) -> {
+      ComponentDefinition _component = instantiation.getComponent();
+      boolean _tripleNotEquals = (_component != null);
+      if (_tripleNotEquals) {
+        this.createNode(parentNode, instantiation.getComponent());
+      }
+      final Consumer<ComponentInstance> _function_4 = (ComponentInstance it) -> {
+        this.createNode(parentNode, it);
+      };
+      instantiation.getComponentInstances().forEach(_function_4);
     };
-    compDef.getNamedInstantiations().forEach(_function_3);
+    compDef.getInstantiations().forEach(_function_3);
   }
   
   protected void _createChildren(final IOutlineNode parentNode, final EnumDefinition e) {
@@ -82,11 +99,15 @@ public class RDLOutlineTreeProvider extends DefaultOutlineTreeProvider {
     return true;
   }
   
-  protected boolean _isLeaf(final NamedInstantiation feature) {
-    return true;
+  protected boolean _isLeaf(final Instantiation feature) {
+    return ((feature.getComponent() == null) && (feature.getComponentInstances().size() == 0));
   }
   
   protected boolean _isLeaf(final PropertyAssignmentRhs feature) {
+    return true;
+  }
+  
+  protected boolean _isLeaf(final ComponentInstance feature) {
     return true;
   }
   

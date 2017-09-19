@@ -8,12 +8,12 @@ generate rdl "http://www.minres.com/rdl/RDL"
 Root: 
 	(
 		includes+=Include |
-		componentDefinitions+=ComponentDefinition |
-		enumDefinitions+=EnumDefinition | 
-		namedInstantiations+=NamedInstantiation | 
-		propertyAssignments+=PropertyAssignment | 
-		propertyDefinitions+=PropertyDefinition
-	)*
+		componentDefinitions+=ComponentDefinition';'|
+		enumDefinitions+=EnumDefinition ';'| 
+		instantiations+=Instantiation ';'| 
+		propertyAssignments+=PropertyAssignment ';'| 
+		propertyDefinitions+=PropertyDefinition ';'
+	) *
 	;
 
 Include:
@@ -48,25 +48,21 @@ enum PropertyComponent:
 ComponentDefinition:
 	type=ComponentDefinitionType name=ID?
     '{'
-      ( componentDefinitions+=ComponentDefinition
-      | namedInstantiations+=NamedInstantiation
-      | propertyAssignments+=PropertyAssignment
-      | enumDefinitions+=EnumDefinition
-      )* '}' immediateInstantiation=ImmediateInstantiation? ';'
+      ( componentDefinitions+=ComponentDefinition ';'
+      | instantiations+=Instantiation ';'
+      | propertyAssignments+=PropertyAssignment ';'
+      | enumDefinitions+=EnumDefinition ';'
+      )* '}'
 	;
 
 enum ComponentDefinitionType:
 	SIGNAL="signal" | ADDRMAP="addrmap" | REGFILE="regfile" | REG="reg" | FIELD="field"
 	;
 
-// Instantiation: NamedInstantiation|ImmediateInstantiation;
-
-NamedInstantiation:
-	(external?="external")? (internal?="internal")? ("alias" alias=ID)? component=[ComponentDefinition] componentInstances+=ComponentInstance (',' componentInstances+=ComponentInstance)* ';'
-	;
-
-ImmediateInstantiation:
-	(external?="external")?  componentInstances+=ComponentInstance (',' componentInstances+=ComponentInstance)*
+Instantiation:
+    (
+        instanceType=EnumInstanceType? ("alias" alias=ID)? componentRef=[ComponentDefinition]| component=ComponentDefinition instanceType=EnumInstanceType?
+    ) componentInstances+=ComponentInstance (',' componentInstances+=ComponentInstance)* 
 	;
 
 ComponentInstance:
@@ -82,7 +78,7 @@ ComponentInstance:
  	;
 
 Range: 
-	'[' (start=NUM ':' end=NUM | size=NUM) ']'
+	'[' (left=NUM ':' right=NUM | size=NUM) ']'
 	;
 
 PropertyAssignment:
@@ -94,27 +90,27 @@ DefaultProperyAssignment:
 	;
 
 ExplicitPropertyAssignment :
-	modifier=PropertyModifier name=Property ';' | 
-	name=Property ('=' rhs=PropertyAssignmentRhs)? ';'
+	modifier=PropertyModifier name=Property | 
+	name=Property ('=' rhs=PropertyAssignmentRhs)?
 	;
 
 PostPropertyAssignment: 
 	(instance=HierInstanceRef '->' (propertyEnum=Property | property=[PropertyDefinition]) |
-	property=[PropertyDefinition] ) ('=' rhs=PropertyAssignmentRhs)? ';'
+	property=[PropertyDefinition] ) ('=' rhs=PropertyAssignmentRhs)?
 	;
 
 InstancePropertyRef:
 	instance=InstanceRef ('->' (propertyEnum=Property | property=[PropertyDefinition]))? 
 	;
 
-// unused rules to infer inheritance
+// unused rule to infer inheritance
 Entity:
 	ComponentInstance|EnumDefinition|PropertyDefinition
 	;
 
 InstanceRef:
 	instance=[Entity] ( "." tail=HierInstanceRef)?
-;
+    ;
 
 HierInstanceRef returns InstanceRef:
 	instance=[ComponentInstance] ( "." tail=HierInstanceRef)?
@@ -358,7 +354,7 @@ enum PropertyModifier:
 	;
 
 EnumDefinition:
-	"enum" name=ID body=EnumBody ';'
+	"enum" name=ID body=EnumBody
   	;
 
 EnumBody:
@@ -373,6 +369,9 @@ EnumProperty:
 	( name='name' '=' value=STR | name='desc' '=' value=STR ) ';'
   	;
 
+EnumInstanceType:
+    EXTERNAL="external" | INTERNAL="internal"
+;
 ///////////////////////////////////////////////////////////////////////////////
 // the terminals
 ///////////////////////////////////////////////////////////////////////////////

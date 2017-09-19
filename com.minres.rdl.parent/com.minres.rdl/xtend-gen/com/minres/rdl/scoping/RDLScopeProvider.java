@@ -5,16 +5,10 @@ package com.minres.rdl.scoping;
 
 import com.google.common.collect.Iterables;
 import com.minres.rdl.rdl.ComponentDefinition;
-import com.minres.rdl.rdl.ComponentInstance;
-import com.minres.rdl.rdl.Entity;
-import com.minres.rdl.rdl.EnumDefinition;
 import com.minres.rdl.rdl.Include;
-import com.minres.rdl.rdl.NamedInstantiation;
 import com.minres.rdl.rdl.Root;
 import com.minres.rdl.scoping.AbstractRDLScopeProvider;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -52,97 +46,11 @@ public class RDLScopeProvider extends AbstractRDLScopeProvider {
     return Scopes.scopeFor(compDefs);
   }
   
-  protected IScope _getScopeWithInstancesAndEnums(final ComponentDefinition componentDef) {
-    ArrayList<ComponentInstance> res = new ArrayList<ComponentInstance>();
-    EList<NamedInstantiation> _namedInstantiations = componentDef.getNamedInstantiations();
-    for (final NamedInstantiation inst : _namedInstantiations) {
-      int _size = inst.getComponentInstances().size();
-      boolean _greaterThan = (_size > 0);
-      if (_greaterThan) {
-        res.addAll(inst.getComponentInstances());
-      }
-    }
-    EList<ComponentDefinition> _componentDefinitions = componentDef.getComponentDefinitions();
-    for (final ComponentDefinition definition : _componentDefinitions) {
-      if (((definition.getImmediateInstantiation() != null) && (definition.getImmediateInstantiation().getComponentInstances().size() > 0))) {
-        res.addAll(definition.getImmediateInstantiation().getComponentInstances());
-      }
-    }
-    EList<EnumDefinition> _enumDefinitions = componentDef.getEnumDefinitions();
-    Iterable<Entity> _plus = Iterables.<Entity>concat(res, _enumDefinitions);
-    return Scopes.scopeFor(_plus, this.getScopeWithInstancesAndEnums(componentDef.eContainer()));
-  }
-  
-  protected IScope _getScopeWithInstancesAndEnums(final Root root) {
-    ArrayList<ComponentInstance> res = new ArrayList<ComponentInstance>();
-    EList<NamedInstantiation> _namedInstantiations = root.getNamedInstantiations();
-    for (final NamedInstantiation instantiation : _namedInstantiations) {
-      int _size = instantiation.getComponentInstances().size();
-      boolean _greaterThan = (_size > 0);
-      if (_greaterThan) {
-        res.addAll(instantiation.getComponentInstances());
-      }
-    }
-    EList<ComponentDefinition> _componentDefinitions = root.getComponentDefinitions();
-    for (final ComponentDefinition definition : _componentDefinitions) {
-      if (((definition.getImmediateInstantiation() != null) && (definition.getImmediateInstantiation().getComponentInstances().size() > 0))) {
-        res.addAll(definition.getImmediateInstantiation().getComponentInstances());
-      }
-    }
-    List<EnumDefinition> enums = EcoreUtil2.<EnumDefinition>getAllContentsOfType(root, EnumDefinition.class);
-    EList<Include> _includes = root.getIncludes();
-    for (final Include incl : _includes) {
-      {
-        final Resource resource = EcoreUtil2.getResource(root.eResource(), incl.getImportURI());
-        EObject _head = IterableExtensions.<EObject>head(resource.getContents());
-        List<EnumDefinition> _allContentsOfType = EcoreUtil2.<EnumDefinition>getAllContentsOfType(((Root) _head), EnumDefinition.class);
-        Iterables.<EnumDefinition>addAll(enums, _allContentsOfType);
-      }
-    }
-    Iterable<Entity> _plus = Iterables.<Entity>concat(res, enums);
-    return Scopes.scopeFor(_plus);
-  }
-  
-  private Root root(final EObject definition) {
-    EObject container = definition.eContainer();
-    while ((!(container instanceof Root))) {
-      container = container.eContainer();
-    }
-    return ((Root) container);
-  }
-  
-  private ComponentDefinition componentDefinition(final EObject obj) {
-    EObject container = obj.eContainer();
-    while ((!(container instanceof Root))) {
-      {
-        if ((container instanceof NamedInstantiation)) {
-          return ((NamedInstantiation)container).getComponent();
-        }
-        if ((container instanceof ComponentDefinition)) {
-          return ((ComponentDefinition)container);
-        }
-        container = container.eContainer();
-      }
-    }
-    return null;
-  }
-  
   public IScope getScopeWithComponentDefinition(final EObject componentDef) {
     if (componentDef instanceof ComponentDefinition) {
       return _getScopeWithComponentDefinition((ComponentDefinition)componentDef);
     } else if (componentDef instanceof Root) {
       return _getScopeWithComponentDefinition((Root)componentDef);
-    } else {
-      throw new IllegalArgumentException("Unhandled parameter types: " +
-        Arrays.<Object>asList(componentDef).toString());
-    }
-  }
-  
-  public IScope getScopeWithInstancesAndEnums(final EObject componentDef) {
-    if (componentDef instanceof ComponentDefinition) {
-      return _getScopeWithInstancesAndEnums((ComponentDefinition)componentDef);
-    } else if (componentDef instanceof Root) {
-      return _getScopeWithInstancesAndEnums((Root)componentDef);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(componentDef).toString());

@@ -106,14 +106,9 @@ public class RdlAdapterFactory extends AdapterFactoryImpl
         return createComponentDefinitionAdapter();
       }
       @Override
-      public Adapter caseNamedInstantiation(NamedInstantiation object)
+      public Adapter caseInstantiation(Instantiation object)
       {
-        return createNamedInstantiationAdapter();
-      }
-      @Override
-      public Adapter caseImmediateInstantiation(ImmediateInstantiation object)
-      {
-        return createImmediateInstantiationAdapter();
+        return createInstantiationAdapter();
       }
       @Override
       public Adapter caseComponentInstance(ComponentInstance object)
@@ -199,6 +194,11 @@ public class RdlAdapterFactory extends AdapterFactoryImpl
       public Adapter caseEnumProperty(EnumProperty object)
       {
         return createEnumPropertyAdapter();
+      }
+      @Override
+      public Adapter caseEnumInstanceType(EnumInstanceType object)
+      {
+        return createEnumInstanceTypeAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -313,31 +313,16 @@ public class RdlAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link com.minres.rdl.rdl.NamedInstantiation <em>Named Instantiation</em>}'.
+   * Creates a new adapter for an object of class '{@link com.minres.rdl.rdl.Instantiation <em>Instantiation</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see com.minres.rdl.rdl.NamedInstantiation
+   * @see com.minres.rdl.rdl.Instantiation
    * @generated
    */
-  public Adapter createNamedInstantiationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link com.minres.rdl.rdl.ImmediateInstantiation <em>Immediate Instantiation</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see com.minres.rdl.rdl.ImmediateInstantiation
-   * @generated
-   */
-  public Adapter createImmediateInstantiationAdapter()
+  public Adapter createInstantiationAdapter()
   {
     return null;
   }
@@ -593,6 +578,21 @@ public class RdlAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEnumPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.minres.rdl.rdl.EnumInstanceType <em>Enum Instance Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.minres.rdl.rdl.EnumInstanceType
+   * @generated
+   */
+  public Adapter createEnumInstanceTypeAdapter()
   {
     return null;
   }

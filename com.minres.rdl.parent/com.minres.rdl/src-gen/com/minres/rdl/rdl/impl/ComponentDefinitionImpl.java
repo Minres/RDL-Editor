@@ -6,8 +6,7 @@ package com.minres.rdl.rdl.impl;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
 import com.minres.rdl.rdl.EnumDefinition;
-import com.minres.rdl.rdl.ImmediateInstantiation;
-import com.minres.rdl.rdl.NamedInstantiation;
+import com.minres.rdl.rdl.Instantiation;
 import com.minres.rdl.rdl.PropertyAssignment;
 import com.minres.rdl.rdl.RdlPackage;
 
@@ -38,10 +37,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getComponentDefinitions <em>Component Definitions</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getNamedInstantiations <em>Named Instantiations</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getInstantiations <em>Instantiations</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getPropertyAssignments <em>Property Assignments</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getEnumDefinitions <em>Enum Definitions</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.impl.ComponentDefinitionImpl#getImmediateInstantiation <em>Immediate Instantiation</em>}</li>
  * </ul>
  *
  * @generated
@@ -99,14 +97,14 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
   protected EList<ComponentDefinition> componentDefinitions;
 
   /**
-   * The cached value of the '{@link #getNamedInstantiations() <em>Named Instantiations</em>}' containment reference list.
+   * The cached value of the '{@link #getInstantiations() <em>Instantiations</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNamedInstantiations()
+   * @see #getInstantiations()
    * @generated
    * @ordered
    */
-  protected EList<NamedInstantiation> namedInstantiations;
+  protected EList<Instantiation> instantiations;
 
   /**
    * The cached value of the '{@link #getPropertyAssignments() <em>Property Assignments</em>}' containment reference list.
@@ -127,16 +125,6 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
    * @ordered
    */
   protected EList<EnumDefinition> enumDefinitions;
-
-  /**
-   * The cached value of the '{@link #getImmediateInstantiation() <em>Immediate Instantiation</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getImmediateInstantiation()
-   * @generated
-   * @ordered
-   */
-  protected ImmediateInstantiation immediateInstantiation;
 
   /**
    * <!-- begin-user-doc -->
@@ -224,13 +212,13 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<NamedInstantiation> getNamedInstantiations()
+  public EList<Instantiation> getInstantiations()
   {
-    if (namedInstantiations == null)
+    if (instantiations == null)
     {
-      namedInstantiations = new EObjectContainmentEList<NamedInstantiation>(NamedInstantiation.class, this, RdlPackage.COMPONENT_DEFINITION__NAMED_INSTANTIATIONS);
+      instantiations = new EObjectContainmentEList<Instantiation>(Instantiation.class, this, RdlPackage.COMPONENT_DEFINITION__INSTANTIATIONS);
     }
-    return namedInstantiations;
+    return instantiations;
   }
 
   /**
@@ -266,54 +254,6 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public ImmediateInstantiation getImmediateInstantiation()
-  {
-    return immediateInstantiation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetImmediateInstantiation(ImmediateInstantiation newImmediateInstantiation, NotificationChain msgs)
-  {
-    ImmediateInstantiation oldImmediateInstantiation = immediateInstantiation;
-    immediateInstantiation = newImmediateInstantiation;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION, oldImmediateInstantiation, newImmediateInstantiation);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setImmediateInstantiation(ImmediateInstantiation newImmediateInstantiation)
-  {
-    if (newImmediateInstantiation != immediateInstantiation)
-    {
-      NotificationChain msgs = null;
-      if (immediateInstantiation != null)
-        msgs = ((InternalEObject)immediateInstantiation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION, null, msgs);
-      if (newImmediateInstantiation != null)
-        msgs = ((InternalEObject)newImmediateInstantiation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION, null, msgs);
-      msgs = basicSetImmediateInstantiation(newImmediateInstantiation, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION, newImmediateInstantiation, newImmediateInstantiation));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -321,14 +261,12 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
     {
       case RdlPackage.COMPONENT_DEFINITION__COMPONENT_DEFINITIONS:
         return ((InternalEList<?>)getComponentDefinitions()).basicRemove(otherEnd, msgs);
-      case RdlPackage.COMPONENT_DEFINITION__NAMED_INSTANTIATIONS:
-        return ((InternalEList<?>)getNamedInstantiations()).basicRemove(otherEnd, msgs);
+      case RdlPackage.COMPONENT_DEFINITION__INSTANTIATIONS:
+        return ((InternalEList<?>)getInstantiations()).basicRemove(otherEnd, msgs);
       case RdlPackage.COMPONENT_DEFINITION__PROPERTY_ASSIGNMENTS:
         return ((InternalEList<?>)getPropertyAssignments()).basicRemove(otherEnd, msgs);
       case RdlPackage.COMPONENT_DEFINITION__ENUM_DEFINITIONS:
         return ((InternalEList<?>)getEnumDefinitions()).basicRemove(otherEnd, msgs);
-      case RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION:
-        return basicSetImmediateInstantiation(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -349,14 +287,12 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
         return getName();
       case RdlPackage.COMPONENT_DEFINITION__COMPONENT_DEFINITIONS:
         return getComponentDefinitions();
-      case RdlPackage.COMPONENT_DEFINITION__NAMED_INSTANTIATIONS:
-        return getNamedInstantiations();
+      case RdlPackage.COMPONENT_DEFINITION__INSTANTIATIONS:
+        return getInstantiations();
       case RdlPackage.COMPONENT_DEFINITION__PROPERTY_ASSIGNMENTS:
         return getPropertyAssignments();
       case RdlPackage.COMPONENT_DEFINITION__ENUM_DEFINITIONS:
         return getEnumDefinitions();
-      case RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION:
-        return getImmediateInstantiation();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -382,9 +318,9 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
         getComponentDefinitions().clear();
         getComponentDefinitions().addAll((Collection<? extends ComponentDefinition>)newValue);
         return;
-      case RdlPackage.COMPONENT_DEFINITION__NAMED_INSTANTIATIONS:
-        getNamedInstantiations().clear();
-        getNamedInstantiations().addAll((Collection<? extends NamedInstantiation>)newValue);
+      case RdlPackage.COMPONENT_DEFINITION__INSTANTIATIONS:
+        getInstantiations().clear();
+        getInstantiations().addAll((Collection<? extends Instantiation>)newValue);
         return;
       case RdlPackage.COMPONENT_DEFINITION__PROPERTY_ASSIGNMENTS:
         getPropertyAssignments().clear();
@@ -393,9 +329,6 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
       case RdlPackage.COMPONENT_DEFINITION__ENUM_DEFINITIONS:
         getEnumDefinitions().clear();
         getEnumDefinitions().addAll((Collection<? extends EnumDefinition>)newValue);
-        return;
-      case RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION:
-        setImmediateInstantiation((ImmediateInstantiation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -420,17 +353,14 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
       case RdlPackage.COMPONENT_DEFINITION__COMPONENT_DEFINITIONS:
         getComponentDefinitions().clear();
         return;
-      case RdlPackage.COMPONENT_DEFINITION__NAMED_INSTANTIATIONS:
-        getNamedInstantiations().clear();
+      case RdlPackage.COMPONENT_DEFINITION__INSTANTIATIONS:
+        getInstantiations().clear();
         return;
       case RdlPackage.COMPONENT_DEFINITION__PROPERTY_ASSIGNMENTS:
         getPropertyAssignments().clear();
         return;
       case RdlPackage.COMPONENT_DEFINITION__ENUM_DEFINITIONS:
         getEnumDefinitions().clear();
-        return;
-      case RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION:
-        setImmediateInstantiation((ImmediateInstantiation)null);
         return;
     }
     super.eUnset(featureID);
@@ -452,14 +382,12 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case RdlPackage.COMPONENT_DEFINITION__COMPONENT_DEFINITIONS:
         return componentDefinitions != null && !componentDefinitions.isEmpty();
-      case RdlPackage.COMPONENT_DEFINITION__NAMED_INSTANTIATIONS:
-        return namedInstantiations != null && !namedInstantiations.isEmpty();
+      case RdlPackage.COMPONENT_DEFINITION__INSTANTIATIONS:
+        return instantiations != null && !instantiations.isEmpty();
       case RdlPackage.COMPONENT_DEFINITION__PROPERTY_ASSIGNMENTS:
         return propertyAssignments != null && !propertyAssignments.isEmpty();
       case RdlPackage.COMPONENT_DEFINITION__ENUM_DEFINITIONS:
         return enumDefinitions != null && !enumDefinitions.isEmpty();
-      case RdlPackage.COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION:
-        return immediateInstantiation != null;
     }
     return super.eIsSet(featureID);
   }

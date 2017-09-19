@@ -96,13 +96,13 @@ public interface RdlPackage extends EPackage
   int ROOT__ENUM_DEFINITIONS = 2;
 
   /**
-   * The feature id for the '<em><b>Named Instantiations</b></em>' containment reference list.
+   * The feature id for the '<em><b>Instantiations</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ROOT__NAMED_INSTANTIATIONS = 3;
+  int ROOT__INSTANTIATIONS = 3;
 
   /**
    * The feature id for the '<em><b>Property Assignments</b></em>' containment reference list.
@@ -167,7 +167,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getEntity()
    * @generated
    */
-  int ENTITY = 15;
+  int ENTITY = 14;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -345,13 +345,13 @@ public interface RdlPackage extends EPackage
   int COMPONENT_DEFINITION__COMPONENT_DEFINITIONS = 2;
 
   /**
-   * The feature id for the '<em><b>Named Instantiations</b></em>' containment reference list.
+   * The feature id for the '<em><b>Instantiations</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__NAMED_INSTANTIATIONS = 3;
+  int COMPONENT_DEFINITION__INSTANTIATIONS = 3;
 
   /**
    * The feature id for the '<em><b>Property Assignments</b></em>' containment reference list.
@@ -372,50 +372,32 @@ public interface RdlPackage extends EPackage
   int COMPONENT_DEFINITION__ENUM_DEFINITIONS = 5;
 
   /**
-   * The feature id for the '<em><b>Immediate Instantiation</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION = 6;
-
-  /**
    * The number of structural features of the '<em>Component Definition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION_FEATURE_COUNT = 7;
+  int COMPONENT_DEFINITION_FEATURE_COUNT = 6;
 
   /**
-   * The meta object id for the '{@link com.minres.rdl.rdl.impl.NamedInstantiationImpl <em>Named Instantiation</em>}' class.
+   * The meta object id for the '{@link com.minres.rdl.rdl.impl.InstantiationImpl <em>Instantiation</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see com.minres.rdl.rdl.impl.NamedInstantiationImpl
-   * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getNamedInstantiation()
+   * @see com.minres.rdl.rdl.impl.InstantiationImpl
+   * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getInstantiation()
    * @generated
    */
-  int NAMED_INSTANTIATION = 6;
+  int INSTANTIATION = 6;
 
   /**
-   * The feature id for the '<em><b>External</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int NAMED_INSTANTIATION__EXTERNAL = 0;
-
-  /**
-   * The feature id for the '<em><b>Internal</b></em>' attribute.
+   * The feature id for the '<em><b>Instance Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NAMED_INSTANTIATION__INTERNAL = 1;
+  int INSTANTIATION__INSTANCE_TYPE = 0;
 
   /**
    * The feature id for the '<em><b>Alias</b></em>' attribute.
@@ -424,16 +406,25 @@ public interface RdlPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_INSTANTIATION__ALIAS = 2;
+  int INSTANTIATION__ALIAS = 1;
 
   /**
-   * The feature id for the '<em><b>Component</b></em>' reference.
+   * The feature id for the '<em><b>Component Ref</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NAMED_INSTANTIATION__COMPONENT = 3;
+  int INSTANTIATION__COMPONENT_REF = 2;
+
+  /**
+   * The feature id for the '<em><b>Component</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INSTANTIATION__COMPONENT = 3;
 
   /**
    * The feature id for the '<em><b>Component Instances</b></em>' containment reference list.
@@ -442,53 +433,16 @@ public interface RdlPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NAMED_INSTANTIATION__COMPONENT_INSTANCES = 4;
+  int INSTANTIATION__COMPONENT_INSTANCES = 4;
 
   /**
-   * The number of structural features of the '<em>Named Instantiation</em>' class.
+   * The number of structural features of the '<em>Instantiation</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int NAMED_INSTANTIATION_FEATURE_COUNT = 5;
-
-  /**
-   * The meta object id for the '{@link com.minres.rdl.rdl.impl.ImmediateInstantiationImpl <em>Immediate Instantiation</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see com.minres.rdl.rdl.impl.ImmediateInstantiationImpl
-   * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getImmediateInstantiation()
-   * @generated
-   */
-  int IMMEDIATE_INSTANTIATION = 7;
-
-  /**
-   * The feature id for the '<em><b>External</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMMEDIATE_INSTANTIATION__EXTERNAL = 0;
-
-  /**
-   * The feature id for the '<em><b>Component Instances</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMMEDIATE_INSTANTIATION__COMPONENT_INSTANCES = 1;
-
-  /**
-   * The number of structural features of the '<em>Immediate Instantiation</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int IMMEDIATE_INSTANTIATION_FEATURE_COUNT = 2;
+  int INSTANTIATION_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link com.minres.rdl.rdl.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -498,7 +452,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getComponentInstance()
    * @generated
    */
-  int COMPONENT_INSTANCE = 8;
+  int COMPONENT_INSTANCE = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -571,25 +525,25 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getRange()
    * @generated
    */
-  int RANGE = 9;
+  int RANGE = 8;
 
   /**
-   * The feature id for the '<em><b>Start</b></em>' attribute.
+   * The feature id for the '<em><b>Left</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RANGE__START = 0;
+  int RANGE__LEFT = 0;
 
   /**
-   * The feature id for the '<em><b>End</b></em>' attribute.
+   * The feature id for the '<em><b>Right</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int RANGE__END = 1;
+  int RANGE__RIGHT = 1;
 
   /**
    * The feature id for the '<em><b>Size</b></em>' attribute.
@@ -617,7 +571,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getPropertyAssignment()
    * @generated
    */
-  int PROPERTY_ASSIGNMENT = 10;
+  int PROPERTY_ASSIGNMENT = 9;
 
   /**
    * The number of structural features of the '<em>Property Assignment</em>' class.
@@ -636,7 +590,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getDefaultProperyAssignment()
    * @generated
    */
-  int DEFAULT_PROPERY_ASSIGNMENT = 11;
+  int DEFAULT_PROPERY_ASSIGNMENT = 10;
 
   /**
    * The number of structural features of the '<em>Default Propery Assignment</em>' class.
@@ -655,7 +609,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getExplicitPropertyAssignment()
    * @generated
    */
-  int EXPLICIT_PROPERTY_ASSIGNMENT = 12;
+  int EXPLICIT_PROPERTY_ASSIGNMENT = 11;
 
   /**
    * The feature id for the '<em><b>Modifier</b></em>' attribute.
@@ -701,7 +655,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getPostPropertyAssignment()
    * @generated
    */
-  int POST_PROPERTY_ASSIGNMENT = 13;
+  int POST_PROPERTY_ASSIGNMENT = 12;
 
   /**
    * The feature id for the '<em><b>Instance</b></em>' containment reference.
@@ -756,7 +710,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getInstancePropertyRef()
    * @generated
    */
-  int INSTANCE_PROPERTY_REF = 14;
+  int INSTANCE_PROPERTY_REF = 13;
 
   /**
    * The feature id for the '<em><b>Instance</b></em>' containment reference.
@@ -802,7 +756,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getInstanceRef()
    * @generated
    */
-  int INSTANCE_REF = 16;
+  int INSTANCE_REF = 15;
 
   /**
    * The feature id for the '<em><b>Instance</b></em>' reference.
@@ -839,7 +793,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getPropertyAssignmentRhs()
    * @generated
    */
-  int PROPERTY_ASSIGNMENT_RHS = 17;
+  int PROPERTY_ASSIGNMENT_RHS = 16;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -903,7 +857,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getConcat()
    * @generated
    */
-  int CONCAT = 18;
+  int CONCAT = 17;
 
   /**
    * The feature id for the '<em><b>Elements</b></em>' containment reference list.
@@ -931,7 +885,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getConcatElem()
    * @generated
    */
-  int CONCAT_ELEM = 19;
+  int CONCAT_ELEM = 18;
 
   /**
    * The feature id for the '<em><b>Inst Prop Ref</b></em>' containment reference.
@@ -968,7 +922,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getRValue()
    * @generated
    */
-  int RVALUE = 20;
+  int RVALUE = 19;
 
   /**
    * The feature id for the '<em><b>Val</b></em>' attribute.
@@ -1014,7 +968,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getEnumDefinition()
    * @generated
    */
-  int ENUM_DEFINITION = 21;
+  int ENUM_DEFINITION = 20;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1051,7 +1005,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getEnumBody()
    * @generated
    */
-  int ENUM_BODY = 22;
+  int ENUM_BODY = 21;
 
   /**
    * The feature id for the '<em><b>Entries</b></em>' containment reference list.
@@ -1079,7 +1033,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getEnumEntry()
    * @generated
    */
-  int ENUM_ENTRY = 23;
+  int ENUM_ENTRY = 22;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1125,7 +1079,7 @@ public interface RdlPackage extends EPackage
    * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getEnumProperty()
    * @generated
    */
-  int ENUM_PROPERTY = 24;
+  int ENUM_PROPERTY = 23;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1153,6 +1107,43 @@ public interface RdlPackage extends EPackage
    * @ordered
    */
   int ENUM_PROPERTY_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link com.minres.rdl.rdl.impl.EnumInstanceTypeImpl <em>Enum Instance Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.minres.rdl.rdl.impl.EnumInstanceTypeImpl
+   * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getEnumInstanceType()
+   * @generated
+   */
+  int ENUM_INSTANCE_TYPE = 24;
+
+  /**
+   * The feature id for the '<em><b>EXTERNAL</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_INSTANCE_TYPE__EXTERNAL = 0;
+
+  /**
+   * The feature id for the '<em><b>INTERNAL</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_INSTANCE_TYPE__INTERNAL = 1;
+
+  /**
+   * The number of structural features of the '<em>Enum Instance Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_INSTANCE_TYPE_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link com.minres.rdl.rdl.PropertyTypeName <em>Property Type Name</em>}' enum.
@@ -1259,15 +1250,15 @@ public interface RdlPackage extends EPackage
   EReference getRoot_EnumDefinitions();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.Root#getNamedInstantiations <em>Named Instantiations</em>}'.
+   * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.Root#getInstantiations <em>Instantiations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Named Instantiations</em>'.
-   * @see com.minres.rdl.rdl.Root#getNamedInstantiations()
+   * @return the meta object for the containment reference list '<em>Instantiations</em>'.
+   * @see com.minres.rdl.rdl.Root#getInstantiations()
    * @see #getRoot()
    * @generated
    */
-  EReference getRoot_NamedInstantiations();
+  EReference getRoot_Instantiations();
 
   /**
    * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.Root#getPropertyAssignments <em>Property Assignments</em>}'.
@@ -1452,15 +1443,15 @@ public interface RdlPackage extends EPackage
   EReference getComponentDefinition_ComponentDefinitions();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.ComponentDefinition#getNamedInstantiations <em>Named Instantiations</em>}'.
+   * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.ComponentDefinition#getInstantiations <em>Instantiations</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Named Instantiations</em>'.
-   * @see com.minres.rdl.rdl.ComponentDefinition#getNamedInstantiations()
+   * @return the meta object for the containment reference list '<em>Instantiations</em>'.
+   * @see com.minres.rdl.rdl.ComponentDefinition#getInstantiations()
    * @see #getComponentDefinition()
    * @generated
    */
-  EReference getComponentDefinition_NamedInstantiations();
+  EReference getComponentDefinition_Instantiations();
 
   /**
    * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.ComponentDefinition#getPropertyAssignments <em>Property Assignments</em>}'.
@@ -1485,112 +1476,69 @@ public interface RdlPackage extends EPackage
   EReference getComponentDefinition_EnumDefinitions();
 
   /**
-   * Returns the meta object for the containment reference '{@link com.minres.rdl.rdl.ComponentDefinition#getImmediateInstantiation <em>Immediate Instantiation</em>}'.
+   * Returns the meta object for class '{@link com.minres.rdl.rdl.Instantiation <em>Instantiation</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Immediate Instantiation</em>'.
-   * @see com.minres.rdl.rdl.ComponentDefinition#getImmediateInstantiation()
-   * @see #getComponentDefinition()
+   * @return the meta object for class '<em>Instantiation</em>'.
+   * @see com.minres.rdl.rdl.Instantiation
    * @generated
    */
-  EReference getComponentDefinition_ImmediateInstantiation();
+  EClass getInstantiation();
 
   /**
-   * Returns the meta object for class '{@link com.minres.rdl.rdl.NamedInstantiation <em>Named Instantiation</em>}'.
+   * Returns the meta object for the containment reference '{@link com.minres.rdl.rdl.Instantiation#getInstanceType <em>Instance Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Named Instantiation</em>'.
-   * @see com.minres.rdl.rdl.NamedInstantiation
+   * @return the meta object for the containment reference '<em>Instance Type</em>'.
+   * @see com.minres.rdl.rdl.Instantiation#getInstanceType()
+   * @see #getInstantiation()
    * @generated
    */
-  EClass getNamedInstantiation();
+  EReference getInstantiation_InstanceType();
 
   /**
-   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.NamedInstantiation#isExternal <em>External</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>External</em>'.
-   * @see com.minres.rdl.rdl.NamedInstantiation#isExternal()
-   * @see #getNamedInstantiation()
-   * @generated
-   */
-  EAttribute getNamedInstantiation_External();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.NamedInstantiation#isInternal <em>Internal</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Internal</em>'.
-   * @see com.minres.rdl.rdl.NamedInstantiation#isInternal()
-   * @see #getNamedInstantiation()
-   * @generated
-   */
-  EAttribute getNamedInstantiation_Internal();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.NamedInstantiation#getAlias <em>Alias</em>}'.
+   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.Instantiation#getAlias <em>Alias</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Alias</em>'.
-   * @see com.minres.rdl.rdl.NamedInstantiation#getAlias()
-   * @see #getNamedInstantiation()
+   * @see com.minres.rdl.rdl.Instantiation#getAlias()
+   * @see #getInstantiation()
    * @generated
    */
-  EAttribute getNamedInstantiation_Alias();
+  EAttribute getInstantiation_Alias();
 
   /**
-   * Returns the meta object for the reference '{@link com.minres.rdl.rdl.NamedInstantiation#getComponent <em>Component</em>}'.
+   * Returns the meta object for the reference '{@link com.minres.rdl.rdl.Instantiation#getComponentRef <em>Component Ref</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Component</em>'.
-   * @see com.minres.rdl.rdl.NamedInstantiation#getComponent()
-   * @see #getNamedInstantiation()
+   * @return the meta object for the reference '<em>Component Ref</em>'.
+   * @see com.minres.rdl.rdl.Instantiation#getComponentRef()
+   * @see #getInstantiation()
    * @generated
    */
-  EReference getNamedInstantiation_Component();
+  EReference getInstantiation_ComponentRef();
 
   /**
-   * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.NamedInstantiation#getComponentInstances <em>Component Instances</em>}'.
+   * Returns the meta object for the containment reference '{@link com.minres.rdl.rdl.Instantiation#getComponent <em>Component</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Component Instances</em>'.
-   * @see com.minres.rdl.rdl.NamedInstantiation#getComponentInstances()
-   * @see #getNamedInstantiation()
+   * @return the meta object for the containment reference '<em>Component</em>'.
+   * @see com.minres.rdl.rdl.Instantiation#getComponent()
+   * @see #getInstantiation()
    * @generated
    */
-  EReference getNamedInstantiation_ComponentInstances();
+  EReference getInstantiation_Component();
 
   /**
-   * Returns the meta object for class '{@link com.minres.rdl.rdl.ImmediateInstantiation <em>Immediate Instantiation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Immediate Instantiation</em>'.
-   * @see com.minres.rdl.rdl.ImmediateInstantiation
-   * @generated
-   */
-  EClass getImmediateInstantiation();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.ImmediateInstantiation#isExternal <em>External</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>External</em>'.
-   * @see com.minres.rdl.rdl.ImmediateInstantiation#isExternal()
-   * @see #getImmediateInstantiation()
-   * @generated
-   */
-  EAttribute getImmediateInstantiation_External();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.ImmediateInstantiation#getComponentInstances <em>Component Instances</em>}'.
+   * Returns the meta object for the containment reference list '{@link com.minres.rdl.rdl.Instantiation#getComponentInstances <em>Component Instances</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Component Instances</em>'.
-   * @see com.minres.rdl.rdl.ImmediateInstantiation#getComponentInstances()
-   * @see #getImmediateInstantiation()
+   * @see com.minres.rdl.rdl.Instantiation#getComponentInstances()
+   * @see #getInstantiation()
    * @generated
    */
-  EReference getImmediateInstantiation_ComponentInstances();
+  EReference getInstantiation_ComponentInstances();
 
   /**
    * Returns the meta object for class '{@link com.minres.rdl.rdl.ComponentInstance <em>Component Instance</em>}'.
@@ -1668,26 +1616,26 @@ public interface RdlPackage extends EPackage
   EClass getRange();
 
   /**
-   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.Range#getStart <em>Start</em>}'.
+   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.Range#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Start</em>'.
-   * @see com.minres.rdl.rdl.Range#getStart()
+   * @return the meta object for the attribute '<em>Left</em>'.
+   * @see com.minres.rdl.rdl.Range#getLeft()
    * @see #getRange()
    * @generated
    */
-  EAttribute getRange_Start();
+  EAttribute getRange_Left();
 
   /**
-   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.Range#getEnd <em>End</em>}'.
+   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.Range#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>End</em>'.
-   * @see com.minres.rdl.rdl.Range#getEnd()
+   * @return the meta object for the attribute '<em>Right</em>'.
+   * @see com.minres.rdl.rdl.Range#getRight()
    * @see #getRange()
    * @generated
    */
-  EAttribute getRange_End();
+  EAttribute getRange_Right();
 
   /**
    * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.Range#getSize <em>Size</em>}'.
@@ -2192,6 +2140,38 @@ public interface RdlPackage extends EPackage
   EAttribute getEnumProperty_Value();
 
   /**
+   * Returns the meta object for class '{@link com.minres.rdl.rdl.EnumInstanceType <em>Enum Instance Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Enum Instance Type</em>'.
+   * @see com.minres.rdl.rdl.EnumInstanceType
+   * @generated
+   */
+  EClass getEnumInstanceType();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.EnumInstanceType#getEXTERNAL <em>EXTERNAL</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>EXTERNAL</em>'.
+   * @see com.minres.rdl.rdl.EnumInstanceType#getEXTERNAL()
+   * @see #getEnumInstanceType()
+   * @generated
+   */
+  EAttribute getEnumInstanceType_EXTERNAL();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.minres.rdl.rdl.EnumInstanceType#getINTERNAL <em>INTERNAL</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>INTERNAL</em>'.
+   * @see com.minres.rdl.rdl.EnumInstanceType#getINTERNAL()
+   * @see #getEnumInstanceType()
+   * @generated
+   */
+  EAttribute getEnumInstanceType_INTERNAL();
+
+  /**
    * Returns the meta object for enum '{@link com.minres.rdl.rdl.PropertyTypeName <em>Property Type Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2309,12 +2289,12 @@ public interface RdlPackage extends EPackage
     EReference ROOT__ENUM_DEFINITIONS = eINSTANCE.getRoot_EnumDefinitions();
 
     /**
-     * The meta object literal for the '<em><b>Named Instantiations</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Instantiations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ROOT__NAMED_INSTANTIATIONS = eINSTANCE.getRoot_NamedInstantiations();
+    EReference ROOT__INSTANTIATIONS = eINSTANCE.getRoot_Instantiations();
 
     /**
      * The meta object literal for the '<em><b>Property Assignments</b></em>' containment reference list feature.
@@ -2463,12 +2443,12 @@ public interface RdlPackage extends EPackage
     EReference COMPONENT_DEFINITION__COMPONENT_DEFINITIONS = eINSTANCE.getComponentDefinition_ComponentDefinitions();
 
     /**
-     * The meta object literal for the '<em><b>Named Instantiations</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Instantiations</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference COMPONENT_DEFINITION__NAMED_INSTANTIATIONS = eINSTANCE.getComponentDefinition_NamedInstantiations();
+    EReference COMPONENT_DEFINITION__INSTANTIATIONS = eINSTANCE.getComponentDefinition_Instantiations();
 
     /**
      * The meta object literal for the '<em><b>Property Assignments</b></em>' containment reference list feature.
@@ -2487,38 +2467,22 @@ public interface RdlPackage extends EPackage
     EReference COMPONENT_DEFINITION__ENUM_DEFINITIONS = eINSTANCE.getComponentDefinition_EnumDefinitions();
 
     /**
-     * The meta object literal for the '<em><b>Immediate Instantiation</b></em>' containment reference feature.
+     * The meta object literal for the '{@link com.minres.rdl.rdl.impl.InstantiationImpl <em>Instantiation</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see com.minres.rdl.rdl.impl.InstantiationImpl
+     * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getInstantiation()
      * @generated
      */
-    EReference COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION = eINSTANCE.getComponentDefinition_ImmediateInstantiation();
+    EClass INSTANTIATION = eINSTANCE.getInstantiation();
 
     /**
-     * The meta object literal for the '{@link com.minres.rdl.rdl.impl.NamedInstantiationImpl <em>Named Instantiation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.minres.rdl.rdl.impl.NamedInstantiationImpl
-     * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getNamedInstantiation()
-     * @generated
-     */
-    EClass NAMED_INSTANTIATION = eINSTANCE.getNamedInstantiation();
-
-    /**
-     * The meta object literal for the '<em><b>External</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Instance Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute NAMED_INSTANTIATION__EXTERNAL = eINSTANCE.getNamedInstantiation_External();
-
-    /**
-     * The meta object literal for the '<em><b>Internal</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute NAMED_INSTANTIATION__INTERNAL = eINSTANCE.getNamedInstantiation_Internal();
+    EReference INSTANTIATION__INSTANCE_TYPE = eINSTANCE.getInstantiation_InstanceType();
 
     /**
      * The meta object literal for the '<em><b>Alias</b></em>' attribute feature.
@@ -2526,41 +2490,23 @@ public interface RdlPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute NAMED_INSTANTIATION__ALIAS = eINSTANCE.getNamedInstantiation_Alias();
+    EAttribute INSTANTIATION__ALIAS = eINSTANCE.getInstantiation_Alias();
 
     /**
-     * The meta object literal for the '<em><b>Component</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Component Ref</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NAMED_INSTANTIATION__COMPONENT = eINSTANCE.getNamedInstantiation_Component();
+    EReference INSTANTIATION__COMPONENT_REF = eINSTANCE.getInstantiation_ComponentRef();
 
     /**
-     * The meta object literal for the '<em><b>Component Instances</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Component</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference NAMED_INSTANTIATION__COMPONENT_INSTANCES = eINSTANCE.getNamedInstantiation_ComponentInstances();
-
-    /**
-     * The meta object literal for the '{@link com.minres.rdl.rdl.impl.ImmediateInstantiationImpl <em>Immediate Instantiation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see com.minres.rdl.rdl.impl.ImmediateInstantiationImpl
-     * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getImmediateInstantiation()
-     * @generated
-     */
-    EClass IMMEDIATE_INSTANTIATION = eINSTANCE.getImmediateInstantiation();
-
-    /**
-     * The meta object literal for the '<em><b>External</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute IMMEDIATE_INSTANTIATION__EXTERNAL = eINSTANCE.getImmediateInstantiation_External();
+    EReference INSTANTIATION__COMPONENT = eINSTANCE.getInstantiation_Component();
 
     /**
      * The meta object literal for the '<em><b>Component Instances</b></em>' containment reference list feature.
@@ -2568,7 +2514,7 @@ public interface RdlPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference IMMEDIATE_INSTANTIATION__COMPONENT_INSTANCES = eINSTANCE.getImmediateInstantiation_ComponentInstances();
+    EReference INSTANTIATION__COMPONENT_INSTANCES = eINSTANCE.getInstantiation_ComponentInstances();
 
     /**
      * The meta object literal for the '{@link com.minres.rdl.rdl.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -2631,20 +2577,20 @@ public interface RdlPackage extends EPackage
     EClass RANGE = eINSTANCE.getRange();
 
     /**
-     * The meta object literal for the '<em><b>Start</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Left</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RANGE__START = eINSTANCE.getRange_Start();
+    EAttribute RANGE__LEFT = eINSTANCE.getRange_Left();
 
     /**
-     * The meta object literal for the '<em><b>End</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Right</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute RANGE__END = eINSTANCE.getRange_End();
+    EAttribute RANGE__RIGHT = eINSTANCE.getRange_Right();
 
     /**
      * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
@@ -3051,6 +2997,32 @@ public interface RdlPackage extends EPackage
      * @generated
      */
     EAttribute ENUM_PROPERTY__VALUE = eINSTANCE.getEnumProperty_Value();
+
+    /**
+     * The meta object literal for the '{@link com.minres.rdl.rdl.impl.EnumInstanceTypeImpl <em>Enum Instance Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.minres.rdl.rdl.impl.EnumInstanceTypeImpl
+     * @see com.minres.rdl.rdl.impl.RdlPackageImpl#getEnumInstanceType()
+     * @generated
+     */
+    EClass ENUM_INSTANCE_TYPE = eINSTANCE.getEnumInstanceType();
+
+    /**
+     * The meta object literal for the '<em><b>EXTERNAL</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENUM_INSTANCE_TYPE__EXTERNAL = eINSTANCE.getEnumInstanceType_EXTERNAL();
+
+    /**
+     * The meta object literal for the '<em><b>INTERNAL</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENUM_INSTANCE_TYPE__INTERNAL = eINSTANCE.getEnumInstanceType_INTERNAL();
 
     /**
      * The meta object literal for the '{@link com.minres.rdl.rdl.PropertyTypeName <em>Property Type Name</em>}' enum.

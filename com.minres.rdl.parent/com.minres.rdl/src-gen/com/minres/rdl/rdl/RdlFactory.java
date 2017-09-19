@@ -78,22 +78,13 @@ public interface RdlFactory extends EFactory
   ComponentDefinition createComponentDefinition();
 
   /**
-   * Returns a new object of class '<em>Named Instantiation</em>'.
+   * Returns a new object of class '<em>Instantiation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Named Instantiation</em>'.
+   * @return a new object of class '<em>Instantiation</em>'.
    * @generated
    */
-  NamedInstantiation createNamedInstantiation();
-
-  /**
-   * Returns a new object of class '<em>Immediate Instantiation</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Immediate Instantiation</em>'.
-   * @generated
-   */
-  ImmediateInstantiation createImmediateInstantiation();
+  Instantiation createInstantiation();
 
   /**
    * Returns a new object of class '<em>Component Instance</em>'.
@@ -247,6 +238,15 @@ public interface RdlFactory extends EFactory
    * @generated
    */
   EnumProperty createEnumProperty();
+
+  /**
+   * Returns a new object of class '<em>Enum Instance Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Enum Instance Type</em>'.
+   * @generated
+   */
+  EnumInstanceType createEnumInstanceType();
 
   /**
    * Returns the package supported by this factory.

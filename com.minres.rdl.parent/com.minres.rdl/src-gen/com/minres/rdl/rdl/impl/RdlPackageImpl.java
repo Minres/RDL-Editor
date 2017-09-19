@@ -13,13 +13,13 @@ import com.minres.rdl.rdl.Entity;
 import com.minres.rdl.rdl.EnumBody;
 import com.minres.rdl.rdl.EnumDefinition;
 import com.minres.rdl.rdl.EnumEntry;
+import com.minres.rdl.rdl.EnumInstanceType;
 import com.minres.rdl.rdl.EnumProperty;
 import com.minres.rdl.rdl.ExplicitPropertyAssignment;
-import com.minres.rdl.rdl.ImmediateInstantiation;
 import com.minres.rdl.rdl.Include;
 import com.minres.rdl.rdl.InstancePropertyRef;
 import com.minres.rdl.rdl.InstanceRef;
-import com.minres.rdl.rdl.NamedInstantiation;
+import com.minres.rdl.rdl.Instantiation;
 import com.minres.rdl.rdl.PostPropertyAssignment;
 import com.minres.rdl.rdl.PropertyAssignment;
 import com.minres.rdl.rdl.PropertyAssignmentRhs;
@@ -100,14 +100,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass namedInstantiationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass immediateInstantiationEClass = null;
+  private EClass instantiationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -227,6 +220,13 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * @generated
    */
   private EClass enumPropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass enumInstanceTypeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -378,7 +378,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRoot_NamedInstantiations()
+  public EReference getRoot_Instantiations()
   {
     return (EReference)rootEClass.getEStructuralFeatures().get(3);
   }
@@ -558,7 +558,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getComponentDefinition_NamedInstantiations()
+  public EReference getComponentDefinition_Instantiations()
   {
     return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(3);
   }
@@ -588,9 +588,9 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getComponentDefinition_ImmediateInstantiation()
+  public EClass getInstantiation()
   {
-    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(6);
+    return instantiationEClass;
   }
 
   /**
@@ -598,9 +598,9 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getNamedInstantiation()
+  public EReference getInstantiation_InstanceType()
   {
-    return namedInstantiationEClass;
+    return (EReference)instantiationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -608,9 +608,9 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getNamedInstantiation_External()
+  public EAttribute getInstantiation_Alias()
   {
-    return (EAttribute)namedInstantiationEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)instantiationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -618,9 +618,9 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getNamedInstantiation_Internal()
+  public EReference getInstantiation_ComponentRef()
   {
-    return (EAttribute)namedInstantiationEClass.getEStructuralFeatures().get(1);
+    return (EReference)instantiationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -628,9 +628,9 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getNamedInstantiation_Alias()
+  public EReference getInstantiation_Component()
   {
-    return (EAttribute)namedInstantiationEClass.getEStructuralFeatures().get(2);
+    return (EReference)instantiationEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -638,49 +638,9 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getNamedInstantiation_Component()
+  public EReference getInstantiation_ComponentInstances()
   {
-    return (EReference)namedInstantiationEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNamedInstantiation_ComponentInstances()
-  {
-    return (EReference)namedInstantiationEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getImmediateInstantiation()
-  {
-    return immediateInstantiationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getImmediateInstantiation_External()
-  {
-    return (EAttribute)immediateInstantiationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getImmediateInstantiation_ComponentInstances()
-  {
-    return (EReference)immediateInstantiationEClass.getEStructuralFeatures().get(1);
+    return (EReference)instantiationEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -758,7 +718,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRange_Start()
+  public EAttribute getRange_Left()
   {
     return (EAttribute)rangeEClass.getEStructuralFeatures().get(0);
   }
@@ -768,7 +728,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getRange_End()
+  public EAttribute getRange_Right()
   {
     return (EAttribute)rangeEClass.getEStructuralFeatures().get(1);
   }
@@ -1248,6 +1208,36 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getEnumInstanceType()
+  {
+    return enumInstanceTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEnumInstanceType_EXTERNAL()
+  {
+    return (EAttribute)enumInstanceTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEnumInstanceType_INTERNAL()
+  {
+    return (EAttribute)enumInstanceTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getPropertyTypeName()
   {
     return propertyTypeNameEEnum;
@@ -1337,7 +1327,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     createEReference(rootEClass, ROOT__INCLUDES);
     createEReference(rootEClass, ROOT__COMPONENT_DEFINITIONS);
     createEReference(rootEClass, ROOT__ENUM_DEFINITIONS);
-    createEReference(rootEClass, ROOT__NAMED_INSTANTIATIONS);
+    createEReference(rootEClass, ROOT__INSTANTIATIONS);
     createEReference(rootEClass, ROOT__PROPERTY_ASSIGNMENTS);
     createEReference(rootEClass, ROOT__PROPERTY_DEFINITIONS);
 
@@ -1360,21 +1350,16 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     createEAttribute(componentDefinitionEClass, COMPONENT_DEFINITION__TYPE);
     createEAttribute(componentDefinitionEClass, COMPONENT_DEFINITION__NAME);
     createEReference(componentDefinitionEClass, COMPONENT_DEFINITION__COMPONENT_DEFINITIONS);
-    createEReference(componentDefinitionEClass, COMPONENT_DEFINITION__NAMED_INSTANTIATIONS);
+    createEReference(componentDefinitionEClass, COMPONENT_DEFINITION__INSTANTIATIONS);
     createEReference(componentDefinitionEClass, COMPONENT_DEFINITION__PROPERTY_ASSIGNMENTS);
     createEReference(componentDefinitionEClass, COMPONENT_DEFINITION__ENUM_DEFINITIONS);
-    createEReference(componentDefinitionEClass, COMPONENT_DEFINITION__IMMEDIATE_INSTANTIATION);
 
-    namedInstantiationEClass = createEClass(NAMED_INSTANTIATION);
-    createEAttribute(namedInstantiationEClass, NAMED_INSTANTIATION__EXTERNAL);
-    createEAttribute(namedInstantiationEClass, NAMED_INSTANTIATION__INTERNAL);
-    createEAttribute(namedInstantiationEClass, NAMED_INSTANTIATION__ALIAS);
-    createEReference(namedInstantiationEClass, NAMED_INSTANTIATION__COMPONENT);
-    createEReference(namedInstantiationEClass, NAMED_INSTANTIATION__COMPONENT_INSTANCES);
-
-    immediateInstantiationEClass = createEClass(IMMEDIATE_INSTANTIATION);
-    createEAttribute(immediateInstantiationEClass, IMMEDIATE_INSTANTIATION__EXTERNAL);
-    createEReference(immediateInstantiationEClass, IMMEDIATE_INSTANTIATION__COMPONENT_INSTANCES);
+    instantiationEClass = createEClass(INSTANTIATION);
+    createEReference(instantiationEClass, INSTANTIATION__INSTANCE_TYPE);
+    createEAttribute(instantiationEClass, INSTANTIATION__ALIAS);
+    createEReference(instantiationEClass, INSTANTIATION__COMPONENT_REF);
+    createEReference(instantiationEClass, INSTANTIATION__COMPONENT);
+    createEReference(instantiationEClass, INSTANTIATION__COMPONENT_INSTANCES);
 
     componentInstanceEClass = createEClass(COMPONENT_INSTANCE);
     createEReference(componentInstanceEClass, COMPONENT_INSTANCE__RANGE);
@@ -1384,8 +1369,8 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     createEAttribute(componentInstanceEClass, COMPONENT_INSTANCE__ADDR_MOD);
 
     rangeEClass = createEClass(RANGE);
-    createEAttribute(rangeEClass, RANGE__START);
-    createEAttribute(rangeEClass, RANGE__END);
+    createEAttribute(rangeEClass, RANGE__LEFT);
+    createEAttribute(rangeEClass, RANGE__RIGHT);
     createEAttribute(rangeEClass, RANGE__SIZE);
 
     propertyAssignmentEClass = createEClass(PROPERTY_ASSIGNMENT);
@@ -1449,6 +1434,10 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     createEAttribute(enumPropertyEClass, ENUM_PROPERTY__NAME);
     createEAttribute(enumPropertyEClass, ENUM_PROPERTY__VALUE);
 
+    enumInstanceTypeEClass = createEClass(ENUM_INSTANCE_TYPE);
+    createEAttribute(enumInstanceTypeEClass, ENUM_INSTANCE_TYPE__EXTERNAL);
+    createEAttribute(enumInstanceTypeEClass, ENUM_INSTANCE_TYPE__INTERNAL);
+
     // Create enums
     propertyTypeNameEEnum = createEEnum(PROPERTY_TYPE_NAME);
     propertyComponentEEnum = createEEnum(PROPERTY_COMPONENT);
@@ -1500,7 +1489,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     initEReference(getRoot_Includes(), this.getInclude(), null, "includes", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRoot_ComponentDefinitions(), this.getComponentDefinition(), null, "componentDefinitions", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRoot_EnumDefinitions(), this.getEnumDefinition(), null, "enumDefinitions", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRoot_NamedInstantiations(), this.getNamedInstantiation(), null, "namedInstantiations", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRoot_Instantiations(), this.getInstantiation(), null, "instantiations", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRoot_PropertyAssignments(), this.getPropertyAssignment(), null, "propertyAssignments", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRoot_PropertyDefinitions(), this.getPropertyDefinition(), null, "propertyDefinitions", null, 0, -1, Root.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1523,21 +1512,16 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     initEAttribute(getComponentDefinition_Type(), this.getComponentDefinitionType(), "type", null, 0, 1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getComponentDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getComponentDefinition_ComponentDefinitions(), this.getComponentDefinition(), null, "componentDefinitions", null, 0, -1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponentDefinition_NamedInstantiations(), this.getNamedInstantiation(), null, "namedInstantiations", null, 0, -1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getComponentDefinition_Instantiations(), this.getInstantiation(), null, "instantiations", null, 0, -1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getComponentDefinition_PropertyAssignments(), this.getPropertyAssignment(), null, "propertyAssignments", null, 0, -1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getComponentDefinition_EnumDefinitions(), this.getEnumDefinition(), null, "enumDefinitions", null, 0, -1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getComponentDefinition_ImmediateInstantiation(), this.getImmediateInstantiation(), null, "immediateInstantiation", null, 0, 1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(namedInstantiationEClass, NamedInstantiation.class, "NamedInstantiation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getNamedInstantiation_External(), ecorePackage.getEBoolean(), "external", null, 0, 1, NamedInstantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getNamedInstantiation_Internal(), ecorePackage.getEBoolean(), "internal", null, 0, 1, NamedInstantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getNamedInstantiation_Alias(), ecorePackage.getEString(), "alias", null, 0, 1, NamedInstantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getNamedInstantiation_Component(), this.getComponentDefinition(), null, "component", null, 0, 1, NamedInstantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getNamedInstantiation_ComponentInstances(), this.getComponentInstance(), null, "componentInstances", null, 0, -1, NamedInstantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(immediateInstantiationEClass, ImmediateInstantiation.class, "ImmediateInstantiation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getImmediateInstantiation_External(), ecorePackage.getEBoolean(), "external", null, 0, 1, ImmediateInstantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getImmediateInstantiation_ComponentInstances(), this.getComponentInstance(), null, "componentInstances", null, 0, -1, ImmediateInstantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(instantiationEClass, Instantiation.class, "Instantiation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getInstantiation_InstanceType(), this.getEnumInstanceType(), null, "instanceType", null, 0, 1, Instantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInstantiation_Alias(), ecorePackage.getEString(), "alias", null, 0, 1, Instantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstantiation_ComponentRef(), this.getComponentDefinition(), null, "componentRef", null, 0, 1, Instantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstantiation_Component(), this.getComponentDefinition(), null, "component", null, 0, 1, Instantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getInstantiation_ComponentInstances(), this.getComponentInstance(), null, "componentInstances", null, 0, -1, Instantiation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(componentInstanceEClass, ComponentInstance.class, "ComponentInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getComponentInstance_Range(), this.getRange(), null, "range", null, 0, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1547,8 +1531,8 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     initEAttribute(getComponentInstance_AddrMod(), ecorePackage.getEJavaObject(), "addrMod", null, 0, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(rangeEClass, Range.class, "Range", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getRange_Start(), ecorePackage.getEJavaObject(), "start", null, 0, 1, Range.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getRange_End(), ecorePackage.getEJavaObject(), "end", null, 0, 1, Range.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getRange_Left(), ecorePackage.getEJavaObject(), "left", null, 0, 1, Range.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getRange_Right(), ecorePackage.getEJavaObject(), "right", null, 0, 1, Range.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRange_Size(), ecorePackage.getEJavaObject(), "size", null, 0, 1, Range.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyAssignmentEClass, PropertyAssignment.class, "PropertyAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1611,6 +1595,10 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     initEClass(enumPropertyEClass, EnumProperty.class, "EnumProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEnumProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnumProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEnumProperty_Value(), ecorePackage.getEString(), "value", null, 0, 1, EnumProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(enumInstanceTypeEClass, EnumInstanceType.class, "EnumInstanceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEnumInstanceType_EXTERNAL(), ecorePackage.getEString(), "EXTERNAL", null, 0, 1, EnumInstanceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEnumInstanceType_INTERNAL(), ecorePackage.getEString(), "INTERNAL", null, 0, 1, EnumInstanceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(propertyTypeNameEEnum, PropertyTypeName.class, "PropertyTypeName");

@@ -4,13 +4,13 @@
 '->'=131
 '.'=132
 ':'=130
-';'=117
+';'=113
 '='=119
 '@'=125
 'UNDEFINED'=97
 '['=128
 ']'=129
-'`include'=113
+'`include'=114
 'accesswidth'=81
 'activehigh'=60
 'activelow'=61
@@ -78,7 +78,7 @@
 'overflow'=44
 'posedge'=108
 'precedence'=85
-'property'=114
+'property'=115
 'r'=102
 'rclr'=26
 'ref'=19
@@ -118,9 +118,9 @@
 'woset'=28
 'wr'=101
 'xored'=42
-'{'=115
+'{'=116
 '|'=122
-'}'=116
+'}'=117
 RULE_ESCAPE_JSP=10
 RULE_ESCAPE_ORDL=11
 RULE_ID=5

@@ -6,7 +6,7 @@ package com.minres.rdl.rdl.impl;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.EnumDefinition;
 import com.minres.rdl.rdl.Include;
-import com.minres.rdl.rdl.NamedInstantiation;
+import com.minres.rdl.rdl.Instantiation;
 import com.minres.rdl.rdl.PropertyAssignment;
 import com.minres.rdl.rdl.PropertyDefinition;
 import com.minres.rdl.rdl.RdlPackage;
@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.minres.rdl.rdl.impl.RootImpl#getIncludes <em>Includes</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.RootImpl#getComponentDefinitions <em>Component Definitions</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.RootImpl#getEnumDefinitions <em>Enum Definitions</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.impl.RootImpl#getNamedInstantiations <em>Named Instantiations</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.impl.RootImpl#getInstantiations <em>Instantiations</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.RootImpl#getPropertyAssignments <em>Property Assignments</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.impl.RootImpl#getPropertyDefinitions <em>Property Definitions</em>}</li>
  * </ul>
@@ -77,14 +77,14 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root
   protected EList<EnumDefinition> enumDefinitions;
 
   /**
-   * The cached value of the '{@link #getNamedInstantiations() <em>Named Instantiations</em>}' containment reference list.
+   * The cached value of the '{@link #getInstantiations() <em>Instantiations</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNamedInstantiations()
+   * @see #getInstantiations()
    * @generated
    * @ordered
    */
-  protected EList<NamedInstantiation> namedInstantiations;
+  protected EList<Instantiation> instantiations;
 
   /**
    * The cached value of the '{@link #getPropertyAssignments() <em>Property Assignments</em>}' containment reference list.
@@ -174,13 +174,13 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<NamedInstantiation> getNamedInstantiations()
+  public EList<Instantiation> getInstantiations()
   {
-    if (namedInstantiations == null)
+    if (instantiations == null)
     {
-      namedInstantiations = new EObjectContainmentEList<NamedInstantiation>(NamedInstantiation.class, this, RdlPackage.ROOT__NAMED_INSTANTIATIONS);
+      instantiations = new EObjectContainmentEList<Instantiation>(Instantiation.class, this, RdlPackage.ROOT__INSTANTIATIONS);
     }
-    return namedInstantiations;
+    return instantiations;
   }
 
   /**
@@ -227,8 +227,8 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root
         return ((InternalEList<?>)getComponentDefinitions()).basicRemove(otherEnd, msgs);
       case RdlPackage.ROOT__ENUM_DEFINITIONS:
         return ((InternalEList<?>)getEnumDefinitions()).basicRemove(otherEnd, msgs);
-      case RdlPackage.ROOT__NAMED_INSTANTIATIONS:
-        return ((InternalEList<?>)getNamedInstantiations()).basicRemove(otherEnd, msgs);
+      case RdlPackage.ROOT__INSTANTIATIONS:
+        return ((InternalEList<?>)getInstantiations()).basicRemove(otherEnd, msgs);
       case RdlPackage.ROOT__PROPERTY_ASSIGNMENTS:
         return ((InternalEList<?>)getPropertyAssignments()).basicRemove(otherEnd, msgs);
       case RdlPackage.ROOT__PROPERTY_DEFINITIONS:
@@ -253,8 +253,8 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root
         return getComponentDefinitions();
       case RdlPackage.ROOT__ENUM_DEFINITIONS:
         return getEnumDefinitions();
-      case RdlPackage.ROOT__NAMED_INSTANTIATIONS:
-        return getNamedInstantiations();
+      case RdlPackage.ROOT__INSTANTIATIONS:
+        return getInstantiations();
       case RdlPackage.ROOT__PROPERTY_ASSIGNMENTS:
         return getPropertyAssignments();
       case RdlPackage.ROOT__PROPERTY_DEFINITIONS:
@@ -286,9 +286,9 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root
         getEnumDefinitions().clear();
         getEnumDefinitions().addAll((Collection<? extends EnumDefinition>)newValue);
         return;
-      case RdlPackage.ROOT__NAMED_INSTANTIATIONS:
-        getNamedInstantiations().clear();
-        getNamedInstantiations().addAll((Collection<? extends NamedInstantiation>)newValue);
+      case RdlPackage.ROOT__INSTANTIATIONS:
+        getInstantiations().clear();
+        getInstantiations().addAll((Collection<? extends Instantiation>)newValue);
         return;
       case RdlPackage.ROOT__PROPERTY_ASSIGNMENTS:
         getPropertyAssignments().clear();
@@ -321,8 +321,8 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root
       case RdlPackage.ROOT__ENUM_DEFINITIONS:
         getEnumDefinitions().clear();
         return;
-      case RdlPackage.ROOT__NAMED_INSTANTIATIONS:
-        getNamedInstantiations().clear();
+      case RdlPackage.ROOT__INSTANTIATIONS:
+        getInstantiations().clear();
         return;
       case RdlPackage.ROOT__PROPERTY_ASSIGNMENTS:
         getPropertyAssignments().clear();
@@ -350,8 +350,8 @@ public class RootImpl extends MinimalEObjectImpl.Container implements Root
         return componentDefinitions != null && !componentDefinitions.isEmpty();
       case RdlPackage.ROOT__ENUM_DEFINITIONS:
         return enumDefinitions != null && !enumDefinitions.isEmpty();
-      case RdlPackage.ROOT__NAMED_INSTANTIATIONS:
-        return namedInstantiations != null && !namedInstantiations.isEmpty();
+      case RdlPackage.ROOT__INSTANTIATIONS:
+        return instantiations != null && !instantiations.isEmpty();
       case RdlPackage.ROOT__PROPERTY_ASSIGNMENTS:
         return propertyAssignments != null && !propertyAssignments.isEmpty();
       case RdlPackage.ROOT__PROPERTY_DEFINITIONS:

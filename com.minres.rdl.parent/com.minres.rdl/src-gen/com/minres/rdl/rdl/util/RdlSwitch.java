@@ -116,17 +116,10 @@ public class RdlSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case RdlPackage.NAMED_INSTANTIATION:
+      case RdlPackage.INSTANTIATION:
       {
-        NamedInstantiation namedInstantiation = (NamedInstantiation)theEObject;
-        T result = caseNamedInstantiation(namedInstantiation);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case RdlPackage.IMMEDIATE_INSTANTIATION:
-      {
-        ImmediateInstantiation immediateInstantiation = (ImmediateInstantiation)theEObject;
-        T result = caseImmediateInstantiation(immediateInstantiation);
+        Instantiation instantiation = (Instantiation)theEObject;
+        T result = caseInstantiation(instantiation);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -255,6 +248,13 @@ public class RdlSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case RdlPackage.ENUM_INSTANCE_TYPE:
+      {
+        EnumInstanceType enumInstanceType = (EnumInstanceType)theEObject;
+        T result = caseEnumInstanceType(enumInstanceType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -356,33 +356,17 @@ public class RdlSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Named Instantiation</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Instantiation</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Named Instantiation</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Instantiation</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseNamedInstantiation(NamedInstantiation object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Immediate Instantiation</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Immediate Instantiation</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseImmediateInstantiation(ImmediateInstantiation object)
+  public T caseInstantiation(Instantiation object)
   {
     return null;
   }
@@ -655,6 +639,22 @@ public class RdlSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEnumProperty(EnumProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Enum Instance Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Enum Instance Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEnumInstanceType(EnumInstanceType object)
   {
     return null;
   }

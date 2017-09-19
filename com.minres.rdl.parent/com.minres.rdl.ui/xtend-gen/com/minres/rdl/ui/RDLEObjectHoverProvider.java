@@ -1,11 +1,12 @@
 package com.minres.rdl.ui;
 
 import com.minres.rdl.rdl.ComponentDefinition;
+import com.minres.rdl.rdl.ComponentDefinitionType;
 import com.minres.rdl.rdl.ComponentInstance;
-import com.minres.rdl.rdl.ImmediateInstantiation;
-import com.minres.rdl.rdl.NamedInstantiation;
+import com.minres.rdl.rdl.Instantiation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 @SuppressWarnings("all")
 public class RDLEObjectHoverProvider extends DefaultEObjectHoverProvider {
@@ -24,20 +25,19 @@ public class RDLEObjectHoverProvider extends DefaultEObjectHoverProvider {
       if (o instanceof ComponentInstance) {
         _matched=true;
         final EObject parent = ((ComponentInstance)o).eContainer();
-        if ((parent instanceof ImmediateInstantiation)) {
-          EObject _eContainer = ((ImmediateInstantiation)parent).eContainer();
-          final ComponentDefinition compDef = ((ComponentDefinition) _eContainer);
-          String _literal = compDef.getType().getLiteral();
-          String _plus = (_literal + " ");
+        if ((parent instanceof Instantiation)) {
+          ComponentDefinitionType _xifexpression = null;
+          ComponentDefinition _componentRef = ((Instantiation)parent).getComponentRef();
+          boolean _tripleNotEquals = (_componentRef != null);
+          if (_tripleNotEquals) {
+            _xifexpression = ((Instantiation)parent).getComponentRef().getType();
+          } else {
+            _xifexpression = ((Instantiation)parent).getComponent().getType();
+          }
+          String _firstUpper = StringExtensions.toFirstUpper(_xifexpression.getLiteral());
+          String _plus = (_firstUpper + " ");
           String _name = ((ComponentInstance)o).getName();
           return (_plus + _name);
-        } else {
-          if ((parent instanceof NamedInstantiation)) {
-            String _literal_1 = ((NamedInstantiation)parent).getComponent().getType().getLiteral();
-            String _plus_1 = (_literal_1 + " ");
-            String _name_1 = ((ComponentInstance)o).getName();
-            return (_plus_1 + _name_1);
-          }
         }
       }
     }

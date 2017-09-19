@@ -10,10 +10,10 @@ public class RdlPreferences {
 	}
 
 	public static String getAddrUnit() {
-		return getPreferenceStore().get(PreferenceConstants.P_ADDRESSUNIT, System.getProperty("com.minres.rdl.rdl.addrunit"));
+		return getPreferenceStore().get(PreferenceConstants.P_ADDRESSUNIT, System.getProperty(PreferenceConstants.ADDRESSUNIT_PROP));
 	}
 
 	public static IEclipsePreferences getPreferenceStore() {
-		return InstanceScope.INSTANCE.getNode("com.minres.rdl.rdl");
+		return InstanceScope.INSTANCE.getNode(PreferenceConstants.SCOPE_NAME);
 	}
 }

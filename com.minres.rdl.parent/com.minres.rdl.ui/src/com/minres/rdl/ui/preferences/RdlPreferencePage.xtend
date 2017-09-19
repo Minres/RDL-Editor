@@ -13,7 +13,7 @@ class RdlPreferencePage extends FieldEditorPreferencePage implements IWorkbenchP
 	
 	new() {
 		super(GRID)
-	    val store = new ScopedPreferenceStore(InstanceScope.INSTANCE, "com.minres.rdl.rdl");
+	    val store = new ScopedPreferenceStore(InstanceScope.INSTANCE, PreferenceConstants.SCOPE_NAME);
 	    setPreferenceStore(store);
 	    setDescription("Code generator configuration options");
 	}

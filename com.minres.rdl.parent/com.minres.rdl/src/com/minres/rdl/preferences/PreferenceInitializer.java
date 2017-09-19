@@ -18,7 +18,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 		IEclipsePreferences store = getPreferenceStore();
 		store.putBoolean(PreferenceConstants.P_GENERATE_CSV, true);
-		String value = System.getProperty("com.minres.rdl.rdl.addrunit");
+		String value = System.getProperty(PreferenceConstants.ADDRESSUNIT_PROP);
 		if(value!=null){
 			if("byte".equals(value)){
 				store.put(PreferenceConstants.P_ADDRESSUNIT, "byte");
@@ -35,7 +35,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	}
 
 	public static IEclipsePreferences getPreferenceStore() {
-		return DefaultScope.INSTANCE.getNode("com.minres.rdl.rdl");
+		return DefaultScope.INSTANCE.getNode(PreferenceConstants.SCOPE_NAME);
 	}
 
 }

@@ -14,7 +14,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 public class RdlPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
   public RdlPreferencePage() {
     super(FieldEditorPreferencePage.GRID);
-    final ScopedPreferenceStore store = new ScopedPreferenceStore(InstanceScope.INSTANCE, "com.minres.rdl.rdl");
+    final ScopedPreferenceStore store = new ScopedPreferenceStore(InstanceScope.INSTANCE, PreferenceConstants.SCOPE_NAME);
     this.setPreferenceStore(store);
     this.setDescription("Code generator configuration options");
   }

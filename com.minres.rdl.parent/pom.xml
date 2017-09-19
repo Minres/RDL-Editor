@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.minres.rdl</groupId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<artifactId>com.minres.rdl.parent</artifactId>
 	<packaging>pom</packaging>
 
@@ -35,7 +35,13 @@
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
-<!-- 			<plugin>
+			<plugin>
+			    <groupId>org.eclipse.tycho</groupId>
+			    <artifactId>tycho-versions-plugin</artifactId>
+			    <version>${tycho-version}</version>
+			</plugin>
+<!--
+ 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-source-plugin</artifactId>
 				<version>${tycho-version}</version>
@@ -62,7 +68,8 @@
 					</execution>
 				</executions>
 			</plugin>
- -->			<plugin>
+-->
+ 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-plugin</artifactId>
 				<version>${tycho-version}</version>

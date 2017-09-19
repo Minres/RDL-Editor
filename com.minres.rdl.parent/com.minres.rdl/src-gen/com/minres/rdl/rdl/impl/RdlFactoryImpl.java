@@ -72,8 +72,7 @@ public class RdlFactoryImpl extends EFactoryImpl implements RdlFactory
       case RdlPackage.PROPERTY_DEFAULT: return createPropertyDefault();
       case RdlPackage.PROPERTY_USAGE: return createPropertyUsage();
       case RdlPackage.COMPONENT_DEFINITION: return createComponentDefinition();
-      case RdlPackage.NAMED_INSTANTIATION: return createNamedInstantiation();
-      case RdlPackage.IMMEDIATE_INSTANTIATION: return createImmediateInstantiation();
+      case RdlPackage.INSTANTIATION: return createInstantiation();
       case RdlPackage.COMPONENT_INSTANCE: return createComponentInstance();
       case RdlPackage.RANGE: return createRange();
       case RdlPackage.PROPERTY_ASSIGNMENT: return createPropertyAssignment();
@@ -91,6 +90,7 @@ public class RdlFactoryImpl extends EFactoryImpl implements RdlFactory
       case RdlPackage.ENUM_BODY: return createEnumBody();
       case RdlPackage.ENUM_ENTRY: return createEnumEntry();
       case RdlPackage.ENUM_PROPERTY: return createEnumProperty();
+      case RdlPackage.ENUM_INSTANCE_TYPE: return createEnumInstanceType();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -221,21 +221,10 @@ public class RdlFactoryImpl extends EFactoryImpl implements RdlFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedInstantiation createNamedInstantiation()
+  public Instantiation createInstantiation()
   {
-    NamedInstantiationImpl namedInstantiation = new NamedInstantiationImpl();
-    return namedInstantiation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ImmediateInstantiation createImmediateInstantiation()
-  {
-    ImmediateInstantiationImpl immediateInstantiation = new ImmediateInstantiationImpl();
-    return immediateInstantiation;
+    InstantiationImpl instantiation = new InstantiationImpl();
+    return instantiation;
   }
 
   /**
@@ -423,6 +412,17 @@ public class RdlFactoryImpl extends EFactoryImpl implements RdlFactory
   {
     EnumPropertyImpl enumProperty = new EnumPropertyImpl();
     return enumProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EnumInstanceType createEnumInstanceType()
+  {
+    EnumInstanceTypeImpl enumInstanceType = new EnumInstanceTypeImpl();
+    return enumInstanceType;
   }
 
   /**

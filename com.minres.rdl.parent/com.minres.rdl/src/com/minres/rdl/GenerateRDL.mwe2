@@ -36,7 +36,12 @@ Workflow {
 		    fragment = scoping.ImportNamespacesScopingFragment2 auto-inject {}
 			fragment = exporting.SimpleNamesFragment2 auto-inject {}
 
-        	
+        	parserGenerator = {
+                options = {
+                    backtrack = true
+                }
+            }
+            
 			serializer = {
 				generateStub = false
 			}

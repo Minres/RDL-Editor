@@ -19,10 +19,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getType <em>Type</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getName <em>Name</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getComponentDefinitions <em>Component Definitions</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getNamedInstantiations <em>Named Instantiations</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getInstantiations <em>Instantiations</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getPropertyAssignments <em>Property Assignments</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getEnumDefinitions <em>Enum Definitions</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.ComponentDefinition#getImmediateInstantiation <em>Immediate Instantiation</em>}</li>
  * </ul>
  *
  * @see com.minres.rdl.rdl.RdlPackage#getComponentDefinition()
@@ -103,20 +102,20 @@ public interface ComponentDefinition extends EObject
   EList<ComponentDefinition> getComponentDefinitions();
 
   /**
-   * Returns the value of the '<em><b>Named Instantiations</b></em>' containment reference list.
-   * The list contents are of type {@link com.minres.rdl.rdl.NamedInstantiation}.
+   * Returns the value of the '<em><b>Instantiations</b></em>' containment reference list.
+   * The list contents are of type {@link com.minres.rdl.rdl.Instantiation}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Named Instantiations</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Instantiations</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Named Instantiations</em>' containment reference list.
-   * @see com.minres.rdl.rdl.RdlPackage#getComponentDefinition_NamedInstantiations()
+   * @return the value of the '<em>Instantiations</em>' containment reference list.
+   * @see com.minres.rdl.rdl.RdlPackage#getComponentDefinition_Instantiations()
    * @model containment="true"
    * @generated
    */
-  EList<NamedInstantiation> getNamedInstantiations();
+  EList<Instantiation> getInstantiations();
 
   /**
    * Returns the value of the '<em><b>Property Assignments</b></em>' containment reference list.
@@ -149,31 +148,5 @@ public interface ComponentDefinition extends EObject
    * @generated
    */
   EList<EnumDefinition> getEnumDefinitions();
-
-  /**
-   * Returns the value of the '<em><b>Immediate Instantiation</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Immediate Instantiation</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Immediate Instantiation</em>' containment reference.
-   * @see #setImmediateInstantiation(ImmediateInstantiation)
-   * @see com.minres.rdl.rdl.RdlPackage#getComponentDefinition_ImmediateInstantiation()
-   * @model containment="true"
-   * @generated
-   */
-  ImmediateInstantiation getImmediateInstantiation();
-
-  /**
-   * Sets the value of the '{@link com.minres.rdl.rdl.ComponentDefinition#getImmediateInstantiation <em>Immediate Instantiation</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Immediate Instantiation</em>' containment reference.
-   * @see #getImmediateInstantiation()
-   * @generated
-   */
-  void setImmediateInstantiation(ImmediateInstantiation value);
 
 } // ComponentDefinition

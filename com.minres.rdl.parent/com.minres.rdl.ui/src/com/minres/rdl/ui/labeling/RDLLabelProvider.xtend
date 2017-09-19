@@ -8,7 +8,6 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 import com.minres.rdl.rdl.ComponentDefinition
 import com.minres.rdl.rdl.ExplicitPropertyAssignment
-import com.minres.rdl.rdl.ImmediateInstantiation
 import com.minres.rdl.rdl.ComponentInstance
 import com.minres.rdl.rdl.PropertyAssignment
 import com.minres.rdl.rdl.PropertyAssignmentRhs
@@ -19,7 +18,6 @@ import com.minres.rdl.rdl.RValueConstant
 import com.minres.rdl.rdl.PropertyModifier
 import com.minres.rdl.rdl.ComponentDefinitionType
 import com.minres.rdl.rdl.EnumDefinition
-import com.minres.rdl.rdl.NamedInstantiation
 import com.minres.rdl.rdl.PostPropertyAssignment
 import com.minres.rdl.rdl.InstanceRef
 import com.minres.rdl.rdl.InstancePropertyRef
@@ -38,23 +36,8 @@ class RDLLabelProvider extends DefaultEObjectLabelProvider {
 		super(delegate);
 	}
 
-	// Labels and icons can be computed like this:
-	
-//	def text(Greeting ele) {
-//		'A greeting to ' + ele.name
-//	}
-//
-//	def image(Greeting ele) {
-//		'Greeting.gif'
-//	}
-
 	def text(ComponentDefinition e){
-		if(e.immediateInstantiation!==null){
-			if(e.name!==null)
-				text(e.immediateInstantiation)+' ('+e.name+')'
-			else
-				text(e.immediateInstantiation)
-		}else if(e.name!==null){
+		if(e.name!==null){
 			e.type.literal+' '+e.name	
 		} else{
 			val pa = e.propertyAssignments.findFirst[PropertyAssignment pa | 
@@ -91,14 +74,10 @@ class RDLLabelProvider extends DefaultEObjectLabelProvider {
 			e.instance.name
 	}
 	
-	def text( ImmediateInstantiation e){
-		e.componentInstances.map[text(it)].join(", ")
-	} 
-	
 	def text( ComponentInstance e){
 		var res = e.name
 		if(e.range !== null)
-			res+='['+(if(e.range.size!==null) e.range.size.toString else e.range.start+':'+e.range.end)+']'
+			res+='['+(if(e.range.size!==null) e.range.size.toString else e.range.left+':'+e.range.right)+']'
 		if(e.address!==null)
 			res+=' @'+e.address
 		return res
@@ -140,10 +119,6 @@ class RDLLabelProvider extends DefaultEObjectLabelProvider {
 				return string
 	}
 	
-	def text(NamedInstantiation e){
-		e.componentInstances.map[text(it)].join(", ")+' ('+e.component.name+')'
-	}
- 
 	def text(EnumEntry e){
 		if(e.index !== null)
 			e.name + '=' + e.index.toString
@@ -198,7 +173,7 @@ class RDLLabelProvider extends DefaultEObjectLabelProvider {
 		'P.png'
 	}
 
-	def image(NamedInstantiation e){
+	def image(ComponentInstance e){
 		'I.png'
 	}
 	

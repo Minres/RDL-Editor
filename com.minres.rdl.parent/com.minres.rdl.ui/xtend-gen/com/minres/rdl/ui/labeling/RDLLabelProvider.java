@@ -13,10 +13,8 @@ import com.minres.rdl.rdl.EnumDefinition;
 import com.minres.rdl.rdl.EnumEntry;
 import com.minres.rdl.rdl.EnumProperty;
 import com.minres.rdl.rdl.ExplicitPropertyAssignment;
-import com.minres.rdl.rdl.ImmediateInstantiation;
 import com.minres.rdl.rdl.InstancePropertyRef;
 import com.minres.rdl.rdl.InstanceRef;
-import com.minres.rdl.rdl.NamedInstantiation;
 import com.minres.rdl.rdl.PostPropertyAssignment;
 import com.minres.rdl.rdl.PropertyAssignment;
 import com.minres.rdl.rdl.PropertyAssignmentRhs;
@@ -46,46 +44,26 @@ public class RDLLabelProvider extends DefaultEObjectLabelProvider {
   
   public String text(final ComponentDefinition e) {
     String _xifexpression = null;
-    ImmediateInstantiation _immediateInstantiation = e.getImmediateInstantiation();
-    boolean _tripleNotEquals = (_immediateInstantiation != null);
+    String _name = e.getName();
+    boolean _tripleNotEquals = (_name != null);
     if (_tripleNotEquals) {
-      String _xifexpression_1 = null;
-      String _name = e.getName();
-      boolean _tripleNotEquals_1 = (_name != null);
-      if (_tripleNotEquals_1) {
-        String _text = this.text(e.getImmediateInstantiation());
-        String _plus = (_text + " (");
-        String _name_1 = e.getName();
-        String _plus_1 = (_plus + _name_1);
-        _xifexpression_1 = (_plus_1 + ")");
-      } else {
-        _xifexpression_1 = this.text(e.getImmediateInstantiation());
-      }
-      _xifexpression = _xifexpression_1;
+      String _literal = e.getType().getLiteral();
+      String _plus = (_literal + " ");
+      String _name_1 = e.getName();
+      _xifexpression = (_plus + _name_1);
     } else {
-      String _xifexpression_2 = null;
-      String _name_2 = e.getName();
-      boolean _tripleNotEquals_2 = (_name_2 != null);
-      if (_tripleNotEquals_2) {
-        String _literal = e.getType().getLiteral();
-        String _plus_2 = (_literal + " ");
-        String _name_3 = e.getName();
-        _xifexpression_2 = (_plus_2 + _name_3);
-      } else {
-        String _xblockexpression = null;
-        {
-          final Function1<PropertyAssignment, Boolean> _function = (PropertyAssignment pa) -> {
-            return Boolean.valueOf(((pa instanceof ExplicitPropertyAssignment) && Objects.equal(((ExplicitPropertyAssignment) pa).getName(), PropertyEnum.NAME)));
-          };
-          final PropertyAssignment pa = IterableExtensions.<PropertyAssignment>findFirst(e.getPropertyAssignments(), _function);
-          String _literal_1 = e.getType().getLiteral();
-          String _plus_3 = (_literal_1 + " ");
-          Object _text_1 = this.text(((ExplicitPropertyAssignment) pa).getRhs());
-          _xblockexpression = (_plus_3 + _text_1);
-        }
-        _xifexpression_2 = _xblockexpression;
+      String _xblockexpression = null;
+      {
+        final Function1<PropertyAssignment, Boolean> _function = (PropertyAssignment pa) -> {
+          return Boolean.valueOf(((pa instanceof ExplicitPropertyAssignment) && Objects.equal(((ExplicitPropertyAssignment) pa).getName(), PropertyEnum.NAME)));
+        };
+        final PropertyAssignment pa = IterableExtensions.<PropertyAssignment>findFirst(e.getPropertyAssignments(), _function);
+        String _literal_1 = e.getType().getLiteral();
+        String _plus_1 = (_literal_1 + " ");
+        Object _text = this.text(((ExplicitPropertyAssignment) pa).getRhs());
+        _xblockexpression = (_plus_1 + _text);
       }
-      _xifexpression = _xifexpression_2;
+      _xifexpression = _xblockexpression;
     }
     return _xifexpression;
   }
@@ -154,13 +132,6 @@ public class RDLLabelProvider extends DefaultEObjectLabelProvider {
     return _xifexpression;
   }
   
-  public String text(final ImmediateInstantiation e) {
-    final Function1<ComponentInstance, String> _function = (ComponentInstance it) -> {
-      return this.text(it);
-    };
-    return IterableExtensions.join(ListExtensions.<ComponentInstance, String>map(e.getComponentInstances(), _function), ", ");
-  }
-  
   public String text(final ComponentInstance e) {
     String res = e.getName();
     Range _range = e.getRange();
@@ -173,10 +144,10 @@ public class RDLLabelProvider extends DefaultEObjectLabelProvider {
       if (_tripleNotEquals_1) {
         _xifexpression = e.getRange().getSize().toString();
       } else {
-        Object _start = e.getRange().getStart();
-        String _plus = (_start + ":");
-        Object _end = e.getRange().getEnd();
-        _xifexpression = (_plus + _end);
+        Object _left = e.getRange().getLeft();
+        String _plus = (_left + ":");
+        Object _right = e.getRange().getRight();
+        _xifexpression = (_plus + _right);
       }
       String _plus_1 = ("[" + _xifexpression);
       String _plus_2 = (_plus_1 + "]");
@@ -281,17 +252,6 @@ public class RDLLabelProvider extends DefaultEObjectLabelProvider {
         return string;
       }
     }
-  }
-  
-  public String text(final NamedInstantiation e) {
-    final Function1<ComponentInstance, String> _function = (ComponentInstance it) -> {
-      return this.text(it);
-    };
-    String _join = IterableExtensions.join(ListExtensions.<ComponentInstance, String>map(e.getComponentInstances(), _function), ", ");
-    String _plus = (_join + " (");
-    String _name = e.getComponent().getName();
-    String _plus_1 = (_plus + _name);
-    return (_plus_1 + ")");
   }
   
   public String text(final EnumEntry e) {
@@ -401,7 +361,7 @@ public class RDLLabelProvider extends DefaultEObjectLabelProvider {
     return "P.png";
   }
   
-  public String image(final NamedInstantiation e) {
+  public String image(final ComponentInstance e) {
     return "I.png";
   }
   

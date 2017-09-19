@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.minres.rdl.rdl.Root#getIncludes <em>Includes</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.Root#getComponentDefinitions <em>Component Definitions</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.Root#getEnumDefinitions <em>Enum Definitions</em>}</li>
- *   <li>{@link com.minres.rdl.rdl.Root#getNamedInstantiations <em>Named Instantiations</em>}</li>
+ *   <li>{@link com.minres.rdl.rdl.Root#getInstantiations <em>Instantiations</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.Root#getPropertyAssignments <em>Property Assignments</em>}</li>
  *   <li>{@link com.minres.rdl.rdl.Root#getPropertyDefinitions <em>Property Definitions</em>}</li>
  * </ul>
@@ -79,20 +79,20 @@ public interface Root extends EObject
   EList<EnumDefinition> getEnumDefinitions();
 
   /**
-   * Returns the value of the '<em><b>Named Instantiations</b></em>' containment reference list.
-   * The list contents are of type {@link com.minres.rdl.rdl.NamedInstantiation}.
+   * Returns the value of the '<em><b>Instantiations</b></em>' containment reference list.
+   * The list contents are of type {@link com.minres.rdl.rdl.Instantiation}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Named Instantiations</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Instantiations</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Named Instantiations</em>' containment reference list.
-   * @see com.minres.rdl.rdl.RdlPackage#getRoot_NamedInstantiations()
+   * @return the value of the '<em>Instantiations</em>' containment reference list.
+   * @see com.minres.rdl.rdl.RdlPackage#getRoot_Instantiations()
    * @model containment="true"
    * @generated
    */
-  EList<NamedInstantiation> getNamedInstantiations();
+  EList<Instantiation> getInstantiations();
 
   /**
    * Returns the value of the '<em><b>Property Assignments</b></em>' containment reference list.

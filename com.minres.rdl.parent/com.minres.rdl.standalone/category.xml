@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <bundle id="com.minres.rdl" version="0.0.0"/>
+   <category-def name="main" label="RDL"/>
+</site>

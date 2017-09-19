@@ -25,6 +25,7 @@
 		<module>com.minres.rdl.product</module>
 		<module>com.minres.rdl.product.feature</module>
 		<module>com.minres.rdl.platform.feature</module>
+		<module>com.minres.rdl.standalone</module>
 	</modules>
 	<build>
 		<plugins>

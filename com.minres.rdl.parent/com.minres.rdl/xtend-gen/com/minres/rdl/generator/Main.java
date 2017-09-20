@@ -36,7 +36,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class Main {
-  private static String USAGE_STR = "RDL2code [-h] [-v] [-o=<output file>] [-d=<output dir>] [-p=<output prefix>] <input file> <input file>";
+  private final String USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-i <include output dir>] [-s <source output dir>] [-g <generated files output dir>] <input file> <input file>";
   
   public static void main(final String[] args) {
     boolean _isEmpty = ((List<String>)Conversions.doWrapArray(args)).isEmpty();
@@ -94,24 +94,20 @@ public class Main {
     final Options opt = new Options(args, 0, Integer.MAX_VALUE);
     opt.getSet().addOption("h", Options.Multiplicity.ZERO_OR_ONE);
     opt.getSet().addOption("v", Options.Multiplicity.ZERO_OR_ONE);
-    opt.getSet().addOption("i", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
-    opt.getSet().addOption("s", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
-    opt.getSet().addOption("g", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
-    opt.getSet().addOption("I", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("i", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("s", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("g", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("I", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
     boolean _check = opt.check(false, false);
     boolean _not = (!_check);
     if (_not) {
+      System.err.println(("Usage is: " + this.USAGE_STR));
       String _checkErrors = opt.getCheckErrors();
-      String _plus = ("Error processing command line: " + _checkErrors);
-      System.err.println(_plus);
-      System.err.println(("Usage is: " + Main.USAGE_STR));
-      String _checkErrors_1 = opt.getCheckErrors();
-      String _plus_1 = ("Error processing command line: " + _checkErrors_1);
-      throw new MalformedParametersException(_plus_1);
+      throw new MalformedParametersException(_checkErrors);
     }
     boolean _isSet = opt.getSet().isSet("h");
     if (_isSet) {
-      InputOutput.<String>println(("Usage: " + Main.USAGE_STR));
+      InputOutput.<String>println(("Usage: " + this.USAGE_STR));
       return;
     }
     boolean _xifexpression = false;
@@ -137,8 +133,8 @@ public class Main {
       boolean _isSet_3 = opt.getSet().isSet(p1.substring(0, 1));
       if (_isSet_3) {
         String _resultValue = opt.getSet().getOption(p1.substring(0, 1)).getResultValue(0);
-        String _plus_2 = (_resultValue + "/");
-        this.fileAccess.setOutputPath(p1, _plus_2);
+        String _plus = (_resultValue + "/");
+        this.fileAccess.setOutputPath(p1, _plus);
       } else {
         this.fileAccess.setOutputPath(p1, "src-gen/");
       }
@@ -162,16 +158,16 @@ public class Main {
         boolean _not_1 = (!_isEmpty);
         if (_not_1) {
           URI _uRI = resource.getURI();
-          String _plus_2 = ("Error validating " + _uRI);
-          System.err.println(_plus_2);
+          String _plus = ("Error validating " + _uRI);
+          System.err.println(_plus);
           final Consumer<Issue> _function_2 = (Issue it) -> {
             System.err.println(it);
           };
           issues.forEach(_function_2);
           URI _uRI_1 = resource.getURI();
-          String _plus_3 = ("error validating " + _uRI_1);
+          String _plus_1 = ("error validating " + _uRI_1);
           int _size = issues.size();
-          throw new ParseException(_plus_3, _size);
+          throw new ParseException(_plus_1, _size);
         }
         GeneratorContext _generatorContext = new GeneratorContext();
         final Procedure1<GeneratorContext> _function_3 = (GeneratorContext it) -> {
@@ -185,17 +181,17 @@ public class Main {
         try {
           if (verbose) {
             URI _uRI_2 = this.fileAccess.getURI("", "incl-out");
-            String _plus_4 = ("includes are in " + _uRI_2);
-            String _plus_5 = (_plus_4 + ", ");
-            InputOutput.<String>print(_plus_5);
+            String _plus_2 = ("includes are in " + _uRI_2);
+            String _plus_3 = (_plus_2 + ", ");
+            InputOutput.<String>print(_plus_3);
           }
         } catch (final Throwable _t) {
           if (_t instanceof Exception) {
             final Exception e = (Exception)_t;
             URI _uRI_3 = this.fileAccess.getURI("");
-            String _plus_6 = ("includes are in " + _uRI_3);
-            String _plus_7 = (_plus_6 + ", ");
-            InputOutput.<String>print(_plus_7);
+            String _plus_4 = ("includes are in " + _uRI_3);
+            String _plus_5 = (_plus_4 + ", ");
+            InputOutput.<String>print(_plus_5);
           } else {
             throw Exceptions.sneakyThrow(_t);
           }
@@ -203,17 +199,17 @@ public class Main {
         try {
           if (verbose) {
             URI _uRI_4 = this.fileAccess.getURI("", "src-out");
-            String _plus_8 = ("sources are in " + _uRI_4);
-            String _plus_9 = (_plus_8 + ", ");
-            InputOutput.<String>println(_plus_9);
+            String _plus_6 = ("sources are in " + _uRI_4);
+            String _plus_7 = (_plus_6 + ", ");
+            InputOutput.<String>println(_plus_7);
           }
         } catch (final Throwable _t_1) {
           if (_t_1 instanceof Exception) {
             final Exception e_1 = (Exception)_t_1;
             URI _uRI_5 = this.fileAccess.getURI("");
-            String _plus_10 = ("sources are in " + _uRI_5);
-            String _plus_11 = (_plus_10 + ", ");
-            InputOutput.<String>println(_plus_11);
+            String _plus_8 = ("sources are in " + _uRI_5);
+            String _plus_9 = (_plus_8 + ", ");
+            InputOutput.<String>println(_plus_9);
           } else {
             throw Exceptions.sneakyThrow(_t_1);
           }

@@ -4,7 +4,6 @@ import com.google.inject.Inject
 import com.google.inject.Provider
 import com.minres.rdl.RDLStandaloneSetup
 import java.lang.reflect.MalformedParametersException
-import java.util.ArrayList
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.mwe.utils.ProjectMapping
@@ -23,7 +22,7 @@ import com.minres.rdl.generator.Options.Separator
 
 class Main {
 
-	private static String USAGE_STR = "RDL2code [-h] [-v] [-o=<output file>] [-d=<output dir>] [-p=<output prefix>] <input file> <input file>";
+	private val USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-i <include output dir>] [-s <source output dir>] [-g <generated files output dir>] <input file> <input file>";
 
 	def static main(String[] args) {
 		if (args.empty) {
@@ -31,7 +30,7 @@ class Main {
 			return
 		}
 		val injector = new RDLStandaloneSetup().createInjectorAndDoEMFRegistration
-		val Main main = injector.getInstance(Main)
+		val main = injector.getInstance(Main)
 		try {
 			main.run(args)
 		} catch (MalformedParametersException e) {
@@ -60,14 +59,13 @@ class Main {
 		val opt = new Options(args, 0, Integer.MAX_VALUE);
 		opt.getSet().addOption("h", Multiplicity.ZERO_OR_ONE);
 		opt.getSet().addOption("v", Multiplicity.ZERO_OR_ONE);
-		opt.getSet().addOption("i", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
-		opt.getSet().addOption("s", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
-		opt.getSet().addOption("g", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
-		opt.getSet().addOption("I", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("i", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("s", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("g", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("I", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
 		if (!opt.check(false, false)) { // Print usage hints
-			System.err.println("Error processing command line: " + opt.getCheckErrors());
 			System.err.println("Usage is: " + USAGE_STR);
-			throw new MalformedParametersException("Error processing command line: " + opt.getCheckErrors());
+			throw new MalformedParametersException(opt.getCheckErrors());
 		}
 		// Normal processing
 		if (opt.getSet().isSet("h")) {
@@ -84,7 +82,7 @@ class Main {
 		}
 		// Configure and start the generator
 		fileAccess.outputPath = 'src-gen/'
-		#{'incl-out' -> false, 'src-out' -> false, 'gen-out'->true}.forEach[p1, p2|
+		#{'incl-out' -> false, 'src-out' -> false, 'gen-out' -> true}.forEach[p1, p2|
 			if(opt.getSet().isSet(p1.substring(0, 1)))
 				fileAccess.setOutputPath(p1, opt.getSet().getOption(p1.substring(0, 1)).getResultValue(0)+'/')
 			else

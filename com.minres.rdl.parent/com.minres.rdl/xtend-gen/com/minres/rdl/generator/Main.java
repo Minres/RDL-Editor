@@ -1,15 +1,15 @@
 package com.minres.rdl.generator;
 
-import com.google.common.base.Objects;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.minres.rdl.RDLStandaloneSetup;
+import com.minres.rdl.generator.Options;
 import java.lang.reflect.MalformedParametersException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -29,51 +29,39 @@ import org.eclipse.xtext.validation.Issue;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class Main {
-  public static class Option {
-    private String flag;
-    
-    private String value;
-    
-    public String Option(final String flag, final String value) {
-      String _xblockexpression = null;
-      {
-        this.flag = flag;
-        _xblockexpression = this.value = value;
-      }
-      return _xblockexpression;
-    }
-  }
+  private static String USAGE_STR = "RDL2code [-h] [-v] [-o=<output file>] [-d=<output dir>] [-p=<output prefix>] <input file> <input file>";
   
   public static void main(final String[] args) {
     boolean _isEmpty = ((List<String>)Conversions.doWrapArray(args)).isEmpty();
     if (_isEmpty) {
-      System.err.println("Aborting: no path to EMF resource provided!");
+      System.err.println("Aborting: no path to RDL file provided!");
       return;
     }
+    final Injector injector = new RDLStandaloneSetup().createInjectorAndDoEMFRegistration();
+    final Main main = injector.<Main>getInstance(Main.class);
     try {
-      final Injector injector = new RDLStandaloneSetup().createInjectorAndDoEMFRegistration();
-      injector.<Main>getInstance(Main.class).run(args);
+      main.run(args);
     } catch (final Throwable _t) {
       if (_t instanceof MalformedParametersException) {
         final MalformedParametersException e = (MalformedParametersException)_t;
         String _message = e.getMessage();
         String _plus = ("Command line error " + _message);
         InputOutput.<String>print(_plus);
+        System.exit(1);
       } else if (_t instanceof IllegalArgumentException) {
         final IllegalArgumentException e_1 = (IllegalArgumentException)_t;
         String _message_1 = e_1.getMessage();
         String _plus_1 = ("generation error " + _message_1);
         InputOutput.<String>print(_plus_1);
         e_1.printStackTrace();
+        System.exit(2);
       } else if (_t instanceof ParseException) {
         final ParseException e_2 = (ParseException)_t;
         String _message_2 = e_2.getMessage();
@@ -83,6 +71,7 @@ public class Main {
         String _plus_4 = (_plus_3 + Integer.valueOf(_errorOffset));
         String _plus_5 = (_plus_4 + ")");
         InputOutput.<String>print(_plus_5);
+        System.exit(3);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -101,165 +90,138 @@ public class Main {
   @Inject
   private JavaIoFileSystemAccess fileAccess;
   
-  private ArrayList<Main.Option> optsList = new ArrayList<Main.Option>();
-  
-  private ArrayList<String> argsList = new ArrayList<String>();
-  
-  private final LinkedHashMap<String, String> shortOptMap = CollectionLiterals.<String, String>newLinkedHashMap(Pair.<String, String>of("i", "incl-out"), Pair.<String, String>of("s", "src-out"));
-  
-  protected void parseOptions(final String[] args) {
-    for (final String arg : args) {
-      boolean _matched = false;
-      boolean _startsWith = arg.startsWith("--");
-      if (_startsWith) {
-        _matched=true;
-        int _length = arg.length();
-        boolean _lessThan = (_length < 3);
-        if (_lessThan) {
-          throw new MalformedParametersException(("not a valid argument: " + arg));
-        }
-        final String[] res = arg.substring(2).split("=");
-        Main.Option opt = new Main.Option();
-        final Function1<String, Boolean> _function = (String s) -> {
-          Object _get = res[0];
-          return Boolean.valueOf(Objects.equal(s, _get));
-        };
-        final String longOpt = IterableExtensions.<String>findFirst(this.shortOptMap.values(), _function);
-        if ((longOpt == null)) {
-          throw new IllegalArgumentException(("unknown option: " + arg));
-        }
-        opt.flag = res[0];
-        int _size = ((List<String>)Conversions.doWrapArray(res)).size();
-        boolean _equals = (_size == 2);
-        if (_equals) {
-          opt.value = res[1];
-        }
-        this.optsList.add(opt);
-      }
-      if (!_matched) {
-        boolean _startsWith_1 = arg.startsWith("-");
-        if (_startsWith_1) {
-          _matched=true;
-          int _length_1 = arg.length();
-          boolean _lessThan_1 = (_length_1 < 2);
-          if (_lessThan_1) {
-            throw new MalformedParametersException(("not a valid argument: " + arg));
-          }
-          String[] res_1 = arg.substring(1).split("=");
-          final String longOpt_1 = this.shortOptMap.get(res_1[0]);
-          if ((longOpt_1 == null)) {
-            throw new MalformedParametersException(("unknown option: " + arg));
-          }
-          Main.Option opt_1 = new Main.Option();
-          opt_1.flag = longOpt_1;
-          final String[] _converted_res_1 = (String[])res_1;
-          int _size_1 = ((List<String>)Conversions.doWrapArray(_converted_res_1)).size();
-          boolean _equals_1 = (_size_1 == 2);
-          if (_equals_1) {
-            opt_1.value = res_1[1];
-          }
-          this.optsList.add(opt_1);
-        }
-      }
-      if (!_matched) {
-        this.argsList.add(arg);
-      }
-    }
-  }
-  
   public void run(final String[] args) {
-    this.parseOptions(args);
-    final Function1<Main.Option, Boolean> _function = (Main.Option it) -> {
-      return Boolean.valueOf(Objects.equal(it.flag, "repository"));
-    };
-    final Main.Option repo = IterableExtensions.<Main.Option>findFirst(this.optsList, _function);
-    if ((repo != null)) {
+    final Options opt = new Options(args, 0, Integer.MAX_VALUE);
+    opt.getSet().addOption("h", Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("v", Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("i", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("s", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("g", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("I", Options.Separator.EQUALS, Options.Multiplicity.ZERO_OR_ONE);
+    boolean _check = opt.check(false, false);
+    boolean _not = (!_check);
+    if (_not) {
+      String _checkErrors = opt.getCheckErrors();
+      String _plus = ("Error processing command line: " + _checkErrors);
+      System.err.println(_plus);
+      System.err.println(("Usage is: " + Main.USAGE_STR));
+      String _checkErrors_1 = opt.getCheckErrors();
+      String _plus_1 = ("Error processing command line: " + _checkErrors_1);
+      throw new MalformedParametersException(_plus_1);
+    }
+    boolean _isSet = opt.getSet().isSet("h");
+    if (_isSet) {
+      InputOutput.<String>println(("Usage: " + Main.USAGE_STR));
+      return;
+    }
+    boolean _xifexpression = false;
+    boolean _isSet_1 = opt.getSet().isSet("v");
+    if (_isSet_1) {
+      _xifexpression = true;
+    } else {
+      _xifexpression = false;
+    }
+    final boolean verbose = _xifexpression;
+    boolean _isSet_2 = opt.getSet().isSet("I");
+    if (_isSet_2) {
       final ProjectMapping projectMapping = new ProjectMapping();
       projectMapping.setProjectName("RDL Repository");
-      projectMapping.setPath(repo.value);
+      projectMapping.setPath(opt.getSet().getOption("I").getResultValue(0));
       new StandaloneSetup().addProjectMapping(projectMapping);
     }
-    final Consumer<String> _function_1 = (String it) -> {
-      this.runGenerator(it);
+    this.fileAccess.setOutputPath("src-gen/");
+    Pair<String, Boolean> _mappedTo = Pair.<String, Boolean>of("incl-out", Boolean.valueOf(false));
+    Pair<String, Boolean> _mappedTo_1 = Pair.<String, Boolean>of("src-out", Boolean.valueOf(false));
+    Pair<String, Boolean> _mappedTo_2 = Pair.<String, Boolean>of("gen-out", Boolean.valueOf(true));
+    final BiConsumer<String, Boolean> _function = (String p1, Boolean p2) -> {
+      boolean _isSet_3 = opt.getSet().isSet(p1.substring(0, 1));
+      if (_isSet_3) {
+        String _resultValue = opt.getSet().getOption(p1.substring(0, 1)).getResultValue(0);
+        String _plus_2 = (_resultValue + "/");
+        this.fileAccess.setOutputPath(p1, _plus_2);
+      } else {
+        this.fileAccess.setOutputPath(p1, "src-gen/");
+      }
+      OutputConfiguration _get = this.fileAccess.getOutputConfigurations().get(p1);
+      if (_get!=null) {
+        _get.setOverrideExistingResources((p2).booleanValue());
+      }
     };
-    this.argsList.forEach(_function_1);
-  }
-  
-  protected void runGenerator(final String string) {
-    try {
-      ResourceSet _get = this.resourceSetProvider.get();
-      final XtextResourceSet resourceSet = ((XtextResourceSet) _get);
-      resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-      final Resource resource = resourceSet.getResource(URI.createFileURI(string), true);
-      final List<Issue> issues = this.validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
-      boolean _isEmpty = issues.isEmpty();
-      boolean _not = (!_isEmpty);
-      if (_not) {
-        URI _uRI = resource.getURI();
-        String _plus = ("Error validating " + _uRI);
-        System.err.println(_plus);
-        final Consumer<Issue> _function = (Issue it) -> {
-          System.err.println(it);
+    Collections.<String, Boolean>unmodifiableMap(CollectionLiterals.<String, Boolean>newHashMap(_mappedTo, _mappedTo_1, _mappedTo_2)).forEach(_function);
+    final Consumer<String> _function_1 = (String string) -> {
+      try {
+        if (verbose) {
+          InputOutput.<String>println(("Reading " + string));
+        }
+        ResourceSet _get = this.resourceSetProvider.get();
+        final XtextResourceSet resourceSet = ((XtextResourceSet) _get);
+        resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+        final Resource resource = resourceSet.getResource(URI.createFileURI(string), true);
+        final List<Issue> issues = this.validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+        boolean _isEmpty = issues.isEmpty();
+        boolean _not_1 = (!_isEmpty);
+        if (_not_1) {
+          URI _uRI = resource.getURI();
+          String _plus_2 = ("Error validating " + _uRI);
+          System.err.println(_plus_2);
+          final Consumer<Issue> _function_2 = (Issue it) -> {
+            System.err.println(it);
+          };
+          issues.forEach(_function_2);
+          URI _uRI_1 = resource.getURI();
+          String _plus_3 = ("error validating " + _uRI_1);
+          int _size = issues.size();
+          throw new ParseException(_plus_3, _size);
+        }
+        GeneratorContext _generatorContext = new GeneratorContext();
+        final Procedure1<GeneratorContext> _function_3 = (GeneratorContext it) -> {
+          it.setCancelIndicator(CancelIndicator.NullImpl);
         };
-        issues.forEach(_function);
-        URI _uRI_1 = resource.getURI();
-        String _plus_1 = ("error validating " + _uRI_1);
-        int _size = issues.size();
-        throw new ParseException(_plus_1, _size);
-      }
-      this.fileAccess.setOutputPath("src-gen/");
-      final Function1<Main.Option, Boolean> _function_1 = (Main.Option it) -> {
-        return Boolean.valueOf(it.flag.matches(".*-out"));
-      };
-      final Consumer<Main.Option> _function_2 = (Main.Option it) -> {
-        this.fileAccess.setOutputPath(it.flag, it.value);
-      };
-      IterableExtensions.<Main.Option>filter(this.optsList, _function_1).forEach(_function_2);
-      OutputConfiguration _get_1 = this.fileAccess.getOutputConfigurations().get("src-out");
-      if (_get_1!=null) {
-        _get_1.setOverrideExistingResources(true);
-      }
-      GeneratorContext _generatorContext = new GeneratorContext();
-      final Procedure1<GeneratorContext> _function_3 = (GeneratorContext it) -> {
-        it.setCancelIndicator(CancelIndicator.NullImpl);
-      };
-      final GeneratorContext context = ObjectExtensions.<GeneratorContext>operator_doubleArrow(_generatorContext, _function_3);
-      this.generator.generate(resource, this.fileAccess, context);
-      System.out.print((("Code generation for " + string) + " finished, "));
-      try {
-        URI _uRI_2 = this.fileAccess.getURI("", "incl-out");
-        String _plus_2 = ("includes are in " + _uRI_2);
-        String _plus_3 = (_plus_2 + ", ");
-        System.out.print(_plus_3);
-      } catch (final Throwable _t) {
-        if (_t instanceof Exception) {
-          final Exception e = (Exception)_t;
-          URI _uRI_3 = this.fileAccess.getURI("");
-          String _plus_4 = ("includes are in " + _uRI_3);
-          String _plus_5 = (_plus_4 + ", ");
-          System.out.print(_plus_5);
-        } else {
-          throw Exceptions.sneakyThrow(_t);
+        final GeneratorContext context = ObjectExtensions.<GeneratorContext>operator_doubleArrow(_generatorContext, _function_3);
+        this.generator.generate(resource, this.fileAccess, context);
+        if (verbose) {
+          InputOutput.<String>print((("Code generation for " + string) + " finished, "));
         }
-      }
-      try {
-        URI _uRI_4 = this.fileAccess.getURI("", "src-out");
-        String _plus_6 = ("sources are in " + _uRI_4);
-        String _plus_7 = (_plus_6 + ", ");
-        System.out.println(_plus_7);
-      } catch (final Throwable _t_1) {
-        if (_t_1 instanceof Exception) {
-          final Exception e_1 = (Exception)_t_1;
-          URI _uRI_5 = this.fileAccess.getURI("");
-          String _plus_8 = ("sources are in " + _uRI_5);
-          String _plus_9 = (_plus_8 + ", ");
-          System.out.println(_plus_9);
-        } else {
-          throw Exceptions.sneakyThrow(_t_1);
+        try {
+          if (verbose) {
+            URI _uRI_2 = this.fileAccess.getURI("", "incl-out");
+            String _plus_4 = ("includes are in " + _uRI_2);
+            String _plus_5 = (_plus_4 + ", ");
+            InputOutput.<String>print(_plus_5);
+          }
+        } catch (final Throwable _t) {
+          if (_t instanceof Exception) {
+            final Exception e = (Exception)_t;
+            URI _uRI_3 = this.fileAccess.getURI("");
+            String _plus_6 = ("includes are in " + _uRI_3);
+            String _plus_7 = (_plus_6 + ", ");
+            InputOutput.<String>print(_plus_7);
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
         }
+        try {
+          if (verbose) {
+            URI _uRI_4 = this.fileAccess.getURI("", "src-out");
+            String _plus_8 = ("sources are in " + _uRI_4);
+            String _plus_9 = (_plus_8 + ", ");
+            InputOutput.<String>println(_plus_9);
+          }
+        } catch (final Throwable _t_1) {
+          if (_t_1 instanceof Exception) {
+            final Exception e_1 = (Exception)_t_1;
+            URI _uRI_5 = this.fileAccess.getURI("");
+            String _plus_10 = ("sources are in " + _uRI_5);
+            String _plus_11 = (_plus_10 + ", ");
+            InputOutput.<String>println(_plus_11);
+          } else {
+            throw Exceptions.sneakyThrow(_t_1);
+          }
+        }
+      } catch (Throwable _e) {
+        throw Exceptions.sneakyThrow(_e);
       }
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    };
+    opt.getSet().getData().forEach(_function_1);
   }
 }

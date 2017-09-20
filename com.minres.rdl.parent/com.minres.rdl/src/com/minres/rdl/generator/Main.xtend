@@ -1,6 +1,5 @@
 package com.minres.rdl.generator
 
-
 import com.google.inject.Inject
 import com.google.inject.Provider
 import com.minres.rdl.RDLStandaloneSetup
@@ -19,128 +18,107 @@ import org.eclipse.xtext.util.CancelIndicator
 import org.eclipse.xtext.validation.CheckMode
 import org.eclipse.xtext.validation.IResourceValidator
 import java.text.ParseException
+import com.minres.rdl.generator.Options.Multiplicity
+import com.minres.rdl.generator.Options.Separator
 
 class Main {
-     static class Option {
-         String flag
-         String value
-         def Option(String flag, String value) { 
-            this.flag = flag
-            this.value = value
-         }
-    }
 
-    def static main(String[] args) {
-        if (args.empty) {
-            System::err.println('Aborting: no path to EMF resource provided!')
-            return
-        }
-                
-        try { 
-            val injector = new RDLStandaloneSetup().createInjectorAndDoEMFRegistration
-            injector.getInstance(Main).run(args)
-        } catch(MalformedParametersException e){
-            print("Command line error "+e.message)
-        } catch(IllegalArgumentException e){
-            print("generation error "+e.message)
-            e.printStackTrace
-        } catch(ParseException e){
-            print("parse problem "+e.message+" ("+ e.errorOffset+")")
-            
-        }
-    }
+	private static String USAGE_STR = "RDL2code [-h] [-v] [-o=<output file>] [-d=<output dir>] [-p=<output prefix>] <input file> <input file>";
 
-    @Inject Provider<ResourceSet> resourceSetProvider
+	def static main(String[] args) {
+		if (args.empty) {
+			System::err.println('Aborting: no path to RDL file provided!')
+			return
+		}
+		val injector = new RDLStandaloneSetup().createInjectorAndDoEMFRegistration
+		val Main main = injector.getInstance(Main)
+		try {
+			main.run(args)
+		} catch (MalformedParametersException e) {
+			print("Command line error " + e.message)
+			System.exit(1)
+		} catch (IllegalArgumentException e) {
+			print("generation error " + e.message)
+			e.printStackTrace
+			System.exit(2)
+		} catch (ParseException e) {
+			print("parse problem " + e.message + " (" + e.errorOffset + ")")
+			System.exit(3)
+		}
+	}
 
-    @Inject IResourceValidator validator
+	@Inject Provider<ResourceSet> resourceSetProvider
 
-    @Inject GeneratorDelegate generator
+	@Inject IResourceValidator validator
 
-    @Inject JavaIoFileSystemAccess fileAccess
+	@Inject GeneratorDelegate generator
 
-    var optsList = new ArrayList<Option>();
-    var argsList = new ArrayList<String>()  
-    val shortOptMap = newLinkedHashMap('i' -> 'incl-out', 's' -> 'src-out')
+	@Inject JavaIoFileSystemAccess fileAccess
 
-    def protected parseOptions(String[] args) {
-        for (arg : args) {
-            switch (arg) {
-                case arg.startsWith('--'): {
-                    if (arg.length < 3)
-                        throw new MalformedParametersException("not a valid argument: " + arg);
-                    val res = arg.substring(2).split('=')
-                    var opt = new Option()
-                    val longOpt = shortOptMap.values.findFirst[String s|s == res.get(0)]
-                    if(longOpt === null) throw new IllegalArgumentException("unknown option: " + arg);
-                    opt.flag = res.get(0)
-                    if (res.size == 2)
-                        opt.value = res.get(1)
-                    optsList += opt
-                }
-                case arg.startsWith('-'): {
-                    if (arg.length < 2)
-                        throw new MalformedParametersException("not a valid argument: " + arg);
-                    // -opt
-                    var res = arg.substring(1).split('=')
-                    val longOpt = shortOptMap.get(res.get(0))
-                    if(longOpt === null) throw new MalformedParametersException("unknown option: " + arg);
-                    var opt = new Option()
-                    opt.flag = longOpt
-                    if (res.size == 2)
-                        opt.value = res.get(1)
-                    optsList += opt
+	def run(String[] args) {
 
-                }
-                default: {
-                    argsList += arg;
-                }
-            }
-        }
+		val opt = new Options(args, 0, Integer.MAX_VALUE);
+		opt.getSet().addOption("h", Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("v", Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("i", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("s", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("g", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
+		opt.getSet().addOption("I", Separator.EQUALS, Multiplicity.ZERO_OR_ONE);
+		if (!opt.check(false, false)) { // Print usage hints
+			System.err.println("Error processing command line: " + opt.getCheckErrors());
+			System.err.println("Usage is: " + USAGE_STR);
+			throw new MalformedParametersException("Error processing command line: " + opt.getCheckErrors());
+		}
+		// Normal processing
+		if (opt.getSet().isSet("h")) {
+			println("Usage: " + USAGE_STR);
+			return
+		}
+		val verbose = if(opt.getSet().isSet("v")) true else false;
 
-    }
-    
-    def run(String[] args){
-        parseOptions(args)
-        val repo = optsList.findFirst[it.flag == "repository"]
-        if(repo!==null){
-            val projectMapping = new ProjectMapping
-            projectMapping.projectName = "RDL Repository"
-            projectMapping.path = repo.value
-            new StandaloneSetup().addProjectMapping(projectMapping)
-        }
-        argsList.forEach[runGenerator(it)]
-    }
-    
-    def protected runGenerator(String string) {
-        // Load the resource
-        val resourceSet = resourceSetProvider.get as XtextResourceSet
-        resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-        val resource = resourceSet.getResource(URI.createFileURI(string), true)
-        // Validate the resource
-        val issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl)
-        if (!issues.empty) {
-            System.err.println("Error validating "+resource.URI)
-            issues.forEach[System.err.println(it)]
-            throw new ParseException("error validating "+resource.URI, issues.size)
-        }
-        // Configure and start the generator
-        fileAccess.outputPath = 'src-gen/'
-        optsList.filter[it.flag.matches('.*-out')].forEach[fileAccess.setOutputPath(it.flag, it.value)]
-        fileAccess.outputConfigurations.get('src-out')?.setOverrideExistingResources(true)
-        
-        val context = new GeneratorContext => [ cancelIndicator = CancelIndicator.NullImpl ]
-        generator.generate(resource, fileAccess, context)
-        
-        System.out.print('Code generation for '+string +' finished, ')
-        try{
-            System.out.print('includes are in '+fileAccess.getURI('', 'incl-out')+', ')
-        }catch(Exception e){
-            System.out.print('includes are in '+fileAccess.getURI('')+', ')         
-        }
-        try{
-            System.out.println('sources are in '+fileAccess.getURI('', 'src-out')+', ')
-        }catch(Exception e){
-            System.out.println('sources are in '+fileAccess.getURI('')+', ')            
-        }
-    }
+		if (opt.getSet().isSet("I")) {
+			val projectMapping = new ProjectMapping
+			projectMapping.projectName = "RDL Repository"
+			projectMapping.path = opt.getSet().getOption("I").getResultValue(0)
+			new StandaloneSetup().addProjectMapping(projectMapping)
+		}
+		// Configure and start the generator
+		fileAccess.outputPath = 'src-gen/'
+		#{'incl-out' -> false, 'src-out' -> false, 'gen-out'->true}.forEach[p1, p2|
+			if(opt.getSet().isSet(p1.substring(0, 1)))
+				fileAccess.setOutputPath(p1, opt.getSet().getOption(p1.substring(0, 1)).getResultValue(0)+'/')
+			else
+				fileAccess.setOutputPath(p1, 'src-gen/')
+			fileAccess.outputConfigurations.get(p1)?.setOverrideExistingResources(p2)
+		]
+		opt.getSet().getData().forEach [ String string |
+			if(verbose) println("Reading " + string);
+			// Load the resource
+			val resourceSet = resourceSetProvider.get as XtextResourceSet
+			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+			val resource = resourceSet.getResource(URI.createFileURI(string), true)
+			// Validate the resource
+			val issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl)
+			if (!issues.empty) {
+				System.err.println("Error validating " + resource.URI)
+				issues.forEach[System.err.println(it)]
+				throw new ParseException("error validating " + resource.URI, issues.size)
+			}
+
+			val context = new GeneratorContext => [cancelIndicator = CancelIndicator.NullImpl]
+			generator.generate(resource, fileAccess, context)
+
+			if(verbose) print('Code generation for ' + string + ' finished, ')
+			try {
+				if(verbose) print('includes are in ' + fileAccess.getURI('', 'incl-out') + ', ')
+			} catch (Exception e) {
+				print('includes are in ' + fileAccess.getURI('') + ', ')
+			}
+			try {
+				if(verbose) println('sources are in ' + fileAccess.getURI('', 'src-out') + ', ')
+			} catch (Exception e) {
+				println('sources are in ' + fileAccess.getURI('') + ', ')
+			}
+		]
+	}
 }

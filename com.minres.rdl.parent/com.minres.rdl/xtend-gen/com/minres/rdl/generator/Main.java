@@ -7,9 +7,7 @@ import com.minres.rdl.RDLStandaloneSetup;
 import com.minres.rdl.generator.Options;
 import java.lang.reflect.MalformedParametersException;
 import java.text.ParseException;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -18,6 +16,7 @@ import org.eclipse.emf.mwe.utils.ProjectMapping;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
 import org.eclipse.xtext.generator.GeneratorContext;
 import org.eclipse.xtext.generator.GeneratorDelegate;
+import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
 import org.eclipse.xtext.generator.OutputConfiguration;
 import org.eclipse.xtext.resource.XtextResource;
@@ -26,17 +25,15 @@ import org.eclipse.xtext.util.CancelIndicator;
 import org.eclipse.xtext.validation.CheckMode;
 import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
-import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class Main {
-  private final String USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-i <include output dir>] [-s <source output dir>] [-g <generated files output dir>] <input file> <input file>";
+  private final String USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
   
   public static void main(final String[] args) {
     boolean _isEmpty = ((List<String>)Conversions.doWrapArray(args)).isEmpty();
@@ -94,9 +91,7 @@ public class Main {
     final Options opt = new Options(args, 0, Integer.MAX_VALUE);
     opt.getSet().addOption("h", Options.Multiplicity.ZERO_OR_ONE);
     opt.getSet().addOption("v", Options.Multiplicity.ZERO_OR_ONE);
-    opt.getSet().addOption("i", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
-    opt.getSet().addOption("s", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
-    opt.getSet().addOption("g", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("o", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
     opt.getSet().addOption("I", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
     boolean _check = opt.check(false, false);
     boolean _not = (!_check);
@@ -126,31 +121,21 @@ public class Main {
       new StandaloneSetup().addProjectMapping(projectMapping);
     }
     this.fileAccess.setOutputPath("src-gen/");
-    Pair<String, Boolean> _mappedTo = Pair.<String, Boolean>of("incl-out", Boolean.valueOf(false));
-    Pair<String, Boolean> _mappedTo_1 = Pair.<String, Boolean>of("src-out", Boolean.valueOf(false));
-    Pair<String, Boolean> _mappedTo_2 = Pair.<String, Boolean>of("gen-out", Boolean.valueOf(true));
-    final BiConsumer<String, Boolean> _function = (String p1, Boolean p2) -> {
-      boolean _isSet_3 = opt.getSet().isSet(p1.substring(0, 1));
-      if (_isSet_3) {
-        String _resultValue = opt.getSet().getOption(p1.substring(0, 1)).getResultValue(0);
-        String _plus = (_resultValue + "/");
-        this.fileAccess.setOutputPath(p1, _plus);
-      } else {
-        this.fileAccess.setOutputPath(p1, "src-gen/");
-      }
-      OutputConfiguration _get = this.fileAccess.getOutputConfigurations().get(p1);
+    boolean _isSet_3 = opt.getSet().isSet("o");
+    if (_isSet_3) {
+      this.fileAccess.setOutputPath(opt.getSet().getOption("o").getResultValue(0));
+      OutputConfiguration _get = this.fileAccess.getOutputConfigurations().get(IFileSystemAccess.DEFAULT_OUTPUT);
       if (_get!=null) {
-        _get.setOverrideExistingResources((p2).booleanValue());
+        _get.setOverrideExistingResources(true);
       }
-    };
-    Collections.<String, Boolean>unmodifiableMap(CollectionLiterals.<String, Boolean>newHashMap(_mappedTo, _mappedTo_1, _mappedTo_2)).forEach(_function);
-    final Consumer<String> _function_1 = (String string) -> {
+    }
+    final Consumer<String> _function = (String string) -> {
       try {
         if (verbose) {
-          InputOutput.<String>println(("Reading " + string));
+          InputOutput.<String>println(("Processing " + string));
         }
-        ResourceSet _get = this.resourceSetProvider.get();
-        final XtextResourceSet resourceSet = ((XtextResourceSet) _get);
+        ResourceSet _get_1 = this.resourceSetProvider.get();
+        final XtextResourceSet resourceSet = ((XtextResourceSet) _get_1);
         resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
         final Resource resource = resourceSet.getResource(URI.createFileURI(string), true);
         final List<Issue> issues = this.validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
@@ -160,38 +145,36 @@ public class Main {
           URI _uRI = resource.getURI();
           String _plus = ("Error validating " + _uRI);
           System.err.println(_plus);
-          final Consumer<Issue> _function_2 = (Issue it) -> {
+          final Consumer<Issue> _function_1 = (Issue it) -> {
             System.err.println(it);
           };
-          issues.forEach(_function_2);
+          issues.forEach(_function_1);
           URI _uRI_1 = resource.getURI();
           String _plus_1 = ("error validating " + _uRI_1);
           int _size = issues.size();
           throw new ParseException(_plus_1, _size);
         }
         GeneratorContext _generatorContext = new GeneratorContext();
-        final Procedure1<GeneratorContext> _function_3 = (GeneratorContext it) -> {
+        final Procedure1<GeneratorContext> _function_2 = (GeneratorContext it) -> {
           it.setCancelIndicator(CancelIndicator.NullImpl);
         };
-        final GeneratorContext context = ObjectExtensions.<GeneratorContext>operator_doubleArrow(_generatorContext, _function_3);
+        final GeneratorContext context = ObjectExtensions.<GeneratorContext>operator_doubleArrow(_generatorContext, _function_2);
         this.generator.generate(resource, this.fileAccess, context);
         if (verbose) {
-          InputOutput.<String>print((("Code generation for " + string) + " finished, "));
+          InputOutput.<String>println((("Code generation for " + string) + " finished"));
         }
         try {
           if (verbose) {
             URI _uRI_2 = this.fileAccess.getURI("", "incl-out");
             String _plus_2 = ("includes are in " + _uRI_2);
-            String _plus_3 = (_plus_2 + ", ");
-            InputOutput.<String>print(_plus_3);
+            InputOutput.<String>println(_plus_2);
           }
         } catch (final Throwable _t) {
           if (_t instanceof Exception) {
             final Exception e = (Exception)_t;
             URI _uRI_3 = this.fileAccess.getURI("");
-            String _plus_4 = ("includes are in " + _uRI_3);
-            String _plus_5 = (_plus_4 + ", ");
-            InputOutput.<String>print(_plus_5);
+            String _plus_3 = ("includes are in " + _uRI_3);
+            InputOutput.<String>println(_plus_3);
           } else {
             throw Exceptions.sneakyThrow(_t);
           }
@@ -199,17 +182,15 @@ public class Main {
         try {
           if (verbose) {
             URI _uRI_4 = this.fileAccess.getURI("", "src-out");
-            String _plus_6 = ("sources are in " + _uRI_4);
-            String _plus_7 = (_plus_6 + ", ");
-            InputOutput.<String>println(_plus_7);
+            String _plus_4 = ("sources are in  " + _uRI_4);
+            InputOutput.<String>println(_plus_4);
           }
         } catch (final Throwable _t_1) {
           if (_t_1 instanceof Exception) {
             final Exception e_1 = (Exception)_t_1;
             URI _uRI_5 = this.fileAccess.getURI("");
-            String _plus_8 = ("sources are in " + _uRI_5);
-            String _plus_9 = (_plus_8 + ", ");
-            InputOutput.<String>println(_plus_9);
+            String _plus_5 = ("sources are in  " + _uRI_5);
+            InputOutput.<String>println(_plus_5);
           } else {
             throw Exceptions.sneakyThrow(_t_1);
           }
@@ -218,6 +199,6 @@ public class Main {
         throw Exceptions.sneakyThrow(_e);
       }
     };
-    opt.getSet().getData().forEach(_function_1);
+    opt.getSet().getData().forEach(_function);
   }
 }

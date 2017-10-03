@@ -138,7 +138,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
     _builder.newLine();
     _builder.append("{");
     _builder.newLine();
-    _builder.append("protected:");
+    _builder.append("public:");
     _builder.newLine();
     _builder.append("    ");
     _builder.append("// storage declarations");
@@ -383,8 +383,6 @@ public class RegfileGenerator extends RdlBaseGenerator {
       }
     }
     _builder.append("    ");
-    _builder.newLine();
-    _builder.append("public:");
     _builder.newLine();
     _builder.append("    ");
     String _name_8 = this.componentDefinition.getName();

@@ -66,7 +66,7 @@ class RegfileGenerator extends RdlBaseGenerator{
                 public sc_core::sc_module,
                 public sysc::resetable
         {
-        protected:
+        public:
             // storage declarations
             «FOR cdef : componentDefinition.componentDefinitions»
                 «IF cdef.type == ComponentDefinitionType.REG»
@@ -119,7 +119,6 @@ class RegfileGenerator extends RdlBaseGenerator{
                 «ENDFOR»
             «ENDFOR»
             
-        public:
             «componentDefinition.name»(sc_core::sc_module_name nm);
         
             template<unsigned BUSWIDTH=32>

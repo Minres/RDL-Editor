@@ -546,14 +546,6 @@ public class RegfileGenerator extends RdlBaseGenerator {
     return (int) IterableExtensions.<Integer>reduce(IterableExtensions.<Instantiation, Integer>map(this.instantiationsOfType(definition, type), _function), _function_1);
   }
   
-  public Iterable<Instantiation> instantiationsOfType(final ComponentDefinition definition, final ComponentDefinitionType type) {
-    final Function1<Instantiation, Boolean> _function = (Instantiation it) -> {
-      ComponentDefinitionType _type = this.definingComponent(it).getType();
-      return Boolean.valueOf(Objects.equal(_type, type));
-    };
-    return IterableExtensions.<Instantiation>filter(definition.getInstantiations(), _function);
-  }
-  
   @Override
   public String generateSource() {
     return "";

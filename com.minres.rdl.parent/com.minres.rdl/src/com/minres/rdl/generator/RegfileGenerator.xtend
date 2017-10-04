@@ -185,10 +185,6 @@ class RegfileGenerator extends RdlBaseGenerator{
         definition.instantiationsOfType(type).map[it.componentInstances.size].reduce[p1, p2|p1+p1]
     }
     
-    def instantiationsOfType(ComponentDefinition definition, ComponentDefinitionType type){
-        definition.instantiations.filter[it.definingComponent.type == type]
-    }
-    
     override generateSource() {
         ''
     }

@@ -192,34 +192,44 @@ public class RegfileGenerator extends RdlBaseGenerator {
             {
               boolean _isFilledByField = this.isFilledByField(instantiation);
               if (_isFilledByField) {
-                _builder.append("    ");
-                _builder.append("uint");
-                long _size = this.getSize(instantiation);
-                _builder.append(_size, "    ");
-                _builder.append("_t ");
-                final Function1<ComponentInstance, Boolean> _function_1 = (ComponentInstance it) -> {
-                  Range _range = it.getRange();
-                  return Boolean.valueOf((_range == null));
-                };
-                final Function1<ComponentInstance, String> _function_2 = (ComponentInstance it) -> {
-                  String _name_2 = it.getName();
-                  return ("r_" + _name_2);
-                };
-                String _join_1 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_1), _function_2), ", ");
-                _builder.append(_join_1, "    ");
-                _builder.append(";");
-                _builder.newLineIfNotEmpty();
                 {
-                  final Function1<ComponentInstance, Boolean> _function_3 = (ComponentInstance it) -> {
+                  final Function1<ComponentInstance, Boolean> _function_1 = (ComponentInstance it) -> {
+                    Range _range = it.getRange();
+                    return Boolean.valueOf((_range == null));
+                  };
+                  int _size = IterableExtensions.size(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_1));
+                  boolean _greaterThan = (_size > 0);
+                  if (_greaterThan) {
+                    _builder.append("    ");
+                    _builder.append("uint");
+                    long _size_1 = this.getSize(instantiation);
+                    _builder.append(_size_1, "    ");
+                    _builder.append("_t ");
+                    final Function1<ComponentInstance, Boolean> _function_2 = (ComponentInstance it) -> {
+                      Range _range = it.getRange();
+                      return Boolean.valueOf((_range == null));
+                    };
+                    final Function1<ComponentInstance, String> _function_3 = (ComponentInstance it) -> {
+                      String _name_2 = it.getName();
+                      return ("r_" + _name_2);
+                    };
+                    String _join_1 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_2), _function_3), ", ");
+                    _builder.append(_join_1, "    ");
+                    _builder.append(";");
+                    _builder.newLineIfNotEmpty();
+                  }
+                }
+                {
+                  final Function1<ComponentInstance, Boolean> _function_4 = (ComponentInstance it) -> {
                     Range _range = it.getRange();
                     return Boolean.valueOf((_range != null));
                   };
-                  Iterable<ComponentInstance> _filter = IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_3);
+                  Iterable<ComponentInstance> _filter = IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_4);
                   for(final ComponentInstance componentInstance : _filter) {
                     _builder.append("    ");
                     _builder.append("std::array<uint");
-                    long _size_1 = this.getSize(instantiation);
-                    _builder.append(_size_1, "    ");
+                    long _size_2 = this.getSize(instantiation);
+                    _builder.append(_size_2, "    ");
                     _builder.append("_t, ");
                     long _absSize = this.absSize(componentInstance.getRange());
                     _builder.append(_absSize, "    ");
@@ -241,8 +251,8 @@ public class RegfileGenerator extends RdlBaseGenerator {
                 String _effectiveName_2 = this.effectiveName(instantiation.getComponent());
                 _builder.append(_effectiveName_2, "    ");
                 _builder.append("_t, uint");
-                long _size_2 = this.getSize(instantiation);
-                _builder.append(_size_2, "    ");
+                long _size_3 = this.getSize(instantiation);
+                _builder.append(_size_3, "    ");
                 _builder.append("_t);");
                 _builder.newLineIfNotEmpty();
                 _builder.append("    ");
@@ -252,24 +262,24 @@ public class RegfileGenerator extends RdlBaseGenerator {
                 _builder.newLineIfNotEmpty();
                 _builder.append("    ");
                 _builder.append("END_BF_DECL() ");
-                final Function1<ComponentInstance, Boolean> _function_4 = (ComponentInstance it) -> {
+                final Function1<ComponentInstance, Boolean> _function_5 = (ComponentInstance it) -> {
                   Range _range = it.getRange();
                   return Boolean.valueOf((_range == null));
                 };
-                final Function1<ComponentInstance, String> _function_5 = (ComponentInstance it) -> {
+                final Function1<ComponentInstance, String> _function_6 = (ComponentInstance it) -> {
                   String _name_3 = it.getName();
                   return ("r_" + _name_3);
                 };
-                String _join_2 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_4), _function_5), ", ");
+                String _join_2 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_5), _function_6), ", ");
                 _builder.append(_join_2, "    ");
                 _builder.append(";");
                 _builder.newLineIfNotEmpty();
                 {
-                  final Function1<ComponentInstance, Boolean> _function_6 = (ComponentInstance it) -> {
+                  final Function1<ComponentInstance, Boolean> _function_7 = (ComponentInstance it) -> {
                     Range _range = it.getRange();
                     return Boolean.valueOf((_range != null));
                   };
-                  Iterable<ComponentInstance> _filter_1 = IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_6);
+                  Iterable<ComponentInstance> _filter_1 = IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_7);
                   for(final ComponentInstance componentInstance_1 : _filter_1) {
                     _builder.append("    ");
                     _builder.append("std::array<");
@@ -311,8 +321,8 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   if (_isFilledByField_2) {
                     _builder.append("    ");
                     _builder.append("sysc::sc_register<uint");
-                    long _size_3 = this.getSize(instantiation_1);
-                    _builder.append(_size_3, "    ");
+                    long _size_4 = this.getSize(instantiation_1);
+                    _builder.append(_size_4, "    ");
                     _builder.append("_t> ");
                     String _name_4 = instance.getName();
                     _builder.append(_name_4, "    ");
@@ -345,9 +355,9 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   boolean _isFilledByField_4 = this.isFilledByField(instantiation_1);
                   if (_isFilledByField_4) {
                     _builder.append("    ");
-                    _builder.append("sysc::sc_register_indexed<");
-                    long _size_4 = this.getSize(instantiation_1);
-                    _builder.append(_size_4, "    ");
+                    _builder.append("sysc::sc_register_indexed<uint");
+                    long _size_5 = this.getSize(instantiation_1);
+                    _builder.append(_size_5, "    ");
                     _builder.append("_t, ");
                     long _absSize_2 = this.absSize(instance.getRange());
                     _builder.append(_absSize_2, "    ");

@@ -81,7 +81,9 @@ class RegfileGenerator extends RdlBaseGenerator{
                 «ENDIF»
                 «IF instantiation.component !== null && instantiation.component.type == ComponentDefinitionType.REG»
                     «IF instantiation.isFilledByField»
-                        uint«instantiation.size»_t «instantiation.componentInstances.filter[it.range===null].map['r_'+it.name].join(', ')»;
+                        «IF instantiation.componentInstances.filter[it.range===null].size>0»
+                            uint«instantiation.size»_t «instantiation.componentInstances.filter[it.range===null].map['r_'+it.name].join(', ')»;
+                        «ENDIF»
                         «FOR componentInstance : instantiation.componentInstances.filter[it.range!==null]»
                             std::array<uint«instantiation.size»_t, «componentInstance.range.absSize»> r_«componentInstance.name»;
                         «ENDFOR»
@@ -110,7 +112,7 @@ class RegfileGenerator extends RdlBaseGenerator{
                     «ENDIF»
                     «IF instance.range!==null»
                         «IF instantiation.isFilledByField»
-                            sysc::sc_register_indexed<«instantiation.size»_t, «instance.range.absSize»> «instance.name»;
+                            sysc::sc_register_indexed<uint«instantiation.size»_t, «instance.range.absSize»> «instance.name»;
                         «ENDIF»
                         «IF !instantiation.isFilledByField»
                             sysc::sc_register_indexed<«instantiation.component.effectiveName»_t, «instance.range.absSize»> «instance.name»;

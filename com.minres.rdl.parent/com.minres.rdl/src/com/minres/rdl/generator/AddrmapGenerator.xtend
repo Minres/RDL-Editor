@@ -3,7 +3,6 @@ package com.minres.rdl.generator
 import com.minres.rdl.generator.RdlBaseGenerator
 import com.minres.rdl.rdl.ComponentDefinition
 import com.minres.rdl.IntegerWithRadix
-import com.minres.rdl.rdl.Instantiation
 import com.minres.rdl.rdl.ComponentDefinitionType
 
 class AddrmapGenerator extends RdlBaseGenerator {
@@ -21,7 +20,7 @@ class AddrmapGenerator extends RdlBaseGenerator {
         const std::array<sysc::target_memory_map_entry<32>, «componentDefinition.instanceCount(ComponentDefinitionType.REGFILE)»> e300_plat_map = {{
             «FOR instantiation : componentDefinition.instantiationsOfType(ComponentDefinitionType.REGFILE)»
                 «FOR instance : instantiation.componentInstances»
-                    {&i_«instance.name», 0x«Long.toHexString((instance.address as IntegerWithRadix).value)», 0x«Long.toHexString(instantiation.occupiedSize)»},
+                    {&i_«instance.name», 0x«Long.toHexString((instance.address as IntegerWithRadix).value)», 0x«Long.toHexString(instantiation.byteSize)»},
                 «ENDFOR»
             «ENDFOR»
         }};
@@ -34,16 +33,5 @@ class AddrmapGenerator extends RdlBaseGenerator {
         ''
     }
     
-    def int instanceCount(ComponentDefinition definition, ComponentDefinitionType type){
-        definition.instantiationsOfType(type).map[it.componentInstances.size].reduce[p1, p2| p1+p2]
-    }
 
-    def instantiationsOfType(ComponentDefinition definition, ComponentDefinitionType type){
-        definition.instantiations.filter[it.definingComponent.type == type]
-    }
-
-    def long occupiedSize(Instantiation instantiation){
-        return 4096
-    }
-    
 }

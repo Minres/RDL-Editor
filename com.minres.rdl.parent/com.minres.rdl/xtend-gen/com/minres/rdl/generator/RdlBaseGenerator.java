@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.minres.rdl.IntegerWithRadix;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
+import com.minres.rdl.rdl.ComponentInstance;
 import com.minres.rdl.rdl.EnumDefinition;
 import com.minres.rdl.rdl.ExplicitPropertyAssignment;
 import com.minres.rdl.rdl.InstancePropertyRef;
@@ -13,7 +14,9 @@ import com.minres.rdl.rdl.PropertyAssignmentRhs;
 import com.minres.rdl.rdl.PropertyEnum;
 import com.minres.rdl.rdl.RValue;
 import com.minres.rdl.rdl.RValueConstant;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
@@ -22,6 +25,20 @@ public abstract class RdlBaseGenerator {
     long size = 32L;
     final Function1<PropertyAssignment, Boolean> _function = (PropertyAssignment pa) -> {
       return Boolean.valueOf(((pa instanceof ExplicitPropertyAssignment) && Objects.equal(((ExplicitPropertyAssignment) pa).getName(), PropertyEnum.ACCESSWIDTH)));
+    };
+    final PropertyAssignment pa = IterableExtensions.<PropertyAssignment>findFirst(definition.getPropertyAssignments(), _function);
+    if ((pa != null)) {
+      String _effectiveValue = this.effectiveValue(((ExplicitPropertyAssignment) pa).getRhs());
+      final IntegerWithRadix sz = new IntegerWithRadix(_effectiveValue);
+      size = sz.value;
+    }
+    return size;
+  }
+  
+  public long regWidth(final ComponentDefinition definition) {
+    long size = 32L;
+    final Function1<PropertyAssignment, Boolean> _function = (PropertyAssignment pa) -> {
+      return Boolean.valueOf(((pa instanceof ExplicitPropertyAssignment) && Objects.equal(((ExplicitPropertyAssignment) pa).getName(), PropertyEnum.REGWIDTH)));
     };
     final PropertyAssignment pa = IterableExtensions.<PropertyAssignment>findFirst(definition.getPropertyAssignments(), _function);
     if ((pa != null)) {
@@ -146,7 +163,7 @@ public abstract class RdlBaseGenerator {
   }
   
   public String effectiveValue(final InstancePropertyRef ref) {
-    return null;
+    throw new RuntimeException();
   }
   
   public ComponentDefinition definingComponent(final Instantiation instantiation) {
@@ -159,6 +176,79 @@ public abstract class RdlBaseGenerator {
       _xifexpression = instantiation.getComponent();
     }
     return _xifexpression;
+  }
+  
+  public int instanceCount(final ComponentDefinition definition, final ComponentDefinitionType type) {
+    final Function1<Instantiation, Integer> _function = (Instantiation it) -> {
+      return Integer.valueOf(it.getComponentInstances().size());
+    };
+    final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
+      return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+    };
+    return (int) IterableExtensions.<Integer>reduce(IterableExtensions.<Instantiation, Integer>map(this.instantiationsOfType(definition, type), _function), _function_1);
+  }
+  
+  public Iterable<Instantiation> instantiationsOfType(final ComponentDefinition definition, final ComponentDefinitionType type) {
+    final Function1<Instantiation, Boolean> _function = (Instantiation it) -> {
+      ComponentDefinitionType _type = this.definingComponent(it).getType();
+      return Boolean.valueOf(Objects.equal(_type, type));
+    };
+    return IterableExtensions.<Instantiation>filter(definition.getInstantiations(), _function);
+  }
+  
+  public long byteSize(final Instantiation instantiation, final long start) {
+    final ComponentDefinition componentDefinition = this.definingComponent(instantiation);
+    long componentSize = 0;
+    ComponentDefinitionType _type = this.definingComponent(instantiation).getType();
+    boolean _equals = Objects.equal(_type, ComponentDefinitionType.REG);
+    if (_equals) {
+      long _regWidth = this.regWidth(this.definingComponent(instantiation));
+      long _divide = (_regWidth / 8);
+      componentSize = _divide;
+    } else {
+      EList<Instantiation> _instantiations = componentDefinition.getInstantiations();
+      for (final Instantiation subInstantiation : _instantiations) {
+        componentSize = this.byteSize(subInstantiation, componentSize);
+      }
+    }
+    long lastTopAddress = start;
+    long topAddress = start;
+    EList<ComponentInstance> _componentInstances = instantiation.getComponentInstances();
+    for (final ComponentInstance componentInstance : _componentInstances) {
+      {
+        long _xifexpression = (long) 0;
+        Object _address = componentInstance.getAddress();
+        boolean _tripleNotEquals = (_address != null);
+        if (_tripleNotEquals) {
+          Object _address_1 = componentInstance.getAddress();
+          _xifexpression = (((IntegerWithRadix) _address_1).value + componentSize);
+        } else {
+          _xifexpression = (componentSize + lastTopAddress);
+        }
+        final long byteSize = _xifexpression;
+        topAddress = Math.max(topAddress, byteSize);
+        lastTopAddress = byteSize;
+      }
+    }
+    return topAddress;
+  }
+  
+  public long byteSize(final Instantiation instantiation) {
+    final ComponentDefinition componentDefinition = this.definingComponent(instantiation);
+    long componentSize = 0;
+    ComponentDefinitionType _type = this.definingComponent(instantiation).getType();
+    boolean _equals = Objects.equal(_type, ComponentDefinitionType.REG);
+    if (_equals) {
+      long _regWidth = this.regWidth(this.definingComponent(instantiation));
+      long _divide = (_regWidth / 8);
+      componentSize = _divide;
+    } else {
+      EList<Instantiation> _instantiations = componentDefinition.getInstantiations();
+      for (final Instantiation subInstantiation : _instantiations) {
+        componentSize = this.byteSize(subInstantiation, componentSize);
+      }
+    }
+    return componentSize;
   }
   
   public abstract String generateHeader();

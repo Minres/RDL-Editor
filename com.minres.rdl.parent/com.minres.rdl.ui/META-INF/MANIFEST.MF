@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: com.minres.rdl.ui
 Bundle-Vendor: My Company
-Bundle-Version: 1.1.0.qualifier
+Bundle-Version: 1.1.1.qualifier
 Bundle-SymbolicName: com.minres.rdl.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.minres.rdl,

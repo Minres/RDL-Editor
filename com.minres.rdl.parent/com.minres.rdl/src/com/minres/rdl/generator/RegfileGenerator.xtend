@@ -6,6 +6,7 @@ import com.minres.rdl.rdl.ComponentDefinitionType
 import com.minres.rdl.rdl.ComponentInstance
 import com.minres.rdl.rdl.Instantiation
 import java.util.Date
+import com.minres.rdl.rdl.Range
 
 class RegfileGenerator extends RdlBaseGenerator{
     
@@ -65,7 +66,7 @@ class RegfileGenerator extends RdlBaseGenerator{
                 public sc_core::sc_module,
                 public sysc::resetable
         {
-        protected:
+        public:
             // storage declarations
             «FOR cdef : componentDefinition.componentDefinitions»
                 «IF cdef.type == ComponentDefinitionType.REG»
@@ -80,12 +81,20 @@ class RegfileGenerator extends RdlBaseGenerator{
                 «ENDIF»
                 «IF instantiation.component !== null && instantiation.component.type == ComponentDefinitionType.REG»
                     «IF instantiation.isFilledByField»
-                        uint«instantiation.size»_t «instantiation.componentInstances.map['r_'+it.name].join(', ')»;
+                        «IF instantiation.componentInstances.filter[it.range===null].size>0»
+                            uint«instantiation.size»_t «instantiation.componentInstances.filter[it.range===null].map['r_'+it.name].join(', ')»;
+                        «ENDIF»
+                        «FOR componentInstance : instantiation.componentInstances.filter[it.range!==null]»
+                            std::array<uint«instantiation.size»_t, «componentInstance.range.absSize»> r_«componentInstance.name»;
+                        «ENDFOR»
                     «ENDIF»
                     «IF !instantiation.isFilledByField»
                         BEGIN_BF_DECL(«instantiation.component.effectiveName»_t, uint«instantiation.size»_t);
                             «instantiation.definingComponent.genFieldDeclarations»
-                        END_BF_DECL() «instantiation.componentInstances.map['r_'+it.name].join(', ')»;
+                        END_BF_DECL() «instantiation.componentInstances.filter[it.range===null].map['r_'+it.name].join(', ')»;
+                        «FOR componentInstance : instantiation.componentInstances.filter[it.range!==null]»
+                            std::array<«instantiation.component.effectiveName»_t, «componentInstance.range.absSize»> r_«componentInstance.name»;
+                        «ENDFOR»
                     «ENDIF»
                     
                 «ENDIF»
@@ -93,16 +102,25 @@ class RegfileGenerator extends RdlBaseGenerator{
             // register declarations
             «FOR instantiation : componentDefinition.instantiations»
                 «FOR instance : instantiation.componentInstances»
-                    «IF instantiation.isFilledByField»
-                        sysc::sc_register<uint«instantiation.size»_t> «instance.name»;
+                    «IF instance.range===null»
+                        «IF instantiation.isFilledByField»
+                            sysc::sc_register<uint«instantiation.size»_t> «instance.name»;
+                        «ENDIF»
+                        «IF !instantiation.isFilledByField»
+                            sysc::sc_register<«instantiation.component.effectiveName»_t> «instance.name»;
+                        «ENDIF»
                     «ENDIF»
-                    «IF !instantiation.isFilledByField»
-                        sysc::sc_register<typename «instantiation.component.effectiveName»_t::StorageType> «instance.name»;
+                    «IF instance.range!==null»
+                        «IF instantiation.isFilledByField»
+                            sysc::sc_register_indexed<uint«instantiation.size»_t, «instance.range.absSize»> «instance.name»;
+                        «ENDIF»
+                        «IF !instantiation.isFilledByField»
+                            sysc::sc_register_indexed<«instantiation.component.effectiveName»_t, «instance.range.absSize»> «instance.name»;
+                        «ENDIF»
                     «ENDIF»
                 «ENDFOR»
             «ENDFOR»
             
-        public:
             «componentDefinition.name»(sc_core::sc_module_name nm);
         
             template<unsigned BUSWIDTH=32>
@@ -127,13 +145,20 @@ class RegfileGenerator extends RdlBaseGenerator{
         inline void sysc::«componentDefinition.name»::registerResources(sysc::tlm_target<BUSWIDTH>& target) {
             «FOR instantiation : componentDefinition.instantiations»
                 «FOR instance : instantiation.componentInstances»
-                    target.addResource(«instance.name», 0x«Long.toHexString((instance.address as IntegerWithRadix).value)»UL, 0x«Long.toHexString((instantiation.size+7)/8)»UL);
+                    target.addResource(«instance.name», 0x«Long.toHexString((instance.address as IntegerWithRadix).value)»UL);
                 «ENDFOR»
             «ENDFOR»
         }
         
         #endif // _«componentDefinition.name.toUpperCase»_H_
         '''
+    
+    def long absSize(Range range){
+        if(range.size!==null) 
+            return (range.size as IntegerWithRadix).value 
+        else
+           return Math.abs((range.left as IntegerWithRadix).value - (range.right as IntegerWithRadix).value)+1 
+    }
     
     def boolean isFilledByField(Instantiation instantiation){
         val fieldCount = instantiation.component.instanceCountOfType(ComponentDefinitionType.FIELD)
@@ -158,10 +183,6 @@ class RegfileGenerator extends RdlBaseGenerator{
     
     def int instanceCountOfType(ComponentDefinition definition, ComponentDefinitionType type){
         definition.instantiationsOfType(type).map[it.componentInstances.size].reduce[p1, p2|p1+p1]
-    }
-    
-    def instantiationsOfType(ComponentDefinition definition, ComponentDefinitionType type){
-        definition.instantiations.filter[it.definingComponent.type == type]
     }
     
     override generateSource() {

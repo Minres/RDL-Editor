@@ -92,7 +92,8 @@
 						<artifact>
 							<groupId>com.minres.rdl</groupId>
 							<artifactId>com.minres.rdl.target</artifactId>
-							<version>${project.version}</version>
+<!-- 							<version>${project.version}</version> -->
+							<version>1.0.0-SNAPSHOT</version>
 						</artifact>
 					</target>
 					<environments>

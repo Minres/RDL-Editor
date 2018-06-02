@@ -61,7 +61,8 @@ enum ComponentDefinitionType:
 
 Instantiation:
     (
-        instanceType=EnumInstanceType? ("alias" alias=ID)? componentRef=[ComponentDefinition]| component=ComponentDefinition instanceType=EnumInstanceType?
+        instanceType=EnumInstanceType? ("alias" alias=ID)?
+        componentRef=[ComponentDefinition] | component=ComponentDefinition instanceType=EnumInstanceType?
     ) componentInstances+=ComponentInstance (',' componentInstances+=ComponentInstance)* 
 	;
 

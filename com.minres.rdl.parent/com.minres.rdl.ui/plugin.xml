@@ -98,15 +98,11 @@
 			<keywordReference id="com.minres.rdl.ui.keyword_RDL"/>
 		</page>
 	    <page category="com.minres.rdl.RDL"
-		    class="com.minres.rdl.ui.preferences.RdlPreferencePage"
-		    id="com.minres.rdl.ui.preferences.TextPreferencePage"
+		    class="com.minres.rdl.ui.RDLExecutableExtensionFactory:com.minres.rdl.ui.preferences.RdlPreferencePage"
+		    id="com.minres.rdl.RDL.preferences"
 		    name="Generator">
 			<keywordReference id="com.minres.rdl.ui.keyword_RDL"/>
 	    </page>
-	</extension>
-	<extension point="org.eclipse.core.runtime.preferences">
-		<initializer class="com.minres.rdl.preferences.PreferenceInitializer">
-		</initializer>
 	</extension>
 	<extension
 			point="org.eclipse.ui.propertyPages">
@@ -214,6 +210,15 @@
 			</activeWhen>
 		</handler>
 	</extension>
+	<extension point="org.eclipse.core.contenttype.contentTypes">
+		<content-type
+			base-type="org.eclipse.core.runtime.text"
+			file-extensions="rdl"
+			id="com.minres.rdl.RDL.contenttype"
+			name="RDL File"
+			priority="normal">
+		</content-type>
+	</extension>
 	<!-- adding resource factories -->
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
@@ -249,6 +254,15 @@
 			point="org.eclipse.core.resources.markers">
 		<super type="org.eclipse.xtext.ui.check.expensive"/>
 		<persistent value="true"/>
+	</extension>
+	<extension point="org.eclipse.ui.preferencePages">
+		<page
+			category="com.minres.rdl.RDL"
+			class="com.minres.rdl.ui.RDLExecutableExtensionFactory:org.eclipse.xtext.ui.validation.ValidatorPreferencePage"
+			id="com.minres.rdl.RDL.validator.preferencePage"
+			name="Errors/Warnings">
+			<keywordReference id="com.minres.rdl.ui.keyword_RDL"/>
+		</page>
 	</extension>
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
@@ -398,12 +412,18 @@
 			class="com.minres.rdl.ui.RDLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="rdl">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="com.minres.rdl.RDL.contenttype"
+			contentViewerId="com.minres.rdl.RDL.compare.contentViewers" />
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="com.minres.rdl.RDL.compare.contentMergeViewers"
 			class="com.minres.rdl.ui.RDLExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
 			extensions="rdl" label="RDL Compare">
 		</viewer>
+		<contentTypeBinding
+			contentTypeId="com.minres.rdl.RDL.contenttype"
+			contentMergeViewerId="com.minres.rdl.RDL.compare.contentMergeViewers" />
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="com.minres.rdl.RDL.editors.documentProviders"
@@ -416,5 +436,19 @@
 			extension="rdl"
 			type="text">
 		</fileTypes>
+	</extension>
+	<extension
+		point="org.eclipse.ui.newWizards">
+		<wizard
+			category="com.minres.category"
+			class="com.minres.rdl.ui.RDLExecutableExtensionFactory:com.minres.rdl.ui.wizard.RDLNewProjectWizard"
+			id="com.minres.rdl.ui.wizard.RDLNewProjectWizard"
+			name="RDL Project"
+			project="true">
+		</wizard>
+  <category
+        id="com.minres.category"
+        name="MINRES">
+  </category>
 	</extension>
 </plugin>

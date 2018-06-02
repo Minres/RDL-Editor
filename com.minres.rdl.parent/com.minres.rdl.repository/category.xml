@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="com.minres.rdl.feature" version="0.0.0">
-      <category name="main"/>
-   </feature>
-   <category-def name="main" label="RDL"/>
+	<feature id="com.minres.rdl.feature" version="0.0.0">
+		<category name="main"/>
+	</feature>
+	<feature id="com.minres.rdl.feature.source" version="0.0.0">
+		<category name="main.source"/>
+	</feature>
+	<category-def name="main" label="RDL"/>
+	<category-def name="main.source" label="RDL (Sources)"/>
 </site>

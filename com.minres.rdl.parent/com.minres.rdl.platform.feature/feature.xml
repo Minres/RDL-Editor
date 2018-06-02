@@ -18,11 +18,19 @@
    </license>
 
    <includes
-         id="org.eclipse.xtext.runtime"
+         id="org.eclipse.rcp"
          version="0.0.0"/>
 
    <includes
-         id="org.eclipse.rcp"
+         id="org.eclipse.xtext.redist"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.xtext.ui"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.help"
          version="0.0.0"/>
 
    <plugin
@@ -385,13 +393,6 @@
 
    <plugin
          id="org.eclipse.e4.ui.model.workbench"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.xtext.ui.ecore"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -913,21 +914,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.xtext.ui.codetemplates.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.e4.ui.di"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.xtext.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -1178,13 +1165,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.xtext.ui.shared"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.emf.ecore.editor"
          download-size="0"
          install-size="0"
@@ -1284,13 +1264,6 @@
 
    <plugin
          id="org.eclipse.core.commands"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.xtext.ui.codetemplates"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -1453,6 +1426,13 @@
 
    <plugin
          id="org.antlr.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ui.genericeditor"
          download-size="0"
          install-size="0"
          version="0.0.0"

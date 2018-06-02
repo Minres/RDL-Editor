@@ -80,7 +80,6 @@ public class RDLGenerator extends AbstractGenerator {
       fsa.getURI("", output_config);
     } catch (final Throwable _t) {
       if (_t instanceof Exception) {
-        final Exception e = (Exception)_t;
         output_config = "DEFAULT_OUTPUT";
       } else {
         throw Exceptions.sneakyThrow(_t);

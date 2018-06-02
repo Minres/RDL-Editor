@@ -21,6 +21,9 @@ Workflow {
 				eclipsePluginTest = {
 					enabled = true
 				}
+				web = {
+					enabled = true
+				}
 				createEclipseMetaData = true
 			}
 			code = {
@@ -33,7 +36,6 @@ Workflow {
 			name = "com.minres.rdl.RDL"
 			fileExtensions = "rdl"
 
-		    fragment = scoping.ImportNamespacesScopingFragment2 auto-inject {}
 			fragment = exporting.SimpleNamesFragment2 auto-inject {}
 
         	parserGenerator = {
@@ -41,13 +43,18 @@ Workflow {
                     backtrack = true
                 }
             }
-            
 			serializer = {
 				generateStub = false
 			}
 			validator = {
 				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 			}
+			generator = {
+                generateXtendMain = true
+            }
+			newProjectWizardForEclipse = {
+            	generate = true
+         	}
 		}
 	}
 }

@@ -171,7 +171,6 @@ public class Main {
           }
         } catch (final Throwable _t) {
           if (_t instanceof Exception) {
-            final Exception e = (Exception)_t;
             URI _uRI_3 = this.fileAccess.getURI("");
             String _plus_3 = ("includes are in " + _uRI_3);
             InputOutput.<String>println(_plus_3);
@@ -187,7 +186,6 @@ public class Main {
           }
         } catch (final Throwable _t_1) {
           if (_t_1 instanceof Exception) {
-            final Exception e_1 = (Exception)_t_1;
             URI _uRI_5 = this.fileAccess.getURI("");
             String _plus_5 = ("sources are in  " + _uRI_5);
             InputOutput.<String>println(_plus_5);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="RDL" uid="com.minres.rdl.product.product" id="com.minres.rdl.product.product" application="org.eclipse.ui.ide.workbench" version="1.1.1.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="RDL Editor" uid="com.minres.rdl.product.product" id="com.minres.rdl.product.product" application="org.eclipse.ui.ide.workbench" version="1.1.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -14,7 +14,6 @@
    <windowImages/>
 
    <launcher name="rdl-editor">
-      <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
@@ -104,6 +103,16 @@
       <feature id="com.minres.rdl.platform.feature" version="1.0.0.qualifier"/>
       <feature id="com.minres.rdl.product.feature" version="1.0.0.qualifier"/>
       <feature id="com.minres.rdl.feature" version="1.0.0.qualifier"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="org.eclipse.xtext.runtime"/>
+      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.xtext.xbase"/>
+      <feature id="org.eclipse.help"/>
+      <feature id="org.eclipse.xtext.redist"/>
+      <feature id="org.eclipse.xtext.xbase.lib"/>
+      <feature id="org.eclipse.xtext.ui"/>
    </features>
 
    <configurations>

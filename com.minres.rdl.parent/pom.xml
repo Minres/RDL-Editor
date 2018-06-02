@@ -7,16 +7,23 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>1.0.0</tycho-version>
-		<xtextVersion>2.12.0</xtextVersion>
+		<xtextVersion>2.14.0</xtextVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- Tycho settings -->
+		<tycho-version>1.1.0</tycho-version>
+		<!-- Define overridable properties for tycho-surefire-plugin -->
+		<platformSystemProperties></platformSystemProperties>
+		<moduleProperties></moduleProperties>
+		<systemProperties></systemProperties>
+		<tycho.testArgLine></tycho.testArgLine>
 	</properties>
 	<modules>
 		<module>com.minres.rdl</module>
 		<module>com.minres.rdl.ide</module>
 		<module>com.minres.rdl.ui</module>
+		<module>com.minres.rdl.web</module>
 		<module>com.minres.rdl.target</module>
 		<module>com.minres.rdl.feature</module>
 		<module>com.minres.rdl.repository</module>
@@ -25,6 +32,7 @@
 		<module>com.minres.rdl.product</module>
 		<module>com.minres.rdl.product.feature</module>
 		<module>com.minres.rdl.platform.feature</module>
+		<module>com.minres.rdl.product.releng</module>
 		<module>com.minres.rdl.standalone</module>
 	</modules>
 	<build>
@@ -40,7 +48,6 @@
 			    <artifactId>tycho-versions-plugin</artifactId>
 			    <version>${tycho-version}</version>
 			</plugin>
-<!--
  			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-source-plugin</artifactId>
@@ -68,8 +75,7 @@
 					</execution>
 				</executions>
 			</plugin>
--->
- 			<plugin>
+			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-plugin</artifactId>
 				<version>${tycho-version}</version>
@@ -105,17 +111,7 @@
 						<environment>
 							<os>win32</os>
 							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
 							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
 						</environment>
 						<environment>
 							<os>linux</os>
@@ -154,10 +150,6 @@
 					<configuration>
 						<filesets>
 							<fileset>
-								<directory>${basedir}/xtend-gen</directory>
-								<includes>
-									<include>**/*</include>
-								</includes>
 								<directory>${basedir}/xtend-gen</directory>
 								<includes>
 									<include>**/*</include>
@@ -270,6 +262,22 @@
 					<version>${tycho-version}</version>
 					<configuration>
 						<compilerArgument>-err:-forbidden</compilerArgument>
+						<useProjectSettings>false</useProjectSettings>
+					</configuration>
+				</plugin>
+				<!-- to skip running (and compiling) tests use commandline flag: -Dmaven.test.skip
+					To skip tests, but still compile them, use: -DskipTests
+					To allow all tests in a pom to pass/fail, use commandline flag: -fae (fail
+					at end) -->
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+						<argLine>${tycho.testArgLine} ${platformSystemProperties} ${systemProperties} ${moduleProperties}</argLine>
+						<failIfNoTests>false</failIfNoTests>
+						<useUIHarness>false</useUIHarness>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -301,6 +309,29 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+	<profiles>
+		<profile>
+			<id>macos</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+				<platformSystemProperties>-XstartOnFirstThread</platformSystemProperties>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk9-or-newer</id>
+			<activation>
+				<jdk>[9,)</jdk>
+			</activation>
+			<properties>
+				<moduleProperties>--add-modules=ALL-SYSTEM</moduleProperties>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 	</dependencies>

@@ -3,7 +3,7 @@
       id="com.minres.rdl.platform.feature"
       label="Xtext Platform Feature"
       version="1.0.0.qualifier"
-      provider-name="MINRES">
+      provider-name="MINRES Technologies GmbH">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

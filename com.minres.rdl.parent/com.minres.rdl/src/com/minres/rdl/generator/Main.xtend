@@ -23,7 +23,7 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 
 class Main {
 
-    private val USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
+    val USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
 
     def static main(String[] args) {
         if (args.empty) {

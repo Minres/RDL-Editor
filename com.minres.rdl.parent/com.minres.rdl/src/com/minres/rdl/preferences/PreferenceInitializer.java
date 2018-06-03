@@ -1,7 +1,6 @@
 package com.minres.rdl.preferences;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
 /**
@@ -16,7 +15,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	 * initializeDefaultPreferences()
 	 */
 	public void initializeDefaultPreferences() {
-		IEclipsePreferences store = getPreferenceStore();
+		IEclipsePreferences store = RdlPreferences.getPreferenceStore();
 		store.putBoolean(PreferenceConstants.P_GENERATE_CSV, true);
 		String value = System.getProperty(PreferenceConstants.ADDRESSUNIT_PROP);
 		if(value!=null){
@@ -32,10 +31,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 			}
 		} else 
 			store.put(PreferenceConstants.P_ADDRESSUNIT, "byte");
-	}
-
-	public static IEclipsePreferences getPreferenceStore() {
-		return DefaultScope.INSTANCE.getNode(PreferenceConstants.SCOPE_NAME);
 	}
 
 }

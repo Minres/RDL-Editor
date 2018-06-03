@@ -6,10 +6,10 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="org.eclipse.ui.ide.workbench"
-            name="RDL">
+            name="RDL Editor">
          <property
                name="appName"
-               value="RDL">
+               value="RDL Editor">
          </property>
       </product>
    </extension>

@@ -2,7 +2,8 @@
 <feature
       id="com.minres.rdl.product.feature"
       label="RDL Feature "
-      version="1.0.0.qualifier">
+      version="1.0.0.qualifier"
+      provider-name="MINRES Technologies GmbH">
 
    <requires>
       <import feature="com.minres.rdl.feature" version="1.0.0.qualifier"/>

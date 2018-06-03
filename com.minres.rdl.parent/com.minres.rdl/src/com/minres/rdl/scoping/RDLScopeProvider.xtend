@@ -5,7 +5,6 @@ package com.minres.rdl.scoping
 
 import com.minres.rdl.rdl.ComponentDefinition
 import com.minres.rdl.rdl.Root
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes

@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: com.minres.rdl.ide
 Bundle-ManifestVersion: 2
 Bundle-Name: com.minres.rdl.ide
 Bundle-Vendor: My Company

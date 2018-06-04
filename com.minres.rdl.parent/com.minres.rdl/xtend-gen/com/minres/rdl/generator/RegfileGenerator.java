@@ -2,6 +2,7 @@ package com.minres.rdl.generator;
 
 import com.google.common.base.Objects;
 import com.minres.rdl.IntegerWithRadix;
+import com.minres.rdl.RdlUtil;
 import com.minres.rdl.generator.RdlBaseGenerator;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
@@ -152,7 +153,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
           if (_equals) {
             _builder.append("    ");
             _builder.append("BEGIN_BF_DECL(");
-            String _effectiveName = this.effectiveName(cdef);
+            String _effectiveName = RdlUtil.effectiveName(cdef);
             _builder.append(_effectiveName, "    ");
             _builder.append("+\'_t\'», uint");
             _builder.append(cdef, "    ");
@@ -175,7 +176,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
         {
           if (((instantiation.getComponentRef() != null) && Objects.equal(instantiation.getComponentRef().getType(), ComponentDefinitionType.REG))) {
             _builder.append("    ");
-            String _effectiveName_1 = this.effectiveName(instantiation.getComponentRef());
+            String _effectiveName_1 = RdlUtil.effectiveName(instantiation.getComponentRef());
             _builder.append(_effectiveName_1, "    ");
             _builder.append("+\'_t\' ");
             final Function1<ComponentInstance, String> _function = (ComponentInstance it) -> {
@@ -202,7 +203,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   if (_greaterThan) {
                     _builder.append("    ");
                     _builder.append("uint");
-                    long _size_1 = this.getSize(instantiation);
+                    long _size_1 = RdlUtil.getSize(instantiation);
                     _builder.append(_size_1, "    ");
                     _builder.append("_t ");
                     final Function1<ComponentInstance, Boolean> _function_2 = (ComponentInstance it) -> {
@@ -228,7 +229,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   for(final ComponentInstance componentInstance : _filter) {
                     _builder.append("    ");
                     _builder.append("std::array<uint");
-                    long _size_2 = this.getSize(instantiation);
+                    long _size_2 = RdlUtil.getSize(instantiation);
                     _builder.append(_size_2, "    ");
                     _builder.append("_t, ");
                     long _absSize = this.absSize(componentInstance.getRange());
@@ -248,16 +249,16 @@ public class RegfileGenerator extends RdlBaseGenerator {
               if (_not) {
                 _builder.append("    ");
                 _builder.append("BEGIN_BF_DECL(");
-                String _effectiveName_2 = this.effectiveName(instantiation.getComponent());
+                String _effectiveName_2 = RdlUtil.effectiveName(instantiation.getComponent());
                 _builder.append(_effectiveName_2, "    ");
                 _builder.append("_t, uint");
-                long _size_3 = this.getSize(instantiation);
+                long _size_3 = RdlUtil.getSize(instantiation);
                 _builder.append(_size_3, "    ");
                 _builder.append("_t);");
                 _builder.newLineIfNotEmpty();
                 _builder.append("    ");
                 _builder.append("    ");
-                String _genFieldDeclarations_1 = this.genFieldDeclarations(this.definingComponent(instantiation));
+                String _genFieldDeclarations_1 = this.genFieldDeclarations(RdlUtil.definingComponent(instantiation));
                 _builder.append(_genFieldDeclarations_1, "        ");
                 _builder.newLineIfNotEmpty();
                 _builder.append("    ");
@@ -283,7 +284,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   for(final ComponentInstance componentInstance_1 : _filter_1) {
                     _builder.append("    ");
                     _builder.append("std::array<");
-                    String _effectiveName_3 = this.effectiveName(instantiation.getComponent());
+                    String _effectiveName_3 = RdlUtil.effectiveName(instantiation.getComponent());
                     _builder.append(_effectiveName_3, "    ");
                     _builder.append("_t, ");
                     long _absSize_1 = this.absSize(componentInstance_1.getRange());
@@ -321,7 +322,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   if (_isFilledByField_2) {
                     _builder.append("    ");
                     _builder.append("sysc::sc_register<uint");
-                    long _size_4 = this.getSize(instantiation_1);
+                    long _size_4 = RdlUtil.getSize(instantiation_1);
                     _builder.append(_size_4, "    ");
                     _builder.append("_t> ");
                     String _name_4 = instance.getName();
@@ -336,7 +337,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   if (_not_1) {
                     _builder.append("    ");
                     _builder.append("sysc::sc_register<");
-                    String _effectiveName_4 = this.effectiveName(instantiation_1.getComponent());
+                    String _effectiveName_4 = RdlUtil.effectiveName(instantiation_1.getComponent());
                     _builder.append(_effectiveName_4, "    ");
                     _builder.append("_t> ");
                     String _name_5 = instance.getName();
@@ -356,7 +357,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   if (_isFilledByField_4) {
                     _builder.append("    ");
                     _builder.append("sysc::sc_register_indexed<uint");
-                    long _size_5 = this.getSize(instantiation_1);
+                    long _size_5 = RdlUtil.getSize(instantiation_1);
                     _builder.append(_size_5, "    ");
                     _builder.append("_t, ");
                     long _absSize_2 = this.absSize(instance.getRange());
@@ -374,7 +375,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
                   if (_not_2) {
                     _builder.append("    ");
                     _builder.append("sysc::sc_register_indexed<");
-                    String _effectiveName_5 = this.effectiveName(instantiation_1.getComponent());
+                    String _effectiveName_5 = RdlUtil.effectiveName(instantiation_1.getComponent());
                     _builder.append(_effectiveName_5, "    ");
                     _builder.append("_t, ");
                     long _absSize_3 = this.absSize(instance.getRange());
@@ -467,10 +468,9 @@ public class RegfileGenerator extends RdlBaseGenerator {
             _builder.append("target.addResource(");
             String _name_14 = instance_2.getName();
             _builder.append(_name_14, "    ");
-            _builder.append(", 0x");
-            Object _address = instance_2.getAddress();
-            String _hexString = Long.toHexString(((IntegerWithRadix) _address).value);
-            _builder.append(_hexString, "    ");
+            _builder.append(", ");
+            IntegerWithRadix _addressValue = RdlUtil.addressValue(instance_2);
+            _builder.append(_addressValue, "    ");
             _builder.append("UL);");
             _builder.newLineIfNotEmpty();
           }
@@ -505,12 +505,12 @@ public class RegfileGenerator extends RdlBaseGenerator {
   public boolean isFilledByField(final Instantiation instantiation) {
     final int fieldCount = this.instanceCountOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD);
     if ((fieldCount == 1)) {
-      final long instSize = this.getSize(instantiation);
-      final Instantiation field = ((Instantiation[])Conversions.unwrapArray(this.instantiationsOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD), Instantiation.class))[0];
+      final long instSize = RdlUtil.getSize(instantiation);
+      final Instantiation field = ((Instantiation[])Conversions.unwrapArray(RdlUtil.instantiationsOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD), Instantiation.class))[0];
       final ComponentInstance inst = field.getComponentInstances().get(0);
       final Range range = inst.getRange();
       if ((range == null)) {
-        long _size = this.getSize(field);
+        long _size = RdlUtil.getSize(field);
         return (instSize == _size);
       }
       Object _size_1 = range.getSize();
@@ -543,7 +543,7 @@ public class RegfileGenerator extends RdlBaseGenerator {
     final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
       return Integer.valueOf(((p1).intValue() + (p1).intValue()));
     };
-    return (int) IterableExtensions.<Integer>reduce(IterableExtensions.<Instantiation, Integer>map(this.instantiationsOfType(definition, type), _function), _function_1);
+    return (int) IterableExtensions.<Integer>reduce(IterableExtensions.<Instantiation, Integer>map(RdlUtil.instantiationsOfType(definition, type), _function), _function_1);
   }
   
   @Override

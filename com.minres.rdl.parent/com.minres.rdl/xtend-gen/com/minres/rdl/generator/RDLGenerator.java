@@ -3,6 +3,7 @@
  */
 package com.minres.rdl.generator;
 
+import com.minres.rdl.RdlUtil;
 import com.minres.rdl.generator.AddrmapGenerator;
 import com.minres.rdl.generator.RdlBaseGenerator;
 import com.minres.rdl.generator.RegfileGenerator;
@@ -38,14 +39,14 @@ public class RDLGenerator extends AbstractGenerator {
       if ((gen != null)) {
         final String header = gen.generateHeader();
         if (((header != null) && (header.length() > 0))) {
-          String _name = it.getName();
-          String _plus = (_name + ".h");
+          String _effectiveName = RdlUtil.effectiveName(it);
+          String _plus = (_effectiveName + ".h");
           fsa.generateFile(_plus, this.outputConfig(fsa, "incl-out"), header);
         }
         final String source = gen.generateSource();
         if (((source != null) && (source.length() > 0))) {
-          String _name_1 = it.getName();
-          String _plus_1 = (_name_1 + ".cpp");
+          String _effectiveName_1 = RdlUtil.effectiveName(it);
+          String _plus_1 = (_effectiveName_1 + ".cpp");
           fsa.generateFile(_plus_1, this.outputConfig(fsa, "src-out"), source);
         }
       }

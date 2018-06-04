@@ -8,6 +8,8 @@ import com.minres.rdl.rdl.Instantiation
 import java.util.Date
 import com.minres.rdl.rdl.Range
 
+import static extension com.minres.rdl.RdlUtil.*
+
 class RegfileGenerator extends RdlBaseGenerator{
     
     val ComponentDefinition componentDefinition
@@ -145,7 +147,7 @@ class RegfileGenerator extends RdlBaseGenerator{
         inline void sysc::«componentDefinition.name»::registerResources(sysc::tlm_target<BUSWIDTH>& target) {
             «FOR instantiation : componentDefinition.instantiations»
                 «FOR instance : instantiation.componentInstances»
-                    target.addResource(«instance.name», 0x«Long.toHexString((instance.address as IntegerWithRadix).value)»UL);
+                    target.addResource(«instance.name», «instance.addressValue»UL);
                 «ENDFOR»
             «ENDFOR»
         }

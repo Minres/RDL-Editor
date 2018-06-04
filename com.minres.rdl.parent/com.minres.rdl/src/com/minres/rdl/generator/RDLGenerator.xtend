@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import static extension com.minres.rdl.RdlUtil.*
 
 /**
  * Generates code from your model files on save.
@@ -22,13 +23,13 @@ class RDLGenerator extends AbstractGenerator {
             val gen = it.fileGenerator
             if(gen!==null){
                 val header = gen.generateHeader
-                if(header!==null && header.length>0) fsa.generateFile(it.name+'.h', fsa.outputConfig('incl-out'), header)
+                if(header!==null && header.length>0) fsa.generateFile(it.effectiveName+'.h', fsa.outputConfig('incl-out'), header)
                 val source = gen.generateSource
-                if(source!==null && source.length>0) fsa.generateFile(it.name+'.cpp', fsa.outputConfig('src-out'), source)
+                if(source!==null && source.length>0) fsa.generateFile(it.effectiveName+'.cpp', fsa.outputConfig('src-out'), source)
             }
         ]
     }
-
+		
     def RdlBaseGenerator fileGenerator(ComponentDefinition definition){
         switch(definition.type){
             case ComponentDefinitionType.REGFILE: new RegfileGenerator(definition)

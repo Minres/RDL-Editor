@@ -3,16 +3,15 @@
  */
 package com.minres.rdl.ui
 
+import com.minres.structural.ui.hyperlink.MyHyperlinkHelper
+import com.minres.structural.ui.hyperlink.MyXtextHyperlink
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
-import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
-import org.eclipse.xtext.ui.wizard.IProjectCreator
+import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
+import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper
+import org.eclipse.xtext.ui.editor.hyperlinking.XtextHyperlink
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
 import org.eclipse.xtext.ui.resource.SimpleResourceSetProvider
-import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper
-import com.minres.structural.ui.hyperlink.MyHyperlinkHelper
-import org.eclipse.xtext.ui.editor.hyperlinking.XtextHyperlink
-import com.minres.structural.ui.hyperlink.MyXtextHyperlink
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -28,9 +27,9 @@ class RDLUiModule extends AbstractRDLUiModule {
         typeof(RDLEObjectDocumentationProvider);
     }
 
-	override Class<? extends IProjectCreator> bindIProjectCreator() {
-		return JDTFreeStructuralProjectCreator;
-	}
+//	override Class<? extends IProjectCreator> bindIProjectCreator() {
+//		return JDTFreeStructuralProjectCreator;
+//	}
 	
 	override Class<? extends IResourceSetProvider> bindIResourceSetProvider() {
     	return SimpleResourceSetProvider

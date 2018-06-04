@@ -299,7 +299,7 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
 
   /**
    * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-   * 
+   *
    * <p>This method is used to initialize {@link RdlPackage#eINSTANCE} when that field is accessed.
    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
    * <!-- begin-user-doc -->
@@ -314,7 +314,8 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     if (isInited) return (RdlPackage)EPackage.Registry.INSTANCE.getEPackage(RdlPackage.eNS_URI);
 
     // Obtain or create and register package
-    RdlPackageImpl theRdlPackage = (RdlPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof RdlPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new RdlPackageImpl());
+    Object registeredRdlPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+    RdlPackageImpl theRdlPackage = registeredRdlPackage instanceof RdlPackageImpl ? (RdlPackageImpl)registeredRdlPackage : new RdlPackageImpl();
 
     isInited = true;
 
@@ -327,7 +328,6 @@ public class RdlPackageImpl extends EPackageImpl implements RdlPackage
     // Mark meta-data to indicate it can't be changed
     theRdlPackage.freeze();
 
-  
     // Update the registry and return the package
     EPackage.Registry.INSTANCE.put(RdlPackage.eNS_URI, theRdlPackage);
     return theRdlPackage;

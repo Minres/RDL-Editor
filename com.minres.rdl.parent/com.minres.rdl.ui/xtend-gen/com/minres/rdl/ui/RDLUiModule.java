@@ -4,7 +4,6 @@
 package com.minres.rdl.ui;
 
 import com.minres.rdl.ui.AbstractRDLUiModule;
-import com.minres.rdl.ui.JDTFreeStructuralProjectCreator;
 import com.minres.rdl.ui.RDLEObjectDocumentationProvider;
 import com.minres.rdl.ui.RDLEObjectHoverProvider;
 import com.minres.structural.ui.hyperlink.MyHyperlinkHelper;
@@ -17,7 +16,6 @@ import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper;
 import org.eclipse.xtext.ui.editor.hyperlinking.XtextHyperlink;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.eclipse.xtext.ui.resource.SimpleResourceSetProvider;
-import org.eclipse.xtext.ui.wizard.IProjectCreator;
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -34,11 +32,6 @@ public class RDLUiModule extends AbstractRDLUiModule {
   }
   
   @Override
-  public Class<? extends IProjectCreator> bindIProjectCreator() {
-    return JDTFreeStructuralProjectCreator.class;
-  }
-  
-  @Override
   public Class<? extends IResourceSetProvider> bindIResourceSetProvider() {
     return SimpleResourceSetProvider.class;
   }
@@ -51,7 +44,7 @@ public class RDLUiModule extends AbstractRDLUiModule {
     return MyXtextHyperlink.class;
   }
   
-  public RDLUiModule(final AbstractUIPlugin arg0) {
-    super(arg0);
+  public RDLUiModule(final AbstractUIPlugin plugin) {
+    super(plugin);
   }
 }

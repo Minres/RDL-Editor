@@ -28,5 +28,6 @@ Export-Package: com.minres.rdl,
  com.minres.rdl.scoping,
  com.minres.rdl.serializer,
  com.minres.rdl.services,
- com.minres.rdl.validation
+ com.minres.rdl.validation,
+ com.minres.rdl.formatting2
 Import-Package: org.apache.log4j

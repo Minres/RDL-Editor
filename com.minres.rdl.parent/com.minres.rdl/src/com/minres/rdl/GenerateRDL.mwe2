@@ -43,16 +43,25 @@ Workflow {
                     backtrack = true
                 }
             }
+
+			formatter = {
+				generateStub = true
+			}
+
 			serializer = {
 				generateStub = false
 			}
+
 			validator = {
 				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+				composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
 			}
+
 			generator = {
                 generateXtendMain = true
             }
-			newProjectWizardForEclipse = {
+
+			projectWizard = {
             	generate = true
          	}
 		}

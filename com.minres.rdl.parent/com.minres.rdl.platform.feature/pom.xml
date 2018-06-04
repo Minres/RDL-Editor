@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>com.minres.rdl.platform.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
+	<version>1.1.0-SNAPSHOT</version>
 
 	<build>
 		<plugins>

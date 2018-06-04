@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="RDL Editor" uid="com.minres.rdl.product.product" id="com.minres.rdl.product.product" application="org.eclipse.ui.ide.workbench" version="1.2.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="RDL Editor" uid="com.minres.rdl.product.product" id="com.minres.rdl.product.product" application="org.eclipse.ui.ide.workbench" version="1.2.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -100,9 +100,9 @@
    </plugins>
 
    <features>
-      <feature id="com.minres.rdl.platform.feature" version="1.0.0.qualifier"/>
-      <feature id="com.minres.rdl.product.feature" version="1.0.0.qualifier"/>
-      <feature id="com.minres.rdl.feature" version="1.0.0.qualifier"/>
+      <feature id="com.minres.rdl.platform.feature"/>
+      <feature id="com.minres.rdl.product.feature"/>
+      <feature id="com.minres.rdl.feature"/>
       <feature id="org.eclipse.emf.ecore"/>
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.emf.common"/>

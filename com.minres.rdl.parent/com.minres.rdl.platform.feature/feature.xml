@@ -131,21 +131,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.jdt.compiler.tool"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.pde.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.equinox.p2.repository"
          download-size="0"
          install-size="0"
@@ -279,13 +264,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.pde.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.emf.codegen"
          download-size="0"
          install-size="0"
@@ -399,13 +377,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.jdt.junit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.xtext"
          download-size="0"
          install-size="0"
@@ -489,12 +460,6 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.eclipse.jdt.debug"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.eclipse.emf.mwe2.language"
          download-size="0"
          install-size="0"
@@ -573,13 +538,6 @@
 
    <plugin
          id="org.eclipse.xtext.xbase.ide"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jdt.launching"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -684,21 +642,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.jdt.debug.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.equinox.p2.operations"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jdt.junit.runtime"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -1019,13 +963,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.jdt.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.w3c.dom.svg"
          download-size="0"
          install-size="0"
@@ -1041,13 +978,6 @@
 
    <plugin
          id="org.eclipse.equinox.p2.touchpoint.eclipse"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jdt.junit.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -1138,12 +1068,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.pde.build"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.eclipse.ant.core"
          download-size="0"
          install-size="0"
@@ -1221,13 +1145,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.jdt.core.manipulation"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.ui.trace"
          download-size="0"
          install-size="0"
@@ -1243,13 +1160,6 @@
 
    <plugin
          id="org.eclipse.ui.views.log"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.pde.launching"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -1291,14 +1201,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.jdt.compiler.apt"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.osgi.services"
          download-size="0"
          install-size="0"
@@ -1335,13 +1237,6 @@
 
    <plugin
          id="org.eclipse.jetty.servlet"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jdt.core"
          download-size="0"
          install-size="0"
          version="0.0.0"

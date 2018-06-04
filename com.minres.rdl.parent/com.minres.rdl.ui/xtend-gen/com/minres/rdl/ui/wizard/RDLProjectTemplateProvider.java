@@ -3,7 +3,7 @@
  */
 package com.minres.rdl.ui.wizard;
 
-import com.minres.rdl.ui.wizard.HelloWorldProject;
+import com.minres.rdl.ui.wizard.RdlProject;
 import org.eclipse.xtext.ui.wizard.template.AbstractProjectTemplate;
 import org.eclipse.xtext.ui.wizard.template.IProjectTemplateProvider;
 
@@ -16,7 +16,7 @@ import org.eclipse.xtext.ui.wizard.template.IProjectTemplateProvider;
 public class RDLProjectTemplateProvider implements IProjectTemplateProvider {
   @Override
   public AbstractProjectTemplate[] getProjectTemplates() {
-    HelloWorldProject _helloWorldProject = new HelloWorldProject();
-    return new AbstractProjectTemplate[] { _helloWorldProject };
+    RdlProject _rdlProject = new RdlProject();
+    return new AbstractProjectTemplate[] { _rdlProject };
   }
 }

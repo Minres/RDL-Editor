@@ -439,16 +439,28 @@
 	</extension>
 	<extension
 		point="org.eclipse.ui.newWizards">
+		<category id="com.minres.category" name="MINRES">
+		</category>
 		<wizard
 			category="com.minres.category"
-			class="com.minres.rdl.ui.RDLExecutableExtensionFactory:com.minres.rdl.ui.wizard.RDLNewProjectWizard"
+			class="com.minres.rdl.ui.RDLExecutableExtensionFactory:org.eclipse.xtext.ui.wizard.template.TemplateNewProjectWizard"
 			id="com.minres.rdl.ui.wizard.RDLNewProjectWizard"
 			name="RDL Project"
+			icon="icons/new_RDL_proj.gif"
 			project="true">
 		</wizard>
-  <category
-        id="com.minres.category"
-        name="MINRES">
-  </category>
+	</extension>
+	<extension
+	      point="org.eclipse.xtext.ui.projectTemplate">
+	   <projectTemplateProvider
+	         class="com.minres.rdl.ui.wizard.RDLProjectTemplateProvider"
+	         grammarName="com.minres.rdl.RDL">
+	   </projectTemplateProvider>
+	</extension>
+	<extension
+		point="org.eclipse.ui.perspectiveExtensions">
+		<perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
+			<newWizardShortcut id="com.minres.rdl.ui.wizard.RDLNewProjectWizard"/>
+		</perspectiveExtension>
 	</extension>
 </plugin>

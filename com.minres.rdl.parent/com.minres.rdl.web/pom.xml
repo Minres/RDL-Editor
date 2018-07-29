@@ -76,7 +76,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>com.minres.rdl</artifactId>
-			<version>${project.version}</version>
+			<version>${rdl-plugin-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

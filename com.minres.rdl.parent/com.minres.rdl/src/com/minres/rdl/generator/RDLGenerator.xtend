@@ -10,6 +10,7 @@ import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import static extension com.minres.rdl.RdlUtil.*
+import java.util.Map
 
 /**
  * Generates code from your model files on save.
@@ -20,20 +21,22 @@ class RDLGenerator extends AbstractGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
         resource.resourceSet.allContents.filter[ it instanceof ComponentDefinition].map[it as ComponentDefinition].forEach[
-            val gen = it.fileGenerator
-            if(gen!==null){
+            val genMap = it.fileGenerator
+            if(genMap!==null) genMap.forEach[p1, gen |
                 val header = gen.generateHeader
-                if(header!==null && header.length>0) fsa.generateFile(it.effectiveName+'.h', fsa.outputConfig('incl-out'), header)
+                if(header!==null && header.length>0)
+                	fsa.generateFile(p1+'/'+it.effectiveName+'.h', fsa.outputConfig('incl-out'), header)
                 val source = gen.generateSource
-                if(source!==null && source.length>0) fsa.generateFile(it.effectiveName+'.cpp', fsa.outputConfig('src-out'), source)
-            }
+                if(source!==null && source.length>0)
+                	fsa.generateFile(p1+'/'+it.effectiveName+'.cpp', fsa.outputConfig('src-out'), source)
+            ]
         ]
     }
 		
-    def RdlBaseGenerator fileGenerator(ComponentDefinition definition){
+    def Map<String, RdlBaseGenerator> fileGenerator(ComponentDefinition definition){
         switch(definition.type){
-            case ComponentDefinitionType.REGFILE: new RegfileGenerator(definition)
-            case ComponentDefinitionType.ADDRMAP: new AddrmapGenerator(definition)
+            case ComponentDefinitionType.REGFILE: #{'vp' -> new RegfileGenerator(definition), 'fw' -> new FwRegfileGenerator(definition)}
+            case ComponentDefinitionType.ADDRMAP: #{'vp' -> new AddrmapGenerator(definition), 'fw' -> new FwAddrmapGenerator(definition)}
             default: null
         }
     }

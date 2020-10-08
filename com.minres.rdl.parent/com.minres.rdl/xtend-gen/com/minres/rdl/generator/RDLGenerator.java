@@ -5,18 +5,25 @@ package com.minres.rdl.generator;
 
 import com.minres.rdl.RdlUtil;
 import com.minres.rdl.generator.AddrmapGenerator;
+import com.minres.rdl.generator.FwAddrmapGenerator;
+import com.minres.rdl.generator.FwRegfileGenerator;
 import com.minres.rdl.generator.RdlBaseGenerator;
 import com.minres.rdl.generator.RegfileGenerator;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
+import java.util.Collections;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.eclipse.xtext.xbase.lib.Pair;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 /**
@@ -35,35 +42,48 @@ public class RDLGenerator extends AbstractGenerator {
       return ((ComponentDefinition) it);
     };
     final Procedure1<ComponentDefinition> _function_2 = (ComponentDefinition it) -> {
-      final RdlBaseGenerator gen = this.fileGenerator(it);
-      if ((gen != null)) {
-        final String header = gen.generateHeader();
-        if (((header != null) && (header.length() > 0))) {
-          String _effectiveName = RdlUtil.effectiveName(it);
-          String _plus = (_effectiveName + ".h");
-          fsa.generateFile(_plus, this.outputConfig(fsa, "incl-out"), header);
-        }
-        final String source = gen.generateSource();
-        if (((source != null) && (source.length() > 0))) {
-          String _effectiveName_1 = RdlUtil.effectiveName(it);
-          String _plus_1 = (_effectiveName_1 + ".cpp");
-          fsa.generateFile(_plus_1, this.outputConfig(fsa, "src-out"), source);
-        }
+      final Map<String, RdlBaseGenerator> genMap = this.fileGenerator(it);
+      if ((genMap != null)) {
+        final BiConsumer<String, RdlBaseGenerator> _function_3 = (String p1, RdlBaseGenerator gen) -> {
+          final String header = gen.generateHeader();
+          if (((header != null) && (header.length() > 0))) {
+            String _effectiveName = RdlUtil.effectiveName(it);
+            String _plus = ((p1 + "/") + _effectiveName);
+            String _plus_1 = (_plus + ".h");
+            fsa.generateFile(_plus_1, this.outputConfig(fsa, "incl-out"), header);
+          }
+          final String source = gen.generateSource();
+          if (((source != null) && (source.length() > 0))) {
+            String _effectiveName_1 = RdlUtil.effectiveName(it);
+            String _plus_2 = ((p1 + "/") + _effectiveName_1);
+            String _plus_3 = (_plus_2 + ".cpp");
+            fsa.generateFile(_plus_3, this.outputConfig(fsa, "src-out"), source);
+          }
+        };
+        genMap.forEach(_function_3);
       }
     };
     IteratorExtensions.<ComponentDefinition>forEach(IteratorExtensions.<Notifier, ComponentDefinition>map(IteratorExtensions.<Notifier>filter(resource.getResourceSet().getAllContents(), _function), _function_1), _function_2);
   }
   
-  public RdlBaseGenerator fileGenerator(final ComponentDefinition definition) {
-    RdlBaseGenerator _switchResult = null;
+  public Map<String, RdlBaseGenerator> fileGenerator(final ComponentDefinition definition) {
+    Map<String, RdlBaseGenerator> _switchResult = null;
     ComponentDefinitionType _type = definition.getType();
     if (_type != null) {
       switch (_type) {
         case REGFILE:
-          _switchResult = new RegfileGenerator(definition);
+          RegfileGenerator _regfileGenerator = new RegfileGenerator(definition);
+          Pair<String, RegfileGenerator> _mappedTo = Pair.<String, RegfileGenerator>of("vp", _regfileGenerator);
+          FwRegfileGenerator _fwRegfileGenerator = new FwRegfileGenerator(definition);
+          Pair<String, FwRegfileGenerator> _mappedTo_1 = Pair.<String, FwRegfileGenerator>of("fw", _fwRegfileGenerator);
+          _switchResult = Collections.<String, RdlBaseGenerator>unmodifiableMap(CollectionLiterals.<String, RdlBaseGenerator>newHashMap(_mappedTo, _mappedTo_1));
           break;
         case ADDRMAP:
-          _switchResult = new AddrmapGenerator(definition);
+          AddrmapGenerator _addrmapGenerator = new AddrmapGenerator(definition);
+          Pair<String, AddrmapGenerator> _mappedTo_2 = Pair.<String, AddrmapGenerator>of("vp", _addrmapGenerator);
+          FwAddrmapGenerator _fwAddrmapGenerator = new FwAddrmapGenerator(definition);
+          Pair<String, FwAddrmapGenerator> _mappedTo_3 = Pair.<String, FwAddrmapGenerator>of("fw", _fwAddrmapGenerator);
+          _switchResult = Collections.<String, RdlBaseGenerator>unmodifiableMap(CollectionLiterals.<String, RdlBaseGenerator>newHashMap(_mappedTo_2, _mappedTo_3));
           break;
         default:
           _switchResult = null;

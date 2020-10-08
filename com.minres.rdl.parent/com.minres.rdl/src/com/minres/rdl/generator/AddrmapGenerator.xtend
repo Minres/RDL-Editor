@@ -1,11 +1,7 @@
 package com.minres.rdl.generator
 
-import com.minres.rdl.generator.RdlBaseGenerator
 import com.minres.rdl.rdl.ComponentDefinition
-import com.minres.rdl.IntegerWithRadix
 import com.minres.rdl.rdl.ComponentDefinitionType
-import com.minres.rdl.rdl.ComponentInstance
-import com.minres.rdl.rdl.Instantiation
 
 import static extension com.minres.rdl.RdlUtil.*
 

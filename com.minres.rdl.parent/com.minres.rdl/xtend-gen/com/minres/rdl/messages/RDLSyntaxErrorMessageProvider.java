@@ -13,7 +13,7 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
 
 @SuppressWarnings("all")
 public class RDLSyntaxErrorMessageProvider extends SyntaxErrorMessageProvider {
-  public final static String USED_RESERVED_KEYWORD = "USED_RESERVED_KEYWORD";
+  public static final String USED_RESERVED_KEYWORD = "USED_RESERVED_KEYWORD";
   
   @Inject
   private IGrammarAccess grammarAccess;

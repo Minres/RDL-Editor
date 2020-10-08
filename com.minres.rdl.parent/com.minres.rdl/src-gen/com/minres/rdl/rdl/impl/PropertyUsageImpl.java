@@ -155,7 +155,7 @@ public class PropertyUsageImpl extends MinimalEObjectImpl.Container implements P
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuilder result = new StringBuilder(super.toString());
+    StringBuffer result = new StringBuffer(super.toString());
     result.append(" (components: ");
     result.append(components);
     result.append(')');

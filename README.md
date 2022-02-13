@@ -1,6 +1,7 @@
 ## RDL Editor
 
 This is an editor for [SystemRDL](http://www.accellera.org/activities/working-groups/systemrdl/).
+It can be installed into any Eclipse installation using the following update site url: https://minres.github.io/RDL-Editor/repository
 
 According to Accellera:
 

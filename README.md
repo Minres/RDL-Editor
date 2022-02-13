@@ -3,6 +3,7 @@
 This is an editor for [SystemRDL](http://www.accellera.org/activities/working-groups/systemrdl/).
 
 According to Accellera:
+
 > "SystemRDL is designed to increase productivity, quality, and reuse during the design and development of complex digital systems.
 > It can be used to share IP within and between groups, companies, and consortiums.
 > This is accomplished by specifying a single source for the register description from which all views can be automatically generated,

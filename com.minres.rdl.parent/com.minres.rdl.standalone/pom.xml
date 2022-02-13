@@ -77,7 +77,7 @@
 								<artifactItem>
 									<groupId>com.minres.rdl</groupId>
 									<artifactId>com.minres.rdl</artifactId>
-									<version>${rdl-plugin-version}</version>
+									<version>${rdl-plugin.version}</version>
 									<type>jar</type>
 									<overWrite>false</overWrite>
 									<outputDirectory>${project.build.directory}/classes</outputDirectory>
@@ -175,7 +175,7 @@
 		<dependency>
 			<groupId>com.minres.rdl</groupId>
 			<artifactId>com.minres.rdl</artifactId>
-			<version>${rdl-plugin-version}</version>
+			<version>${rdl-plugin.version}</version>
 			<type>eclipse-plugin</type>
 		</dependency>
 	</dependencies>

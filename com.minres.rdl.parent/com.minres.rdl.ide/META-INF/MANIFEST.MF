@@ -9,8 +9,7 @@ Bundle-ActivationPolicy: lazy
 Require-Bundle: com.minres.rdl,
  org.eclipse.xtext.ide,
  org.eclipse.xtext.xbase.ide,
- org.antlr.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: com.minres.rdl.ide.contentassist.antlr.internal,
  com.minres.rdl.ide.contentassist.antlr
-

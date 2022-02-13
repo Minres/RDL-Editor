@@ -2,3 +2,4 @@
 /Run RDL Generator DBT-RISCV.launch
 /Run RDL Generator SC-Components-Test.launch
 /plugin.xml_gen
+/model/

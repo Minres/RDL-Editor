@@ -11,6 +11,7 @@ import org.eclipse.xtext.scoping.impl.ImportUriResolver
 import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor
 import org.eclipse.xtext.util.TextRegion
+import org.eclipse.jface.text.IRegion
 
 class MyHyperlinkHelper extends HyperlinkHelper {
 	
@@ -33,7 +34,7 @@ class MyHyperlinkHelper extends HyperlinkHelper {
 						val textRegion = leaf.getTextRegion();
 						val uri = EcoreUtil.getURI(top);
 						val result = hyperlinkProvider.get();
-						result.setHyperlinkRegion(new Region(textRegion.getOffset(), textRegion.getLength()));
+						result.setHyperlinkRegion(new Region(textRegion.getOffset(), textRegion.getLength()) as IRegion);
 						result.setURI(if(uri.isPlatformResource()) uri else resource.getResourceSet().getURIConverter().normalize(uri));
 						result.setHyperlinkText(labelProvider.getText(top));
 						if(result instanceof MyXtextHyperlink) result.selectTarget=false

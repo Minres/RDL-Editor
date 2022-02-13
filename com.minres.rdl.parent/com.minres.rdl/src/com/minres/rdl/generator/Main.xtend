@@ -8,7 +8,6 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.mwe.utils.ProjectMapping
 import org.eclipse.emf.mwe.utils.StandaloneSetup
-import org.eclipse.xtext.generator.GeneratorContext
 import org.eclipse.xtext.generator.GeneratorDelegate
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess
 import org.eclipse.xtext.resource.XtextResource
@@ -20,6 +19,7 @@ import java.text.ParseException
 import com.minres.rdl.generator.Options.Multiplicity
 import com.minres.rdl.generator.Options.Separator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import java.io.File
 
 class Main {
 
@@ -74,12 +74,12 @@ class Main {
             return
         }
         val verbose = if(opt.getSet().isSet("v")) true else false;
-
+        val setup = new StandaloneSetup()
         if (opt.getSet().isSet("I")) {
             val projectMapping = new ProjectMapping
             projectMapping.projectName = "RDL Repository"
-            projectMapping.path = opt.getSet().getOption("I").getResultValue(0)
-            new StandaloneSetup().addProjectMapping(projectMapping)
+            projectMapping.path = new File(opt.getSet().getOption("I").getResultValue(0)).canonicalFile.absolutePath
+            setup.addProjectMapping(projectMapping)
         }
         // Configure and start the generator
         fileAccess.outputPath = 'src-gen/'

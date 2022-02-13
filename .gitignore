@@ -3,3 +3,6 @@ com.minres.rdl.parent/*/target
 *.xtextbin
 *.xtendbin
 *._trace
+/.envrc
+/*.py
+/*.txt

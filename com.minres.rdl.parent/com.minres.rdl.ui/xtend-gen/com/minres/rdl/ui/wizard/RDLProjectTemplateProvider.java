@@ -3,7 +3,6 @@
  */
 package com.minres.rdl.ui.wizard;
 
-import com.minres.rdl.ui.wizard.RdlProject;
 import org.eclipse.xtext.ui.wizard.template.AbstractProjectTemplate;
 import org.eclipse.xtext.ui.wizard.template.IProjectTemplateProvider;
 

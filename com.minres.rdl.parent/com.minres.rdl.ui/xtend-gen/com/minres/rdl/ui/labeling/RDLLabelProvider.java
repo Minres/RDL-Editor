@@ -58,10 +58,16 @@ public class RDLLabelProvider extends DefaultEObjectLabelProvider {
           return Boolean.valueOf(((pa instanceof ExplicitPropertyAssignment) && Objects.equal(((ExplicitPropertyAssignment) pa).getName(), PropertyEnum.NAME)));
         };
         final PropertyAssignment pa = IterableExtensions.<PropertyAssignment>findFirst(e.getPropertyAssignments(), _function);
-        String _literal_1 = e.getType().getLiteral();
-        String _plus_1 = (_literal_1 + " ");
-        Object _text = this.text(((ExplicitPropertyAssignment) pa).getRhs());
-        _xblockexpression = (_plus_1 + _text);
+        String _xifexpression_1 = null;
+        if ((pa != null)) {
+          String _literal_1 = e.getType().getLiteral();
+          String _plus_1 = (_literal_1 + " ");
+          Object _text = this.text(((ExplicitPropertyAssignment) pa).getRhs());
+          _xifexpression_1 = (_plus_1 + _text);
+        } else {
+          _xifexpression_1 = e.getType().getLiteral();
+        }
+        _xblockexpression = _xifexpression_1;
       }
       _xifexpression = _xblockexpression;
     }

@@ -13,14 +13,18 @@ class AddrmapGenerator extends RdlBaseGenerator {
         componentDefinition=definition
     }
     
-    override generateHeader() {'''
+    override boolean getOverwrite(){
+        true   
+    }
+    
+    override generateHeader(String namespace) {'''
         #ifndef _«componentDefinition.effectiveName.toUpperCase»_MAP_H_
         #define _«componentDefinition.effectiveName.toUpperCase»_MAP_H_
         // need double braces, see https://stackoverflow.com/questions/6893700/how-to-construct-stdarray-object-with-initializer-list#6894191
-        const std::array<sysc::target_memory_map_entry<32>, «componentDefinition.instanceCount(ComponentDefinitionType.REGFILE)»> «componentDefinition.effectiveName»_map = {{
+        const std::array<scc::target_memory_map_entry<32>, «componentDefinition.instanceCount(ComponentDefinitionType.REGFILE)»> «componentDefinition.effectiveName»_map = {{
             «FOR instantiation : componentDefinition.instantiationsOfType(ComponentDefinitionType.REGFILE)»
                 «FOR instance : instantiation.componentInstances»
-                    {&i_«instance.name», «instance.addressValue», 0x«Long.toHexString(instantiation.byteSize)»},
+                    {i_«instance.name».socket, «instance.addressValue», 0x«Long.toHexString(instantiation.byteSize)»},
                 «ENDFOR»
             «ENDFOR»
         }};
@@ -29,7 +33,7 @@ class AddrmapGenerator extends RdlBaseGenerator {
     '''
     }
 	    
-    override generateSource() {
+    override generateSource(String namespace) {
         ''
     }
     

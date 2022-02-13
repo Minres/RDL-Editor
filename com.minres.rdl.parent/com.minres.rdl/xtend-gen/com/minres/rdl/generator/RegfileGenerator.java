@@ -3,7 +3,6 @@ package com.minres.rdl.generator;
 import com.google.common.base.Objects;
 import com.minres.rdl.IntegerWithRadix;
 import com.minres.rdl.RdlUtil;
-import com.minres.rdl.generator.RdlBaseGenerator;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
 import com.minres.rdl.rdl.ComponentInstance;
@@ -12,11 +11,8 @@ import com.minres.rdl.rdl.Range;
 import java.util.Date;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class RegfileGenerator extends RdlBaseGenerator {
@@ -27,11 +23,16 @@ public class RegfileGenerator extends RdlBaseGenerator {
   }
   
   @Override
-  public String generateHeader() {
+  public boolean getOverwrite() {
+    return true;
+  }
+  
+  @Override
+  public String generateHeader(final String namespace) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("////////////////////////////////////////////////////////////////////////////////");
     _builder.newLine();
-    _builder.append("// Copyright (C) 2017, MINRES Technologies GmbH");
+    _builder.append("// Copyright (C) 2017-2022, MINRES Technologies GmbH");
     _builder.newLine();
     _builder.append("// All rights reserved.");
     _builder.newLine();
@@ -94,8 +95,8 @@ public class RegfileGenerator extends RdlBaseGenerator {
     _builder.append(_date);
     _builder.newLineIfNotEmpty();
     _builder.append("//             *      ");
-    String _name = this.componentDefinition.getName();
-    _builder.append(_name);
+    String _effectiveName = RdlUtil.effectiveName(this.componentDefinition);
+    _builder.append(_effectiveName);
     _builder.append(".h Author: <RDL Generator>");
     _builder.newLineIfNotEmpty();
     _builder.append("//");
@@ -104,57 +105,89 @@ public class RegfileGenerator extends RdlBaseGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("#ifndef _");
-    String _upperCase = this.componentDefinition.getName().toUpperCase();
+    String _upperCase = namespace.toUpperCase();
     _builder.append(_upperCase);
-    _builder.append("_H_");
-    _builder.newLineIfNotEmpty();
-    _builder.append("#define _");
-    String _upperCase_1 = this.componentDefinition.getName().toUpperCase();
+    _builder.append("_GEN_");
+    String _upperCase_1 = RdlUtil.effectiveName(this.componentDefinition).toUpperCase();
     _builder.append(_upperCase_1);
     _builder.append("_H_");
     _builder.newLineIfNotEmpty();
+    _builder.append("#define _");
+    String _upperCase_2 = namespace.toUpperCase();
+    _builder.append(_upperCase_2);
+    _builder.append("_GEN_");
+    String _upperCase_3 = RdlUtil.effectiveName(this.componentDefinition).toUpperCase();
+    _builder.append(_upperCase_3);
+    _builder.append("_H_");
+    _builder.newLineIfNotEmpty();
     _builder.newLine();
-    _builder.append("#include <sysc/utilities.h>");
+    _builder.append("#include <scc/utilities.h>");
     _builder.newLine();
     _builder.append("#include <util/bit_field.h>");
     _builder.newLine();
-    _builder.append("#include <sysc/register.h>");
+    _builder.append("#include <scc/register.h>");
     _builder.newLine();
-    _builder.append("#include <sysc/tlm_target.h>");
+    _builder.append("#include <scc/tlm_target.h>");
     _builder.newLine();
+    {
+      EList<Instantiation> _instantiations = this.componentDefinition.getInstantiations();
+      for(final Instantiation instantiation : _instantiations) {
+        {
+          ComponentDefinitionType _type = RdlUtil.getComponentDefinition(instantiation).getType();
+          boolean _equals = Objects.equal(_type, ComponentDefinitionType.REGFILE);
+          if (_equals) {
+            _builder.append("#include \"");
+            String _effectiveName_1 = RdlUtil.effectiveName(RdlUtil.getComponentDefinition(instantiation));
+            _builder.append(_effectiveName_1);
+            _builder.append(".h\"");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
     _builder.newLine();
-    _builder.append("namespace sysc {");
+    _builder.append("namespace ");
+    _builder.append(namespace);
+    _builder.append(" {");
+    _builder.newLineIfNotEmpty();
+    _builder.append("namespace gen {");
     _builder.newLine();
     _builder.newLine();
     _builder.append("class ");
-    String _name_1 = this.componentDefinition.getName();
-    _builder.append(_name_1);
-    _builder.append(" :");
+    String _effectiveName_2 = RdlUtil.effectiveName(this.componentDefinition);
+    _builder.append(_effectiveName_2);
+    _builder.append("_regs :");
     _builder.newLineIfNotEmpty();
     _builder.append("        ");
     _builder.append("public sc_core::sc_module,");
     _builder.newLine();
     _builder.append("        ");
-    _builder.append("public sysc::resetable");
+    _builder.append("public scc::resetable");
     _builder.newLine();
     _builder.append("{");
     _builder.newLine();
     _builder.append("public:");
     _builder.newLine();
     _builder.append("    ");
+    _builder.append("//////////////////////////////////////////////////////////////////////////////");
+    _builder.newLine();
+    _builder.append("    ");
     _builder.append("// storage declarations");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("//////////////////////////////////////////////////////////////////////////////");
     _builder.newLine();
     {
       EList<ComponentDefinition> _componentDefinitions = this.componentDefinition.getComponentDefinitions();
       for(final ComponentDefinition cdef : _componentDefinitions) {
         {
-          ComponentDefinitionType _type = cdef.getType();
-          boolean _equals = Objects.equal(_type, ComponentDefinitionType.REG);
-          if (_equals) {
+          ComponentDefinitionType _type_1 = cdef.getType();
+          boolean _equals_1 = Objects.equal(_type_1, ComponentDefinitionType.REG);
+          if (_equals_1) {
             _builder.append("    ");
             _builder.append("BEGIN_BF_DECL(");
-            String _effectiveName = RdlUtil.effectiveName(cdef);
-            _builder.append(_effectiveName, "    ");
+            String _effectiveName_3 = RdlUtil.effectiveName(cdef);
+            _builder.append(_effectiveName_3, "    ");
             _builder.append("+\'_t\'», uint");
             _builder.append(cdef, "    ");
             _builder.append("_t);");
@@ -171,220 +204,185 @@ public class RegfileGenerator extends RdlBaseGenerator {
       }
     }
     {
-      EList<Instantiation> _instantiations = this.componentDefinition.getInstantiations();
-      for(final Instantiation instantiation : _instantiations) {
-        {
-          if (((instantiation.getComponentRef() != null) && Objects.equal(instantiation.getComponentRef().getType(), ComponentDefinitionType.REG))) {
-            _builder.append("    ");
-            String _effectiveName_1 = RdlUtil.effectiveName(instantiation.getComponentRef());
-            _builder.append(_effectiveName_1, "    ");
-            _builder.append("+\'_t\' ");
-            final Function1<ComponentInstance, String> _function = (ComponentInstance it) -> {
-              return it.getName();
-            };
-            String _join = IterableExtensions.join(ListExtensions.<ComponentInstance, String>map(instantiation.getComponentInstances(), _function), ", ");
-            _builder.append(_join, "    ");
-            _builder.append(";");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-        {
-          if (((instantiation.getComponent() != null) && Objects.equal(instantiation.getComponent().getType(), ComponentDefinitionType.REG))) {
-            {
-              boolean _isFilledByField = this.isFilledByField(instantiation);
-              if (_isFilledByField) {
-                {
-                  final Function1<ComponentInstance, Boolean> _function_1 = (ComponentInstance it) -> {
-                    Range _range = it.getRange();
-                    return Boolean.valueOf((_range == null));
-                  };
-                  int _size = IterableExtensions.size(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_1));
-                  boolean _greaterThan = (_size > 0);
-                  if (_greaterThan) {
-                    _builder.append("    ");
-                    _builder.append("uint");
-                    long _size_1 = RdlUtil.getSize(instantiation);
-                    _builder.append(_size_1, "    ");
-                    _builder.append("_t ");
-                    final Function1<ComponentInstance, Boolean> _function_2 = (ComponentInstance it) -> {
-                      Range _range = it.getRange();
-                      return Boolean.valueOf((_range == null));
-                    };
-                    final Function1<ComponentInstance, String> _function_3 = (ComponentInstance it) -> {
-                      String _name_2 = it.getName();
-                      return ("r_" + _name_2);
-                    };
-                    String _join_1 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_2), _function_3), ", ");
-                    _builder.append(_join_1, "    ");
-                    _builder.append(";");
-                    _builder.newLineIfNotEmpty();
-                  }
-                }
-                {
-                  final Function1<ComponentInstance, Boolean> _function_4 = (ComponentInstance it) -> {
-                    Range _range = it.getRange();
-                    return Boolean.valueOf((_range != null));
-                  };
-                  Iterable<ComponentInstance> _filter = IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_4);
-                  for(final ComponentInstance componentInstance : _filter) {
-                    _builder.append("    ");
-                    _builder.append("std::array<uint");
-                    long _size_2 = RdlUtil.getSize(instantiation);
-                    _builder.append(_size_2, "    ");
-                    _builder.append("_t, ");
-                    long _absSize = this.absSize(componentInstance.getRange());
-                    _builder.append(_absSize, "    ");
-                    _builder.append("> r_");
-                    String _name_2 = componentInstance.getName();
-                    _builder.append(_name_2, "    ");
-                    _builder.append(";");
-                    _builder.newLineIfNotEmpty();
-                  }
-                }
-              }
-            }
-            {
-              boolean _isFilledByField_1 = this.isFilledByField(instantiation);
-              boolean _not = (!_isFilledByField_1);
-              if (_not) {
-                _builder.append("    ");
-                _builder.append("BEGIN_BF_DECL(");
-                String _effectiveName_2 = RdlUtil.effectiveName(instantiation.getComponent());
-                _builder.append(_effectiveName_2, "    ");
-                _builder.append("_t, uint");
-                long _size_3 = RdlUtil.getSize(instantiation);
-                _builder.append(_size_3, "    ");
-                _builder.append("_t);");
-                _builder.newLineIfNotEmpty();
-                _builder.append("    ");
-                _builder.append("    ");
-                String _genFieldDeclarations_1 = this.genFieldDeclarations(RdlUtil.definingComponent(instantiation));
-                _builder.append(_genFieldDeclarations_1, "        ");
-                _builder.newLineIfNotEmpty();
-                _builder.append("    ");
-                _builder.append("END_BF_DECL() ");
-                final Function1<ComponentInstance, Boolean> _function_5 = (ComponentInstance it) -> {
-                  Range _range = it.getRange();
-                  return Boolean.valueOf((_range == null));
-                };
-                final Function1<ComponentInstance, String> _function_6 = (ComponentInstance it) -> {
-                  String _name_3 = it.getName();
-                  return ("r_" + _name_3);
-                };
-                String _join_2 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_5), _function_6), ", ");
-                _builder.append(_join_2, "    ");
-                _builder.append(";");
-                _builder.newLineIfNotEmpty();
-                {
-                  final Function1<ComponentInstance, Boolean> _function_7 = (ComponentInstance it) -> {
-                    Range _range = it.getRange();
-                    return Boolean.valueOf((_range != null));
-                  };
-                  Iterable<ComponentInstance> _filter_1 = IterableExtensions.<ComponentInstance>filter(instantiation.getComponentInstances(), _function_7);
-                  for(final ComponentInstance componentInstance_1 : _filter_1) {
-                    _builder.append("    ");
-                    _builder.append("std::array<");
-                    String _effectiveName_3 = RdlUtil.effectiveName(instantiation.getComponent());
-                    _builder.append(_effectiveName_3, "    ");
-                    _builder.append("_t, ");
-                    long _absSize_1 = this.absSize(componentInstance_1.getRange());
-                    _builder.append(_absSize_1, "    ");
-                    _builder.append("> r_");
-                    String _name_3 = componentInstance_1.getName();
-                    _builder.append(_name_3, "    ");
-                    _builder.append(";");
-                    _builder.newLineIfNotEmpty();
-                  }
-                }
-              }
-            }
-            _builder.append("    ");
-            _builder.newLine();
-          }
-        }
-      }
-    }
-    _builder.append("    ");
-    _builder.append("// register declarations");
-    _builder.newLine();
-    {
       EList<Instantiation> _instantiations_1 = this.componentDefinition.getInstantiations();
       for(final Instantiation instantiation_1 : _instantiations_1) {
         {
-          EList<ComponentInstance> _componentInstances = instantiation_1.getComponentInstances();
-          for(final ComponentInstance instance : _componentInstances) {
+          ComponentDefinitionType _type_2 = RdlUtil.getComponentDefinition(instantiation_1).getType();
+          boolean _equals_2 = Objects.equal(_type_2, ComponentDefinitionType.REGFILE);
+          if (_equals_2) {
             {
-              Range _range = instance.getRange();
-              boolean _tripleEquals = (_range == null);
-              if (_tripleEquals) {
-                {
-                  boolean _isFilledByField_2 = this.isFilledByField(instantiation_1);
-                  if (_isFilledByField_2) {
-                    _builder.append("    ");
-                    _builder.append("sysc::sc_register<uint");
-                    long _size_4 = RdlUtil.getSize(instantiation_1);
-                    _builder.append(_size_4, "    ");
-                    _builder.append("_t> ");
-                    String _name_4 = instance.getName();
-                    _builder.append(_name_4, "    ");
-                    _builder.append(";");
-                    _builder.newLineIfNotEmpty();
-                  }
-                }
-                {
-                  boolean _isFilledByField_3 = this.isFilledByField(instantiation_1);
-                  boolean _not_1 = (!_isFilledByField_3);
-                  if (_not_1) {
-                    _builder.append("    ");
-                    _builder.append("sysc::sc_register<");
-                    String _effectiveName_4 = RdlUtil.effectiveName(instantiation_1.getComponent());
-                    _builder.append(_effectiveName_4, "    ");
-                    _builder.append("_t> ");
-                    String _name_5 = instance.getName();
-                    _builder.append(_name_5, "    ");
-                    _builder.append(";");
-                    _builder.newLineIfNotEmpty();
-                  }
-                }
+              EList<ComponentInstance> _componentInstances = instantiation_1.getComponentInstances();
+              for(final ComponentInstance instance : _componentInstances) {
+                _builder.append("    ");
+                String _effectiveName_4 = RdlUtil.effectiveName(RdlUtil.getComponentDefinition(instantiation_1));
+                _builder.append(_effectiveName_4, "    ");
+                _builder.append("_regs i_");
+                String _name = instance.getName();
+                _builder.append(_name, "    ");
+                _builder.append("{\"");
+                String _name_1 = instance.getName();
+                _builder.append(_name_1, "    ");
+                _builder.append("\"};");
+                _builder.newLineIfNotEmpty();
               }
             }
-            {
-              Range _range_1 = instance.getRange();
-              boolean _tripleNotEquals = (_range_1 != null);
-              if (_tripleNotEquals) {
-                {
-                  boolean _isFilledByField_4 = this.isFilledByField(instantiation_1);
-                  if (_isFilledByField_4) {
-                    _builder.append("    ");
-                    _builder.append("sysc::sc_register_indexed<uint");
-                    long _size_5 = RdlUtil.getSize(instantiation_1);
-                    _builder.append(_size_5, "    ");
-                    _builder.append("_t, ");
-                    long _absSize_2 = this.absSize(instance.getRange());
-                    _builder.append(_absSize_2, "    ");
-                    _builder.append("> ");
-                    String _name_6 = instance.getName();
-                    _builder.append(_name_6, "    ");
-                    _builder.append(";");
-                    _builder.newLineIfNotEmpty();
+          } else {
+            ComponentDefinitionType _type_3 = RdlUtil.getComponentDefinition(instantiation_1).getType();
+            boolean _equals_3 = Objects.equal(_type_3, ComponentDefinitionType.REG);
+            if (_equals_3) {
+              {
+                boolean _isFilledByField = RdlUtil.isFilledByField(instantiation_1);
+                if (_isFilledByField) {
+                  {
+                    final Function1<ComponentInstance, Boolean> _function = (ComponentInstance it) -> {
+                      Range _range = it.getRange();
+                      return Boolean.valueOf((_range == null));
+                    };
+                    int _size = IterableExtensions.size(IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function));
+                    boolean _greaterThan = (_size > 0);
+                    if (_greaterThan) {
+                      _builder.append("    ");
+                      _builder.append("uint");
+                      long _size_1 = RdlUtil.getSize(instantiation_1);
+                      _builder.append(_size_1, "    ");
+                      _builder.append("_t ");
+                      final Function1<ComponentInstance, Boolean> _function_1 = (ComponentInstance it) -> {
+                        Range _range = it.getRange();
+                        return Boolean.valueOf((_range == null));
+                      };
+                      final Function1<ComponentInstance, String> _function_2 = (ComponentInstance it) -> {
+                        String _name_2 = it.getName();
+                        return ("r_" + _name_2);
+                      };
+                      String _join = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function_1), _function_2), ", ");
+                      _builder.append(_join, "    ");
+                      _builder.append(";");
+                      _builder.newLineIfNotEmpty();
+                    }
                   }
-                }
-                {
-                  boolean _isFilledByField_5 = this.isFilledByField(instantiation_1);
-                  boolean _not_2 = (!_isFilledByField_5);
-                  if (_not_2) {
+                  {
+                    final Function1<ComponentInstance, Boolean> _function_3 = (ComponentInstance it) -> {
+                      Range _range = it.getRange();
+                      return Boolean.valueOf((_range != null));
+                    };
+                    Iterable<ComponentInstance> _filter = IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function_3);
+                    for(final ComponentInstance componentInstance : _filter) {
+                      _builder.append("    ");
+                      _builder.append("std::array<uint");
+                      long _size_2 = RdlUtil.getSize(instantiation_1);
+                      _builder.append(_size_2, "    ");
+                      _builder.append("_t, ");
+                      long _absSize = RdlUtil.absSize(componentInstance.getRange());
+                      _builder.append(_absSize, "    ");
+                      _builder.append("> r_");
+                      String _name_2 = componentInstance.getName();
+                      _builder.append(_name_2, "    ");
+                      _builder.append(";");
+                      _builder.newLineIfNotEmpty();
+                    }
+                  }
+                } else {
+                  int _size_3 = RdlUtil.getComponentDefinition(instantiation_1).getInstantiations().size();
+                  boolean _equals_4 = (_size_3 == 0);
+                  if (_equals_4) {
+                    {
+                      final Function1<ComponentInstance, Boolean> _function_4 = (ComponentInstance it) -> {
+                        Range _range = it.getRange();
+                        return Boolean.valueOf((_range == null));
+                      };
+                      int _size_4 = IterableExtensions.size(IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function_4));
+                      boolean _greaterThan_1 = (_size_4 > 0);
+                      if (_greaterThan_1) {
+                        _builder.append("    ");
+                        _builder.append("uint");
+                        long _size_5 = RdlUtil.getSize(instantiation_1);
+                        _builder.append(_size_5, "    ");
+                        _builder.append("_t ");
+                        final Function1<ComponentInstance, Boolean> _function_5 = (ComponentInstance it) -> {
+                          Range _range = it.getRange();
+                          return Boolean.valueOf((_range == null));
+                        };
+                        final Function1<ComponentInstance, String> _function_6 = (ComponentInstance it) -> {
+                          String _name_3 = it.getName();
+                          return ("r_" + _name_3);
+                        };
+                        String _join_1 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function_5), _function_6), ", ");
+                        _builder.append(_join_1, "    ");
+                        _builder.append(";");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
+                    {
+                      final Function1<ComponentInstance, Boolean> _function_7 = (ComponentInstance it) -> {
+                        Range _range = it.getRange();
+                        return Boolean.valueOf((_range != null));
+                      };
+                      Iterable<ComponentInstance> _filter_1 = IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function_7);
+                      for(final ComponentInstance componentInstance_1 : _filter_1) {
+                        _builder.append("    ");
+                        _builder.append("std::array<uint");
+                        long _size_6 = RdlUtil.getSize(instantiation_1);
+                        _builder.append(_size_6, "    ");
+                        _builder.append("_t, ");
+                        long _absSize_1 = RdlUtil.absSize(componentInstance_1.getRange());
+                        _builder.append(_absSize_1, "    ");
+                        _builder.append("> r_");
+                        String _name_3 = componentInstance_1.getName();
+                        _builder.append(_name_3, "    ");
+                        _builder.append(";");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
+                  } else {
                     _builder.append("    ");
-                    _builder.append("sysc::sc_register_indexed<");
+                    _builder.append("BEGIN_BF_DECL(");
                     String _effectiveName_5 = RdlUtil.effectiveName(instantiation_1.getComponent());
                     _builder.append(_effectiveName_5, "    ");
-                    _builder.append("_t, ");
-                    long _absSize_3 = this.absSize(instance.getRange());
-                    _builder.append(_absSize_3, "    ");
-                    _builder.append("> ");
-                    String _name_7 = instance.getName();
-                    _builder.append(_name_7, "    ");
+                    _builder.append("_t, uint");
+                    long _size_7 = RdlUtil.getSize(instantiation_1);
+                    _builder.append(_size_7, "    ");
+                    _builder.append("_t);");
+                    _builder.newLineIfNotEmpty();
+                    _builder.append("    ");
+                    _builder.append("    ");
+                    String _genFieldDeclarations_1 = this.genFieldDeclarations(RdlUtil.definingComponent(instantiation_1));
+                    _builder.append(_genFieldDeclarations_1, "        ");
+                    _builder.newLineIfNotEmpty();
+                    _builder.append("    ");
+                    _builder.append("END_BF_DECL() ");
+                    final Function1<ComponentInstance, Boolean> _function_8 = (ComponentInstance it) -> {
+                      Range _range = it.getRange();
+                      return Boolean.valueOf((_range == null));
+                    };
+                    final Function1<ComponentInstance, String> _function_9 = (ComponentInstance it) -> {
+                      String _name_4 = it.getName();
+                      return ("r_" + _name_4);
+                    };
+                    String _join_2 = IterableExtensions.join(IterableExtensions.<ComponentInstance, String>map(IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function_8), _function_9), ", ");
+                    _builder.append(_join_2, "    ");
                     _builder.append(";");
                     _builder.newLineIfNotEmpty();
+                    {
+                      final Function1<ComponentInstance, Boolean> _function_10 = (ComponentInstance it) -> {
+                        Range _range = it.getRange();
+                        return Boolean.valueOf((_range != null));
+                      };
+                      Iterable<ComponentInstance> _filter_2 = IterableExtensions.<ComponentInstance>filter(instantiation_1.getComponentInstances(), _function_10);
+                      for(final ComponentInstance componentInstance_2 : _filter_2) {
+                        _builder.append("    ");
+                        _builder.append("std::array<");
+                        String _effectiveName_6 = RdlUtil.effectiveName(instantiation_1.getComponent());
+                        _builder.append(_effectiveName_6, "    ");
+                        _builder.append("_t, ");
+                        long _absSize_2 = RdlUtil.absSize(componentInstance_2.getRange());
+                        _builder.append(_absSize_2, "    ");
+                        _builder.append("> r_");
+                        String _name_4 = componentInstance_2.getName();
+                        _builder.append(_name_4, "    ");
+                        _builder.append(";");
+                        _builder.newLineIfNotEmpty();
+                      }
+                    }
                   }
                 }
               }
@@ -394,39 +392,13 @@ public class RegfileGenerator extends RdlBaseGenerator {
       }
     }
     _builder.append("    ");
-    _builder.newLine();
-    _builder.append("    ");
-    String _name_8 = this.componentDefinition.getName();
-    _builder.append(_name_8, "    ");
-    _builder.append("(sc_core::sc_module_name nm);");
-    _builder.newLineIfNotEmpty();
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("template<unsigned BUSWIDTH=32>");
-    _builder.newLine();
-    _builder.append("    ");
-    _builder.append("void registerResources(sysc::tlm_target<BUSWIDTH>& target);");
-    _builder.newLine();
-    _builder.append("};");
-    _builder.newLine();
-    _builder.append("}");
-    _builder.newLine();
     _builder.append("//////////////////////////////////////////////////////////////////////////////");
     _builder.newLine();
-    _builder.append("// member functions");
+    _builder.append("    ");
+    _builder.append("// register declarations");
     _builder.newLine();
+    _builder.append("    ");
     _builder.append("//////////////////////////////////////////////////////////////////////////////");
-    _builder.newLine();
-    _builder.newLine();
-    _builder.append("inline sysc::");
-    String _name_9 = this.componentDefinition.getName();
-    _builder.append(_name_9);
-    _builder.append("::");
-    String _name_10 = this.componentDefinition.getName();
-    _builder.append(_name_10);
-    _builder.append("(sc_core::sc_module_name nm)");
-    _builder.newLineIfNotEmpty();
-    _builder.append(": sc_core::sc_module(nm)");
     _builder.newLine();
     {
       EList<Instantiation> _instantiations_2 = this.componentDefinition.getInstantiations();
@@ -434,14 +406,195 @@ public class RegfileGenerator extends RdlBaseGenerator {
         {
           EList<ComponentInstance> _componentInstances_1 = instantiation_2.getComponentInstances();
           for(final ComponentInstance instance_1 : _componentInstances_1) {
-            _builder.append(", NAMED(");
-            String _name_11 = instance_1.getName();
-            _builder.append(_name_11);
-            _builder.append(", r_");
-            String _name_12 = instance_1.getName();
-            _builder.append(_name_12);
-            _builder.append(", 0, *this)");
-            _builder.newLineIfNotEmpty();
+            {
+              ComponentDefinitionType _type_4 = RdlUtil.getComponentDefinition(instantiation_2).getType();
+              boolean _equals_5 = Objects.equal(_type_4, ComponentDefinitionType.REGFILE);
+              if (_equals_5) {
+                _builder.append("    ");
+                _builder.append("// scc::sc_register_file<");
+                String _effectiveName_7 = RdlUtil.effectiveName(RdlUtil.getComponentDefinition(instantiation_2));
+                _builder.append(_effectiveName_7, "    ");
+                _builder.append("_regs> ");
+                String _name_5 = instance_1.getName();
+                _builder.append(_name_5, "    ");
+                _builder.append(";");
+                _builder.newLineIfNotEmpty();
+              } else {
+                ComponentDefinitionType _type_5 = RdlUtil.getComponentDefinition(instantiation_2).getType();
+                boolean _equals_6 = Objects.equal(_type_5, ComponentDefinitionType.REG);
+                if (_equals_6) {
+                  {
+                    Range _range = instance_1.getRange();
+                    boolean _tripleEquals = (_range == null);
+                    if (_tripleEquals) {
+                      {
+                        int _size_8 = RdlUtil.getComponentDefinition(instantiation_2).getInstantiations().size();
+                        boolean _equals_7 = (_size_8 == 0);
+                        if (_equals_7) {
+                          _builder.append("    ");
+                          _builder.append("scc::sc_register<uint");
+                          long _size_9 = RdlUtil.getSize(instantiation_2);
+                          _builder.append(_size_9, "    ");
+                          _builder.append("_t> ");
+                          String _name_6 = instance_1.getName();
+                          _builder.append(_name_6, "    ");
+                          _builder.append(";");
+                          _builder.newLineIfNotEmpty();
+                        } else {
+                          boolean _isFilledByField_1 = RdlUtil.isFilledByField(instantiation_2);
+                          if (_isFilledByField_1) {
+                            _builder.append("    ");
+                            _builder.append("scc::sc_register<uint");
+                            long _size_10 = RdlUtil.getSize(instantiation_2);
+                            _builder.append(_size_10, "    ");
+                            _builder.append("_t> ");
+                            String _name_7 = instance_1.getName();
+                            _builder.append(_name_7, "    ");
+                            _builder.append(";");
+                            _builder.newLineIfNotEmpty();
+                          } else {
+                            _builder.append("    ");
+                            _builder.append("scc::sc_register<");
+                            String _effectiveName_8 = RdlUtil.effectiveName(RdlUtil.getComponentDefinition(instantiation_2));
+                            _builder.append(_effectiveName_8, "    ");
+                            _builder.append("_t> ");
+                            String _name_8 = instance_1.getName();
+                            _builder.append(_name_8, "    ");
+                            _builder.append(";");
+                            _builder.newLineIfNotEmpty();
+                          }
+                        }
+                      }
+                    } else {
+                      {
+                        int _size_11 = RdlUtil.getComponentDefinition(instantiation_2).getInstantiations().size();
+                        boolean _equals_8 = (_size_11 == 0);
+                        if (_equals_8) {
+                          _builder.append("    ");
+                          _builder.append("scc::sc_register_indexed<uint");
+                          long _size_12 = RdlUtil.getSize(instantiation_2);
+                          _builder.append(_size_12, "    ");
+                          _builder.append("_t, ");
+                          long _absSize_3 = RdlUtil.absSize(instance_1.getRange());
+                          _builder.append(_absSize_3, "    ");
+                          _builder.append("> ");
+                          String _name_9 = instance_1.getName();
+                          _builder.append(_name_9, "    ");
+                          _builder.append(";");
+                          _builder.newLineIfNotEmpty();
+                        } else {
+                          boolean _isFilledByField_2 = RdlUtil.isFilledByField(instantiation_2);
+                          if (_isFilledByField_2) {
+                            _builder.append("    ");
+                            _builder.append("scc::sc_register_indexed<uint");
+                            long _size_13 = RdlUtil.getSize(instantiation_2);
+                            _builder.append(_size_13, "    ");
+                            _builder.append("_t, ");
+                            long _absSize_4 = RdlUtil.absSize(instance_1.getRange());
+                            _builder.append(_absSize_4, "    ");
+                            _builder.append("> ");
+                            String _name_10 = instance_1.getName();
+                            _builder.append(_name_10, "    ");
+                            _builder.append(";");
+                            _builder.newLineIfNotEmpty();
+                          } else {
+                            _builder.append("    ");
+                            _builder.append("scc::sc_register_indexed<");
+                            String _effectiveName_9 = RdlUtil.effectiveName(instantiation_2.getComponent());
+                            _builder.append(_effectiveName_9, "    ");
+                            _builder.append("_t, ");
+                            long _absSize_5 = RdlUtil.absSize(instance_1.getRange());
+                            _builder.append(_absSize_5, "    ");
+                            _builder.append("> ");
+                            String _name_11 = instance_1.getName();
+                            _builder.append(_name_11, "    ");
+                            _builder.append(";");
+                            _builder.newLineIfNotEmpty();
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    _builder.append("    ");
+    _builder.newLine();
+    _builder.append("    ");
+    String _effectiveName_10 = RdlUtil.effectiveName(this.componentDefinition);
+    _builder.append(_effectiveName_10, "    ");
+    _builder.append("_regs(sc_core::sc_module_name nm);");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("template<unsigned BUSWIDTH=32>");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("void registerResources(scc::tlm_target<BUSWIDTH>& target, uint64_t offset=0);");
+    _builder.newLine();
+    _builder.append("};");
+    _builder.newLine();
+    _builder.append("} // namespace gen");
+    _builder.newLine();
+    _builder.append("} // namespace ");
+    _builder.append(namespace);
+    _builder.newLineIfNotEmpty();
+    _builder.append("//////////////////////////////////////////////////////////////////////////////");
+    _builder.newLine();
+    _builder.append("// member functions");
+    _builder.newLine();
+    _builder.append("//////////////////////////////////////////////////////////////////////////////");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("inline ");
+    _builder.append(namespace);
+    _builder.append("::gen::");
+    String _effectiveName_11 = RdlUtil.effectiveName(this.componentDefinition);
+    _builder.append(_effectiveName_11);
+    _builder.append("_regs::");
+    String _effectiveName_12 = RdlUtil.effectiveName(this.componentDefinition);
+    _builder.append(_effectiveName_12);
+    _builder.append("_regs(sc_core::sc_module_name nm)");
+    _builder.newLineIfNotEmpty();
+    _builder.append(": sc_core::sc_module(nm)");
+    _builder.newLine();
+    {
+      EList<Instantiation> _instantiations_3 = this.componentDefinition.getInstantiations();
+      for(final Instantiation instantiation_3 : _instantiations_3) {
+        {
+          EList<ComponentInstance> _componentInstances_2 = instantiation_3.getComponentInstances();
+          for(final ComponentInstance instance_2 : _componentInstances_2) {
+            {
+              ComponentDefinitionType _type_6 = RdlUtil.getComponentDefinition(instantiation_3).getType();
+              boolean _equals_9 = Objects.equal(_type_6, ComponentDefinitionType.REGFILE);
+              if (_equals_9) {
+                _builder.append("// , NAMED(");
+                String _name_12 = instance_2.getName();
+                _builder.append(_name_12);
+                _builder.append(", i_");
+                String _name_13 = instance_2.getName();
+                _builder.append(_name_13);
+                _builder.append(", 0, *this)");
+                _builder.newLineIfNotEmpty();
+              } else {
+                ComponentDefinitionType _type_7 = RdlUtil.getComponentDefinition(instantiation_3).getType();
+                boolean _equals_10 = Objects.equal(_type_7, ComponentDefinitionType.REG);
+                if (_equals_10) {
+                  _builder.append(", NAMED(");
+                  String _name_14 = instance_2.getName();
+                  _builder.append(_name_14);
+                  _builder.append(", r_");
+                  String _name_15 = instance_2.getName();
+                  _builder.append(_name_15);
+                  _builder.append(", 0, *this)");
+                  _builder.newLineIfNotEmpty();
+                }
+              }
+            }
           }
         }
       }
@@ -453,26 +606,48 @@ public class RegfileGenerator extends RdlBaseGenerator {
     _builder.newLine();
     _builder.append("template<unsigned BUSWIDTH>");
     _builder.newLine();
-    _builder.append("inline void sysc::");
-    String _name_13 = this.componentDefinition.getName();
-    _builder.append(_name_13);
-    _builder.append("::registerResources(sysc::tlm_target<BUSWIDTH>& target) {");
+    _builder.append("inline void ");
+    _builder.append(namespace);
+    _builder.append("::gen::");
+    String _effectiveName_13 = RdlUtil.effectiveName(this.componentDefinition);
+    _builder.append(_effectiveName_13);
+    _builder.append("_regs::registerResources(scc::tlm_target<BUSWIDTH>& target, uint64_t offset) {");
     _builder.newLineIfNotEmpty();
     {
-      EList<Instantiation> _instantiations_3 = this.componentDefinition.getInstantiations();
-      for(final Instantiation instantiation_3 : _instantiations_3) {
+      EList<Instantiation> _instantiations_4 = this.componentDefinition.getInstantiations();
+      for(final Instantiation instantiation_4 : _instantiations_4) {
         {
-          EList<ComponentInstance> _componentInstances_2 = instantiation_3.getComponentInstances();
-          for(final ComponentInstance instance_2 : _componentInstances_2) {
-            _builder.append("    ");
-            _builder.append("target.addResource(");
-            String _name_14 = instance_2.getName();
-            _builder.append(_name_14, "    ");
-            _builder.append(", ");
-            IntegerWithRadix _addressValue = RdlUtil.addressValue(instance_2);
-            _builder.append(_addressValue, "    ");
-            _builder.append("UL);");
-            _builder.newLineIfNotEmpty();
+          EList<ComponentInstance> _componentInstances_3 = instantiation_4.getComponentInstances();
+          for(final ComponentInstance instance_3 : _componentInstances_3) {
+            {
+              ComponentDefinitionType _type_8 = RdlUtil.getComponentDefinition(instantiation_4).getType();
+              boolean _equals_11 = Objects.equal(_type_8, ComponentDefinitionType.REGFILE);
+              if (_equals_11) {
+                _builder.append("    ");
+                _builder.append("i_");
+                String _name_16 = instance_3.getName();
+                _builder.append(_name_16, "    ");
+                _builder.append(".registerResources(target, ");
+                IntegerWithRadix _addressValue = RdlUtil.addressValue(instance_3);
+                _builder.append(_addressValue, "    ");
+                _builder.append("UL+offset);");
+                _builder.newLineIfNotEmpty();
+              } else {
+                ComponentDefinitionType _type_9 = RdlUtil.getComponentDefinition(instantiation_4).getType();
+                boolean _equals_12 = Objects.equal(_type_9, ComponentDefinitionType.REG);
+                if (_equals_12) {
+                  _builder.append("    ");
+                  _builder.append("target.addResource(");
+                  String _name_17 = instance_3.getName();
+                  _builder.append(_name_17, "    ");
+                  _builder.append(", ");
+                  IntegerWithRadix _addressValue_1 = RdlUtil.addressValue(instance_3);
+                  _builder.append(_addressValue_1, "    ");
+                  _builder.append("UL);");
+                  _builder.newLineIfNotEmpty();
+                }
+              }
+            }
           }
         }
       }
@@ -481,73 +656,18 @@ public class RegfileGenerator extends RdlBaseGenerator {
     _builder.newLine();
     _builder.newLine();
     _builder.append("#endif // _");
-    String _upperCase_2 = this.componentDefinition.getName().toUpperCase();
-    _builder.append(_upperCase_2);
+    String _upperCase_4 = namespace.toUpperCase();
+    _builder.append(_upperCase_4);
+    _builder.append("_GEN_");
+    String _upperCase_5 = RdlUtil.effectiveName(this.componentDefinition).toUpperCase();
+    _builder.append(_upperCase_5);
     _builder.append("_H_");
     _builder.newLineIfNotEmpty();
     return _builder.toString();
   }
   
-  public long absSize(final Range range) {
-    Object _size = range.getSize();
-    boolean _tripleNotEquals = (_size != null);
-    if (_tripleNotEquals) {
-      Object _size_1 = range.getSize();
-      return ((IntegerWithRadix) _size_1).value;
-    } else {
-      Object _left = range.getLeft();
-      Object _right = range.getRight();
-      long _abs = Math.abs((((IntegerWithRadix) _left).value - ((IntegerWithRadix) _right).value));
-      return (_abs + 1);
-    }
-  }
-  
-  public boolean isFilledByField(final Instantiation instantiation) {
-    final int fieldCount = this.instanceCountOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD);
-    if ((fieldCount == 1)) {
-      final long instSize = RdlUtil.getSize(instantiation);
-      final Instantiation field = ((Instantiation[])Conversions.unwrapArray(RdlUtil.instantiationsOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD), Instantiation.class))[0];
-      final ComponentInstance inst = field.getComponentInstances().get(0);
-      final Range range = inst.getRange();
-      if ((range == null)) {
-        long _size = RdlUtil.getSize(field);
-        return (instSize == _size);
-      }
-      Object _size_1 = range.getSize();
-      boolean _tripleNotEquals = (_size_1 != null);
-      if (_tripleNotEquals) {
-        Object _size_2 = range.getSize();
-        return (instSize == ((IntegerWithRadix) _size_2).value);
-      } else {
-        Object _left = range.getLeft();
-        final long left = ((IntegerWithRadix) _left).value;
-        Object _right = range.getRight();
-        final long right = ((IntegerWithRadix) _right).value;
-        long _xifexpression = (long) 0;
-        if ((left > right)) {
-          _xifexpression = ((left - right) + 1);
-        } else {
-          _xifexpression = ((right - left) + 1);
-        }
-        final long size = _xifexpression;
-        return (instSize == size);
-      }
-    }
-    return false;
-  }
-  
-  public int instanceCountOfType(final ComponentDefinition definition, final ComponentDefinitionType type) {
-    final Function1<Instantiation, Integer> _function = (Instantiation it) -> {
-      return Integer.valueOf(it.getComponentInstances().size());
-    };
-    final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
-      return Integer.valueOf(((p1).intValue() + (p1).intValue()));
-    };
-    return (int) IterableExtensions.<Integer>reduce(IterableExtensions.<Instantiation, Integer>map(RdlUtil.instantiationsOfType(definition, type), _function), _function_1);
-  }
-  
   @Override
-  public String generateSource() {
+  public String generateSource(final String namespace) {
     return "";
   }
   

@@ -3,8 +3,6 @@
  */
 package com.minres.rdl.validation;
 
-import com.minres.rdl.validation.AbstractRDLValidator;
-
 /**
  * This class contains custom validation rules.
  * 

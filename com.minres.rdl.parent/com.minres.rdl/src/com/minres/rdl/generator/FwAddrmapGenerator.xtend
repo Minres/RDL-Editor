@@ -16,9 +16,13 @@ class FwAddrmapGenerator extends RdlBaseGenerator {
 
 	val nameMap = newLinkedHashSet()
 		    
-    override generateHeader() {'''
+    override boolean getOverwrite(){
+        true   
+    }
+    
+    override generateHeader(String namespace) {'''
         ////////////////////////////////////////////////////////////////////////////////
-        // Copyright (C) 2020, MINRES Technologies GmbH
+        // Copyright (C) 2020-2022, MINRES Technologies GmbH
         // All rights reserved.
         //
         // Redistribution and use in source and binary forms, with or without
@@ -57,10 +61,10 @@ class FwAddrmapGenerator extends RdlBaseGenerator {
         
         «FOR instantiation : componentDefinition.instantiationsOfType(ComponentDefinitionType.REGFILE)»
             «IF instantiation.component !== null && !nameMap.contains(instantiation.component.name)»
-                #include "«instantiation.component.name».h"«nameMap.add(instantiation.component.name)»
+                #include "«instantiation.component.name».h"«nameMap.add(instantiation.component.name)?"":""»
             «ENDIF»
             «IF instantiation.componentRef !== null && !nameMap.contains(instantiation.componentRef.name)»
-                #include "«instantiation.componentRef.name».h"«nameMap.add(instantiation.componentRef.name)»
+                #include "«instantiation.componentRef.name».h"«nameMap.add(instantiation.componentRef.name)?"":""»
             «ENDIF»
         «ENDFOR»
         
@@ -80,7 +84,7 @@ class FwAddrmapGenerator extends RdlBaseGenerator {
     '''
     }
 	    
-    override generateSource() {
+    override generateSource(String namespace) {
         ''
     }
 }

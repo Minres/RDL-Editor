@@ -6,7 +6,6 @@ import com.minres.rdl.rdl.ComponentDefinitionType
 import com.minres.rdl.rdl.ComponentInstance
 import com.minres.rdl.rdl.Instantiation
 import java.util.Date
-import com.minres.rdl.rdl.Range
 
 import static extension com.minres.rdl.RdlUtil.*
 
@@ -18,9 +17,13 @@ class FwRegfileGenerator extends RdlBaseGenerator{
         componentDefinition=definition
     }
     
-    override String generateHeader()'''
+    override boolean getOverwrite(){
+        true   
+    }
+    
+    override String generateHeader(String namespace)'''
         ////////////////////////////////////////////////////////////////////////////////
-        // Copyright (C) 2020, MINRES Technologies GmbH
+        // Copyright (C) 2020-2022, MINRES Technologies GmbH
         // All rights reserved.
         //
         // Redistribution and use in source and binary forms, with or without
@@ -117,40 +120,8 @@ class FwRegfileGenerator extends RdlBaseGenerator{
         
         #endif // _«componentDefinition.name.toUpperCase»_H_
         '''
-    
-    def long absSize(Range range){
-        if(range.size!==null) 
-            return (range.size as IntegerWithRadix).value 
-        else
-           return Math.abs((range.left as IntegerWithRadix).value - (range.right as IntegerWithRadix).value)+1 
-    }
-    
-    def boolean isFilledByField(Instantiation instantiation){
-        val fieldCount = instantiation.component.instanceCountOfType(ComponentDefinitionType.FIELD)
-        if(fieldCount==1) {
-            val instSize=instantiation.size
-            val field = instantiation.component.instantiationsOfType(ComponentDefinitionType.FIELD).get(0)
-            val inst = field.componentInstances.get(0)
-            val range = inst.range
-            if(range===null)
-                return instSize==field.size
-            if(range.size !== null)
-                return instSize==(range.size as IntegerWithRadix).value
-            else {
-                val left=(range.left as IntegerWithRadix).value
-                val right=(range.right as IntegerWithRadix).value
-                val size = if(left>right) left-right+1 else right-left+1
-                return instSize==size
-            }
-        }
-        return false
-    }
-    
-    def int instanceCountOfType(ComponentDefinition definition, ComponentDefinitionType type){
-        definition.instantiationsOfType(type).map[it.componentInstances.size].reduce[p1, p2|p1+p1]
-    }
-    
-    override generateSource() {
+        
+    override generateSource(String namespace) {
         ''
     }
 

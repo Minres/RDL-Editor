@@ -3,8 +3,6 @@
  */
 package com.minres.rdl.ide;
 
-import com.minres.rdl.ide.AbstractRDLIdeModule;
-
 /**
  * Use this class to register ide components.
  */

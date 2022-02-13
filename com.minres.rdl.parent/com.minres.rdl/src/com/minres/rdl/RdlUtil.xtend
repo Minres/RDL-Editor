@@ -11,6 +11,7 @@ import com.minres.rdl.rdl.PropertyAssignmentRhs
 import com.minres.rdl.rdl.RValue
 import com.minres.rdl.rdl.RValueConstant
 import com.minres.rdl.rdl.InstancePropertyRef
+import com.minres.rdl.rdl.Range
 
 class RdlUtil {
 	
@@ -153,5 +154,44 @@ class RdlUtil {
                 componentSize = subInstantiation.byteSize(componentSize)
         return componentSize
     }
-	
+
+    static def ComponentDefinition getComponentDefinition(Instantiation instantiation) {
+        if(instantiation.component!==null) instantiation.component else instantiation.componentRef
+    }
+    
+    static def long absSize(Range range){
+        if(range.size!==null) 
+            return (range.size as IntegerWithRadix).value 
+        else
+           return Math.abs((range.left as IntegerWithRadix).value - (range.right as IntegerWithRadix).value)+1 
+    }
+    
+    static def boolean isFilledByField(Instantiation instantiation){
+        val fieldCount = instantiation.componentDefinition.instanceCountOfType(ComponentDefinitionType.FIELD)
+        if(fieldCount==1) {
+            val instSize=instantiation.size
+            val field = instantiation.component.instantiationsOfType(ComponentDefinitionType.FIELD).get(0)
+            val inst = field.componentInstances.get(0)
+            val range = inst.range
+            if(range===null)
+                return instSize==field.size
+            if(range.size !== null)
+                return instSize==(range.size as IntegerWithRadix).value
+            else {
+                val left=(range.left as IntegerWithRadix).value
+                val right=(range.right as IntegerWithRadix).value
+                val size = if(left>right) left-right+1 else right-left+1
+                return instSize==size
+            }
+        }
+        return false
+    }
+                
+    static def int instanceCountOfType(ComponentDefinition definition, ComponentDefinitionType type){
+        val insts = definition.instantiationsOfType(type)
+        if(insts.size>0) {
+            insts.map[it.componentInstances.size].reduce[p1, p2| p1+p2]
+        } else
+            0
+    }
 }

@@ -3,9 +3,6 @@
  */
 package com.minres.rdl.ui;
 
-import com.minres.rdl.ui.AbstractRDLUiModule;
-import com.minres.rdl.ui.RDLEObjectDocumentationProvider;
-import com.minres.rdl.ui.RDLEObjectHoverProvider;
 import com.minres.structural.ui.hyperlink.MyHyperlinkHelper;
 import com.minres.structural.ui.hyperlink.MyXtextHyperlink;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

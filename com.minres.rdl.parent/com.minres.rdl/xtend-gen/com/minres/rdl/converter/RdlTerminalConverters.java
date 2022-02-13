@@ -2,9 +2,6 @@ package com.minres.rdl.converter;
 
 import com.google.inject.Inject;
 import com.minres.rdl.IntegerWithRadix;
-import com.minres.rdl.converter.IDValueConverter;
-import com.minres.rdl.converter.NUMValueConverter;
-import com.minres.rdl.converter.STRValueConverter;
 import org.eclipse.xtext.common.services.DefaultTerminalConverters;
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverter;

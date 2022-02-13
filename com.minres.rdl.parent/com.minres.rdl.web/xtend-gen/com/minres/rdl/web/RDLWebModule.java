@@ -3,8 +3,6 @@
  */
 package com.minres.rdl.web;
 
-import com.minres.rdl.web.AbstractRDLWebModule;
-
 /**
  * Use this class to register additional components to be used within the web application.
  */

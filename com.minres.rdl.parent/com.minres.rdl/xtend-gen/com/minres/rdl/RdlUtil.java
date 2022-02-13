@@ -1,7 +1,6 @@
 package com.minres.rdl;
 
 import com.google.common.base.Objects;
-import com.minres.rdl.IntegerWithRadix;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
 import com.minres.rdl.rdl.ComponentInstance;
@@ -14,7 +13,9 @@ import com.minres.rdl.rdl.PropertyAssignmentRhs;
 import com.minres.rdl.rdl.PropertyEnum;
 import com.minres.rdl.rdl.RValue;
 import com.minres.rdl.rdl.RValueConstant;
+import com.minres.rdl.rdl.Range;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -259,5 +260,88 @@ public class RdlUtil {
       }
     }
     return componentSize;
+  }
+  
+  public static ComponentDefinition getComponentDefinition(final Instantiation instantiation) {
+    ComponentDefinition _xifexpression = null;
+    ComponentDefinition _component = instantiation.getComponent();
+    boolean _tripleNotEquals = (_component != null);
+    if (_tripleNotEquals) {
+      _xifexpression = instantiation.getComponent();
+    } else {
+      _xifexpression = instantiation.getComponentRef();
+    }
+    return _xifexpression;
+  }
+  
+  public static long absSize(final Range range) {
+    Object _size = range.getSize();
+    boolean _tripleNotEquals = (_size != null);
+    if (_tripleNotEquals) {
+      Object _size_1 = range.getSize();
+      return ((IntegerWithRadix) _size_1).value;
+    } else {
+      Object _left = range.getLeft();
+      Object _right = range.getRight();
+      long _abs = Math.abs((((IntegerWithRadix) _left).value - ((IntegerWithRadix) _right).value));
+      return (_abs + 1);
+    }
+  }
+  
+  public static boolean isFilledByField(final Instantiation instantiation) {
+    final int fieldCount = RdlUtil.instanceCountOfType(RdlUtil.getComponentDefinition(instantiation), ComponentDefinitionType.FIELD);
+    if ((fieldCount == 1)) {
+      final long instSize = RdlUtil.getSize(instantiation);
+      final Instantiation field = ((Instantiation[])Conversions.unwrapArray(RdlUtil.instantiationsOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD), Instantiation.class))[0];
+      final ComponentInstance inst = field.getComponentInstances().get(0);
+      final Range range = inst.getRange();
+      if ((range == null)) {
+        long _size = RdlUtil.getSize(field);
+        return (instSize == _size);
+      }
+      Object _size_1 = range.getSize();
+      boolean _tripleNotEquals = (_size_1 != null);
+      if (_tripleNotEquals) {
+        Object _size_2 = range.getSize();
+        return (instSize == ((IntegerWithRadix) _size_2).value);
+      } else {
+        Object _left = range.getLeft();
+        final long left = ((IntegerWithRadix) _left).value;
+        Object _right = range.getRight();
+        final long right = ((IntegerWithRadix) _right).value;
+        long _xifexpression = (long) 0;
+        if ((left > right)) {
+          _xifexpression = ((left - right) + 1);
+        } else {
+          _xifexpression = ((right - left) + 1);
+        }
+        final long size = _xifexpression;
+        return (instSize == size);
+      }
+    }
+    return false;
+  }
+  
+  public static int instanceCountOfType(final ComponentDefinition definition, final ComponentDefinitionType type) {
+    Integer _xblockexpression = null;
+    {
+      final Iterable<Instantiation> insts = RdlUtil.instantiationsOfType(definition, type);
+      Integer _xifexpression = null;
+      int _size = IterableExtensions.size(insts);
+      boolean _greaterThan = (_size > 0);
+      if (_greaterThan) {
+        final Function1<Instantiation, Integer> _function = (Instantiation it) -> {
+          return Integer.valueOf(it.getComponentInstances().size());
+        };
+        final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
+          return Integer.valueOf(((p1).intValue() + (p2).intValue()));
+        };
+        _xifexpression = IterableExtensions.<Integer>reduce(IterableExtensions.<Instantiation, Integer>map(insts, _function), _function_1);
+      } else {
+        _xifexpression = Integer.valueOf(0);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return (_xblockexpression).intValue();
   }
 }

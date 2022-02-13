@@ -43,7 +43,10 @@ class RDLLabelProvider extends DefaultEObjectLabelProvider {
 			val pa = e.propertyAssignments.findFirst[PropertyAssignment pa | 
 				pa instanceof ExplicitPropertyAssignment && (pa as ExplicitPropertyAssignment).name==PropertyEnum.NAME
 			]
-			e.type.literal+' '+ text((pa as ExplicitPropertyAssignment).rhs)
+			if(pa!== null)
+				e.type.literal+' '+ text((pa as ExplicitPropertyAssignment).rhs)
+			else
+				e.type.literal
 		}
 	} 
 	

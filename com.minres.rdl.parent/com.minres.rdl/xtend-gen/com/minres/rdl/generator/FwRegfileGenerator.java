@@ -3,7 +3,6 @@ package com.minres.rdl.generator;
 import com.google.common.base.Objects;
 import com.minres.rdl.IntegerWithRadix;
 import com.minres.rdl.RdlUtil;
-import com.minres.rdl.generator.RdlBaseGenerator;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
 import com.minres.rdl.rdl.ComponentInstance;
@@ -12,9 +11,7 @@ import com.minres.rdl.rdl.Range;
 import java.util.Date;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtend2.lib.StringConcatenation;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
-import org.eclipse.xtext.xbase.lib.Functions.Function2;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
 
@@ -27,11 +24,16 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
   }
   
   @Override
-  public String generateHeader() {
+  public boolean getOverwrite() {
+    return true;
+  }
+  
+  @Override
+  public String generateHeader(final String namespace) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("////////////////////////////////////////////////////////////////////////////////");
     _builder.newLine();
-    _builder.append("// Copyright (C) 2020, MINRES Technologies GmbH");
+    _builder.append("// Copyright (C) 2020-2022, MINRES Technologies GmbH");
     _builder.newLine();
     _builder.append("// All rights reserved.");
     _builder.newLine();
@@ -176,7 +178,7 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
         {
           if (((instantiation.getComponent() != null) && Objects.equal(instantiation.getComponent().getType(), ComponentDefinitionType.REG))) {
             {
-              boolean _isFilledByField = this.isFilledByField(instantiation);
+              boolean _isFilledByField = RdlUtil.isFilledByField(instantiation);
               boolean _not = (!_isFilledByField);
               if (_not) {
                 _builder.append("    ");
@@ -228,7 +230,7 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
               boolean _tripleEquals = (_range == null);
               if (_tripleEquals) {
                 {
-                  boolean _isFilledByField_1 = this.isFilledByField(instantiation_1);
+                  boolean _isFilledByField_1 = RdlUtil.isFilledByField(instantiation_1);
                   if (_isFilledByField_1) {
                     _builder.append("    ");
                     _builder.append("static inline uint");
@@ -255,7 +257,7 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
                   }
                 }
                 {
-                  boolean _isFilledByField_2 = this.isFilledByField(instantiation_1);
+                  boolean _isFilledByField_2 = RdlUtil.isFilledByField(instantiation_1);
                   boolean _not_1 = (!_isFilledByField_2);
                   if (_not_1) {
                     _builder.append("    ");
@@ -289,14 +291,14 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
               boolean _tripleNotEquals = (_range_1 != null);
               if (_tripleNotEquals) {
                 {
-                  boolean _isFilledByField_3 = this.isFilledByField(instantiation_1);
+                  boolean _isFilledByField_3 = RdlUtil.isFilledByField(instantiation_1);
                   if (_isFilledByField_3) {
                     _builder.append("    ");
                     _builder.append("static inline nonstd::span<uint");
                     long _size_2 = RdlUtil.getSize(instantiation_1);
                     _builder.append(_size_2, "    ");
                     _builder.append("_t, ");
-                    long _absSize = this.absSize(instance.getRange());
+                    long _absSize = RdlUtil.absSize(instance.getRange());
                     _builder.append(_absSize, "    ");
                     _builder.append(">& ");
                     String _name_7 = instance.getName();
@@ -309,7 +311,7 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
                     long _size_3 = RdlUtil.getSize(instantiation_1);
                     _builder.append(_size_3, "        ");
                     _builder.append("_t, ");
-                    long _absSize_1 = this.absSize(instance.getRange());
+                    long _absSize_1 = RdlUtil.absSize(instance.getRange());
                     _builder.append(_absSize_1, "        ");
                     _builder.append(">*>(BASE_ADDR+");
                     IntegerWithRadix _addressValue_2 = RdlUtil.addressValue(instance);
@@ -322,7 +324,7 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
                   }
                 }
                 {
-                  boolean _isFilledByField_4 = this.isFilledByField(instantiation_1);
+                  boolean _isFilledByField_4 = RdlUtil.isFilledByField(instantiation_1);
                   boolean _not_2 = (!_isFilledByField_4);
                   if (_not_2) {
                     _builder.append("    ");
@@ -330,7 +332,7 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
                     String _name_8 = instance.getName();
                     _builder.append(_name_8, "    ");
                     _builder.append("_t, ");
-                    long _absSize_2 = this.absSize(instance.getRange());
+                    long _absSize_2 = RdlUtil.absSize(instance.getRange());
                     _builder.append(_absSize_2, "    ");
                     _builder.append(">& ");
                     String _name_9 = instance.getName();
@@ -343,7 +345,7 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
                     String _name_10 = instance.getName();
                     _builder.append(_name_10, "        ");
                     _builder.append("_t, ");
-                    long _absSize_3 = this.absSize(instance.getRange());
+                    long _absSize_3 = RdlUtil.absSize(instance.getRange());
                     _builder.append(_absSize_3, "        ");
                     _builder.append(">*>(BASE_ADDR+");
                     IntegerWithRadix _addressValue_3 = RdlUtil.addressValue(instance);
@@ -372,66 +374,8 @@ public class FwRegfileGenerator extends RdlBaseGenerator {
     return _builder.toString();
   }
   
-  public long absSize(final Range range) {
-    Object _size = range.getSize();
-    boolean _tripleNotEquals = (_size != null);
-    if (_tripleNotEquals) {
-      Object _size_1 = range.getSize();
-      return ((IntegerWithRadix) _size_1).value;
-    } else {
-      Object _left = range.getLeft();
-      Object _right = range.getRight();
-      long _abs = Math.abs((((IntegerWithRadix) _left).value - ((IntegerWithRadix) _right).value));
-      return (_abs + 1);
-    }
-  }
-  
-  public boolean isFilledByField(final Instantiation instantiation) {
-    final int fieldCount = this.instanceCountOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD);
-    if ((fieldCount == 1)) {
-      final long instSize = RdlUtil.getSize(instantiation);
-      final Instantiation field = ((Instantiation[])Conversions.unwrapArray(RdlUtil.instantiationsOfType(instantiation.getComponent(), ComponentDefinitionType.FIELD), Instantiation.class))[0];
-      final ComponentInstance inst = field.getComponentInstances().get(0);
-      final Range range = inst.getRange();
-      if ((range == null)) {
-        long _size = RdlUtil.getSize(field);
-        return (instSize == _size);
-      }
-      Object _size_1 = range.getSize();
-      boolean _tripleNotEquals = (_size_1 != null);
-      if (_tripleNotEquals) {
-        Object _size_2 = range.getSize();
-        return (instSize == ((IntegerWithRadix) _size_2).value);
-      } else {
-        Object _left = range.getLeft();
-        final long left = ((IntegerWithRadix) _left).value;
-        Object _right = range.getRight();
-        final long right = ((IntegerWithRadix) _right).value;
-        long _xifexpression = (long) 0;
-        if ((left > right)) {
-          _xifexpression = ((left - right) + 1);
-        } else {
-          _xifexpression = ((right - left) + 1);
-        }
-        final long size = _xifexpression;
-        return (instSize == size);
-      }
-    }
-    return false;
-  }
-  
-  public int instanceCountOfType(final ComponentDefinition definition, final ComponentDefinitionType type) {
-    final Function1<Instantiation, Integer> _function = (Instantiation it) -> {
-      return Integer.valueOf(it.getComponentInstances().size());
-    };
-    final Function2<Integer, Integer, Integer> _function_1 = (Integer p1, Integer p2) -> {
-      return Integer.valueOf(((p1).intValue() + (p1).intValue()));
-    };
-    return (int) IterableExtensions.<Integer>reduce(IterableExtensions.<Instantiation, Integer>map(RdlUtil.instantiationsOfType(definition, type), _function), _function_1);
-  }
-  
   @Override
-  public String generateSource() {
+  public String generateSource(final String namespace) {
     return "";
   }
   

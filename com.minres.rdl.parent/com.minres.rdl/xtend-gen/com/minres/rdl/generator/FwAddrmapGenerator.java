@@ -2,7 +2,6 @@ package com.minres.rdl.generator;
 
 import com.minres.rdl.IntegerWithRadix;
 import com.minres.rdl.RdlUtil;
-import com.minres.rdl.generator.RdlBaseGenerator;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
 import com.minres.rdl.rdl.ComponentInstance;
@@ -24,11 +23,16 @@ public class FwAddrmapGenerator extends RdlBaseGenerator {
   private final LinkedHashSet<Object> nameMap = CollectionLiterals.<Object>newLinkedHashSet();
   
   @Override
-  public String generateHeader() {
+  public boolean getOverwrite() {
+    return true;
+  }
+  
+  @Override
+  public String generateHeader(final String namespace) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("////////////////////////////////////////////////////////////////////////////////");
     _builder.newLine();
-    _builder.append("// Copyright (C) 2020, MINRES Technologies GmbH");
+    _builder.append("// Copyright (C) 2020-2022, MINRES Technologies GmbH");
     _builder.newLine();
     _builder.append("// All rights reserved.");
     _builder.newLine();
@@ -120,8 +124,14 @@ public class FwAddrmapGenerator extends RdlBaseGenerator {
             String _name_1 = instantiation.getComponent().getName();
             _builder.append(_name_1);
             _builder.append(".h\"");
+            String _xifexpression = null;
             boolean _add = this.nameMap.add(instantiation.getComponent().getName());
-            _builder.append(_add);
+            if (_add) {
+              _xifexpression = "";
+            } else {
+              _xifexpression = "";
+            }
+            _builder.append(_xifexpression);
             _builder.newLineIfNotEmpty();
           }
         }
@@ -131,8 +141,14 @@ public class FwAddrmapGenerator extends RdlBaseGenerator {
             String _name_2 = instantiation.getComponentRef().getName();
             _builder.append(_name_2);
             _builder.append(".h\"");
+            String _xifexpression_1 = null;
             boolean _add_1 = this.nameMap.add(instantiation.getComponentRef().getName());
-            _builder.append(_add_1);
+            if (_add_1) {
+              _xifexpression_1 = "";
+            } else {
+              _xifexpression_1 = "";
+            }
+            _builder.append(_xifexpression_1);
             _builder.newLineIfNotEmpty();
           }
         }
@@ -194,7 +210,7 @@ public class FwAddrmapGenerator extends RdlBaseGenerator {
   }
   
   @Override
-  public String generateSource() {
+  public String generateSource(final String namespace) {
     return "";
   }
 }

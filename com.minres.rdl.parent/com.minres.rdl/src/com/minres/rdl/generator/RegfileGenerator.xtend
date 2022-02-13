@@ -6,7 +6,6 @@ import com.minres.rdl.rdl.ComponentDefinitionType
 import com.minres.rdl.rdl.ComponentInstance
 import com.minres.rdl.rdl.Instantiation
 import java.util.Date
-import com.minres.rdl.rdl.Range
 
 import static extension com.minres.rdl.RdlUtil.*
 
@@ -18,9 +17,13 @@ class RegfileGenerator extends RdlBaseGenerator{
         componentDefinition=definition
     }
     
-    override String generateHeader()'''
+    override boolean getOverwrite(){
+        true   
+    }
+    
+    override String generateHeader(String namespace)'''
         ////////////////////////////////////////////////////////////////////////////////
-        // Copyright (C) 2017, MINRES Technologies GmbH
+        // Copyright (C) 2017-2022, MINRES Technologies GmbH
         // All rights reserved.
         //
         // Redistribution and use in source and binary forms, with or without
@@ -50,26 +53,34 @@ class RegfileGenerator extends RdlBaseGenerator{
         // POSSIBILITY OF SUCH DAMAGE.
         //
         // Created on: «new Date»
-        //             *      «componentDefinition.name».h Author: <RDL Generator>
+        //             *      «componentDefinition.effectiveName».h Author: <RDL Generator>
         //
         ////////////////////////////////////////////////////////////////////////////////
         
-        #ifndef _«componentDefinition.name.toUpperCase»_H_
-        #define _«componentDefinition.name.toUpperCase»_H_
+        #ifndef _«namespace.toUpperCase»_GEN_«componentDefinition.effectiveName.toUpperCase»_H_
+        #define _«namespace.toUpperCase»_GEN_«componentDefinition.effectiveName.toUpperCase»_H_
         
-        #include <sysc/utilities.h>
+        #include <scc/utilities.h>
         #include <util/bit_field.h>
-        #include <sysc/register.h>
-        #include <sysc/tlm_target.h>
+        #include <scc/register.h>
+        #include <scc/tlm_target.h>
+        «FOR instantiation : componentDefinition.instantiations»
+            «IF instantiation.componentDefinition.type == ComponentDefinitionType.REGFILE»
+                #include "«instantiation.componentDefinition.effectiveName».h"
+            «ENDIF»
+        «ENDFOR»
         
-        namespace sysc {
+        namespace «namespace» {
+        namespace gen {
         
-        class «componentDefinition.name» :
+        class «componentDefinition.effectiveName»_regs :
                 public sc_core::sc_module,
-                public sysc::resetable
+                public scc::resetable
         {
         public:
+            //////////////////////////////////////////////////////////////////////////////
             // storage declarations
+            //////////////////////////////////////////////////////////////////////////////
             «FOR cdef : componentDefinition.componentDefinitions»
                 «IF cdef.type == ComponentDefinitionType.REG»
                     BEGIN_BF_DECL(«cdef.effectiveName»+'_t'», uint«cdef»_t);
@@ -78,10 +89,11 @@ class RegfileGenerator extends RdlBaseGenerator{
                 «ENDIF»
             «ENDFOR»
             «FOR instantiation : componentDefinition.instantiations»
-                «IF instantiation.componentRef !==null && instantiation.componentRef.type == ComponentDefinitionType.REG»
-                    «instantiation.componentRef.effectiveName»+'_t' «instantiation.componentInstances.map[it.name].join(', ')»;
-                «ENDIF»
-                «IF instantiation.component !== null && instantiation.component.type == ComponentDefinitionType.REG»
+                «IF instantiation.componentDefinition.type == ComponentDefinitionType.REGFILE»
+                    «FOR instance : instantiation.componentInstances»
+                        «instantiation.componentDefinition.effectiveName»_regs i_«instance.name»{"«instance.name»"};
+                    «ENDFOR»
+                «ELSEIF instantiation.componentDefinition.type == ComponentDefinitionType.REG»
                     «IF instantiation.isFilledByField»
                         «IF instantiation.componentInstances.filter[it.range===null].size>0»
                             uint«instantiation.size»_t «instantiation.componentInstances.filter[it.range===null].map['r_'+it.name].join(', ')»;
@@ -89,8 +101,14 @@ class RegfileGenerator extends RdlBaseGenerator{
                         «FOR componentInstance : instantiation.componentInstances.filter[it.range!==null]»
                             std::array<uint«instantiation.size»_t, «componentInstance.range.absSize»> r_«componentInstance.name»;
                         «ENDFOR»
-                    «ENDIF»
-                    «IF !instantiation.isFilledByField»
+                    «ELSEIF instantiation.componentDefinition.instantiations.size==0»
+                        «IF instantiation.componentInstances.filter[it.range===null].size>0»
+                            uint«instantiation.size»_t «instantiation.componentInstances.filter[it.range===null].map['r_'+it.name].join(', ')»;
+                        «ENDIF»
+                        «FOR componentInstance : instantiation.componentInstances.filter[it.range!==null]»
+                            std::array<uint«instantiation.size»_t, «componentInstance.range.absSize»> r_«componentInstance.name»;
+                        «ENDFOR»
+                    «ELSE»
                         BEGIN_BF_DECL(«instantiation.component.effectiveName»_t, uint«instantiation.size»_t);
                             «instantiation.definingComponent.genFieldDeclarations»
                         END_BF_DECL() «instantiation.componentInstances.filter[it.range===null].map['r_'+it.name].join(', ')»;
@@ -98,96 +116,79 @@ class RegfileGenerator extends RdlBaseGenerator{
                             std::array<«instantiation.component.effectiveName»_t, «componentInstance.range.absSize»> r_«componentInstance.name»;
                         «ENDFOR»
                     «ENDIF»
-                    
                 «ENDIF»
             «ENDFOR»
+            //////////////////////////////////////////////////////////////////////////////
             // register declarations
+            //////////////////////////////////////////////////////////////////////////////
             «FOR instantiation : componentDefinition.instantiations»
                 «FOR instance : instantiation.componentInstances»
-                    «IF instance.range===null»
-                        «IF instantiation.isFilledByField»
-                            sysc::sc_register<uint«instantiation.size»_t> «instance.name»;
-                        «ENDIF»
-                        «IF !instantiation.isFilledByField»
-                            sysc::sc_register<«instantiation.component.effectiveName»_t> «instance.name»;
-                        «ENDIF»
-                    «ENDIF»
-                    «IF instance.range!==null»
-                        «IF instantiation.isFilledByField»
-                            sysc::sc_register_indexed<uint«instantiation.size»_t, «instance.range.absSize»> «instance.name»;
-                        «ENDIF»
-                        «IF !instantiation.isFilledByField»
-                            sysc::sc_register_indexed<«instantiation.component.effectiveName»_t, «instance.range.absSize»> «instance.name»;
+                    «IF instantiation.componentDefinition.type == ComponentDefinitionType.REGFILE»
+                        // scc::sc_register_file<«instantiation.componentDefinition.effectiveName»_regs> «instance.name»;
+                    «ELSEIF instantiation.componentDefinition.type == ComponentDefinitionType.REG»
+                        «IF instance.range===null»
+                            «IF instantiation.componentDefinition.instantiations.size==0»
+                                scc::sc_register<uint«instantiation.size»_t> «instance.name»;
+                            «ELSEIF instantiation.isFilledByField»
+                                scc::sc_register<uint«instantiation.size»_t> «instance.name»;
+                            «ELSE»
+                                scc::sc_register<«instantiation.componentDefinition.effectiveName»_t> «instance.name»;
+                            «ENDIF»
+                        «ELSE»
+                            «IF instantiation.componentDefinition.instantiations.size==0»
+                                scc::sc_register_indexed<uint«instantiation.size»_t, «instance.range.absSize»> «instance.name»;
+                            «ELSEIF instantiation.isFilledByField»
+                                scc::sc_register_indexed<uint«instantiation.size»_t, «instance.range.absSize»> «instance.name»;
+                            «ELSE»
+                                scc::sc_register_indexed<«instantiation.component.effectiveName»_t, «instance.range.absSize»> «instance.name»;
+                            «ENDIF»
                         «ENDIF»
                     «ENDIF»
                 «ENDFOR»
             «ENDFOR»
             
-            «componentDefinition.name»(sc_core::sc_module_name nm);
+            «componentDefinition.effectiveName»_regs(sc_core::sc_module_name nm);
         
             template<unsigned BUSWIDTH=32>
-            void registerResources(sysc::tlm_target<BUSWIDTH>& target);
+            void registerResources(scc::tlm_target<BUSWIDTH>& target, uint64_t offset=0);
         };
-        }
+        } // namespace gen
+        } // namespace «namespace»
         //////////////////////////////////////////////////////////////////////////////
         // member functions
         //////////////////////////////////////////////////////////////////////////////
         
-        inline sysc::«componentDefinition.name»::«componentDefinition.name»(sc_core::sc_module_name nm)
+        inline «namespace»::gen::«componentDefinition.effectiveName»_regs::«componentDefinition.effectiveName»_regs(sc_core::sc_module_name nm)
         : sc_core::sc_module(nm)
         «FOR instantiation : componentDefinition.instantiations»
             «FOR instance : instantiation.componentInstances»
-                , NAMED(«instance.name», r_«instance.name», 0, *this)
+                «IF instantiation.componentDefinition.type == ComponentDefinitionType.REGFILE»
+                     // , NAMED(«instance.name», i_«instance.name», 0, *this)
+                «ELSEIF instantiation.componentDefinition.type == ComponentDefinitionType.REG»
+                    , NAMED(«instance.name», r_«instance.name», 0, *this)
+                «ENDIF»
             «ENDFOR»
         «ENDFOR»
         {
         }
         
         template<unsigned BUSWIDTH>
-        inline void sysc::«componentDefinition.name»::registerResources(sysc::tlm_target<BUSWIDTH>& target) {
+        inline void «namespace»::gen::«componentDefinition.effectiveName»_regs::registerResources(scc::tlm_target<BUSWIDTH>& target, uint64_t offset) {
             «FOR instantiation : componentDefinition.instantiations»
                 «FOR instance : instantiation.componentInstances»
-                    target.addResource(«instance.name», «instance.addressValue»UL);
+                    «IF instantiation.componentDefinition.type == ComponentDefinitionType.REGFILE»
+                        i_«instance.name».registerResources(target, «instance.addressValue»UL+offset);
+                    «ELSEIF instantiation.componentDefinition.type == ComponentDefinitionType.REG»
+                        target.addResource(«instance.name», «instance.addressValue»UL);
+                    «ENDIF»                    
                 «ENDFOR»
             «ENDFOR»
         }
         
-        #endif // _«componentDefinition.name.toUpperCase»_H_
+        #endif // _«namespace.toUpperCase»_GEN_«componentDefinition.effectiveName.toUpperCase»_H_
         '''
     
-    def long absSize(Range range){
-        if(range.size!==null) 
-            return (range.size as IntegerWithRadix).value 
-        else
-           return Math.abs((range.left as IntegerWithRadix).value - (range.right as IntegerWithRadix).value)+1 
-    }
-    
-    def boolean isFilledByField(Instantiation instantiation){
-        val fieldCount = instantiation.component.instanceCountOfType(ComponentDefinitionType.FIELD)
-        if(fieldCount==1) {
-            val instSize=instantiation.size
-            val field = instantiation.component.instantiationsOfType(ComponentDefinitionType.FIELD).get(0)
-            val inst = field.componentInstances.get(0)
-            val range = inst.range
-            if(range===null)
-                return instSize==field.size
-            if(range.size !== null)
-                return instSize==(range.size as IntegerWithRadix).value
-            else {
-                val left=(range.left as IntegerWithRadix).value
-                val right=(range.right as IntegerWithRadix).value
-                val size = if(left>right) left-right+1 else right-left+1
-                return instSize==size
-            }
-        }
-        return false
-    }
-    
-    def int instanceCountOfType(ComponentDefinition definition, ComponentDefinitionType type){
-        definition.instantiationsOfType(type).map[it.componentInstances.size].reduce[p1, p2|p1+p1]
-    }
-    
-    override generateSource() {
+    override generateSource(String namespace) {
         ''
     }
 

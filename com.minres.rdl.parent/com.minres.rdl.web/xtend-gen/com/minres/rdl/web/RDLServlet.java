@@ -4,7 +4,6 @@
 package com.minres.rdl.web;
 
 import com.google.inject.Injector;
-import com.minres.rdl.web.RDLWebSetup;
 import javax.servlet.annotation.WebServlet;
 import org.eclipse.xtext.util.DisposableRegistry;
 import org.eclipse.xtext.web.servlet.XtextServlet;

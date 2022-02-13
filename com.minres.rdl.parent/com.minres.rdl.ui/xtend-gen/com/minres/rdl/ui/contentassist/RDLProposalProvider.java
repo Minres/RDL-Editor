@@ -3,8 +3,6 @@
  */
 package com.minres.rdl.ui.contentassist;
 
-import com.minres.rdl.ui.contentassist.AbstractRDLProposalProvider;
-
 /**
  * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
  * on how to customize the content assistant.

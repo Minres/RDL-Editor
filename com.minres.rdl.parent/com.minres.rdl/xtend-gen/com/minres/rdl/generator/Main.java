@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.minres.rdl.RDLStandaloneSetup;
-import com.minres.rdl.generator.Options;
 import java.lang.reflect.MalformedParametersException;
 import java.text.ParseException;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.mwe.utils.ProjectMapping;
 import org.eclipse.emf.mwe.utils.StandaloneSetup;
-import org.eclipse.xtext.generator.GeneratorContext;
 import org.eclipse.xtext.generator.GeneratorDelegate;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.JavaIoFileSystemAccess;
@@ -33,7 +31,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class Main {
-  private final String USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
+  private final String USAGE_STR = "RDL2code [-h] [-v] [-f] [-n <namespace>] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
   
   public static void main(final String[] args) {
     boolean _isEmpty = ((List<String>)Conversions.doWrapArray(args)).isEmpty();
@@ -91,6 +89,8 @@ public class Main {
     final Options opt = new Options(args, 0, Integer.MAX_VALUE);
     opt.getSet().addOption("h", Options.Multiplicity.ZERO_OR_ONE);
     opt.getSet().addOption("v", Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("f", Options.Multiplicity.ZERO_OR_ONE);
+    opt.getSet().addOption("n", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
     opt.getSet().addOption("o", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
     opt.getSet().addOption("I", Options.Separator.BLANK, Options.Multiplicity.ZERO_OR_ONE);
     boolean _check = opt.check(false, false);
@@ -154,11 +154,16 @@ public class Main {
           int _size = issues.size();
           throw new ParseException(_plus_1, _size);
         }
-        GeneratorContext _generatorContext = new GeneratorContext();
-        final Procedure1<GeneratorContext> _function_2 = (GeneratorContext it) -> {
+        RdlGeneratorContext _rdlGeneratorContext = new RdlGeneratorContext();
+        final Procedure1<RdlGeneratorContext> _function_2 = (RdlGeneratorContext it) -> {
           it.setCancelIndicator(CancelIndicator.NullImpl);
         };
-        final GeneratorContext context = ObjectExtensions.<GeneratorContext>operator_doubleArrow(_generatorContext, _function_2);
+        final RdlGeneratorContext context = ObjectExtensions.<RdlGeneratorContext>operator_doubleArrow(_rdlGeneratorContext, _function_2);
+        context.forceOverwrite = opt.getSet().isSet("f");
+        boolean _isSet_4 = opt.getSet().isSet("n");
+        if (_isSet_4) {
+          context.namespace = opt.getSet().getOption("n").getResultValue(0);
+        }
         this.generator.generate(resource, this.fileAccess, context);
         if (verbose) {
           InputOutput.<String>println((("Code generation for " + string) + " finished"));

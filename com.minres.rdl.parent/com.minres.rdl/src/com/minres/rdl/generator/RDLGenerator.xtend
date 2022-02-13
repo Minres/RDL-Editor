@@ -18,25 +18,35 @@ import java.util.Map
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class RDLGenerator extends AbstractGenerator {
-
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+        val force = if(context instanceof RdlGeneratorContext) context.forceOverwrite else false
+        val namespace = if(context instanceof RdlGeneratorContext) context.namespace else "sysc"
         resource.resourceSet.allContents.filter[ it instanceof ComponentDefinition].map[it as ComponentDefinition].forEach[
             val genMap = it.fileGenerator
             if(genMap!==null) genMap.forEach[p1, gen |
-                val header = gen.generateHeader
-                if(header!==null && header.length>0)
-                	fsa.generateFile(p1+'/'+it.effectiveName+'.h', fsa.outputConfig('incl-out'), header)
-                val source = gen.generateSource
-                if(source!==null && source.length>0)
-                	fsa.generateFile(p1+'/'+it.effectiveName+'.cpp', fsa.outputConfig('src-out'), source)
+                val header = gen.generateHeader(namespace)
+                val inclFileName = p1+'/'+it.effectiveName+'.h'
+                val inclCfg = fsa.outputConfig('incl-out')
+                if((force || !fsa.isFile(inclFileName, inclCfg) || gen.overwrite) && header!==null && header.length>0)
+                	fsa.generateFile(inclFileName, inclCfg, header)
+                val source = gen.generateSource(namespace)
+                val srcFileName = p1+'/'+it.effectiveName+'.cpp'
+                val srcCfg = fsa.outputConfig('src-out')
+                if((force || !fsa.isFile(srcFileName, srcCfg) ||  gen.overwrite) && source!==null && source.length>0)
+                	fsa.generateFile(srcFileName, srcCfg, source)
             ]
         ]
     }
-		
+    	
     def Map<String, RdlBaseGenerator> fileGenerator(ComponentDefinition definition){
         switch(definition.type){
-            case ComponentDefinitionType.REGFILE: #{'vp' -> new RegfileGenerator(definition), 'fw' -> new FwRegfileGenerator(definition)}
-            case ComponentDefinitionType.ADDRMAP: #{'vp' -> new AddrmapGenerator(definition), 'fw' -> new FwAddrmapGenerator(definition)}
+            case ComponentDefinitionType.REGFILE: #{
+                'gen' -> new RegfileGenerator(definition),
+                'fw' -> new FwRegfileGenerator(definition),
+                '.' -> new ModuleGenerator(definition)}
+            case ComponentDefinitionType.ADDRMAP: #{
+                'gen' -> new AddrmapGenerator(definition),
+                'fw' -> new FwAddrmapGenerator(definition)}
             default: null
         }
     }

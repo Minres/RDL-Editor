@@ -5,7 +5,6 @@ package com.minres.rdl;
 
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
-import com.minres.rdl.AbstractRDLRuntimeModule;
 import com.minres.rdl.converter.RdlTerminalConverters;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;

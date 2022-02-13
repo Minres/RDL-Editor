@@ -5,7 +5,6 @@ package com.minres.rdl.tests;
 
 import com.google.inject.Inject;
 import com.minres.rdl.rdl.Root;
-import com.minres.rdl.tests.RDLInjectorProvider;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;

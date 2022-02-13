@@ -23,7 +23,7 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 
 class Main {
 
-    val USAGE_STR = "RDL2code [-h] [-v] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
+    val USAGE_STR = "RDL2code [-h] [-v] [-f] [-n <namespace>] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
 
     def static main(String[] args) {
         if (args.empty) {
@@ -60,6 +60,8 @@ class Main {
         val opt = new Options(args, 0, Integer.MAX_VALUE);
         opt.getSet().addOption("h", Multiplicity.ZERO_OR_ONE);
         opt.getSet().addOption("v", Multiplicity.ZERO_OR_ONE);
+        opt.getSet().addOption("f", Multiplicity.ZERO_OR_ONE);
+        opt.getSet().addOption("n", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
         opt.getSet().addOption("o", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
         opt.getSet().addOption("I", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
         if (!opt.check(false, false)) { // Print usage hints
@@ -106,7 +108,10 @@ class Main {
                 throw new ParseException("error validating " + resource.URI, issues.size)
             }
 
-            val context = new GeneratorContext => [cancelIndicator = CancelIndicator.NullImpl]
+            val context = new RdlGeneratorContext => [cancelIndicator = CancelIndicator.NullImpl]
+            context.forceOverwrite= opt.getSet().isSet('f')
+            if(opt.getSet().isSet('n'))
+                context.namespace=opt.getSet().getOption('n').getResultValue(0)
             generator.generate(resource, fileAccess, context)
 
             if(verbose) println('Code generation for ' + string + ' finished')

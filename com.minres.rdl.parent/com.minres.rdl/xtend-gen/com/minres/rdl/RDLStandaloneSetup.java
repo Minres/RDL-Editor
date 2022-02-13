@@ -3,8 +3,6 @@
  */
 package com.minres.rdl;
 
-import com.minres.rdl.RDLStandaloneSetupGenerated;
-
 /**
  * Initialization support for running Xtext languages without Equinox extension registry.
  */

@@ -2,7 +2,6 @@ package com.minres.rdl.generator;
 
 import com.minres.rdl.IntegerWithRadix;
 import com.minres.rdl.RdlUtil;
-import com.minres.rdl.generator.RdlBaseGenerator;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.ComponentDefinitionType;
 import com.minres.rdl.rdl.ComponentInstance;
@@ -19,7 +18,12 @@ public class AddrmapGenerator extends RdlBaseGenerator {
   }
   
   @Override
-  public String generateHeader() {
+  public boolean getOverwrite() {
+    return true;
+  }
+  
+  @Override
+  public String generateHeader(final String namespace) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("#ifndef _");
     String _upperCase = RdlUtil.effectiveName(this.componentDefinition).toUpperCase();
@@ -33,7 +37,7 @@ public class AddrmapGenerator extends RdlBaseGenerator {
     _builder.newLineIfNotEmpty();
     _builder.append("// need double braces, see https://stackoverflow.com/questions/6893700/how-to-construct-stdarray-object-with-initializer-list#6894191");
     _builder.newLine();
-    _builder.append("const std::array<sysc::target_memory_map_entry<32>, ");
+    _builder.append("const std::array<scc::target_memory_map_entry<32>, ");
     int _instanceCount = RdlUtil.instanceCount(this.componentDefinition, ComponentDefinitionType.REGFILE);
     _builder.append(_instanceCount);
     _builder.append("> ");
@@ -48,10 +52,10 @@ public class AddrmapGenerator extends RdlBaseGenerator {
           EList<ComponentInstance> _componentInstances = instantiation.getComponentInstances();
           for(final ComponentInstance instance : _componentInstances) {
             _builder.append("    ");
-            _builder.append("{&i_");
+            _builder.append("{i_");
             String _name = instance.getName();
             _builder.append(_name, "    ");
-            _builder.append(", ");
+            _builder.append(".socket, ");
             IntegerWithRadix _addressValue = RdlUtil.addressValue(instance);
             _builder.append(_addressValue, "    ");
             _builder.append(", 0x");
@@ -75,7 +79,7 @@ public class AddrmapGenerator extends RdlBaseGenerator {
   }
   
   @Override
-  public String generateSource() {
+  public String generateSource(final String namespace) {
     return "";
   }
 }

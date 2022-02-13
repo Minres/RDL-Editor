@@ -8,7 +8,6 @@ import com.google.inject.Injector;
 import com.minres.rdl.RDLRuntimeModule;
 import com.minres.rdl.RDLStandaloneSetup;
 import com.minres.rdl.ide.RDLIdeModule;
-import com.minres.rdl.web.RDLWebModule;
 import org.eclipse.xtext.util.Modules2;
 
 /**

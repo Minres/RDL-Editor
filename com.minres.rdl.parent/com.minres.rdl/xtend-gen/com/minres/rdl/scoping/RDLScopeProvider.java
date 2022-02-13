@@ -7,7 +7,6 @@ import com.google.common.collect.Iterables;
 import com.minres.rdl.rdl.ComponentDefinition;
 import com.minres.rdl.rdl.Include;
 import com.minres.rdl.rdl.Root;
-import com.minres.rdl.scoping.AbstractRDLScopeProvider;
 import java.util.Arrays;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;

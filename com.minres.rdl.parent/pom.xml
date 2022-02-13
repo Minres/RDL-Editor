@@ -20,6 +20,8 @@
 		<systemProperties></systemProperties>
 		<additionalTestArguments></additionalTestArguments>
 		<rdl-plugin.version>1.3.0-SNAPSHOT</rdl-plugin.version>
+        <software.download.area>${project.basedir}/../../..</software.download.area>
+
 	</properties>
 	<modules>
 		<module>com.minres.rdl</module>

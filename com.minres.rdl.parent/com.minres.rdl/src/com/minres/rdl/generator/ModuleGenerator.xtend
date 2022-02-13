@@ -26,6 +26,12 @@ class ModuleGenerator extends RdlBaseGenerator {
             .filter[def | def.instantiations.filter[it.componentRef==componentDefinition].size>0]
         if(addrMaps.size==0) return ''
         '''
+            /*
+             * Copyright (c) 2019 -2022 MINRES Technologies GmbH
+             *
+             * SPDX-License-Identifier: Apache-2.0
+             */
+             
             #ifndef _«namespace.toUpperCase»_«componentDefinition.effectiveName.toUpperCase»_H_
             #define _«namespace.toUpperCase»_«componentDefinition.effectiveName.toUpperCase»_H_
             #include <scc/tlm_target.h>

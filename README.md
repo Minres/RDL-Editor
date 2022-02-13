@@ -4,10 +4,10 @@ This is an editor for [SystemRDL](http://www.accellera.org/activities/working-gr
 
 According to Accellera:
 
-> "SystemRDL is designed to increase productivity, quality, and reuse during the design and development of complex digital systems.
+> SystemRDL is designed to increase productivity, quality, and reuse during the design and development of complex digital systems.
 > It can be used to share IP within and between groups, companies, and consortiums.
 > This is accomplished by specifying a single source for the register description from which all views can be automatically generated,
-> which ensures consistency between multiple views. A view is any output generated from the SystemRDL description, e.g., RTL code or documentation."
+> which ensures consistency between multiple views. A view is any output generated from the SystemRDL description, e.g., RTL code or documentation.
 
 The source code can be found at [Github](https://github.com/Minres/RDL-Editor/).
 The editor is build on top of [Eclipse Xtext](http://www.eclipse.org/Xtext/), a framework to build **D**omain **S**pecific **L**anguages (DSL).

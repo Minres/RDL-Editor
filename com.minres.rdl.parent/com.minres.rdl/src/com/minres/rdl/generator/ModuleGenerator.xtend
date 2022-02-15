@@ -4,6 +4,10 @@ import com.minres.rdl.rdl.ComponentDefinition
 import com.minres.rdl.rdl.ComponentDefinitionType
 
 import static extension com.minres.rdl.RdlUtil.*
+import com.minres.rdl.rdl.ExplicitPropertyAssignment
+import com.minres.rdl.rdl.PropertyEnum
+import com.minres.rdl.services.RDLGrammarAccess.PropertyRvalueConstantElements
+import com.minres.rdl.rdl.RValueConstant
 
 class ModuleGenerator extends RdlBaseGenerator {
     
@@ -93,6 +97,15 @@ class ModuleGenerator extends RdlBaseGenerator {
                 sensitive << clk_i;
                 SC_METHOD(reset_cb);
                 sensitive << rst_i;
+                «FOR instantiation : componentDefinition.instantiations»
+                    «FOR instance : instantiation.componentInstances»
+                        «IF instantiation.componentDefinition.type == ComponentDefinitionType.REG && instantiation.componentDefinition.isReadOnly»
+                            regs->«instance.name».set_write_cb([this](scc::sc_register<uint«instantiation.size»_t>&, uint«instantiation.size»_t const& v, sc_core::sc_time t)-> bool {return true;});
+                        «ELSEIF instantiation.componentDefinition.type == ComponentDefinitionType.REG && instantiation.componentDefinition.isWriteOnly»
+                            regs->«instance.name».set_read_cb([this](scc::sc_register<uint«instantiation.size»_t> const&, uint«instantiation.size»_t& v, sc_core::sc_time t)-> bool {return true;});
+                        «ENDIF»
+                    «ENDFOR»
+                «ENDFOR»
             }
 
             «componentDefinition.effectiveName»::~«componentDefinition.effectiveName»() {} // NOLINT
@@ -109,5 +122,18 @@ class ModuleGenerator extends RdlBaseGenerator {
             
             } /* namespace «namespace» */
         '''
+    }
+    
+
+    def boolean isReadOnly(ComponentDefinition definition){
+        definition.propertyAssignments
+            .filter[it instanceof ExplicitPropertyAssignment].map[it as ExplicitPropertyAssignment]
+            .filter[it.name==PropertyEnum.SW && it.rhs.value !== null && it.rhs.value.^val !== null && it.rhs.value.^val === RValueConstant.R].size >0
+    }
+    
+    def boolean isWriteOnly(ComponentDefinition definition){
+        definition.propertyAssignments
+            .filter[it instanceof ExplicitPropertyAssignment].map[it as ExplicitPropertyAssignment]
+            .filter[it.name==PropertyEnum.SW && it.rhs.value !== null && it.rhs.value.^val !== null && it.rhs.value.^val === RValueConstant.W].size >0
     }
 }

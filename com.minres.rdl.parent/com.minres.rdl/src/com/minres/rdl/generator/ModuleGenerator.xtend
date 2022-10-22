@@ -6,7 +6,6 @@ import com.minres.rdl.rdl.ComponentDefinitionType
 import static extension com.minres.rdl.RdlUtil.*
 import com.minres.rdl.rdl.ExplicitPropertyAssignment
 import com.minres.rdl.rdl.PropertyEnum
-import com.minres.rdl.services.RDLGrammarAccess.PropertyRvalueConstantElements
 import com.minres.rdl.rdl.RValueConstant
 
 class ModuleGenerator extends RdlBaseGenerator {

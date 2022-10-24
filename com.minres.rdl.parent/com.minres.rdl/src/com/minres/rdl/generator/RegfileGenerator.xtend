@@ -32,8 +32,7 @@ class RegfileGenerator extends RdlBaseGenerator{
          *
          */
         
-        #ifndef _«namespace.toUpperCase»_GEN_«componentDefinition.effectiveName.toUpperCase»_H_
-        #define _«namespace.toUpperCase»_GEN_«componentDefinition.effectiveName.toUpperCase»_H_
+        #pragma once
         
         #include <scc/utilities.h>
         #include <util/bit_field.h>
@@ -45,7 +44,9 @@ class RegfileGenerator extends RdlBaseGenerator{
             «ENDIF»
         «ENDFOR»
         
-        namespace «namespace» {
+        «FOR ns : namespace.split('::')»
+        namespace «ns» {
+        «ENDFOR»
         namespace gen {
         
         class «componentDefinition.effectiveName»_regs :
@@ -128,7 +129,9 @@ class RegfileGenerator extends RdlBaseGenerator{
             void registerResources(scc::tlm_target<BUSWIDTH>& target, uint64_t offset=0);
         };
         } // namespace gen
-        } // namespace «namespace»
+        «FOR ns : namespace.split('::').reverse»
+        } // namespace «ns»
+        «ENDFOR»
         //////////////////////////////////////////////////////////////////////////////
         // member functions
         //////////////////////////////////////////////////////////////////////////////

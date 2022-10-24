@@ -23,7 +23,9 @@ import java.io.File
 
 class Main {
 
-    val USAGE_STR = "RDL2code [-h] [-v] [-f] [-n <namespace>] [-I <RDL include dir] [-o <output dir>] <input file> <input file>";
+    val USAGE_STR = '''
+    RDL2code [-h] [-v] [-f] [-fw] [-sc [-n <namespace>]] [-I <RDL include dir] [-o <output dir>] <input file> <input file>
+    '''
 
     def static main(String[] args) {
         if (args.empty) {
@@ -56,7 +58,6 @@ class Main {
     @Inject JavaIoFileSystemAccess fileAccess
 
     def run(String[] args) {
-
         val opt = new Options(args, 0, Integer.MAX_VALUE);
         opt.getSet().addOption("h", Multiplicity.ZERO_OR_ONE);
         opt.getSet().addOption("v", Multiplicity.ZERO_OR_ONE);
@@ -64,6 +65,8 @@ class Main {
         opt.getSet().addOption("n", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
         opt.getSet().addOption("o", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
         opt.getSet().addOption("I", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+        opt.getSet().addOption("fw", Multiplicity.ZERO_OR_ONE);
+        opt.getSet().addOption("sc", Multiplicity.ZERO_OR_ONE);
         if (!opt.check(false, false)) { // Print usage hints
             System.err.println("Usage is: " + USAGE_STR);
             throw new MalformedParametersException(opt.getCheckErrors());
@@ -87,19 +90,18 @@ class Main {
             fileAccess.outputPath = opt.getSet().getOption('o').getResultValue(0)
             fileAccess.outputConfigurations.get(IFileSystemAccess.DEFAULT_OUTPUT)?.setOverrideExistingResources(true)
         }
-//        #{'incl-out' -> false, 'src-out' -> false, 'gen-out' -> true}.forEach[p1, p2|
-//            if(opt.getSet().isSet(p1.substring(0, 1)))
-//                fileAccess.setOutputPath(p1, opt.getSet().getOption(p1.substring(0, 1)).getResultValue(0)+'/')
-//            else
-//                fileAccess.setOutputPath(p1, 'src-gen/')
-//            fileAccess.outputConfigurations.get(p1)?.setOverrideExistingResources(p2)
-//        ]
-        opt.getSet().getData().forEach [ String string |
-            if(verbose) println("Processing " + string);
+        val context = new RdlGeneratorContext => [cancelIndicator = CancelIndicator.NullImpl]
+        context.forceOverwrite= opt.getSet().isSet('f')
+        if(opt.getSet().isSet('n'))
+            context.namespace=opt.getSet().getOption('n').getResultValue(0)
+        context.generateFw=opt.getSet().isSet('fw')
+        context.generateSc=opt.getSet().isSet('sc')
+        opt.getSet().getData().forEach [ String fileName |
+            if(verbose) println("Processing " + fileName);
             // Load the resource
             val resourceSet = resourceSetProvider.get as XtextResourceSet
             resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-            val resource = resourceSet.getResource(URI.createFileURI(string), true)
+            val resource = resourceSet.getResource(URI.createFileURI(fileName), true)
             // Validate the resource
             val issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl)
             if (!issues.empty) {
@@ -107,22 +109,10 @@ class Main {
                 issues.forEach[System.err.println(it)]
                 throw new ParseException("error validating " + resource.URI, issues.size)
             }
-
-            val context = new RdlGeneratorContext => [cancelIndicator = CancelIndicator.NullImpl]
-            context.forceOverwrite= opt.getSet().isSet('f')
-            if(opt.getSet().isSet('n'))
-                context.namespace=opt.getSet().getOption('n').getResultValue(0)
             generator.generate(resource, fileAccess, context)
-
-            if(verbose) println('Code generation for ' + string + ' finished')
-            try {
-                if(verbose) println('includes are in ' + fileAccess.getURI('', 'incl-out'))
-            } catch (Exception e) {
+            if(verbose) {
+                println('Code generation for ' + fileName + ' finished')
                 println('includes are in ' + fileAccess.getURI(''))
-            }
-            try {
-                if(verbose) println('sources are in  ' + fileAccess.getURI('', 'src-out'))
-            } catch (Exception e) {
                 println('sources are in  ' + fileAccess.getURI(''))
             }
         ]

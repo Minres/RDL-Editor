@@ -1,10 +1,10 @@
-package com.minres.structural.ui.hyperlink
+package com.minres.rdl.ui.hyperlink
 
 import com.google.inject.Inject
 import org.eclipse.xtext.ui.editor.IURIEditorOpener
 import org.eclipse.xtext.ui.editor.hyperlinking.XtextHyperlink
 
-class MyXtextHyperlink extends XtextHyperlink {
+class RdlXtextHyperlink extends XtextHyperlink {
 		
 	var boolean select = true
 	

@@ -1,4 +1,4 @@
-package com.minres.structural.ui.hyperlink
+package com.minres.rdl.ui.hyperlink
 
 import com.google.inject.Inject
 import org.eclipse.emf.common.util.URI
@@ -13,7 +13,7 @@ import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor
 import org.eclipse.xtext.util.TextRegion
 import org.eclipse.jface.text.IRegion
 
-class MyHyperlinkHelper extends HyperlinkHelper {
+class RdlHyperlinkHelper extends HyperlinkHelper {
 	
 	@Inject	ImportUriResolver resolver;
 
@@ -37,7 +37,7 @@ class MyHyperlinkHelper extends HyperlinkHelper {
 						result.setHyperlinkRegion(new Region(textRegion.getOffset(), textRegion.getLength()) as IRegion);
 						result.setURI(if(uri.isPlatformResource()) uri else resource.getResourceSet().getURIConverter().normalize(uri));
 						result.setHyperlinkText(labelProvider.getText(top));
-						if(result instanceof MyXtextHyperlink) result.selectTarget=false
+						if(result instanceof RdlXtextHyperlink) result.selectTarget=false
 						acceptor.accept(result);
 					}
 				}

@@ -26,4 +26,11 @@ class RDLRuntimeModule extends AbstractRDLRuntimeModule {
 		//return typeof(ResourceSetGlobalScopeProvider)
 		return typeof(org.eclipse.xtext.scoping.impl.ImportUriGlobalScopeProvider)
 	}
+//	def Class<? extends IGeneratorConfiguration> bindIGeneratorConfiguration() {
+//        return GeneratorConfiguration;
+//    }
+//    def IGeneratorConfiguration bindIGeneratorConfiguration() {
+//        return new GeneratorConfiguration();
+//    }
+   
 }

@@ -22,12 +22,12 @@ class ModuleGenerator extends RdlBaseGenerator {
     
     override generateHeader(String namespace){
         if(componentDefinition.type!=ComponentDefinitionType.REGFILE) return ''
-        val addrMaps = componentDefinition.eResource.resourceSet.allContents
-            .filter[ it instanceof ComponentDefinition]
-            .map[it as ComponentDefinition]
-            .filter[it.type == ComponentDefinitionType.ADDRMAP]
-            .filter[def | def.instantiations.filter[it.componentRef==componentDefinition].size>0]
-        if(addrMaps.size==0) return ''
+//        val addrMaps = componentDefinition.eResource.resourceSet.allContents
+//            .filter[ it instanceof ComponentDefinition]
+//            .map[it as ComponentDefinition]
+//            .filter[it.type == ComponentDefinitionType.ADDRMAP]
+//            .filter[def | def.instantiations.filter[it.componentRef==componentDefinition].size>0]
+//        if(addrMaps.size==0) return ''
         '''
             /*
              * Copyright (c) 2019 -2022 MINRES Technologies GmbH
@@ -35,11 +35,13 @@ class ModuleGenerator extends RdlBaseGenerator {
              * SPDX-License-Identifier: Apache-2.0
              */
              
-            #ifndef _«namespace.toUpperCase»_«componentDefinition.effectiveName.toUpperCase»_H_
-            #define _«namespace.toUpperCase»_«componentDefinition.effectiveName.toUpperCase»_H_
+            #pragma once
+            
             #include <scc/tlm_target.h>
             
-            namespace «namespace» {
+            «FOR ns : namespace.split('::')»
+            namespace «ns» {
+            «ENDFOR»
             namespace gen {
             class «componentDefinition.effectiveName»_regs;
             }
@@ -58,7 +60,9 @@ class ModuleGenerator extends RdlBaseGenerator {
                 std::unique_ptr<gen::«componentDefinition.effectiveName»_regs> regs;
             };
             
-            } /* namespace «namespace» */
+            «FOR ns : namespace.split('::').reverse»
+            } // namespace «ns»
+            «ENDFOR»
             
             #endif /* _«namespace.toUpperCase»_«componentDefinition.effectiveName.toUpperCase»_H_ */
         '''
@@ -66,12 +70,12 @@ class ModuleGenerator extends RdlBaseGenerator {
 	    
     override generateSource(String namespace) {
         if(componentDefinition.type!=ComponentDefinitionType.REGFILE) return ''
-        val addrMaps = componentDefinition.eResource.resourceSet.allContents
-            .filter[ it instanceof ComponentDefinition]
-            .map[it as ComponentDefinition]
-            .filter[it.type == ComponentDefinitionType.ADDRMAP]
-            .filter[def | def.instantiations.filter[it.componentRef==componentDefinition].size>0]
-        if(addrMaps.size==0) return ''
+//        val addrMaps = componentDefinition.eResource.resourceSet.allContents
+//            .filter[ it instanceof ComponentDefinition]
+//            .map[it as ComponentDefinition]
+//            .filter[it.type == ComponentDefinitionType.ADDRMAP]
+//            .filter[def | def.instantiations.filter[it.componentRef==componentDefinition].size>0]
+//        if(addrMaps.size==0) return ''
         '''
             /*
              * Copyright (c) 2019 -2022 MINRES Technologies GmbH
@@ -84,7 +88,9 @@ class ModuleGenerator extends RdlBaseGenerator {
             
             #include <scc/utilities.h>
             
-            namespace «namespace» {
+            «FOR ns : namespace.split('::')»
+            namespace «ns» {
+            «ENDFOR»
             SC_HAS_PROCESS(«componentDefinition.effectiveName»);// NOLINT
             
             «componentDefinition.effectiveName»::«componentDefinition.effectiveName»(sc_core::sc_module_name nm)
@@ -119,7 +125,9 @@ class ModuleGenerator extends RdlBaseGenerator {
                 }
             }
             
-            } /* namespace «namespace» */
+            «FOR ns : namespace.split('::').reverse»
+            } // namespace «ns»
+            «ENDFOR»
         '''
     }
     

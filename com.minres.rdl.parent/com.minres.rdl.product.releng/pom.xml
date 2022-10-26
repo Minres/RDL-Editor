@@ -5,10 +5,9 @@
 	<artifactId>com.minres.rdl.product.releng</artifactId>
 	<packaging>eclipse-repository</packaging>
 	<name>RDL Editor</name>
-	<version>1.3.0-SNAPSHOT</version>
 
 	<parent>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.4.0</version>
 		<groupId>com.minres.rdl</groupId>
 		<artifactId>com.minres.rdl.parent</artifactId>
 	</parent>

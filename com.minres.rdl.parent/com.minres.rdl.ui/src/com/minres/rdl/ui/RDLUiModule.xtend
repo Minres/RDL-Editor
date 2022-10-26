@@ -3,8 +3,8 @@
  */
 package com.minres.rdl.ui
 
-import com.minres.structural.ui.hyperlink.MyHyperlinkHelper
-import com.minres.structural.ui.hyperlink.MyXtextHyperlink
+import com.minres.rdl.ui.hyperlink.RdlHyperlinkHelper
+import com.minres.rdl.ui.hyperlink.RdlXtextHyperlink
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.eclipse.xtext.documentation.IEObjectDocumentationProvider
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider
@@ -36,11 +36,11 @@ class RDLUiModule extends AbstractRDLUiModule {
   	}
   	
   	def Class<? extends HyperlinkHelper> bindHyperlinkHelper() {
-		return MyHyperlinkHelper
+		return RdlHyperlinkHelper
 	}
 	
   	def Class<? extends XtextHyperlink> bindHyperlink() {
-		return MyXtextHyperlink
+		return RdlXtextHyperlink
 	}
 	
 }

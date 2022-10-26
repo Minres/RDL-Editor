@@ -2,7 +2,7 @@
 <feature
       id="com.minres.rdl.feature"
       label="RDL Feature "
-      version="1.0.0.qualifier"
+      version="1.4.0"
       provider-name="MINRES Technologies GmbH">
 
    <plugin

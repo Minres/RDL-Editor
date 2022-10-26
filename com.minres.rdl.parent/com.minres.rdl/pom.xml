@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.minres.rdl</groupId>
 		<artifactId>com.minres.rdl.parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.4.0</version>
 	</parent>
 	<artifactId>com.minres.rdl</artifactId>
 	<packaging>eclipse-plugin</packaging>
@@ -152,5 +152,4 @@
 		</pluginManagement>
 	</build>
 
-	<version>1.3.0-SNAPSHOT</version>
 </project>

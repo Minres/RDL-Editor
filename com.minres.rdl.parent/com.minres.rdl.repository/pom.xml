@@ -4,10 +4,9 @@
 	<parent>
 		<groupId>com.minres.rdl</groupId>
 		<artifactId>com.minres.rdl.parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.4.0</version>
 	</parent>
 	<artifactId>com.minres.rdl.repository</artifactId>
-	<version>1.3.0-SNAPSHOT</version>
 	<packaging>eclipse-repository</packaging>
 
 	<build>
@@ -90,9 +89,9 @@
                             <appArgLine>-application org.eclipse.ant.core.antRunner -buildfile packaging-p2-composite.ant p2.composite.add -Dsite.label="RDL-Editor Software Repository" -Dproject.build.directory=${project.build.directory} -DunqualifiedVersion=${unqualifiedVersion} -Dsoftware.download.area="${software.download.area}/RDL-Editor-GHP/repository"</appArgLine>
                             <repositories>
                                 <repository>
-                                    <id>2021-03</id>
+                                    <id>2022-03</id>
                                     <layout>p2</layout>
-                                    <url>http://download.eclipse.org/releases/2021-03/</url>
+                                    <url>http://download.eclipse.org/releases/2022-03/</url>
                                 </repository>
                             </repositories>
                             <dependencies>

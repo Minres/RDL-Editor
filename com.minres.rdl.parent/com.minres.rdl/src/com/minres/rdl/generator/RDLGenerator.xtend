@@ -12,28 +12,28 @@ import org.eclipse.xtext.generator.IGeneratorContext
 import static extension com.minres.rdl.RdlUtil.*
 import java.util.Map
 
-/**
- * Generates code from your model files on save.
- * 
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
- */
 class RDLGenerator extends AbstractGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
         val force = if(context instanceof RdlGeneratorContext) context.forceOverwrite else false
         val namespace = if(context instanceof RdlGeneratorContext) context.namespace else "sysc"
+        val genFW = if(context instanceof RdlGeneratorContext) context.generateFw else true
+        val genSC = if(context instanceof RdlGeneratorContext) context.generateSc else true
         resource.resourceSet.allContents.filter[ it instanceof ComponentDefinition].map[it as ComponentDefinition].forEach[
             val genMap = it.fileGenerator
             if(genMap!==null) genMap.forEach[p1, gen |
-                val header = gen.generateHeader(namespace)
-                val inclFileName = p1+'/'+it.effectiveName+'.h'
-                val inclCfg = fsa.outputConfig('incl-out')
-                if((force || !fsa.isFile(inclFileName, inclCfg) || gen.overwrite) && header!==null && header.length>0)
-                	fsa.generateFile(inclFileName, inclCfg, header)
-                val source = gen.generateSource(namespace)
-                val srcFileName = p1+'/'+it.effectiveName+'.cpp'
-                val srcCfg = fsa.outputConfig('src-out')
-                if((force || !fsa.isFile(srcFileName, srcCfg) ||  gen.overwrite) && source!==null && source.length>0)
-                	fsa.generateFile(srcFileName, srcCfg, source)
+                if((p1=='fw' && genFW) || (p1!='fw' && genSC)) {
+                    val header = gen.generateHeader(namespace)
+                    val prefix = if(p1=="fw") 'fw-' else 'sc-'
+                    val inclFileName = (if(p1=="gen") p1 else '.') + '/'+it.effectiveName+'.h'
+                    val inclCfg = fsa.outputConfig(prefix+'incl-out')
+                    if((force || !fsa.isFile(inclFileName, inclCfg) || gen.overwrite) && header!==null && header.length>0)
+                    	fsa.generateFile(inclFileName, inclCfg, header)
+                    val source = gen.generateSource(namespace)
+                    val srcFileName = (if(p1=="gen") p1 else '.') + '/'+it.effectiveName+'.cpp'
+                    val srcCfg = fsa.outputConfig(prefix+'src-out')
+                    if((force || !fsa.isFile(srcFileName, srcCfg) ||  gen.overwrite) && source!==null && source.length>0)
+                        fsa.generateFile(srcFileName, srcCfg, source)
+                }
             ]
         ]
     }

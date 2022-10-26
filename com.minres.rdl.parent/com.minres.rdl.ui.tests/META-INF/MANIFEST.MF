@@ -3,7 +3,7 @@ Automatic-Module-Name: com.minres.rdl.ui.tests
 Bundle-ManifestVersion: 2
 Bundle-Name: com.minres.rdl.ui.tests
 Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.4.0
 Bundle-SymbolicName: com.minres.rdl.ui.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.minres.rdl.ui,

@@ -24,12 +24,12 @@ class RDLGenerator extends AbstractGenerator {
                 if((p1=='fw' && genFW) || (p1!='fw' && genSC)) {
                     val header = gen.generateHeader(namespace)
                     val prefix = if(p1=="fw") 'fw-' else 'sc-'
-                    val inclFileName = p1+'/'+it.effectiveName+'.h'
+                    val inclFileName = (if(p1=="gen") p1 else '.') + '/'+it.effectiveName+'.h'
                     val inclCfg = fsa.outputConfig(prefix+'incl-out')
                     if((force || !fsa.isFile(inclFileName, inclCfg) || gen.overwrite) && header!==null && header.length>0)
                     	fsa.generateFile(inclFileName, inclCfg, header)
                     val source = gen.generateSource(namespace)
-                    val srcFileName = p1+'/'+it.effectiveName+'.cpp'
+                    val srcFileName = (if(p1=="gen") p1 else '.') + '/'+it.effectiveName+'.cpp'
                     val srcCfg = fsa.outputConfig(prefix+'src-out')
                     if((force || !fsa.isFile(srcFileName, srcCfg) ||  gen.overwrite) && source!==null && source.length>0)
                         fsa.generateFile(srcFileName, srcCfg, source)

@@ -1,6 +1,7 @@
 package com.minres.rdl.generator;
 
 /**
+ * see also https://www.infoworld.com/article/2074849/processing-command-line-arguments-in-java--case-closed.html
  * The central class for option processing. Sets are identified by their name, but there is also 
  * an anonymous default set, which is very convenient if an application requieres only one set. 
  */

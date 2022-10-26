@@ -22,4 +22,6 @@ public class PreferenceConstants {
 	public static final String P_COMPONENT_PATH = "componentPath";
 
 	public static final String P_FIRMWARE_PATH = "firmwarePath";
+
+	public static final String P_COPYRIGHT_HEADER = "copyrightHeader";
 }

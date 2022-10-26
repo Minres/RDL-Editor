@@ -59,44 +59,47 @@ class Main {
 
     def run(String[] args) {
         val opt = new Options(args, 0, Integer.MAX_VALUE);
-        opt.getSet().addOption("h", Multiplicity.ZERO_OR_ONE);
-        opt.getSet().addOption("v", Multiplicity.ZERO_OR_ONE);
-        opt.getSet().addOption("f", Multiplicity.ZERO_OR_ONE);
-        opt.getSet().addOption("n", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
-        opt.getSet().addOption("o", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
-        opt.getSet().addOption("I", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
-        opt.getSet().addOption("fw", Multiplicity.ZERO_OR_ONE);
-        opt.getSet().addOption("sc", Multiplicity.ZERO_OR_ONE);
+        val optionSet = opt.getSet()
+        optionSet.addOption("h", Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("v", Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("f", Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("n", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("o", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("I", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("fw", Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("sc", Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("sc-dir", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
+        optionSet.addOption("fw-dir", Separator.BLANK, Multiplicity.ZERO_OR_ONE);
         if (!opt.check(false, false)) { // Print usage hints
             System.err.println("Usage is: " + USAGE_STR);
             throw new MalformedParametersException(opt.getCheckErrors());
         }
         // Normal processing
-        if (opt.getSet().isSet("h")) {
+        if (optionSet.isSet("h")) {
             println("Usage: " + USAGE_STR);
             return
         }
-        val verbose = if(opt.getSet().isSet("v")) true else false;
+        val verbose = if(optionSet.isSet("v")) true else false;
         val setup = new StandaloneSetup()
-        if (opt.getSet().isSet("I")) {
+        if (optionSet.isSet("I")) {
             val projectMapping = new ProjectMapping
             projectMapping.projectName = "RDL Repository"
-            projectMapping.path = new File(opt.getSet().getOption("I").getResultValue(0)).canonicalFile.absolutePath
+            projectMapping.path = new File(optionSet.getOption("I").getResultValue(0)).canonicalFile.absolutePath
             setup.addProjectMapping(projectMapping)
         }
         // Configure and start the generator
         fileAccess.outputPath = 'src-gen/'
-        if(opt.getSet().isSet('o')){
-            fileAccess.outputPath = opt.getSet().getOption('o').getResultValue(0)
+        if(optionSet.isSet('o')){
+            fileAccess.outputPath = optionSet.getOption('o').getResultValue(0)
             fileAccess.outputConfigurations.get(IFileSystemAccess.DEFAULT_OUTPUT)?.setOverrideExistingResources(true)
         }
         val context = new RdlGeneratorContext => [cancelIndicator = CancelIndicator.NullImpl]
-        context.forceOverwrite= opt.getSet().isSet('f')
-        if(opt.getSet().isSet('n'))
-            context.namespace=opt.getSet().getOption('n').getResultValue(0)
-        context.generateFw=opt.getSet().isSet('fw')
-        context.generateSc=opt.getSet().isSet('sc')
-        opt.getSet().getData().forEach [ String fileName |
+        context.forceOverwrite= optionSet.isSet('f')
+        if(optionSet.isSet('n'))
+            context.namespace=optionSet.getOption('n').getResultValue(0)
+        context.generateFw=optionSet.isSet('fw')
+        context.generateSc=optionSet.isSet('sc')
+        optionSet.getData().forEach [ String fileName |
             if(verbose) println("Processing " + fileName);
             // Load the resource
             val resourceSet = resourceSetProvider.get as XtextResourceSet

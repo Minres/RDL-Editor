@@ -27,6 +27,7 @@ class RdlPreferencePage extends FieldEditorPreferencePage implements IWorkbenchP
         addField(new ComboFieldEditor(PreferenceConstants.P_FILETYPES_TO_GENERATE, "File types to generate", #[#["All","all"], #["FW only","fw"], #["SC components","sc-comp"]], getFieldEditorParent()))
         addField(new StringFieldEditor(PreferenceConstants.P_COMPONENT_PATH, "relative path for SystemC files", 30, getFieldEditorParent()))
         addField(new StringFieldEditor(PreferenceConstants.P_FIRMWARE_PATH, "relative path for FW files", 30, getFieldEditorParent()))
+        addField(new StringFieldEditor(PreferenceConstants.P_COPYRIGHT_HEADER, "Copyright header", 40, 5, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()))
 	}
 	
 	override init(IWorkbench workbench) {

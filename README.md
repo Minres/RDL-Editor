@@ -18,7 +18,8 @@ Due to the nature of Xtext this generator can easily be tailored to various need
 
 ## How to use the standalone generator
 
-You need to have Java 11 or newer available. To run the standalone generator simply call:
+You need to have Java 11 or newer available. The jar file can be downloaded at he [release page](https://github.com/Minres/RDL-Editor/releases).
+To run the standalone generator simply call:
 
 ```
 java -jar target/com.minres.rdl.standalone-1.4.0.jar -h

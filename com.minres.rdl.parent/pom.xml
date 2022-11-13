@@ -33,6 +33,10 @@
 		<module>com.minres.rdl.tests</module>
 		<module>com.minres.rdl.ui.tests</module>
 		<module>com.minres.rdl.standalone</module>
+		<module>com.minres.rdl.platform.feature</module>
+		<module>com.minres.rdl.product</module>
+		<module>com.minres.rdl.product.feature</module>
+		<module>com.minres.rdl.product.releng</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

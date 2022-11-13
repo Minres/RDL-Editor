@@ -24,7 +24,20 @@ import java.io.File
 class Main {
 
     val USAGE_STR = '''
-    RDL2code [-h] [-v] [-f] [-fw] [-sc [-n <namespace>]] [-I <RDL include dir] [-o <output dir>] <input file> <input file>
+    RDL2code [-h] [-v] [-f] [-I <RDL include dir>] [-o <output dir>] [-sc [-n <namespace>] [-sc-dir <dir modifier>]] [-fw [-fw-dir <dir modifier>]] <input file> <input file>
+        The following switches are supported:
+        -h                              prints help page
+        -v                              verbose output
+        -f                              force overwrite existing files
+        -I <RDL include dir>            include directory to search included RDL files
+        -o <output dir>                 output directory of generated files
+        -fw                             generate FW include files. The following sub 
+                                        switches are supported:
+            -fw-dir <dir modifier>      set the directory modifier (relative path to output dir
+        -sc                             generate SystemC stubs. The following sub switches
+                                        are supported
+            -n <namespace>              the namespace to use for the generated SystemC component
+            -sc-dir <dir modifier>      set the directory modifier (relative path to output dir
     '''
 
     def static main(String[] args) {

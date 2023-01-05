@@ -157,7 +157,7 @@ class RegfileGenerator extends RdlBaseGenerator{
                     «IF instantiation.componentDefinition.type == ComponentDefinitionType.REGFILE»
                         i_«instance.name».registerResources(target, «instance.addressValue»UL+offset);
                     «ELSEIF instantiation.componentDefinition.type == ComponentDefinitionType.REG»
-                        target.addResource(«instance.name», «instance.addressValue»UL);
+                        target.addResource(«instance.name», «instance.addressValue»UL+offset);
                     «ENDIF»                    
                 «ENDFOR»
             «ENDFOR»

@@ -3,7 +3,7 @@ Automatic-Module-Name: com.minres.rdl
 Bundle-ManifestVersion: 2
 Bundle-Name: com.minres.rdl
 Bundle-Vendor: MINRES Technologies GmbH
-Bundle-Version: 1.4.0
+Bundle-Version: 1.4.1
 Bundle-SymbolicName: com.minres.rdl; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext,

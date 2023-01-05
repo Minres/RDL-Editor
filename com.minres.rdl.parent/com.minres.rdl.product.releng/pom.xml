@@ -7,7 +7,7 @@
 	<name>RDL Editor</name>
 
 	<parent>
-		<version>1.4.0</version>
+		<version>1.4.1</version>
 		<groupId>com.minres.rdl</groupId>
 		<artifactId>com.minres.rdl.parent</artifactId>
 	</parent>

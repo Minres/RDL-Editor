@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.minres.rdl</groupId>
 		<artifactId>com.minres.rdl.parent</artifactId>
-		<version>1.4.0</version>
+		<version>1.4.1</version>
 	</parent>
 	<artifactId>com.minres.rdl.platform.feature</artifactId>
 	<packaging>eclipse-feature</packaging>

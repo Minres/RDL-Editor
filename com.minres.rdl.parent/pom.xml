@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.minres.rdl</groupId>
-	<version>1.4.0</version>
+	<version>1.4.1</version>
 	<artifactId>com.minres.rdl.parent</artifactId>
 	<packaging>pom</packaging>
 
@@ -108,7 +108,7 @@
 							<groupId>com.minres.rdl</groupId>
 							<artifactId>com.minres.rdl.target</artifactId>
 <!-- 							<version>${project.version}</version> -->
-							<version>1.4.0</version>
+							<version>1.4.1</version>
 						</artifact>
 					</target>
 					<environments>

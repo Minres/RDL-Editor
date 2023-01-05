@@ -13,11 +13,11 @@ proc ModulesHelp { } {
 #    puts stderr     "Don't forget to execute 'scl enable devtoolset-7 bash'"
 #}
 
-if {![info exists ::env(PROJECT)] && [file exists $::env(HOME)/.sdkman/candidates/java/11.0.9.hs-adpt/] != 1} { 
-    puts stderr "Please install java via 'sdk install java 11.0.9.hs-adpt'!"
-    prereq java/11.0.9
+if {![info exists ::env(PROJECT)] && [file exists $::env(HOME)/.sdkman/candidates/java/17.0.2-open/] != 1} { 
+    puts stderr "Please install java via 'sdk install java 17.0.2-open'!"
+    prereq java/17.0.2
 } else {
-    prepend-path PATH $::env(HOME)/.sdkman/candidates/java/11.0.9.hs-adpt/bin
+    prepend-path PATH $::env(HOME)/.sdkman/candidates/java/17.0.2-open/bin
 }
 
 setenv PROJECT RDL-Editor

@@ -163,7 +163,6 @@ class RegfileGenerator extends RdlBaseGenerator{
             «ENDFOR»
         }
         
-        #endif // _«namespace.toUpperCase»_GEN_«componentDefinition.effectiveName.toUpperCase»_H_
         '''
     
     override generateSource(String namespace) {

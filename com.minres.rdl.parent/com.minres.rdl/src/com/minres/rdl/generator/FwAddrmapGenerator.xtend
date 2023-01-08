@@ -22,7 +22,7 @@ class FwAddrmapGenerator extends RdlBaseGenerator {
     
     override generateHeader(String namespace) {'''
         /*
-         * Copyright (c) 2019 -2022 MINRES Technologies GmbH
+         * Copyright (c) 2023 MINRES Technologies GmbH
          *
          * SPDX-License-Identifier: Apache-2.0
          *

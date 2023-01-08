@@ -30,7 +30,7 @@ class ModuleGenerator extends RdlBaseGenerator {
 //        if(addrMaps.size==0) return ''
         '''
             /*
-             * Copyright (c) 2019 -2022 MINRES Technologies GmbH
+             * Copyright (c) 2023 MINRES Technologies GmbH
              *
              * SPDX-License-Identifier: Apache-2.0
              */
@@ -63,8 +63,6 @@ class ModuleGenerator extends RdlBaseGenerator {
             «FOR ns : namespace.split('::').reverse»
             } // namespace «ns»
             «ENDFOR»
-            
-            #endif /* _«namespace.toUpperCase»_«componentDefinition.effectiveName.toUpperCase»_H_ */
         '''
     }
 	    

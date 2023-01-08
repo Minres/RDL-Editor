@@ -23,7 +23,7 @@ class FwRegfileGenerator extends RdlBaseGenerator{
     
     override String generateHeader(String namespace)'''
         /*
-         * Copyright (c) 2019 -2022 MINRES Technologies GmbH
+         * Copyright (c) 2023 MINRES Technologies GmbH
          *
          * SPDX-License-Identifier: Apache-2.0
          *
@@ -91,9 +91,7 @@ class FwRegfileGenerator extends RdlBaseGenerator{
                 «ENDFOR»
             «ENDFOR»
         };
-        
-        #endif // _«componentDefinition.name.toUpperCase»_H_
-        '''
+    '''
         
     override generateSource(String namespace) {
         ''
